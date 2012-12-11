@@ -1,0 +1,123 @@
+<?php
+/*
+ * This file contains the settings form for the er module.
+ * We can use this form to allow our users to modify the functionality of the module.
+ *
+ */
+function er_settings() {
+	//these are the default content types that show up on the list:
+	$default_types = array(//it apparently has to be weird like this in order for it to work well with variable_get...
+		////PARTICIPANTS
+		//"er_project"=>"er_project",
+		"er_book"=>"er_book",
+		"er_collaboration"=>"er_collaboration",
+		"er_proposal"=>"er_proposal",
+		"er_engagement"=>"er_engagement",
+		"er_institution"=>"er_institution",
+		"er_internet"=>"er_internet",
+		"er_other_product"=>"er_other_product",
+		"er_patent"=>"er_patent",
+		"er_poster"=>"er_poster",
+		"er_presentation"=>"er_presentation",
+		"er_publication"=>"er_publication",
+		"er_award"=>"er_award",
+		"er_event"=>"er_event",
+		"er_news"=>"er_news",
+    "participants"=>"participants",
+	);
+	$types = variable_get('er_summary_types');
+  if (!$types) $types = array();
+	//dsm($types);
+  
+  $form['help_description'] = array(
+    '#type' => 'item',
+    '#title'=> 'Notice:',
+    '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('help documents', 'admin/help/er')))
+  );
+  
+  $start_date = variable_get('er_start_date');
+  //dsm(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']));
+  $form['er_start_date'] = array(
+    '#type' => 'date',
+    '#title' => t('Start Date of EPSCoR Grant'),
+    '#default_value' => $start_date?$start_date:array('month'=>'9', 'day'=>'15', 'year'=>'2009'),//date('Y-m-d', $start_date?$start_date:mktime(0, 0, 0, 9, 15, 2009)),
+    '#description' => t('This date will be used as the start of the grant. This effects the date ranges shown on the accomplishments table.')
+  );
+  
+	$form['er_summary_types'] = array(
+		'#type' => 'select_or_other',
+		'#select_type' => 'checkboxes',
+		'#title' => t('Summary Table Content:'),
+		'#default_value' => $types,
+		'#options' => array_merge($default_types, $types),
+		'#multiple' => TRUE,
+		'#description' => t("Select the content types that you want to be displayed on the summary table. Each content type must have a corresponding view set up in order for it to be displayed in the summary table."),
+	);
+	
+    $form['er_admin_container'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'Reset to default ER Setting(s)'
+    );	
+	
+	 $form['er_admin_container']['redo_checkboxes'] = array(
+		  '#type' => 'checkboxes',
+		  '#options' => drupal_map_assoc(array(t('Rules'), t('Taxonomy'), t('Fields'), t('Flags'))),
+		  '#title' => t('Setting'),
+	  );  
+  
+	  $form['er_admin_container']['redo_fields'] = array(
+	    '#type' => 'submit',
+	    '#value' => t('Reset'),
+	    '#submit' => array('er_revert'),
+	    // '#submit' => array('er_import_fields_temp'),
+	    // will submit to array('er_revert')
+	  );
+	  
+	  // this below function will get deleted
+	function er_import_fields_temp($form, &$form_state){
+		d($form_state, 'this is being called from er_import_fields_temp');
+		watchdog('er', 'This is a test, ignore ~Mike',NULL,WATCHDOG_CRITICAL);
+	}
+  
+  
+  
+  //// ...nah, not necessary:
+  //$root_name = variable_get('er_root_name');
+  //$form['er_root_name'] = array(
+  //  '#type' => 'textfield',
+  //  '#title' => t('Location of summary table and associated views'),
+  //  '#default_value' => $root_name?$root_name:'reporting',
+  //  '#description' => t('It should not be necessary to change this field. It is suggested that ')
+  //);
+	
+	//UNUSED:
+	//
+	//$form['er_teams'] = array(
+	//	'#type' => 'textarea',
+	//	'#title' => t('Research Components (ie., Research Teams)'),
+	//	'#default_value' => variable_get('er_teams'),
+	//	'#multiple' => TRUE,
+	//	'#description' => t("Enter a list of teams names, one per line."),
+	//);
+	//
+	//$default_teams = array(
+	//	"CAC (Community Advisory Committee)"=>"CAC (Community Advisory Committee)",
+	//	"MAP (Monitoring Assessment Panel)"=>"MAP (Monitoring Assessment Panel)",
+	//	"SWC (Statewide Committee)"=>"SWC (Statewide Committee)",
+	//	"Administration"=>"Administration",
+	//	"Guest"=>"Guest",
+	//);
+	//
+	//$committees = variable_get('er_committees');
+	//$form['er_committees'] = array(
+	//	'#type' => 'select_or_other',
+	//	'#select_type' => 'checkboxes',
+	//	'#title' => t('Extra Components (ie., Committees)'),
+	//	'#default_value' => $committees,
+	//	'#options' => $default_teams+$committees,
+	//	'#multiple' => TRUE,
+	//	'#description' => t("Enter a list of teams names, one per line."),
+	//);
+	
+	return system_settings_form($form);
+}

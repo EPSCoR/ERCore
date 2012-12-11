@@ -1,0 +1,36 @@
+$flags = array();
+// Exported flag: "Collecting Data".
+$flags['er_collecting_data'] = array(
+  'content_type' => 'node',
+  'title' => 'Collecting Data',
+  'global' => '1',
+  'types' => array(
+    0 => 'er_poster',
+    1 => 'er_publication',
+  ),
+  'flag_short' => 'Collecting data',
+  'flag_long' => '',
+  'flag_message' => '',
+  'unflag_short' => 'Not collecting data',
+  'unflag_long' => '',
+  'unflag_message' => '',
+  'unflag_denied_text' => '',
+  'link_type' => 'toggle',
+  'roles' => array(
+    'flag' => array(
+      0 => 3,
+    ),
+    'unflag' => array(
+      0 => 3,
+    ),
+  ),
+  'weight' => 0,
+  'show_on_form' => TRUE,
+  'access_author' => '',
+  'show_on_page' => TRUE,
+  'show_on_teaser' => TRUE,
+  'show_contextual_link' => FALSE,
+  'i18n' => 0,
+  'api_version' => 2,
+);
+return $flags;

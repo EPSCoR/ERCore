@@ -1,0 +1,66 @@
+/*
+ * For the tooltips on the timelines
+ */
+
+div#tooltip{
+    position: absolute;
+    background: silver;
+    padding: 6px;
+    border: 1px solid black;
+    width: 200px;
+    /*height: 40px;*/
+    z-index: 999;
+    /*visibility: hidden;*/
+    display: none;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+div#tooltip .title{
+    font-weight: bold;
+}
+div#tooltip .title a{
+    color: #427597;
+}
+
+
+.er-needs-review-label{
+    color: red;
+    font-weight: bold;
+}
+
+/*
+ * Theming for the create content links
+ * this is deprecated..?
+ */
+nav#er-content-links > div.item-list{
+    float: left;
+    width: 240px;
+    white-space: normal;
+}
+
+nav#er-content-links ul{
+    list-style-image: url('../../../themes/epscor/images/icons/16/Add.png');
+}
+
+/* used in the new create content pages: node/add2, node/add3 */
+nav.full .item-list{
+    margin-bottom: 40px;
+}
+
+
+/* this is to compact the form
+form#user-profile-form .form-type-textfield label {
+  float:left;
+  width:190px;
+  text-align:left;
+  padding-right:10px;
+}
+form#user-profile-form .form-type-textfield textarea, form#user-profile-form .form-type-textfield .form-text {
+  width:300px;
+}
+
+form#user-profile-form .form-type-textfield .description, form#user-profile-form .form-type-textfield .grippie, form#user-profile-form .form-type-textfield .form-submit {
+  margin-left:200px;
+  width:300px;
+}
+*/

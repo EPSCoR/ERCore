@@ -1,0 +1,168 @@
+<?php
+/*
+ * THIS CODE IS DEPRECATED
+ * SEE: related_content.inc
+ */ 
+/**
+* This plugin array is more or less self documenting
+*/
+$plugin = array(
+	'category' => array(t('User Related'), -9),
+	'title' => t('Related Content MIKE_OLD'),// the title in the admin
+	'description' => t('Displays related user content.'),
+	'single' => true,	// no one knows if "single" defaults to FALSE...
+	//'edit form' => 'er_user_graph_edit_form',
+	'render callback' => 'er_user_related_render'
+);
+
+/**
+* Run-time rendering of the body of the block (content type)
+* See ctools_plugin_examples for more advanced info
+*/
+function er_user_related_render($subtype, $conf, $context = NULL) {
+	
+	$block->content = '';	
+	// Get the uid of the user being viewed.
+	$userdid = arg(1);
+	// Get user object, which is what hook_user calls $account
+	$account = user_load($userdid);
+
+	 //ALL THIS IS TRYING TO GET THE UNPUBLISHED VERSION
+      $additions = array();
+      $types = content_types();
+
+      // Find the table and columns to search through, if the same
+      // table comes up in more than one content type, we only need
+      // to search it once.
+      $search_tables = array();
+      foreach ($types as $type_name => $type) {
+        foreach ($type['fields'] as $field) {
+          // Only add tables when reverse link has been selected.
+          if ($field['type'] == 'userreference' && !empty($field['widget']['reverse_link'])) {
+            $db_info = content_database_info($field);
+            $search_tables[$db_info['table']][] = $db_info['columns']['uid']['column'];
+          }
+        }
+      }
+      foreach ($search_tables as $table => $columns) {
+        foreach ($columns as $column) {
+          $ids = db_query(db_rewrite_sql("SELECT DISTINCT(n.nid), n.title, n.type FROM {node} n LEFT JOIN {". $table ."} f ON n.vid = f.vid WHERE f.". $column ."=". $account->uid. " AND n.status = 0"));
+          while ($data = db_fetch_object($ids)) {
+            if ($data->type == 'er_proposal'){
+            	$additions['er_proposal_draft'][$data->nid] = $data->title;
+            }
+          }
+        }
+      }	
+      $account->userreference['er_proposal_draft'] = $additions['er_proposal_draft'];	
+	
+	// modified from userreference.module
+	if (!empty($account->userreference)) {
+	$node_types = content_types();
+	$additions = array();
+	$values = array();
+	//dsm($account, 'account');
+	foreach ($account->userreference as $node_type => $nodes) {
+	  // the below if got rid of a warning i was seeing if a user didn't have any CnPs at all
+	  if ($nodes){
+		  foreach ($nodes as $nid => $title) {
+			$values[$node_type][] = l($title, 'node/'. $nid);
+		  }
+	  }
+	  if (isset($values[$node_type]) && !empty($node_types[$node_type]['name'])) { 
+		if($node_type != 'er_proposal'){
+			$additions[] = array(
+			  '#type' => 'user_profile_item',
+			  '#title' => check_plain($node_types[$node_type]['name']),
+			  '#value' => theme('item_list', $values[$node_type]),
+			);
+		}
+	  }
+	  else if (isset($values[$node_type]) && empty($node_types[$node_type]['name'])){ 
+		  if ($node_type == 'er_proposal_draft'){
+				$number = count($additions) - 1;
+				foreach($values[$node_type] as $k=>$v){
+					//dsm($values[$node_type][$k][$v], "!!!!!!!!!!!!!!!!!!!!!!!!1");
+					$values[$node_type][$k] = str_replace('</a>', ' <i>(Draft)</i></a>', $v);
+				}
+				$fromProposal = array();
+				$fromProposal = $values['er_proposal'];
+				if (!empty($fromProposal))
+					$values[$node_type] = array_merge($fromProposal, $values[$node_type]);
+				$additions[] = array(
+				  '#type' => 'user_profile_item',
+				  '#title' => 'Current and Pending Support',
+				  '#value' => theme('item_list', $values[$node_type]),
+				);
+			}
+	  }
+	}
+	if ($additions) {
+	  $account->content['userreference'] = $additions + array(
+		'#type' => 'user_profile_category',
+		'#attributes' => array('class' => 'user-member'),
+		'#title' => t('Related content'),
+		'#weight' => 10,
+	  );
+	}
+	}
+	
+	$block->content .= '<h3>' . ($account->content['userreference']['#title']) . '</h3>';
+	
+	foreach($account->content['userreference'] as $k => $v) {
+		if(is_numeric($k)) {
+			// it's one of the pieces to print out
+			if($v['#title'] == 'Collaboration') {
+				$collabstr = $account -> content['userreference'][$k]['#value'];
+				$collabRef = &$account -> content['userreference'][$k];
+				// They DO have Collaborations
+				if($collabstr) {
+					// Parse the text after href
+					preg_match_all('/<a href="(.+)">(.+)<\/a>/', $collabstr, $matches, PREG_PATTERN_ORDER);
+	
+					// The [1] contains values of all aliases ('/web-dev-tasks')
+					$matcharr = $matches['1'];
+	
+					// Look up the Node ID from the Alias, getting rid of the '/'
+					$finalNidArr = array();
+					foreach($matcharr as $num => $uglyAlias) {
+						$urlAlias = substr(strrchr($uglyAlias, '/'), 1);
+						$uglyNid = drupal_lookup_path('source', 'content/' . $urlAlias);
+						$finalNid = substr(strrchr($uglyNid, '/'), 1);
+						$finalNidArr[] = $finalNid;
+					}
+	
+					// Load each node now that we have the Node ID, grab the Institution name
+					foreach($finalNidArr as $currentNid) {
+						$nodeobject = node_load( array("nid" => $currentNid));
+						// Each collaboration can only have one Institution, so we can use [0] here
+						$thisInst = $nodeobject -> field_er_institution_collab['0']['value'];
+						$matches[3][] = trim($thisInst);
+					}
+	
+					for($i = 0; $i < count($matches[0]); $i++) {
+						$matches[4][] = str_replace($matches[2][$i], $matches[3][$i] . ' - ' . $matches[2][$i], $matches[0][$i]);
+					}
+	
+					// Build new list
+					$newValue = '<div class="item-list"><ul>';
+					foreach($matches[4] as $li) {
+						$newValue .= '<li>' . $li . '</li>';
+					}
+					$newValue .= '</ul></div>';
+	
+					// Change output ($collabRef is set as a reference in the first foreach() )
+					$block->content .= $v['#title'] . '<br/>';
+					// should be Collaboration
+					$block->content .= $newValue . '<br/>';
+				}
+			} 
+
+			else {
+				$block->content .= $v['#title'] . "<br/>";
+				$block->content .= $v['#value'] . "<br/>";
+			}
+		}
+	}
+	return $block;
+}

@@ -1,0 +1,525 @@
+<?php
+define('ER_DEBUG_EXCEL', 0); //Change this to True (1) in order to debug the excel downloads.
+
+define('ER_ADMIN_PERMISSION','administer er');
+define('ER_ACCESS_PERMISSION','access er content');
+define('ER_DOWNLOAD_PERMISSION','download er content');
+
+define('ER_ROOT_NAME', 'reporting');//The name used in the URI
+
+//Start date of the grant, currently used in the accomplishments table (summary.inc).
+//DEPRECATED:: Use variable_get('er_start_date') instead.
+//define('ER_START_DATE', mktime(0, 0, 0, 9, 15, 2009));
+
+define('ER_MODULE_DIR', drupal_get_path('module', 'er'));
+
+require_once ER_MODULE_DIR . '/includes/form_logic.inc';
+require_once ER_MODULE_DIR . '/includes/node_logic.inc';
+require_once ER_MODULE_DIR . '/includes/theme.inc';
+require_once ER_MODULE_DIR . '/includes/views.inc';
+require_once ER_MODULE_DIR . '/includes/blocks.inc';
+
+//IMPORTANT NOTE FROM module_load_include DOCUMENTATION:
+//Do not use this function in a global context since it requires Drupal to be fully bootstrapped,
+// use require_once DRUPAL_ROOT . '/path/file' instead.
+
+// Include form alters and other custom overrides
+//module_load_include('inc', 'er', 'includes/overrides');
+//module_load_include('inc', 'er', 'includes/mike');
+//module_load_include('inc', 'er', 'includes/blocks');
+//module_load_include('inc', 'er', 'includes/theme');
+
+//echo dirname(__FILE__); // == "/web/1/www.hawaii.edu/drupalc/sites/web41.its.hawaii.edu.www.epscor.hawaii.edu/modules/er"
+
+/*******************************************************************************
+ * Hook Functions (Drupal)
+ ******************************************************************************/
+ 
+function er_init(){
+	// Uncomment out the below two lines to get error reporting in case of WSOD ~Mike
+	// error_reporting(E_ALL | E_STRICT);
+	// the line below will get rid of benign "notice" messages that do not look good during a demo
+	error_reporting(E_ALL & ~E_NOTICE);
+	// ini_set("display_errors", 1);	
+	$start_date = variable_get('er_start_date');
+	drupal_add_js('var jQueryOriginal = jQuery;','inline'); //keeps a reference to the original version of jquery.
+	drupal_add_js(ER_MODULE_DIR.'/static/js/jquery-1.8.0.min.js'); //brings in the new version...
+	drupal_add_js('var jQueryNew = jQuery.noConflict(), jQuery = jQueryOriginal;', 'inline'); //sets up jQueryNew, and restores the jQuery variable to the old version.
+	drupal_add_js(array('er'=>array('start_date'=>mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']))), 'setting'); //tells javascript about the start date of the grant.
+	drupal_add_js(ER_MODULE_DIR.'/static/js/custom.js'); 
+	drupal_add_css(ER_MODULE_DIR.'/static/css/er.css'); //adds some module specific themeing...
+	drupal_add_css(ER_MODULE_DIR.'/static/css/sprites.css'); //adds in cool little icons
+  
+	//dsm(memory_get_usage(true));
+  // print 'Memory usage: ' . (memory_get_usage(true)/1048576) . 'MB (this is a debug message, see er.module:47)';
+}
+
+/**
+ * Display help and module information
+ * @param path which path of the site we're displaying help
+ * @param arg array that holds the current path as would be returned from arg() function
+ * @return help text for the path
+ */
+function er_help($path, $arg) {
+	//$output = '<p>'.	t("er is a simple module to test functions and pages in Drupal");
+	//	The line above outputs in ALL admin/module pages
+	$output = '';
+  switch ($path) {
+    case 'admin/modules#name':
+      $output .= t('EPSCoR Reporting');
+      break;
+    case 'admin/modules#description':
+    case 'admin/help#er':
+      $output .= theme('er_help');
+      break;
+  }
+	return $output;
+} // function er_help
+
+/**
+ * Valid permissions for this module
+ * @return array An array of valid permissions for the er module
+ */
+function er_permission(){
+	return array(
+		ER_ADMIN_PERMISSION=>array(
+			'title' => t('Administer EPSCoR Module')
+		),
+		ER_ACCESS_PERMISSION=>array(
+			'title' => t('Access EPSCoR Module content')
+		),
+		ER_DOWNLOAD_PERMISSION=>array(
+			'title' => t('Access EPSCoR Module excel sheets')
+		),
+	);
+} // function er_perm()
+
+/**
+ * Menu for this module
+ * @return array An array with this module's settings.
+ */
+function er_menu() {
+
+	// First get menu items from our overrides
+	//$items = er_overrides_menu();
+	// Module settings.
+  $items['admin/config/epscor'] = array(
+    'title' => 'EPSCoR',
+    'description' => 'EPSCoR Reporting',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+	$items['admin/config/epscor/er'] = array(
+		'title' => 'EPSCoR Reporting Module Settings',
+		'description' => 'Settings which affect the functionality of the EPSCoR Reporting module.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('er_settings'),
+		'access arguments' => array('administer er'),
+		'file' => 'includes/er.admin.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	// This is the page for the overview. We only need one menu entry for this
+	// because the choice of whether to view it in reporting year or calendar
+	// year is just a view option, and does not need its own path. We can't
+	// use the load arguments for this one, because there is no second item in
+	// the path.
+	$items[ER_ROOT_NAME] = array(
+		'title' => 'Accomplishments',
+		'description' => 'Overview of reporting data',
+		'page callback' => 'er_page',
+		//'page arguments' => array('summary'),
+		'access arguments' => array(ER_ACCESS_PERMISSION),
+		'type' => MENU_NORMAL_ITEM,
+		'menu_name' => 'main-menu',
+	);
+
+	// For the individual pages we do not want to have to define a menu item for
+	// each one, so we can use a wildcard loader argument (the % item). This will
+	// call the function er_page_load() with the argument passed in via the URL.
+	// So if someone enters the url reporting/collaborations, then Drupal will call
+	// er_page_load("collaborations"). If that returns false, the response will
+	// be 404 not found. If it returns a value (in this case our page class) that
+	// will be passed to our page function.
+	$items[ER_ROOT_NAME.'/%'] = array(
+		'title' => 'View Details',
+		'description' => 'View reporting details',
+		'page callback' => 'er_page',
+		'page arguments' => array(1),
+		'access arguments' => array(ER_ACCESS_PERMISSION),
+		'type' => MENU_CALLBACK,
+	);
+
+	// We also want a download entry for each item, in case we want to allow
+	// certain users to see the summaries, but not to download the excel product.
+	$items[ER_ROOT_NAME.'/%/download'] = array(
+		'title' => 'Download Details',
+		'description' => 'Download reporting details.',
+		'page callback' => 'er_page_download',
+		'page arguments' => array(1),
+		'access arguments' => array(ER_DOWNLOAD_PERMISSION),
+		'type' => MENU_CALLBACK,
+	);
+	
+	$items['node/add2'] = array(
+		'title' => 'Add content',
+		'description' => 'Replace Drupal\'s built in "Add content" functionality.',
+		'page callback' => 'theme',
+		'page arguments' => array('er_content_links', array('full_view'=>true)),
+		'access arguments' => array(ER_ACCESS_PERMISSION),
+		'type' => MENU_SUGGESTED_ITEM, //hidden by default
+	);
+	//$items['node/add3'] = array(
+	//	'title' => 'Add content',
+	//	'description' => 'Replace Drupal\'s built in "Add content" functionality.',
+	//	'page callback' => 'theme',
+	//	'page arguments' => array('er_add_core_content', array('full_view'=>true)),
+	//	'access arguments' => array(ER_ACCESS_PERMISSION),
+	//	//'type' => MENU_CALLBACK,
+	//);
+	return $items;
+}
+
+
+function er_admin_paths() {
+  return array(
+    'node/add2' => TRUE,
+		//'node/add3' => TRUE,
+  );
+}
+
+//This hook replaces the original node/add page with one that separates the different types of content.
+//See also er/templates/er-content-links.tpl.php, and er/includes/theme.inc
+function er_menu_alter(&$items) {
+  /*ORIGINAL DATA IN $items['node/add'] :=
+			title (String, 11 characters ) Add content
+			page callback (String, 13 characters ) node_add_page
+			access callback (String, 16 characters ) _node_add_access | (Callback) _node_add_access();
+			file (String, 14 characters ) node.pages.inc
+			module (String, 4 characters ) node
+	*/
+	
+	$items['node/add']['page callback'] = 'theme';
+	$items['node/add']['page arguments'] = array('er_add_core_content', array('full_view'=>true));
+	
+	//dsm($items['node/add']);
+  //$items['node/add']['access callback'] = FALSE;
+}
+
+//initializes, then returns an instance of a er_page object which will be defined in an "inc" file ex: /modules/er/pages/_____.inc
+function er_load_page($arg){
+	require_once ER_MODULE_DIR.'/er_page.inc';
+	if (module_load_include('inc', 'er', 'pages/'.$arg)!==false){
+		// Remember that our classes are prefixed with er_
+		$class = 'er_' . str_replace( "-" , "_" , $arg);
+		$class = new $class();
+		return $class;
+	}
+	return false;
+}
+
+//this handles page loading, it uses er_load_page to retrieve the page object which is used to display the page.
+function er_page($arg = "summary") {
+	//dsm($arg, 'loading page');
+	if($page = er_load_page($arg)){
+		// Set the title of the page. the drupal_set_title function takes care
+		// of letting the theme know what to put in the TITLE and H1 tags.
+		drupal_set_title($page->title());
+	
+		// Return the HTML content of the page
+		return $page->html();
+	}
+	return drupal_not_found();
+}
+
+//menu hook which procs when trying to download certain excel sheets, ex: /reporting/participants/download
+function er_page_download($arg) {
+	if (($library = libraries_detect('PHPExcel')) && !empty($library['installed']) && libraries_load_files($library)) {// The library is installed, and files are loaded.
+		if($page = er_load_page($arg)){
+			$objPHPExcel = $page->excel();
+			$objPHPExcel->setActiveSheetIndex(0); //initialize to the first page...
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+			//comment these next few blocks if you want to debug the excel system... (shows error messeges)
+			if (!ER_DEBUG_EXCEL){
+				header('Content-Type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment;filename="'.$page->title().'.xls"');
+				header('Cache-Control: max-age=0');
+				$objWriter->save('php://output');
+				module_invoke_all('exit');
+				exit;
+			}
+			return '';
+		}
+	}else {//Libraries had a problem loading PHPExcel...
+		$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
+		$error_message = $library['error message'];// This contains a detailed (localized) error message.
+		drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
+	}
+	return drupal_not_found();
+}
+
+/* 
+* Implements hook_ctools_plugin_directory -
+* This lets ctools know to scan my module for a content_type plugin file
+* Detailed docks in ctools/ctools.api.php 
+* See also: http://drupalcontrib.org/api/drupal/contributions--ctools--ctools.api.php/function/hook_ctools_plugin_directory/6
+*/ 
+function er_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' || $module == 'panels') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function er_ctools_plugin_api($module, $api) {
+  if ($module == 'panels' && $api == 'styles') {
+    // Check and return correct style version
+    return array('version' => 2);
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function er_views_api() {
+  return array("version" => "3.0");
+}
+
+//hook_libraries_info()
+//from libraries module
+function er_libraries_info(){
+	return array(
+		"PHPExcel"=>array(
+			"name"=>"PHPExcel",
+			"vendor url"=>"http://phpexcel.codeplex.com/",
+			"download url"=>"http://phpexcel.codeplex.com/",
+			"files"=>array(
+				"php"=>array('PHPExcel.php', 'PHPExcel/IOFactory.php')
+			),
+			"version arguments"=>array(
+				"file"=>'PHPExcel.php',
+				"lines"=>30,
+				"pattern"=>'/@version\s+([0-9a-zA-Z\.-]+)/',
+			)
+		)
+	);
+}
+
+//helper function which attempts to find a value inside of an object or associative array, and returns a default value if nothing was found.
+function get($obj, $thing, $default=FALSE){
+	switch (gettype($obj)){
+		case 'array':
+			return isset($obj[$thing])?$obj[$thing]:$default;
+		case 'object':
+			return isset($obj->{$thing})?$obj->{$thing}:$default;
+		default:
+			return $default;
+	}
+}
+
+function er_username_alter(&$name, $account) {
+  if (empty($account->uid)) {
+    // Don't alter anonymous users or objects that do not have any user ID.
+    return;
+  }
+
+  // Real name was loaded/generated via hook_user_load(), so re-use it.
+  if (isset($account->field_er_realname['und'][0]['value'])) {
+    if (drupal_strlen($account->field_er_realname['und'][0]['value'])) {
+      // Only if the real name is a non-empty string is $name actually altered.
+      $name = $account->field_er_realname['und'][0]['value'];
+    }
+    return;
+  }
+}
+
+/*
+ * Purpose: to detect any calls to d() "debug" function.
+ * 			If the Devel module is installed, the function dsm() is called
+ * 			This function ensures we do not receive fatal errors when moving dev code to the live site
+ * Category: Troubleshooting
+ */ 
+function d($first, $second = ''){
+  global $user;
+  if (function_exists('dpm'))
+	dpm($first, $second);
+}
+
+/*
+ * This function returns an array of all the machine names of the content types that use $fieldname
+ * 		where $fieldname is the machine name of the field.
+ * The $suffix variable is if you want to add a suffix to the end. For instance '_node_form'
+ */
+function list_cts_having_field($fieldname, $suffix = ''){
+	$ret = array();
+	$result = db_query("SELECT bundle FROM {field_config_instance} WHERE field_name = :entity", array(
+	  ':entity' => $fieldname,
+	));
+	// d($result, 'result');
+	foreach ($result as $k) {
+		$ret[] = $k->bundle . $suffix;
+		// d($k, 'k');
+	}
+	return $ret;	
+}
+
+function er_revert($form, &$form_state){
+/* The order of this install is as such:
+
+	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
+	- create Content Types and Fields, create User Profile Fields
+	- create flags, that may now attach to the proper bundles (content types)
+	- create rules
+*/
+	
+	if ($form_state['values']['redo_checkboxes']['Taxonomy'] !== 0){ // you need the explicit equals btw
+		// Create taxonomy terms
+		// d('you checked Taxonomy');
+		er_import_taxonomy();	
+	}
+	
+	if ($form_state['values']['redo_checkboxes']['Fields'] !== 0){
+		// Create Content Types and Field Settings, User Profile Fields
+		// d('you checked Fields');
+		er_import_fields();	
+	}	
+	
+	if ($form_state['values']['redo_checkboxes']['Flags'] !== 0){	
+		// Create flags
+		// d('you checked Flags');
+		er_import_flags();
+	}
+	
+	if ($form_state['values']['redo_checkboxes']['Rules'] !== 0){	
+		// Create rules
+		// d('you checked Rules');
+		er_import_rules();
+	}
+		
+}
+
+function er_import_rules(){
+	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
+	$ret = module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
+	 //require_once(drupal_get_path('module', 'rules_admin') .'/ui/ui.forms.inc');
+	if (function_exists('rules_ui_import_form_validate')){
+		watchdog('er', 'Begin creating rules, found the rules_ui_import_form_validate function');
+
+		$drupal_path = drupal_get_path('module', 'er') . '/er_install/rules';
+		$dir = new DirectoryIterator($drupal_path);
+		// loop through all rule files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$rule_filename = $fileinfo->getFilename();
+				watchdog('er', 'Looping rule '.$rule_filename);
+				// this grabs the text from the file and puts it in a variable
+				$rules_config = file_get_contents($drupal_path . '/' . $rule_filename);
+				
+				$form = array();
+				$form_state = array();
+				$form_state['values']['import'] = $rules_config;
+				$form_state['values']['overwrite'] = 1;
+				
+				// for these imports, work gets done in the _validate and _submit functions to do the actual import
+				rules_ui_import_form_validate($form, $form_state);
+				rules_ui_import_form_submit($form, $form_state);				
+			}
+		}
+	}
+	else{		
+		watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
+		drupal_set_message('No rules_ui_import_form_validate function found in er.install');
+	}	
+}
+
+function er_import_flags(){
+	// again I'm mimicking functionality in the import function, check to make sure it exists, for good measure
+	module_load_include('inc', 'flag', 'includes/flag.export');
+	 //require_once(drupal_get_path('module', 'rules_admin') .'/ui/ui.forms.inc');
+	if (function_exists('flag_import_form_validate')){
+		watchdog('er', 'Begin creating flags, found the flag_import_form_validate function');
+
+		$drupal_path = drupal_get_path('module', 'er') . '/er_install/flags';
+		$dir = new DirectoryIterator($drupal_path);
+		// loop through all flag files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$flag_filename = $fileinfo->getFilename();
+				watchdog('er', 'Looping flag '.$flag_filename);
+				// this grabs the text from the file and puts it in a variable
+				$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
+				
+				$form = array();
+				$form_state = array();
+				$form_state['values']['import'] = $flag_config;
+				
+				// for these imports, work gets done in the _validate and _submit functions to do the actual import
+				flag_import_form_validate($form, $form_state);
+				flag_import_form_submit($form, $form_state);				
+			}
+		}
+	}
+	else{		
+		watchdog('er', 'No flag_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
+		drupal_set_message('No flag_import_form_validate function found in er.install');
+	}		
+}	
+
+function er_import_fields(){	
+	if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy
+	
+		$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+		$dir = new DirectoryIterator($drupal_path);
+		// loop through all rule files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$bundle_filename = $fileinfo->getFilename();
+				watchdog('er', 'Looping bundle '.$bundle_filename);
+				// this grabs the text from the file and puts it in a variable
+				$bundle_config = file_get_contents($drupal_path . '/' . $bundle_filename);
+				$form_state = array();
+				$form_state['values']['macro'] = $bundle_config;
+				bundle_copy_import_submit('', $form_state); // function doesn't use first arg			
+			}
+		}
+	}
+	else{
+		drupal_set_message('No bundle_copy_import_submit function found in er.install');
+		watchdog('er', 'No bundle_copy_import_submit function found in er.install', NULL, WATCHDOG_CRITICAL);
+	}
+	watchdog('er', 'Finished installing Content Types and User Account fields');
+	drupal_set_message('Finished installing Content Types and User Account fields');	
+}
+
+function er_import_taxonomy(){
+	// create taxonomy term 1 for the Project Compnents
+	// make sure we're not uninstalling and reinstalling it
+	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_components'")->fetchField();
+	if (!is_numeric($vid)){
+		watchdog('er', 'Creating taxonomy er_components');
+		taxonomy_vocabulary_save((object) array(
+		  'name' => 'Component',
+		  'machine_name' => 'er_components',
+		));	
+	}
+	else{
+		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
+	}
+
+	// create taxonomy term 2 for the Collaborations
+	// again, make sure it's not already installed, otherwise fatal errors
+	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'collaborations'")->fetchField();
+	if (!is_numeric($vid)){
+		watchdog('er', 'Creating taxonomy collaborations');
+		taxonomy_vocabulary_save((object) array(
+		  'name' => 'Collaborations',
+		  'machine_name' => 'collaborations',
+		));	
+	} else {
+		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
+	}	
+}

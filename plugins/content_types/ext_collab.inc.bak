@@ -1,0 +1,165 @@
+<?php
+/**
+* This plugin array is more or less self documenting
+*/
+$plugin = array(
+	'category' => array(t('EPSCoR'), -9),
+	'title' => t('External Collaborations Panel'),// the title in the admin
+	'description' => t('This pane is used in linking projects with external collaborators'),
+	'single' => true,	// no one knows if "single" defaults to FALSE...
+	'edit form' => 'er_ext_collab_edit_form',
+	'render callback' => 'er_ext_collab_render'
+);
+
+function _get_current_node(){
+	$node = menu_get_item(); //we can use this to grab the current node's info (might prevent from hitting the db).
+	return $node['page_arguments'][0];
+}
+
+function _find_external_collaborators($nid){
+	//$graph_fields = array('field_er_race', 'field_er_gender', 'field_er_disabilities', 'field_er_institution', 'field_er_involvement', 'field_er_teams');
+	$q = new Query();
+
+	$t = new Table('content_type_er_collaborators', 'c');
+	$t 	->field('nid')->select('nid')
+		->field(field_er_collab_project, 'proj_nid')
+		->field('field_er_collab_inst', 'inst_nid')->select('inst_nid')
+		->field('field_er_collab_names', 'name')->select('name')
+		//->field('field_er_collab_status', 'status')->select('status')
+		->field('field_er_collab_desc', 'description')->select('description', array('limit'=>100))//Can potentially make use of "SUBSTR(myString, 0, 10)" in SQL
+		->where('proj_nid', $nid);
+	/*$i = new Table('content_type_er_institution', 'i');
+	$i	->field('nid', 'inst_nid')->select('inst_nid')
+		->field('field_er_inst_name', 'inst_name')->select('inst_name')
+		->field('field_er_inst_ext', 'inst_ext')->select('inst_ext')
+		->order('inst_ext');*/
+	$q->addTable($t);//->addTable($i)->link($t, $i, 'inst_nid');
+	$data = $q->getData();
+	dsm($data);
+	$ret = array();
+	foreach ($data as $d){
+		$ret[$d['inst_nid']][] = $d;
+	}
+	return $ret;
+}
+/*
+* Run-time rendering of the body of the block (content type)
+* See ctools_plugin_examples for more advanced info
+*/
+function er_ext_collab_render($subtype, $conf, $context = NULL) {
+	$debug = false;
+	$node = _get_current_node(); if ($debug) dsm($node, '$node');
+	$block->content = "";
+	$ext_collabs = _find_external_collaborators($node->nid); if ($debug || true) dsm($ext_collabs, '$ext_collabs');
+	
+	//little helper text:
+	$block->content .= '<em>Collaborations refer to people outside of EPSCoR.</em><br><br>';
+	
+	foreach ($node->field_er_proj_inst as $i=>$inst){
+		//attain information about the institutions attached to this project:
+		$inst_node = node_load(array('nid'=>$inst['nid']));
+		if ($debug) dsm($inst_node, '$inst_node:'.$inst['nid']);
+		
+		//Name of institution:
+		$block->content .= "<strong>".l($inst_node->field_er_inst_name[0]['value'], $inst_node->path)."</strong><br>";
+		
+		if(array_key_exists($inst['nid'], $ext_collabs)){//if i found some nodes for this institution
+			//there could be multiple names, loop through them
+			$collab_node = $ext_collabs[$inst['nid']]; if ($debug) dsm($collab_node, '$collab_node');
+			
+			$block->content .= "<em>" . $collab_node[0]['description'] . "</em>"; //should only be one node, so just grab it from the first result...
+			$block->content .= "<ul>";
+			if (count($collab_node) > 1 || $collab_node[0]['name'] != ''){
+				foreach($collab_node as $col){
+					$block->content .= "<li>" . $col['name'] . "</li>";
+				}
+			}/*else{//The node is new, and so there are no names in the node yet.
+				$ext_or_int = $inst_node->field_er_inst_ext[0]['value'];
+				if ($ext_or_int == 1){ //1 => external, 0/NULL => internal
+					$block->content .= '<li><span class="alert button"></span><span style="color:red;">No collaborators attached! <br>We require at least one primary contact from each external institution!</span></li>';
+				}else{ //This is an internal collaboration (partnership) and so it doesn't really matter, but you can still add it in.
+					$block->content .= '<li><span class="info button"></span>No collaborators attached, but this is an internal institution so that is acceptable.</li>';
+				}
+			}*/
+			$block->content .= "</ul>";
+			$block->content .= l('<span class="edit button"></span> Edit External Collaborators', 'node/'.$collab_node[0]['nid']."/edit", array('query'=>array('destination'=>$node->path), 'html'=>true))."<br>";
+		}else{
+			$ext_or_int = $inst_node->field_er_inst_ext[0]['value'];
+			//$block->content .= "<ul>";
+			if ($ext_or_int == 1){ //1 => external, 0/NULL => internal
+				$block->content .= '<div style="color:red;margin:10px;"><span class="alert button"></span>No collaborators attached! We require at least one primary contact from each external institution!</div>';
+			}/*else{ //This is an internal collaboration (partnership) and so it doesn't really matter, but you can still add it in.
+				$block->content .= '<li><span class="info button"></span>No collaborators attached, but this is an internal institution so that is acceptable.</li>';
+			}*/
+			//$block->content .= "</ul>";
+			$options = array('query'=>array('er_collab_project'=>$node->nid, 'er_collab_inst'=>$inst['nid'], 'destination'=>$node->path), 'html'=>true);
+			$block->content .= l('<span class="add button"></span> Attach External Collaborators', "node/add/er-collaborators", $options)."<br>";
+		}
+		$block->content .= "<br>";
+	}
+	
+	//$block->content = theme('gmap', array('#settings' => $map_array2));
+	$block->title = "Collaborations";
+	/*foreach (array("title", "subtitle", "caption", "type", "style") as $c){
+		$block->$c = $conf[$c];
+		$block->content .= "$c: {$conf[$c]}<br>\n";
+	}*/
+	//$block->data = er_ext_collab_data($block);
+	//dsm($conf, 'conf');
+	//dsm($block, 'block');
+	return $block;
+}
+
+/**
+* 'Edit form' callback for the content type.
+*/
+function er_ext_collab_edit_form(&$form, &$form_state) {
+	$conf = $form_state['conf'];
+	/*$form['type'] = array(
+		'#type' => 'radios', 
+		'#title' => t('Graph type'), 
+		'#default_value' => $conf['type'], 
+		'#options' => array(t('Race'), t('Gender'), t('Disabilities'), t('Institution'), t('Involvement'), t('Team')),
+		'#description' => t('Choose what data you would like to graph'),
+		'#required' => true,
+		);
+	$form['title'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Title'),
+		'#size' => 40,
+		'#description' => t('Provide a title for the graph'),
+		'#default_value' => !empty($conf['title'])?$conf['title']:'Participants',
+	);
+	$form['subtitle'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Sub-title'),
+		'#size' => 40,
+		'#description' => t('Optional sub-title for the graph'),
+		'#default_value' => $conf['subtitle'],
+	);
+	$form['caption'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Caption'),
+		'#size' => 120,
+		'#description' => t('Optional caption displayed under the graph'),
+		'#default_value' => $conf['caption'],
+	);
+	$form['style'] = array(
+		'#type' => 'textfield', 
+		'#title' => t('Custom css'),
+		'#size' => 40, 
+		'#default_value' => $conf['style'], 
+		);*/
+	return $form;
+}
+
+
+/**
+* Submit function, note anything in the formstate[conf] automatically gets saved 
+*/
+function er_ext_collab_edit_form_submit(&$form, &$form_state) {
+	//this stores the values so that i can use them later on...
+	/*foreach (array("title", "subtitle", "caption", "type", "style") as $c){
+		$form_state['conf'][$c] = $form_state['values'][$c];
+	}*/
+}

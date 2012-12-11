@@ -1,0 +1,205 @@
+<?php
+function er_install(){
+	$form = array();
+	$form_state = array();
+	er_import_fields($form, $form_state);
+/* The order of this install is as such:
+
+	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
+	- create Content Types and Fields
+	- create User Profile Fields
+	- create flags, that may now attach to the proper bundles (content types)
+	- create rules
+
+
+// Create taxonomy terms	
+	// create taxonomy term 1 for the Project Compnents
+	// make sure we're not uninstalling and reinstalling it
+	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_components'")->fetchField();
+	if (!is_numeric($vid)){
+		watchdog('er', 'creating taxonomy er_components');
+		taxonomy_vocabulary_save((object) array(
+		  'name' => 'Component',
+		  'machine_name' => 'er_components',
+		));	
+	}
+	else{
+		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
+	}
+
+	// create taxonomy term 2 for the Collaborations
+	// again, make sure it's not already installed, otherwise fatal errors
+	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'collaborations'")->fetchField();
+	if (!is_numeric($vid)){
+		watchdog('er', 'creating taxonomy collaborations');
+		taxonomy_vocabulary_save((object) array(
+		  'name' => 'Collaborations',
+		  'machine_name' => 'collaborations',
+		));	
+	} else {
+		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
+	}
+	
+	
+// Import the Content Types and Field Settings, User Profile Fields
+
+	$form_state_cts = array();
+	$form_state_people = array();
+	//$filepath_cts = drupal_get_path('module', 'er') . '/cts_structure.txt';
+	//drupal_set_message($filepath_cts . ' is the filepath');
+	$cts = file_get_contents(drupal_get_path('module', 'er') . '/cts_structure.txt');
+	$people = file_get_contents(drupal_get_path('module', 'er') . '/people_structure.txt');
+
+	$form_state_cts['values']['macro'] = $cts;
+	$form_state_people['values']['macro'] = $people;
+	if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy
+		// carry on
+		watchdog('er', 'start bundle import on content types');
+		bundle_copy_import_submit('', $form_state_cts); // function doesn't use first arg
+		watchdog('er', 'done bundle import on content types');
+		watchdog('er', 'start bundle import on user profile');
+		bundle_copy_import_submit('', $form_state_people); // function doesn't use first arg
+		watchdog('er', 'done bundle import on user profile');
+	}
+	else{
+		drupal_set_message('No bundle_copy_import_submit function found in er.install');
+		watchdog('er', 'No bundle_copy_import_submit function found in er.install',array(),WATCHDOG_CRITICAL);
+	}
+	watchdog('er', 'Finished installing Content Types and User Account fields');
+	drupal_set_message('Finished installing Content Types and User Account fields');
+	
+// Create flags
+	// flag 1 - er_receive_data_notifications
+	// check to make sure it doesn't exist already
+	$fid = db_query("SELECT fid FROM {flags} WHERE name = 'er_receive_data_notifications'")->fetchField();
+	if (!is_numeric($fid)){
+		watchdog('er', 'creating flag er_receive_data_notifications');
+		$flag = flag_flag::factory_by_content_type('user');
+
+		$flag->name = 'er_receive_data_notifications';
+		$flag->title = 'Receive Data Collection Notifications';
+		$flag->roles = array(
+			'flag' => array(3),
+			'unflag' => array(3),
+		); // sets up for administrator role only, corresponds to drupal role id in roles table, by the way
+		$flag->flag_short = 'Receive data collection notifications';
+		$flag->unflag_short = 'Do not receive data collection notifications';
+		$flag->global = TRUE;
+		$flag->show_on_form = TRUE;
+		$flag->show_on_node = TRUE;
+		$flag->show_on_teaser = TRUE;
+		$flag->link_type = 'toggle'; // For JS link. Other options: 'normal' and 'confirm'.
+		$flag->save(); 	
+	} else {
+		watchdog('er', 'NOT creating flag er_receive_data_notifications');
+	}
+	
+	// flag 2 - er_collecting_data
+	$fid = db_query("SELECT fid FROM {flags} WHERE name = 'er_collecting_data'")->fetchField();
+	if (!is_numeric($fid)){
+		watchdog('er', 'creating flag er_collecting_data');
+		$flag = flag_flag::factory_by_content_type('node');
+
+		$flag->name = 'er_collecting_data';
+		$flag->title = 'Collecting Data';
+		$flag->roles = array(
+			'flag' => array(3),
+			'unflag' => array(3),
+		); 
+		$flag->types = array('er_poster', 'er_publication'); // this actually means bundle
+		$flag->flag_short = 'Collecting data';
+		$flag->unflag_short = 'Not collecting data';
+		$flag->global = TRUE;
+		$flag->show_on_form = TRUE;
+		$flag->show_on_node = TRUE;
+		$flag->show_on_teaser = TRUE;
+		$flag->link_type = 'toggle';
+		$flag->save(); 	
+	} else {
+		watchdog('er', 'NOT creating flag er_collecting_data');
+	}
+	
+	// flag 3 - er_needs_review
+	$fid = db_query("SELECT fid FROM {flags} WHERE name = 'er_needs_review'")->fetchField();
+	if (!is_numeric($fid)){
+		watchdog('er', 'creating flag er_needs_review');
+		$flag = flag_flag::factory_by_content_type('node');
+
+		$flag->name = 'er_needs_review';
+		$flag->title = 'Content needs administrator review';
+		$flag->roles = array(
+			'flag' => array(3),
+			'unflag' => array(3),
+		); 
+		$flag->types = array('er_event', 'er_collaboration', 'er_proposal', 'er_paid', 'er_engagement', 'er_institution');
+		$flag->flag_short = 'Mark for administrator review';
+		$flag->unflag_short = 'No longer needs administrator review';
+		$flag->global = TRUE;
+		$flag->show_on_form = TRUE;
+		$flag->show_on_node = TRUE;
+		$flag->show_on_teaser = TRUE;
+		$flag->link_type = 'toggle';
+		$flag->save(); 	
+	} else {
+		watchdog('er', 'NOT creating flag er_needs_review');
+	}
+	
+	// flag 3 - er_needs_review_urgent
+	$fid = db_query("SELECT fid FROM {flags} WHERE name = 'er_needs_review_urgent'")->fetchField();
+	if (!is_numeric($fid)){
+		watchdog('er', 'creating flag er_needs_review_urgent');
+		$flag = flag_flag::factory_by_content_type('node');
+
+		$flag->name = 'er_needs_review_urgent';
+		$flag->title = 'Content needs URGENT administrator review';
+		$flag->roles = array(
+			'flag' => array(3),
+			'unflag' => array(3),
+		); 
+		$flag->types = array('er_institution');
+		$flag->flag_short = '(URGENT) Needs immediate review';
+		$flag->unflag_short = '(URGENT) No longer needs immediate review';
+		$flag->global = TRUE;
+		$flag->show_on_form = TRUE;
+		$flag->show_on_node = TRUE;
+		$flag->show_on_teaser = TRUE;
+		$flag->link_type = 'toggle';
+		$flag->save(); 	
+	} else {
+		watchdog('er', 'NOT creating flag er_needs_review_urgent');
+	}
+	
+// Create rules
+	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure for ->save 
+	if (function_exists('rules_ui_import_form_submit')){
+		watchdog('er', 'begin creating rules, found the submit function');
+		// taken from the Rules module, minus the redirect code.
+		$drupal_path = drupal_get_path('module', 'er') . '/er_install/rules';
+		$dir = new DirectoryIterator($drupal_path . '/er_install/rules');
+		// loop through all rule files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$rule_filename = $fileinfo->getFilename();
+				watchdog('er', 'looping rule '.$rule_filename);
+				// this grabs the text from the file and puts it in a variable
+				$rules_config = file_get_contents($drupal_path . '/' . $rule_filename);
+
+				if ($existing_config = rules_config_load($rules_config->name)) {
+					// Copy DB id and remove the new indicator to overwrite the existing record.
+					$rules_config->id = $existing_config->id;
+					unset($rules_config->is_new);
+				}
+				$rules_config->save();
+				$vars = array('@entity' => t('Rules configuration'), '%label' => $rules_config->label());
+				watchdog('er', 'Imported rule @entity %label.', $vars);
+				drupal_set_message(t('Imported rule @entity %label.', $vars));				
+			}
+		}
+	}
+	else{
+		watchdog('er', 'No rules_ui_import_form_submit function found in er.install', array(),WATCHDOG_CRITICAL);
+		drupal_set_message('No rules_ui_import_form_submit function found in er.install');
+	}
+ */
+ 
+}

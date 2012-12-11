@@ -1,0 +1,7 @@
+name = EPSCoR Reporting Profile Customizations
+description = Creates the Related Content Panel, and contains any other profile customizations.
+dependencies[] = panels
+package = "EPSCoR"
+core = 7.x
+version = "7.x-1.0-dev"
+

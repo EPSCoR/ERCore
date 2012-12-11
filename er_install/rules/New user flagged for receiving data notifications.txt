@@ -1,0 +1,17 @@
+{ "rules_er_receive_data_notifications_flagged" : {
+    "LABEL" : "New user flagged for receiving data notifications",
+    "PLUGIN" : "reaction rule",
+    "REQUIRES" : [ "php", "rules", "flag" ],
+    "ON" : [ "flag_flagged_er_receive_data_notifications" ],
+    "DO" : [
+      { "php_eval" : { "code" : "$addrs = variable_get(\u0027er_notification_email_addr\u0027);\u000D\u000A$addrs[$flagged_user-\u003Euid] = $flagged_user-\u003Email;\u000D\u000Avariable_set(\u0027er_notification_email_addr\u0027, $addrs);" } },
+      { "mail" : {
+          "to" : "\u003C?php\u000D\u000Aforeach (variable_get(\u0027er_notification_email_addr\u0027) as $uid=\u003E$mail)\u000D\u000A  echo $mail . \u0027, \u0027;\u000D\u000A?\u003E",
+          "subject" : "Data collection notification",
+          "message" : "A new user will be receiving notifications when content is flagged for \u0022content collection\u0022.\u000D\u000AUser: [flagged-user:name]\u000D\u000ASee: [flagged-user:url]",
+          "language" : [ "" ]
+        }
+      }
+    ]
+  }
+}

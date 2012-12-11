@@ -1,0 +1,481 @@
+$data = array(
+  'bundles' => array(
+    'er_effort' => (object) array(
+      'type' => 'er_effort',
+      'name' => 'Current and Pending Support - Effort',
+      'base' => 'node_content',
+      'module' => 'node',
+      'description' => '',
+      'help' => 'Enter the amount of time you are obligated to spend working on this grant, paid or not, in either Calendar, Academic or Summer months.',
+      'has_title' => '1',
+      'title_label' => 'Title',
+      'custom' => '1',
+      'modified' => '1',
+      'locked' => '0',
+      'disabled' => '0',
+      'orig_type' => 'er_effort',
+      'disabled_changed' => FALSE,
+      'bc_entity_type' => 'node',
+    ),
+  ),
+  'fields' => array(
+    'field_er_pm_acad' => array(
+      'type_name' => 'er_proposal',
+      'entity_types' => array(),
+      'settings' => array(
+        'decimal_separator' => '.',
+        'profile2_private' => FALSE,
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '0',
+        'max' => '12',
+        'allowed_values' => array(),
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pm_acad' => array(
+                'value' => 'field_er_pm_acad_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pm_acad' => array(
+                'value' => 'field_er_pm_acad_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pm_acad',
+      'type' => 'number_float',
+      'module' => 'number',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_effort',
+        ),
+      ),
+    ),
+    'field_er_pm_cal' => array(
+      'type_name' => 'er_proposal',
+      'entity_types' => array(),
+      'settings' => array(
+        'decimal_separator' => '.',
+        'profile2_private' => FALSE,
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '0',
+        'max' => '12',
+        'allowed_values' => array(),
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pm_cal' => array(
+                'value' => 'field_er_pm_cal_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pm_cal' => array(
+                'value' => 'field_er_pm_cal_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pm_cal',
+      'type' => 'number_float',
+      'module' => 'number',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_effort',
+        ),
+      ),
+    ),
+    'field_er_pm_sumr' => array(
+      'type_name' => 'er_proposal',
+      'entity_types' => array(),
+      'settings' => array(
+        'decimal_separator' => '.',
+        'profile2_private' => FALSE,
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '0',
+        'max' => '12',
+        'allowed_values' => array(),
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pm_sumr' => array(
+                'value' => 'field_er_pm_sumr_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pm_sumr' => array(
+                'value' => 'field_er_pm_sumr_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pm_sumr',
+      'type' => 'number_float',
+      'module' => 'number',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_effort',
+        ),
+      ),
+    ),
+    'field_er_proposal_entity' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'target_type' => 'node',
+        'handler' => 'base',
+        'handler_settings' => array(
+          'target_bundles' => array(
+            'er_proposal' => 'er_proposal',
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_proposal_entity' => array(
+                'target_id' => 'field_er_proposal_entity_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_proposal_entity' => array(
+                'target_id' => 'field_er_proposal_entity_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_proposal_entity',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_paid',
+          1 => 'er_effort',
+        ),
+      ),
+    ),
+  ),
+  'instances' => array(
+    'field_er_pm_acad' => array(
+      0 => array(
+        'label' => 'Academic',
+        'widget' => array(
+          'weight' => '3',
+          'type' => 'number',
+          'module' => 'number',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'required_by_role' => array(
+            5 => 0,
+            4 => 0,
+            6 => 0,
+            3 => 0,
+            1 => 0,
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'number_decimal',
+            'settings' => array(
+              'thousand_separator' => ' ',
+              'decimal_separator' => '.',
+              'scale' => 2,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+            'weight' => 2,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pm_acad',
+        'entity_type' => 'node',
+        'bundle' => 'er_effort',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_pm_cal' => array(
+      0 => array(
+        'label' => 'Calendar',
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'number',
+          'module' => 'number',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'required_by_role' => array(
+            5 => 0,
+            4 => 0,
+            6 => 0,
+            3 => 0,
+            1 => 0,
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'number_decimal',
+            'settings' => array(
+              'thousand_separator' => ' ',
+              'decimal_separator' => '.',
+              'scale' => 2,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+            'weight' => 3,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pm_cal',
+        'entity_type' => 'node',
+        'bundle' => 'er_effort',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_pm_sumr' => array(
+      0 => array(
+        'label' => 'Summer ',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'number',
+          'module' => 'number',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'required_by_role' => array(
+            5 => 0,
+            4 => 0,
+            6 => 0,
+            3 => 0,
+            1 => 0,
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'number_decimal',
+            'settings' => array(
+              'thousand_separator' => ' ',
+              'decimal_separator' => '.',
+              'scale' => 2,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+            'weight' => 4,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pm_sumr',
+        'entity_type' => 'node',
+        'bundle' => 'er_effort',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_proposal_entity' => array(
+      0 => array(
+        'label' => 'Award Title',
+        'widget' => array(
+          'weight' => '1',
+          'type' => 'entityreference_autocomplete',
+          'module' => 'entityreference',
+          'active' => 1,
+          'settings' => array(
+            'match_operator' => 'CONTAINS',
+            'size' => '60',
+            'path' => '',
+          ),
+        ),
+        'settings' => array(
+          'required_by_role' => array(
+            5 => 0,
+            4 => 0,
+            6 => 0,
+            3 => 0,
+            1 => 0,
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'entityreference_label',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
+            'weight' => 1,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_proposal_entity',
+        'entity_type' => 'node',
+        'bundle' => 'er_effort',
+        'deleted' => '0',
+      ),
+    ),
+  ),
+);
