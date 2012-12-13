@@ -185,7 +185,7 @@ class er_salary_support extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Salary-Support-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Salary-Support-template.xls");
 		return $objPHPExcel;
 	}
 	

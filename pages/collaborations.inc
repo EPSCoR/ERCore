@@ -160,7 +160,7 @@ class er_collaborations extends er_page{
 	}
 	
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Collaborations-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Collaborations-template.xls");
 		return $objPHPExcel;
 	}
 

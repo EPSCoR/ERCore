@@ -15,7 +15,7 @@ class er_excel extends er_page{
     }
     
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Report-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Report-template.xls");
 		return $objPHPExcel;
 	}
     

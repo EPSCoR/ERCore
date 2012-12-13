@@ -8,6 +8,8 @@ class er_participants extends er_page{
 		array("ethnic","field_er_race",array('American Indian or Alaskan Native', 'Native Hawaiian', 'Pacific Islander')),
 		array("disabled","field_er_disabilities",array("Hearing Impairment", "Visual Impairment", "Mobility/Orthopedic Impairment", "Other"))
 	);
+	private $ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
+		
 	private $institutions;
 
 	public function __construct() { 
@@ -27,6 +29,80 @@ class er_participants extends er_page{
 				return $value['raw']['value'];
 		}else
 			return $default;
+	}
+	
+	public function get_institution_title($nid){
+		static $titles = array();
+		if (!array_key_exists($nid, $titles)){
+			$query = db_select('node_revision', 'nr');
+			$query->addField('nr', 'title');
+			$query->condition('nr.nid', $nid, '=');
+			$result = $query->execute()->fetchAssoc();
+			$titles[$nid] = $result['title'];
+		}
+		d($titles);
+		return $titles[$nid];
+	}
+	
+	public function generate_query($count){
+		$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
+		$query = db_select('users', 'users');
+		
+		//Join with attached institutions
+		$query->innerJoin('field_data_field_er_inst_ref', 'institution', 'users.uid = institution.entity_id');
+		//Join in field: Is this institution a "participating" institution?
+		$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
+		//Join in position type
+		$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
+		
+		//only give me valid position types (not Other, or Evaluation)
+		$query->condition('position_type.field_er_position_type_value', $this->ptypes, 'IN');
+		//Institution must be "Participating"
+		$query->condition('participating.field_er_inst_participating_value', '1', '=');
+		
+		//These make the counts come out properly.
+		$query->groupBy('institution.field_er_inst_ref_target_id');
+		$query->groupBy('position_type.field_er_position_type_value');
+		
+		$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
+		$query->addField('position_type', 'field_er_position_type_value', 'position_type');
+		
+		if ($count){
+			$query->addExpression('COUNT(users.uid)', 'count');
+		}else{
+			$query->addField('users', 'uid');
+		}
+		
+		//d((string)$query);
+		return $query;
+	}
+	
+	public function sort_results($result, $count, $dbg = false){
+		$data = array();
+		$id = $count?'count':'uid';
+		while($record = $result->fetchAssoc()) {
+			$data[$record['institution_id']][$record['position_type']] = $record[$id];
+			if ($dbg) d($record);
+		}
+		return $data;
+	}
+	
+	public function data2($count = true){
+		
+		$data = array();
+		$query = $this->generate_query($count);
+		$data['Total'] = $this->sort_results($query->execute(), $count);
+		
+		foreach (array('Male', 'Female') as $val=>$label){
+			$query = $this->generate_query($count);
+			$query->innerJoin('field_data_field_er_gender', 'gender', 'users.uid = gender.entity_id');
+			$query->condition('gender.field_er_gender_value', $val, '='); //0 = Male, 1 = Female
+			$data[$label] = $this->sort_results($query->execute(), $count);
+		}
+		
+		
+		//$this->get_institution_title($inst_id);
+		return $data;
 	}
 	
 	public function data($count = true){
@@ -68,7 +144,7 @@ class er_participants extends er_page{
 			}
 			$view->execute();
 			//if ($type == 'male' || $type == 'female')
-			//	dsm($view->result, 'result');
+			//dsm($view->result, 'result');
 			//dsm($view->argument, $type);
 			//dsm($view->argument['field_er_gender_value'], $type . '- gender');
 			foreach ($view->result as $result){
@@ -81,7 +157,7 @@ class er_participants extends er_page{
 					else
 						$total[$involvement][$type] = 1;
 				}else{
-					$data[$institution][$involvement][$type][] = array('name'=>$this->tryget($result, 'field_field_er_realname', 'BLANK'), 'uid'=>$result->uid);
+					$data[$institution][$involvement][$type][] = array('name'=>$this->tryget($result, 'field_field_er_realname', $result->users_name), 'uid'=>$result->uid);
 				}
 			}
 			
@@ -131,10 +207,11 @@ class er_participants extends er_page{
 	
 	public function html(){
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-		
-		d($this->data(), 'count');
-		$data = $this->data(false);
-		d($data, 'data');
+		d($this->data2(), 'data2');
+		$data = array();
+		//d($this->data(), 'count');
+		//$data = $this->data(false);
+		//d($data, 'data');
 		//d($this->data2(), 'old data');
 		function link_map($n){
 			return l($n['name'], 'user/'.$n['uid'].'/edit');
@@ -157,6 +234,7 @@ class er_participants extends er_page{
 			}else{//handle the advisory board differently
 				$ret .= "<h1>Advisory Board(s)</h1>";
 				$ret .= "<ul>";
+				d($categories);
 				foreach ($categories['Advisory Board(s)'] as $type=>$v){
 					if (count($v)){
 						$ret .= "<li>$type:";
@@ -218,7 +296,7 @@ class er_participants extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Participants-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Participants-template.xls");
 		return $objPHPExcel;
 	}
 	

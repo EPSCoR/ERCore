@@ -236,7 +236,7 @@ class er_outputs extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Outputs-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Outputs-template.xls");
 		return $objPHPExcel;
 	}
 	

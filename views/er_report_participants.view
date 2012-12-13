@@ -1,146 +1,188 @@
 <?php
-  $view = new view();
-  $view->name = 'er_report_participants';
-  $view->description = '';
-  $view->tag = 'NSF Report';
-  $view->base_table = 'users';
-  $view->human_name = 'NSF Table Generator - Participants';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access user profiles';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: User: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'users';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: Field: Participating Institution (still testing this out) */
-  $handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['label'] = 'Institution';
-  $handler->display->display_options['fields']['field_er_inst_ref']['settings'] = array(
-    'link' => 0,
-  );
-  /* Field: User: Disabilities */
-  $handler->display->display_options['fields']['field_er_disabilities']['id'] = 'field_er_disabilities';
-  $handler->display->display_options['fields']['field_er_disabilities']['table'] = 'field_data_field_er_disabilities';
-  $handler->display->display_options['fields']['field_er_disabilities']['field'] = 'field_er_disabilities';
-  /* Field: User: Ethnicity */
-  $handler->display->display_options['fields']['field_er_ethnicity']['id'] = 'field_er_ethnicity';
-  $handler->display->display_options['fields']['field_er_ethnicity']['table'] = 'field_data_field_er_ethnicity';
-  $handler->display->display_options['fields']['field_er_ethnicity']['field'] = 'field_er_ethnicity';
-  /* Field: User: Gender */
-  $handler->display->display_options['fields']['field_er_gender']['id'] = 'field_er_gender';
-  $handler->display->display_options['fields']['field_er_gender']['table'] = 'field_data_field_er_gender';
-  $handler->display->display_options['fields']['field_er_gender']['field'] = 'field_er_gender';
-  /* Field: User: Position Type */
-  $handler->display->display_options['fields']['field_er_involvement']['id'] = 'field_er_involvement';
-  $handler->display->display_options['fields']['field_er_involvement']['table'] = 'field_data_field_er_involvement';
-  $handler->display->display_options['fields']['field_er_involvement']['field'] = 'field_er_involvement';
-  /* Field: User: Race */
-  $handler->display->display_options['fields']['field_er_race']['id'] = 'field_er_race';
-  $handler->display->display_options['fields']['field_er_race']['table'] = 'field_data_field_er_race';
-  $handler->display->display_options['fields']['field_er_race']['field'] = 'field_er_race';
-  $handler->display->display_options['fields']['field_er_race']['delta_offset'] = '0';
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['group_type'] = 'count_distinct';
-  /* Contextual filter: User: Gender (field_er_gender) */
-  $handler->display->display_options['arguments']['field_er_gender_value']['id'] = 'field_er_gender_value';
-  $handler->display->display_options['arguments']['field_er_gender_value']['table'] = 'field_data_field_er_gender';
-  $handler->display->display_options['arguments']['field_er_gender_value']['field'] = 'field_er_gender_value';
-  $handler->display->display_options['arguments']['field_er_gender_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_er_gender_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_er_gender_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_er_gender_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_er_gender_value']['limit'] = '0';
-  /* Contextual filter: User: Race (field_er_race) */
-  $handler->display->display_options['arguments']['field_er_race_value']['id'] = 'field_er_race_value';
-  $handler->display->display_options['arguments']['field_er_race_value']['table'] = 'field_data_field_er_race';
-  $handler->display->display_options['arguments']['field_er_race_value']['field'] = 'field_er_race_value';
-  $handler->display->display_options['arguments']['field_er_race_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_er_race_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_er_race_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_er_race_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_er_race_value']['limit'] = '0';
-  /* Contextual filter: User: Ethnicity (field_er_ethnicity) */
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['id'] = 'field_er_ethnicity_value';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['table'] = 'field_data_field_er_ethnicity';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['field'] = 'field_er_ethnicity_value';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_er_ethnicity_value']['limit'] = '0';
-  /* Contextual filter: User: Disabilities (field_er_disabilities) */
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['id'] = 'field_er_disabilities_value';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['table'] = 'field_data_field_er_disabilities';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['field'] = 'field_er_disabilities_value';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_er_disabilities_value']['limit'] = '0';
-  /* Filter criterion: User: Active */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'users';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Field: Participating Institution (still testing this out) (field_er_inst_ref) */
-  $handler->display->display_options['filters']['field_er_inst_ref_target_id']['id'] = 'field_er_inst_ref_target_id';
-  $handler->display->display_options['filters']['field_er_inst_ref_target_id']['table'] = 'field_data_field_er_inst_ref';
-  $handler->display->display_options['filters']['field_er_inst_ref_target_id']['field'] = 'field_er_inst_ref_target_id';
-  $handler->display->display_options['filters']['field_er_inst_ref_target_id']['operator'] = 'not empty';
-  /* Filter criterion: User: Position Type (field_er_involvement) */
-  $handler->display->display_options['filters']['field_er_involvement_value']['id'] = 'field_er_involvement_value';
-  $handler->display->display_options['filters']['field_er_involvement_value']['table'] = 'field_data_field_er_involvement';
-  $handler->display->display_options['filters']['field_er_involvement_value']['field'] = 'field_er_involvement_value';
-  $handler->display->display_options['filters']['field_er_involvement_value']['operator'] = 'not empty';
-  
-  /* Display: Attachment */
-  $handler = $view->new_display('attachment', 'Attachment', 'counts');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['group_by'] = FALSE;
-  $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Field: Participating Institution (still testing this out) */
-  $handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
-  $handler->display->display_options['fields']['field_er_inst_ref']['label'] = 'Institution';
-  $handler->display->display_options['fields']['field_er_inst_ref']['settings'] = array(
-    'link' => 0,
-  );
-  /* Field: User: Position Type */
-  $handler->display->display_options['fields']['field_er_involvement']['id'] = 'field_er_involvement';
-  $handler->display->display_options['fields']['field_er_involvement']['table'] = 'field_data_field_er_involvement';
-  $handler->display->display_options['fields']['field_er_involvement']['field'] = 'field_er_involvement';
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['group_type'] = 'count_distinct';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['separator'] = '';
+$view = new view();
+$view->name = 'er_report_participants';
+$view->description = '';
+$view->tag = 'NSF Report';
+$view->base_table = 'users';
+$view->human_name = 'NSF Table Generator - Participants';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['distinct'] = TRUE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['row_plugin'] = 'fields';
+/* Relationship: Entity Reference: Referenced Entity */
+$handler->display->display_options['relationships']['field_er_inst_ref_target_id']['id'] = 'field_er_inst_ref_target_id';
+$handler->display->display_options['relationships']['field_er_inst_ref_target_id']['table'] = 'field_data_field_er_inst_ref';
+$handler->display->display_options['relationships']['field_er_inst_ref_target_id']['field'] = 'field_er_inst_ref_target_id';
+$handler->display->display_options['relationships']['field_er_inst_ref_target_id']['required'] = TRUE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+/* Field: Field: Name of Institution */
+$handler->display->display_options['fields']['field_er_inst_name']['id'] = 'field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['table'] = 'field_data_field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['field'] = 'field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['relationship'] = 'field_er_inst_ref_target_id';
+/* Field: User: Position Type */
+$handler->display->display_options['fields']['field_er_involvement']['id'] = 'field_er_involvement';
+$handler->display->display_options['fields']['field_er_involvement']['table'] = 'field_data_field_er_involvement';
+$handler->display->display_options['fields']['field_er_involvement']['field'] = 'field_er_involvement';
+/* Contextual filter: User: Gender (field_er_gender) */
+$handler->display->display_options['arguments']['field_er_gender_value']['id'] = 'field_er_gender_value';
+$handler->display->display_options['arguments']['field_er_gender_value']['table'] = 'field_data_field_er_gender';
+$handler->display->display_options['arguments']['field_er_gender_value']['field'] = 'field_er_gender_value';
+$handler->display->display_options['arguments']['field_er_gender_value']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['field_er_gender_value']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_gender_value']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_gender_value']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['field_er_gender_value']['limit'] = '0';
+/* Contextual filter: User: Race (field_er_race) */
+$handler->display->display_options['arguments']['field_er_race_value']['id'] = 'field_er_race_value';
+$handler->display->display_options['arguments']['field_er_race_value']['table'] = 'field_data_field_er_race';
+$handler->display->display_options['arguments']['field_er_race_value']['field'] = 'field_er_race_value';
+$handler->display->display_options['arguments']['field_er_race_value']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['field_er_race_value']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_race_value']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_race_value']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['field_er_race_value']['limit'] = '0';
+$handler->display->display_options['arguments']['field_er_race_value']['break_phrase'] = TRUE;
+/* Contextual filter: User: Ethnicity (field_er_ethnicity) */
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['id'] = 'field_er_ethnicity_value';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['table'] = 'field_data_field_er_ethnicity';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['field'] = 'field_er_ethnicity_value';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['field_er_ethnicity_value']['limit'] = '0';
+/* Contextual filter: User: Disabilities (field_er_disabilities) */
+$handler->display->display_options['arguments']['field_er_disabilities_value']['id'] = 'field_er_disabilities_value';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['table'] = 'field_data_field_er_disabilities';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['field'] = 'field_er_disabilities_value';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['limit'] = '0';
+$handler->display->display_options['arguments']['field_er_disabilities_value']['break_phrase'] = TRUE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Participating (field_er_inst_participating) */
+$handler->display->display_options['filters']['field_er_inst_participating_value']['id'] = 'field_er_inst_participating_value';
+$handler->display->display_options['filters']['field_er_inst_participating_value']['table'] = 'field_data_field_er_inst_participating';
+$handler->display->display_options['filters']['field_er_inst_participating_value']['field'] = 'field_er_inst_participating_value';
+$handler->display->display_options['filters']['field_er_inst_participating_value']['relationship'] = 'field_er_inst_ref_target_id';
+$handler->display->display_options['filters']['field_er_inst_participating_value']['value'] = array(
+  1 => '1',
+);
+
+/* Display: Counts */
+$handler = $view->new_display('attachment', 'Counts', 'count');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Field: Name of Institution */
+$handler->display->display_options['fields']['field_er_inst_name']['id'] = 'field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['table'] = 'field_data_field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['field'] = 'field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['relationship'] = 'field_er_inst_ref_target_id';
+/* Field: User: Position Type */
+$handler->display->display_options['fields']['field_er_involvement']['id'] = 'field_er_involvement';
+$handler->display->display_options['fields']['field_er_involvement']['table'] = 'field_data_field_er_involvement';
+$handler->display->display_options['fields']['field_er_involvement']['field'] = 'field_er_involvement';
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['group_type'] = 'count_distinct';
+$handler->display->display_options['fields']['uid']['label'] = '';
+$handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['uid']['separator'] = '';
+
+/* Display: Advisory Board View */
+$handler = $view->new_display('attachment', 'Advisory Board View', 'advisory');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['group_column'] = 'entity_id';
+/* Field: User: Advisory Boards */
+$handler->display->display_options['fields']['field_er_committees']['id'] = 'field_er_committees';
+$handler->display->display_options['fields']['field_er_committees']['table'] = 'field_data_field_er_committees';
+$handler->display->display_options['fields']['field_er_committees']['field'] = 'field_er_committees';
+$handler->display->display_options['fields']['field_er_committees']['group_column'] = 'entity_id';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: Advisory Boards (field_er_committees) */
+$handler->display->display_options['filters']['field_er_committees_value']['id'] = 'field_er_committees_value';
+$handler->display->display_options['filters']['field_er_committees_value']['table'] = 'field_data_field_er_committees';
+$handler->display->display_options['filters']['field_er_committees_value']['field'] = 'field_er_committees_value';
+$handler->display->display_options['filters']['field_er_committees_value']['operator'] = 'not empty';
+$handler->display->display_options['filters']['field_er_committees_value']['group'] = 1;
+
+/* Display: Advisory Board Count */
+$handler = $view->new_display('attachment', 'Advisory Board Count', 'advisory_count');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['group_type'] = 'count_distinct';
+$handler->display->display_options['fields']['uid']['label'] = '';
+$handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['uid']['separator'] = '';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: Advisory Boards (field_er_committees) */
+$handler->display->display_options['filters']['field_er_committees_value']['id'] = 'field_er_committees_value';
+$handler->display->display_options['filters']['field_er_committees_value']['table'] = 'field_data_field_er_committees';
+$handler->display->display_options['filters']['field_er_committees_value']['field'] = 'field_er_committees_value';
+$handler->display->display_options['filters']['field_er_committees_value']['operator'] = 'not empty';
+$handler->display->display_options['filters']['field_er_committees_value']['group'] = 1;

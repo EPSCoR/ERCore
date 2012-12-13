@@ -105,7 +105,7 @@ class er_external_engagement extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/External-Engagement-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/External-Engagement-template.xls");
 		return $objPHPExcel;
 	}
 	

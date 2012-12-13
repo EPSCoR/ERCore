@@ -40,7 +40,7 @@ function er_init(){
 	// error_reporting(E_ALL | E_STRICT);
 	// the line below will get rid of benign "notice" messages that do not look good during a demo
 	error_reporting(E_ALL & ~E_NOTICE);
-	// ini_set("display_errors", 1);	
+	ini_set("display_errors", 1);	
 	$start_date = variable_get('er_start_date');
 	drupal_add_js('var jQueryOriginal = jQuery;','inline'); //keeps a reference to the original version of jquery.
 	drupal_add_js(ER_MODULE_DIR.'/static/js/jquery-1.8.0.min.js'); //brings in the new version...
@@ -192,6 +192,7 @@ function er_admin_paths() {
 
 //This hook replaces the original node/add page with one that separates the different types of content.
 //See also er/templates/er-content-links.tpl.php, and er/includes/theme.inc
+//Changes in this function require that you flush the menu cache.
 function er_menu_alter(&$items) {
   /*ORIGINAL DATA IN $items['node/add'] :=
 			title (String, 11 characters ) Add content
@@ -200,6 +201,7 @@ function er_menu_alter(&$items) {
 			file (String, 14 characters ) node.pages.inc
 			module (String, 4 characters ) node
 	*/
+	//d($items, 'hook_menu_alter');
 	
 	$items['node/add']['page callback'] = 'theme';
 	$items['node/add']['page arguments'] = array('er_add_core_content', array('full_view'=>true));
