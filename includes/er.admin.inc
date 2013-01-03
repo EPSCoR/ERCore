@@ -5,19 +5,25 @@
  *
  */
 function er_settings() {
+	$library = libraries_detect('PHPExcel');
+	if ($library['installed'])
+		drupal_set_message('PHPExcel library version '.$library['version'].' detected.');
+	else
+		drupal_set_message('PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.', 'error');
+	
 	//these are the default content types that show up on the list:
 	$default_types = array(//it apparently has to be weird like this in order for it to work well with variable_get...
 		////PARTICIPANTS
 		//"er_project"=>"er_project",
-		"er_book"=>"er_book",
+		//"er_book"=>"er_book",
 		"er_collaboration"=>"er_collaboration",
 		"er_proposal"=>"er_proposal",
 		"er_engagement"=>"er_engagement",
 		"er_institution"=>"er_institution",
-		"er_internet"=>"er_internet",
+		//"er_internet"=>"er_internet",
 		"er_other_product"=>"er_other_product",
 		"er_patent"=>"er_patent",
-		"er_poster"=>"er_poster",
+		//"er_poster"=>"er_poster",
 		"er_presentation"=>"er_presentation",
 		"er_publication"=>"er_publication",
 		"er_award"=>"er_award",
@@ -32,7 +38,7 @@ function er_settings() {
   $form['help_description'] = array(
     '#type' => 'item',
     '#title'=> 'Notice:',
-    '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('help documents', 'admin/help/er')))
+    '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('documentation', 'admin/help/er')))
   );
   
   $start_date = variable_get('er_start_date');
@@ -54,24 +60,24 @@ function er_settings() {
 		'#description' => t("Select the content types that you want to be displayed on the summary table. Each content type must have a corresponding view set up in order for it to be displayed in the summary table."),
 	);
 	
-    $form['er_admin_container'] = array(
-      '#type' => 'fieldset',
-      '#title' => 'Reset to default ER Setting(s)'
-    );	
-	
-	 $form['er_admin_container']['redo_checkboxes'] = array(
-		  '#type' => 'checkboxes',
-		  '#options' => drupal_map_assoc(array(t('Rules'), t('Taxonomy'), t('Fields'), t('Flags'))),
-		  '#title' => t('Setting'),
-	  );  
-  
-	  $form['er_admin_container']['redo_fields'] = array(
-	    '#type' => 'submit',
-	    '#value' => t('Reset'),
-	    '#submit' => array('er_revert'),
-	    // '#submit' => array('er_import_fields_temp'),
-	    // will submit to array('er_revert')
-	  );
+  $form['er_admin_container_reset'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Reset to default ER Setting(s)',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,      
+  );	
+
+  $form['er_admin_container_reset']['redo_checkboxes'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(array(t('Rules'), t('Taxonomy'), t('Fields'), t('Flags'), t('Permissions'))),
+    '#title' => t('Setting'),
+  );  
+
+  $form['er_admin_container_reset']['redo_fields'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset'),
+    '#submit' => array('er_revert'),
+  );	  
 	  
 	  // this below function will get deleted
 	function er_import_fields_temp($form, &$form_state){

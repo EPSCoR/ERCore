@@ -11,9 +11,13 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
-$handler->display->display_options['title'] = 'Current and Pending Support*';
+$handler->display->display_options['title'] = 'Grants and Proposals*';
 $handler->display->display_options['use_more_always'] = FALSE;
-$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  166149871 => '166149871',
+  3 => '3',
+);
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -110,11 +114,6 @@ $handler->display->display_options['fields']['field_er_user_entity_reference']['
   'link' => 1,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: Collaboration Group Title */
-$handler->display->display_options['fields']['field_er_collab_title']['id'] = 'field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['table'] = 'field_data_field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['field'] = 'field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['label'] = 'Primary Component';
 /* Field: Content: Status */
 $handler->display->display_options['fields']['field_er_proposal_status']['id'] = 'field_er_proposal_status';
 $handler->display->display_options['fields']['field_er_proposal_status']['table'] = 'field_data_field_er_proposal_status';

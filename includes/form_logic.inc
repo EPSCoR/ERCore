@@ -5,7 +5,7 @@
  */
 
 function er_form_alter(&$form, &$form_state, $form_id){
-	// d($form_id, 'form id in er_form_alter');
+	d($form_id, 'form id in er_form_alter');
 	// $blob = variable_get(drupal_private_key);
 	// $blob = variable_get(menu_options_er_publication);
 	// d($blob, 'private key blob');
@@ -44,6 +44,7 @@ function er_check_edit_permissions(&$form){
 		}
 	}
 }
+
   
  /*
  * Below are all the content types listed with their specific form_alters, as well as extra forms
@@ -233,6 +234,27 @@ function er_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id
 // Patent
 function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+	
+	//field_er_patent_licensed
+	  $patentChecked = array(
+			':input[name="field_er_patent_licensed[und]"]' => array('checked' => TRUE),
+		); 
+	  $patentUnchecked = array(
+			':input[name="field_er_patent_licensed[und]"]' => array('checked' => FALSE),
+		); 
+		  
+	//Require field_er_patent_date
+	$form['field_er_patent_date']['#states']  	  
+	  = array(
+	      'visible' => $patentChecked,
+	      'required' => $patentChecked,
+	  );
+	//Require field_er_patent_licensee
+	$form['field_er_patent_licensee']['#states']  	  
+	  = array(
+	      'visible' => $patentChecked,
+	      'required' => $patentChecked,
+	  );
 }
 
 // Poster
@@ -390,7 +412,38 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// $form['#validate'][] = '_create_inst';
 	// array_push($form['#validate'], '_create_inst');
-	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');			
+	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
+	
+	// encryption for the add/edit page of the User Profile
+	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
+	foreach ($encrypted_fields_arr as $enc_field){
+		if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'select_or_other'){
+			if ($form[$enc_field][LANGUAGE_NONE]['#multiple'] == FALSE){
+				// this is a select list for select_or_other
+				d($enc_field, "found select or other mult(false), value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']['value']}'");
+				$form[$enc_field][LANGUAGE_NONE]['#default_value']['value'] .= ' CHANGED';
+				$form[$enc_field][LANGUAGE_NONE]['#default_value']['safe_value'] .= ' CHANGED';
+			}
+			else{
+				// this has checkboxes for select_or_other
+				for ($i = 0; $i < count($form[$enc_field][LANGUAGE_NONE]['#default_value']); $i++){
+					d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$i]}'");
+				}
+				// foreach ($form[$enc_field][LANGUAGE_NONE]['#default_value'] as $val){
+					// d($val, 'val');
+					// d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$val]}'");
+				// }
+			}
+			
+		}
+		else if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'radios'){
+			
+		}
+	}
+	d($form, 'form for encryption');
+	//if (in_array($variables['element']['#field_name'], $encrypted_fields_arr)) {
+		
+	//}
 }
 
 

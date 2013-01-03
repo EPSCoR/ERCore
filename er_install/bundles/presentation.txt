@@ -107,9 +107,9 @@ $data = array(
           13 => 'node_gallery_gallery',
           14 => 'node_gallery_image',
           15 => 'webform',
-          16 => 'er_collaboration',
-          17 => 'group',
-          18 => 'post',
+          16 => 'group',
+          17 => 'post',
+          18 => 'er_collaboration',
         ),
       ),
     ),
@@ -407,31 +407,178 @@ $data = array(
         ),
       ),
     ),
+    'field_er_type_of_presentation' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Invited Speaker' => 'Invited Speaker',
+          'Presentation' => 'Presentation',
+          'Panel' => 'Panel',
+          'Poster' => 'Poster',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_type_of_presentation' => array(
+                'value' => 'field_er_type_of_presentation_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_type_of_presentation' => array(
+                'value' => 'field_er_type_of_presentation_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_type_of_presentation',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_upload_file' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 0,
+        'uri_scheme' => 'public',
+        'profile2_private' => 1,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_upload_file',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+          1 => 'er_presentation',
+        ),
+      ),
+    ),
     'field_er_user_entity_reference' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
         'target_type' => 'user',
-        'handler' => 'base',
-        'handler_submit' => 'Change handler',
+        'handler' => 'realname',
         'handler_settings' => array(
           'target_bundles' => array(),
           'sort' => array(
             'type' => 'none',
-            'property' => 'uid',
-            'field' => 'field_er_additional_doc:fid',
-            'direction' => 'ASC',
           ),
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
-            'test_field_behavior' => array(
-              'status' => 0,
-              'test_field' => 0,
-            ),
           ),
         ),
+        'handler_submit' => 'Change handler',
       ),
       'storage' => array(
         'type' => 'field_sql_storage',
@@ -497,8 +644,7 @@ $data = array(
           8 => 'er_poster',
           9 => 'er_presentation',
           10 => 'er_proposal',
-          11 => 'er_publication',
-          12 => 'er_collaboration',
+          11 => 'er_collaboration',
         ),
       ),
     ),
@@ -508,7 +654,7 @@ $data = array(
       0 => array(
         'label' => 'Abstract',
         'widget' => array(
-          'weight' => '8',
+          'weight' => '7',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -526,7 +672,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'text_default',
-            'weight' => '-7',
+            'weight' => '5',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -618,7 +764,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'text_default',
-            'weight' => '-10',
+            'weight' => '3',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -701,7 +847,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'link_default',
-            'weight' => '-9',
+            'weight' => '4',
             'settings' => array(),
             'module' => 'link',
           ),
@@ -808,7 +954,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'text_default',
-            'weight' => '-12',
+            'weight' => '0',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -831,7 +977,7 @@ $data = array(
         'widget_type' => 'date_popup',
         'description' => '',
         'widget' => array(
-          'type' => 'date_select',
+          'type' => 'date_popup',
           'weight' => '4',
           'module' => 'date',
           'active' => '1',
@@ -948,7 +1094,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '-11',
+            'weight' => '2',
             'settings' => array(
               'show_repeat_rule' => 'show',
               'multiple_number' => '',
@@ -972,14 +1118,92 @@ $data = array(
         'entity_type' => 'node',
         'bundle' => 'er_presentation',
         'deleted' => '0',
+      ),
+    ),
+    'field_er_type_of_presentation' => array(
+      0 => array(
+        'label' => 'Type of Presentation',
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '1',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
         'default_value' => NULL,
+        'field_name' => 'field_er_type_of_presentation',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_upload_file' => array(
+      0 => array(
+        'label' => 'Upload File',
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc docx',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'file_default',
+            'settings' => array(),
+            'module' => 'file',
+            'weight' => 7,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_upload_file',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
       ),
     ),
     'field_er_user_entity_reference' => array(
       0 => array(
         'label' => 'Presenter(s)',
         'widget' => array(
-          'weight' => '2',
+          'weight' => '1',
           'type' => 'entityreference_autocomplete',
           'module' => 'entityreference',
           'active' => 1,
@@ -991,16 +1215,65 @@ $data = array(
         ),
         'settings' => array(
           'behaviors' => array(
-            'test_instance_behavior' => array(
-              'status' => 0,
-              'test_instance' => 0,
-            ),
             'prepopulate' => array(
               'status' => 0,
-              'action' => 'none',
-              'fallback' => 'none',
-              'skip_perm' => '0',
             ),
+          ),
+          'nodeaccess_userreference' => array(
+            'referenced' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+              'deny_view' => 0,
+              'deny_update' => 0,
+              'deny_delete' => 0,
+            ),
+            'referenced_published' => '0',
+            'create' => array(
+              'article' => 0,
+              'page' => 0,
+              'blog' => 0,
+              'er_book' => 0,
+              'er_event' => 0,
+              'er_collaboration' => 0,
+              'er_collaborators' => 0,
+              'er_engagement' => 0,
+              'node_gallery_gallery' => 0,
+              'node_gallery_image' => 0,
+              'group' => 0,
+              'er_news' => 0,
+              'er_award' => 0,
+              'image_gallery' => 0,
+              'er_institution' => 0,
+              'er_internet' => 0,
+              'er_nsf_fastlane' => 0,
+              'er_other_product' => 0,
+              'er_patent' => 0,
+              'post' => 0,
+              'er_poster' => 0,
+              'er_presentation' => 0,
+              'er_effort' => 0,
+              'er_paid' => 0,
+              'er_proposal' => 0,
+              'er_publication' => 0,
+              'webform' => 0,
+            ),
+            'author' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+            ),
+            'author_published' => '0',
+            'all' => array(
+              'view' => 'view',
+            ),
+            'all_published' => '0',
+            'unused' => '0',
+            'views' => array(
+              'view' => '',
+              'view_args' => '',
+            ),
+            'priority' => '0',
           ),
           'user_register_form' => FALSE,
         ),
@@ -1008,9 +1281,9 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'entityreference_label',
-            'weight' => '-6',
+            'weight' => '6',
             'settings' => array(
-              'link' => FALSE,
+              'link' => 1,
             ),
             'module' => 'entityreference',
           ),

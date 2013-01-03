@@ -1,7 +1,45 @@
 <?php
-//module_load_include('php', 'er', 'builder2');
-//this is a simple view that im using to just show the content_type_info information, 
-// this is very useful when dealing with CCK
+require_once(ER_MODULE_DIR.'/er_page.inc');
+/**
+ * @file
+ * extends EntityFieldQuery, providing some useful added methods and some defaults
+ */
+class ParticipantsEFQ extends EntityFieldQuery {
+  /**
+   * define some defaults for the class
+   */
+  public function __construct() {
+    $this
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('status', 1)
+      ->propertyOrderBy('created', 'DESC');
+
+    $this->addTag('er_participants');
+  }
+}
+
+/**
+ * Implements hook_query_TAG_alter
+ *
+ * @param QueryAlterableInterface $query
+ */
+function er_query_er_participants_alter(QueryAlterableInterface $query) {
+	$query->innerJoin('field_data_field_er_inst_ref', 'i', 'users.uid = i.entity_id');
+	//$query->innerJoin('node_revision', 'nr', 'nr.nid = i.entity_id');
+	$query->groupBy('i.entity_id');
+	d((string)$query);
+  //grab the taxonomy by the existing og relationship
+  //$group = og_context_determine_context();
+  //$tid = $group->etid;
+  //$query->leftJoin('field_data_field_archive', 'a', 'node.nid = a.entity_id');
+//  if ($tid) {
+//    $or = db_or()
+//				->condition('a.field_archive_tid', array($tid), 'NOT IN')
+//				->isNull('a.field_archive_tid');
+//    $query ->condition($or);
+//  }
+}
+
 class er_debug extends er_page{
 
 	public function __construct(){
@@ -67,6 +105,60 @@ class er_debug extends er_page{
 
 
 		switch(arg(2)){
+			case 'EFQ':
+				$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
+				$query = db_select('users', 'users');
+				
+				//Join with attached institutions
+				$query->innerJoin('field_data_field_er_inst_ref', 'institution', 'users.uid = institution.entity_id');
+				//Join in field: Is this institution a "participating" institution?
+				$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
+				//Join in position type
+				$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
+				//This is used to get the title of the institution node.
+				$query->innerJoin('node_revision', 'nr', 'nr.nid = institution.field_er_inst_ref_target_id');
+				
+				$query->condition('position_type.field_er_position_type_value', $ptypes, 'IN');//only give me valid position types (not Other, or Evaluation)
+				$query->condition('participating.field_er_inst_participating_value', '1', '=');//Institution must be "Participating"
+				
+				$query->addExpression('COUNT(users.uid)', 'count');
+				//$query->addField('users', 'uid');
+				$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
+				$query->addField('position_type', 'field_er_position_type_value', 'position_type');
+				$query->addField('nr', 'title', 'institution_title');
+				
+				$query->groupBy('institution.field_er_inst_ref_target_id');
+				$query->groupBy('position_type.field_er_position_type_value');
+				
+				
+				d((string)$query);
+				$result = $query->execute();
+				db_set_active();
+				while($record = $result->fetchAssoc()) {
+					d($record);
+				}
+				
+				//require_once ER_MODULE_DIR.'/refq.inc';
+				
+				//$entity_type = 'user';
+				//$query = new EntityFieldQuery();
+				//$query->entityCondition('entity_type', $entity_type)
+				//			//->entityCondition('bundle', 'er_collaborators')
+				//			->addTag('er_participants');
+				//$result = $query->execute();
+				//d($result[$entity_type], 'result');
+				
+				
+				//$this->q = new refq();
+				//$this->q->entityCondition('entity_type', 'node')
+				//				->entityCondition('bundle', $this->type)
+				//				//->propertyCondition('status', 1)
+				//				->fieldCondition('field_er_user_reference', 'uid', rand(), '=');
+				//$results = $this->q->execute();
+				//foreach ($result['node'] as $r){
+				//	dsm($r);
+				//}
+				break;
 			case 'PHPExcel':
 				//$lib = libraries_load('PHPExcel');
 				//d($lib);
@@ -166,21 +258,6 @@ class er_debug extends er_page{
 				$results = $query->execute();
 				//dsm($results->fetchAssoc());
 				//dsm($results);
-				foreach ($results as $r){
-					dsm($r);
-				}
-				break;
-			case 'EFQ':
-				require_once ER_MODULE_DIR.'/refq.inc';
-				//$this->type = array('er_event', 'er_engagement');//'er_event';
-				$this->type = 'er_event';
-				
-				$this->q = new refq();
-				$this->q->entityCondition('entity_type', 'node')
-								->entityCondition('bundle', $this->type)
-								//->propertyCondition('status', 1)
-								->fieldCondition('field_er_user_reference', 'uid', rand(), '=');
-				$results = $this->q->execute();
 				foreach ($results as $r){
 					dsm($r);
 				}

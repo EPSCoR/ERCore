@@ -81,13 +81,7 @@ class er_page{
 	}
 	
 	protected function download_link($title = "", $arg = "", $options = array()){
-		$options += array(
-			'html'=>true,
-			'attributes' => array('title' => 'Download','class' => 'downloadButton')
-		);
-		if (!$arg) $arg = arg(1);
-		if (!$title) $title = "Download this page";
-		return l('<i class="icon-download-alt"></i>'.t($title), ER_ROOT_NAME."/$arg/download", $options);
+		return er_create_download_link($title, $arg, $options);
 	}
 	
 	/*

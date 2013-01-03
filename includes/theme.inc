@@ -34,7 +34,10 @@ function er_theme($existing, $type, $theme, $path){
 			'variables' => array('element' => NULL),
 			'function' => 'theme_er_format_custom_date'
 		),
-		
+		'er_summary_table' => array(
+			'variables' => array('ranges' => array(), 'debug'=>false),
+			'function' => 'er_summary_table'
+		),
 	);
 	return $theme;
 }

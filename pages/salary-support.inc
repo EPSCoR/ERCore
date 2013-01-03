@@ -1,4 +1,5 @@
 <?php
+require_once(ER_MODULE_DIR.'/er_page.inc');
 /*
  * Note from Andrew W. 12-10-2012:
  * This page is not working, I commented out line 28 in order to stop views from running.
@@ -185,7 +186,7 @@ class er_salary_support extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Salary-Support-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Salary-Support-template.xls");
 		return $objPHPExcel;
 	}
 	

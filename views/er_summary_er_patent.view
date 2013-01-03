@@ -45,7 +45,7 @@ $handler->display->display_options['fields']['field_er_user_entity_reference']['
 /* Field: Content: Date Issued */
 $handler->display->display_options['fields']['field_er_patent_date']['id'] = 'field_er_patent_date';
 $handler->display->display_options['fields']['field_er_patent_date']['table'] = 'field_data_field_er_patent_date';
-$handler->display->display_options['fields']['field_er_patent_date']['field'] = 'field_er_patent_date';
+$handler->display->display_options['fields']['field_er_patent_date']['field'] = 'field_er_patent_licensed';
 $handler->display->display_options['fields']['field_er_patent_date']['element_type'] = 'span';
 $handler->display->display_options['fields']['field_er_patent_date']['hide_alter_empty'] = FALSE;
 $handler->display->display_options['fields']['field_er_patent_date']['settings'] = array(

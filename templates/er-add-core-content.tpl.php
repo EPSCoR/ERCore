@@ -2,12 +2,30 @@
 $node_types = node_type_get_types(); //we can use this to get the [human readible] name of the content type 
 //dsm($node_types, 'node_types');
 //dsm($full_view, '$full_view');//variable gets passed in through theme function
+//
+// content types that appear in "ER Core" section
+//
+$core = array(
+    'er_book', 'er_event', 'er_collaboration', 'er_institution',
+    'er_internet', 'er_other_product', 'er_patent', 'er_presentation',
+    'er_proposal', 'er_publication');
+//
+// content types that appear in "Juristictional" section
+//
+$juris = array('er_news', 'er_award');
+//
+// content types currently hidden:
+//     er_collaborators, er_engagement, er_effort, er_paid
+//
+// content types soon-to-be deleted:
+//     er_nsf_fastlane, er_poster
+//
 
-$core = array('er_institution', 'er_proposal', 'er_patent', 'er_other_product', 'er_nsf_fastlane', 'er_publication', 'er_poster', 'er_presentation', 'er_book', 'er_internet'/*, 'er_news'*/, 'er_engagement', 'er_collaboration', 'er_event', 'er_paid');
 $links = array(
   "Drupal Content"=>array(),
   "ER Core"=>array(),
   "Juristictional"=>array(),
+  "Currently Hidden [debugging display]"=>array(),
 );
 //dsm(array_keys($node_types));
 $types = array_keys($node_types);
@@ -17,12 +35,22 @@ function cmp($a, $b){
 }
 usort($nodes, "cmp");//sort the cts in alpha order.
 foreach ($nodes as $n){
-  if (substr($n->type, 0, 3) != 'er_')//everything that doesn't start with 'er_'
-    $links['Drupal Content'][] = $n->type;
-  else if (in_array($n->type, $core)){//need to do this in order to get them in alpha order...
-    $links["ER Core"][] = $n->type;
-  }else{
-    $links['Juristictional'][] = $n->type;//if it has 'er_' but isn't part of core, add that into the juristictional section
+    if (substr($n->type, 0, 3) != 'er_') {
+         // everything that doesn't start with 'er_' goes in first section
+        $links['Drupal Content'][] = $n->type;
+
+    }else if (in_array($n->type, $core)) {
+        // types in $core go in second section
+        // need to do this in order to get them in alpha order...
+        $links["ER Core"][] = $n->type;
+
+    }else if (in_array($n->type, $juris)) {
+        // types in $juris go in third section
+        $links['Juristictional'][] = $n->type;
+
+    }else{
+//        // for debugging, list those that are hidden
+        $links['Currently Hidden [debugging display]'][] = $n->type;
   }
   //dsm($type);
 }

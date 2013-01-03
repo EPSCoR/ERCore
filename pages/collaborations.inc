@@ -1,4 +1,5 @@
 <?php
+require_once(ER_MODULE_DIR.'/er_page.inc');
 //I'm going to use this file to collect the other excel functions, so they all modify the same excel sheet.
 //This system currently assumes that there are "pages" linked into the er module using the names stored in $sheets
 class er_collaborations extends er_page{
@@ -160,7 +161,7 @@ class er_collaborations extends er_page{
 	}
 	
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Collaborations-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Collaborations-template.xls");
 		return $objPHPExcel;
 	}
 

@@ -36,3 +36,5 @@ dependencies[] = page_manager
 dependencies[] = views_content
 dependencies[] = views_data_export
 dependencies[] = libraries
+dependencies[] = field_permissions
+dependencies[] = nodeaccess_userreference

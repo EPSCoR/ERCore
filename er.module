@@ -19,17 +19,12 @@ require_once ER_MODULE_DIR . '/includes/theme.inc';
 require_once ER_MODULE_DIR . '/includes/views.inc';
 require_once ER_MODULE_DIR . '/includes/blocks.inc';
 
+//This handles the accomplishments table...
+require_once ER_MODULE_DIR . '/includes/accomplishments.inc';
+
 //IMPORTANT NOTE FROM module_load_include DOCUMENTATION:
 //Do not use this function in a global context since it requires Drupal to be fully bootstrapped,
 // use require_once DRUPAL_ROOT . '/path/file' instead.
-
-// Include form alters and other custom overrides
-//module_load_include('inc', 'er', 'includes/overrides');
-//module_load_include('inc', 'er', 'includes/mike');
-//module_load_include('inc', 'er', 'includes/blocks');
-//module_load_include('inc', 'er', 'includes/theme');
-
-//echo dirname(__FILE__); // == "/web/1/www.hawaii.edu/drupalc/sites/web41.its.hawaii.edu.www.epscor.hawaii.edu/modules/er"
 
 /*******************************************************************************
  * Hook Functions (Drupal)
@@ -40,11 +35,11 @@ function er_init(){
 	// error_reporting(E_ALL | E_STRICT);
 	// the line below will get rid of benign "notice" messages that do not look good during a demo
 	error_reporting(E_ALL & ~E_NOTICE);
-	// ini_set("display_errors", 1);	
+	ini_set("display_errors", 1);	
 	$start_date = variable_get('er_start_date');
-	drupal_add_js('var jQueryOriginal = jQuery;','inline'); //keeps a reference to the original version of jquery.
-	drupal_add_js(ER_MODULE_DIR.'/static/js/jquery-1.8.0.min.js'); //brings in the new version...
-	drupal_add_js('var jQueryNew = jQuery.noConflict(), jQuery = jQueryOriginal;', 'inline'); //sets up jQueryNew, and restores the jQuery variable to the old version.
+	//drupal_add_js('var jQueryOriginal = jQuery;','inline'); //keeps a reference to the original version of jquery.
+	//drupal_add_js(ER_MODULE_DIR.'/static/js/jquery-1.8.0.min.js'); //brings in the new version...
+	//drupal_add_js('var jQueryNew = jQuery.noConflict(), jQuery = jQueryOriginal;', 'inline'); //sets up jQueryNew, and restores the jQuery variable to the old version.
 	drupal_add_js(array('er'=>array('start_date'=>mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']))), 'setting'); //tells javascript about the start date of the grant.
 	drupal_add_js(ER_MODULE_DIR.'/static/js/custom.js'); 
 	drupal_add_css(ER_MODULE_DIR.'/static/css/er.css'); //adds some module specific themeing...
@@ -129,7 +124,7 @@ function er_menu() {
 	$items[ER_ROOT_NAME] = array(
 		'title' => 'Accomplishments',
 		'description' => 'Overview of reporting data',
-		'page callback' => 'er_page',
+		'page callback' => 'er_accomplishments',
 		//'page arguments' => array('summary'),
 		'access arguments' => array(ER_ACCESS_PERMISSION),
 		'type' => MENU_NORMAL_ITEM,
@@ -192,6 +187,7 @@ function er_admin_paths() {
 
 //This hook replaces the original node/add page with one that separates the different types of content.
 //See also er/templates/er-content-links.tpl.php, and er/includes/theme.inc
+//Changes in this function require that you flush the menu cache.
 function er_menu_alter(&$items) {
   /*ORIGINAL DATA IN $items['node/add'] :=
 			title (String, 11 characters ) Add content
@@ -200,6 +196,7 @@ function er_menu_alter(&$items) {
 			file (String, 14 characters ) node.pages.inc
 			module (String, 4 characters ) node
 	*/
+	//d($items, 'hook_menu_alter');
 	
 	$items['node/add']['page callback'] = 'theme';
 	$items['node/add']['page arguments'] = array('er_add_core_content', array('full_view'=>true));
@@ -221,7 +218,7 @@ function er_load_page($arg){
 }
 
 //this handles page loading, it uses er_load_page to retrieve the page object which is used to display the page.
-function er_page($arg = "summary") {
+function er_page($arg) {
 	//dsm($arg, 'loading page');
 	if($page = er_load_page($arg)){
 		// Set the title of the page. the drupal_set_title function takes care
@@ -267,10 +264,24 @@ function er_page_download($arg) {
 * See also: http://drupalcontrib.org/api/drupal/contributions--ctools--ctools.api.php/function/hook_ctools_plugin_directory/6
 */ 
 function er_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools' || $module == 'panels') {
+  if ($module == 'ctools' || $module == 'panels' || $module == 'entityreference') {
     return 'plugins/' . $plugin;
   }
 }
+
+///**
+// * Implements hook_ctools_plugin_type().
+// */
+//function er_ctools_plugin_type() {
+//  $plugins['selection'] = array(
+//    'classes' => array('class'),
+//  );
+//  //$plugins['behavior'] = array(
+//  //  'classes' => array('class'),
+//  //  'process' => 'entityreference_behavior_plugin_process',
+//  //);
+//  return $plugins;
+//}
 
 /**
  * Implements hook_ctools_plugin_api().
@@ -367,6 +378,7 @@ function list_cts_having_field($fieldname, $suffix = ''){
 	return $ret;	
 }
 
+/* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
 function er_revert($form, &$form_state){
 /* The order of this install is as such:
 
@@ -399,7 +411,99 @@ function er_revert($form, &$form_state){
 		// d('you checked Rules');
 		er_import_rules();
 	}
+	
+	if ($form_state['values']['redo_checkboxes']['Permissions'] !== 0){	
+		// Reset permissions
+		// d('you checked Permissions');
+		er_import_perms();
+		drupal_set_message('Roles and permissions have been reset.');
+	}
 		
+}
+
+/* this function is called from er.admin.inc when they reset the permissions */
+function er_import_perms(){
+	$er_roles = array('student', 'administrative staff', 'faculty');
+	// these are the two dumps from phpMyAdmin, by including them, 
+	//   we load the arrays ($role_permission and $role) and can use them
+	$perms_path = drupal_get_path('module', 'er') . '/er_install/roles_perms/';
+	include $perms_path . 'role.php';
+	include $perms_path . 'role_permission.php';
+
+	foreach ($er_roles as $er_role){
+		// note: searchRIDdb and searchRIDfile are defined in this same file, not API calls
+		if (!is_null($student_rid = searchRIDdb($er_role))){
+			// Remove role, this is a Drupal API call 
+			// http://api.drupal.org/api/drupal/modules!user!user.module/function/user_role_delete/7
+			user_role_delete($er_role);
+			watchdog('er', 'Deleted existing role '.$er_role);
+		}
+		
+		// find indexes for permissions involving role
+		$ridArr = array();	
+		foreach ($role_permission as $row){
+			$ridArr[] = $row['rid'];
+		}
+	
+		// find out RID from database
+		$ridIdx = searchRIDfile($role, $er_role);
+		$rid = $role[$ridIdx]['rid'];
+		
+		$justIdx = array_keys($ridArr, $rid);
+		
+		// create role, remember we deleted it if it existed earlier
+		$newrole = new stdClass();
+		$newrole->name = $er_role;
+		user_role_save($newrole);		
+		
+		// Role to grant the permissions to
+		$newrole = user_role_load_by_name($er_role);
+		$newrole_rid = $newrole->rid;
+		// Define our $er_role role permissions
+		$array_perms = array();
+		// Grant permissions to our $er_role role		
+		// loop through all of those indexes, telling what permissions they are		
+		
+		foreach ($justIdx as $idx){
+			// This next call has to do with avoiding a Fatal Error when you try to add a permission
+			//	that's not associated with an enabled module.		
+			// see http://drupal.org/node/737816 and http://drupal.org/node/1249952 for more info	
+			$modules = user_permission_get_modules();
+			if (!is_null($modules[$role_permission[$idx]['permission']])){
+				// there is an enabled/recognized module associated with this permission
+				$array_perms[] = $role_permission[$idx]['permission'];
+			}
+		}
+		
+		// Add that array of permissions to the role. a Drupal API call
+		user_role_grant_permissions($newrole_rid, $array_perms);
+		watchdog('er', 'Created and granted permissions to role '.$er_role);			
+	}	
+}
+
+function searchRIDdb($name){
+	$result = db_query("SELECT rid, name FROM {role} WHERE name = :name", array(
+	  ':name' => $name,
+	));
+	$rid = $result->fetchAll();
+	if (empty($rid)){
+		// d($name . ' does not exist.');
+		return NULL;
+	}		
+	else {
+		$rid = $rid[0]->rid;
+		// d($rid, $name . ' exists as ');
+		return $rid;
+	}	
+}
+
+function searchRIDfile($array, $name) {
+   foreach ($array as $key => $val) {
+       if ($val['name'] === $name) {
+           return $key;
+       }
+   }
+   return null;
 }
 
 function er_import_rules(){
@@ -522,4 +626,61 @@ function er_import_taxonomy(){
 	} else {
 		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
 	}	
+}
+
+/*
+ * Generates a nested array of date ranges corresponding to the start and end of a valid reporting period.
+ * This is used primarily on the summary table.
+ */
+function er_get_reporting_ranges($everything = false){
+	static $ranges = array();
+	if (!$everything && $range = er_get_reporting_range()){
+		return array($range);
+	}else if(!count($ranges)){//only need to do this once.
+		//provide the default ranges
+		//this code takes the start date provided in er.module file, and creates an array of date ranges.
+		//it is assumed that the reporting periods start with whatever month the grant was awarded on.
+		$start_date = variable_get('er_start_date');
+		//dsm(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']));
+		$cur_month = date('n');
+		$start_month = $start_date['month'];
+		$adjusted_date = mktime(0, 0, 0, $cur_month-$start_month+7);//+half a year into the future (6) +1 offset
+		//$adjusted_date = mktime(0, 0, 0, $cur_month+6);
+		$cur_year = date('Y', $adjusted_date);
+		$start_year = $start_date['year'];
+		for ($y = $cur_year; $y>=$start_year;$y--){
+			if ($y == $start_year)
+				$ranges[] = Array(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']), mktime(0, 0, 0, $start_month, 0, $y+1));
+			else
+				$ranges[] = Array(mktime(0, 0, 0, $start_month, 1, $y), mktime(0, 0, 0, $start_month, 0, $y+1));
+			//self::$ranges[] = Array(($y-1)."-09-00", $y."-08-31");
+		}
+	}
+	return $ranges;
+}
+
+/*
+ * Generates a nested array of date ranges corresponding to the start and end of a valid reporting period.
+ * This is used primarily on the summary table.
+ */
+function er_get_reporting_range(){
+	drupal_session_start();
+	if (array_key_exists('er_start_date', $_SESSION) && array_key_exists('er_end_date', $_SESSION)){
+		return array($_SESSION['er_start_date'], $_SESSION['er_end_date']);
+	}else
+		return false;
+}
+
+/*
+ * This helper function creates a download hyperlink themed with our little download icon, this is used in er_page.inc.
+ * Broke this out of er_page class because it's now also being used in theme.inc.
+ */
+function er_create_download_link($label = "", $arg = "", $options = array()){
+	$options += array(
+		'html'=>true,
+		'attributes' => array('title' => 'Download','class' => 'downloadButton')
+	);
+	if (!$arg) $arg = arg(1);
+	if (!$label) $label = "Download this page";
+	return l('<i class="icon-download-alt"></i>'.t($label), ER_ROOT_NAME."/$arg/download", $options);
 }

@@ -1,8 +1,15 @@
 <?php
 function er_install(){
-	$form = array();
-	$form_state = array();
-	er_import_fields($form, $form_state);
+	// $form = array();
+	// $form_state = array();
+	// er_import_fields($form, $form_state);
+	
+	er_import_taxonomy();
+	er_import_fields();	
+	er_import_flags();
+	er_import_rules();	
+	er_import_perms();
+	
 /* The order of this install is as such:
 
 	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types

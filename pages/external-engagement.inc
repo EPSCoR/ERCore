@@ -1,4 +1,5 @@
 <?php
+require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_external_engagement extends er_page{
 	private $cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");
 	private $rows = array("total", "male", "female", "und", "urm");
@@ -105,7 +106,7 @@ class er_external_engagement extends er_page{
 	}
 
 	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/External-Engagement-template.xls");
+		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/External-Engagement-template.xls");
 		return $objPHPExcel;
 	}
 	

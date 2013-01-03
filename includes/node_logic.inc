@@ -2,17 +2,57 @@
 //function er_node_view_alter(&$build){
 //	dsm($build, 'hook_node_view_alter');
 //}
-function er_node_load($nodes, $types){
-	//dsm($nodes, 'called all the time');
-	//THIS IS JUST DEBUGGING CODE, CAN BE REMOVED:
-	//foreach ($nodes as $node){
-	//	if ($node->type == 'er_proposal')
-	//		er_manage_cnp_extra_nodes($node, 'view');
-	//}
+
+// function er_field_display_user_alter(&$display, $context){
+	// $d($context, 'context in er_field_display_alter');
+// }
+
+// http://api.drupal.org/api/drupal/modules!field!field.module/function/template_preprocess_field/7
+function er_preprocess_field(&$variables) {
+	// d($variables, 'variables');
+	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
+	if (in_array($variables['element']['#field_name'], $encrypted_fields_arr)) {
+		if (function_exists('encrypt')){
+			$variables['encrypted'] = encrypt($variables['element']['#field_name']);
+		}
+		
+		d($variables, "variables for {$variables['element']['#field_name']}");
+		// if($variables['items']['0']['#markup'] == 'thedefaultvalue') {
+			$variables['items']['0']['#markup'] .= ' ALTERED';
+		// }
+	}
 }
 
+// function er_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
+	// d($items, 'items in er_field_prepare_view');
+	// // var_dump($items);
+  // // Remove files specified to not be displayed.
+  // // foreach ($entities as $id => $entity) {
+    // // foreach ($items[$id] as $delta => $item) {
+      // // if (!file_field_displayed($item, $field)) {
+        // // unset($items[$id][$delta]);
+      // // }
+    // // }
+    // // // Ensure consecutive deltas.
+    // // $items[$id] = array_values($items[$id]);
+  // // }
+// }
+
+// function er_load($nodes){
+	// dsm($nodes, 'nodes in er_load');
+// }
+
+// function er_node_load($nodes, $types){
+	// d($nodes, 'called all the time');
+	// //THIS IS JUST DEBUGGING CODE, CAN BE REMOVED:
+	// //foreach ($nodes as $node){
+	// //	if ($node->type == 'er_proposal')
+	// //		er_manage_cnp_extra_nodes($node, 'view');
+	// //}
+// }
+
 function er_node_view($node, $view_mode, $langcode){
-	//d($node, 'node in er_node_view');
+	// d($node, 'node in er_node_view');
 	
 	// $additional_fields = 'my add';
   // $node->content['my_additional_field'] = array(
@@ -103,6 +143,10 @@ function er_node_presave($node){
 			_manage_ee_nodes($node, 'presave');
 			break;
 	}
+}
+
+function er_validate($entity){
+	d($node, 'validate');
 }
 
 function er_node_validate($node){
@@ -561,3 +605,63 @@ function er_check_cnp_status($nid){
 	}
 }
 */
+
+/**
+ * Implements hook_user_view().
+ * The user's account information is being displayed.
+ */
+function er_user_view($account, $view_mode, $langcode) {
+	//d($account, '$account');
+	//d($view_mode, '$view_mode');
+	//d($langcode, '$langcode');
+}
+
+/**
+ * Implements hook_user_view_alter().
+ * The user was built; the module may modify the structured content.
+ */
+function er_user_view_alter(&$build) {
+	global $user;
+	unset($build['flags']);//hide the flags, don't need it here.
+	if (isset($user->roles[3])){//user is admin
+		$roles = user_roles();//3 == admin, 2 == authenticated, 1 == anonymous
+		$user_defined = $roles;
+		unset($user_defined[3], $user_defined[2], $user_defined[1]);
+		$role_perms = user_role_permissions($roles);
+		//d($role_perms, '$role_perms');
+		foreach ($build as $field_name=>$field){
+			if (is_array($field) && array_key_exists('#field_name', $field)){//then this is actually a field and not just some other setting.
+				//d($field['#field_name'], '$field[\'#field_name\']');
+				$field_info = field_info_field($field['#field_name']);
+				//d($field_info, $field['#field_name']);
+				if (isset($field_info['field_permissions']) && $field_info['field_permissions']['type'] != FIELD_PERMISSIONS_PUBLIC){
+					//check permissions per role:
+					//Note: It is assumed that Admin role can see everything.
+					$class = array();
+					$view_perm = 'view '.$field['#field_name'];
+					if (array_key_exists($view_perm,  $role_perms[1]))//anonymous
+						$class["anon"] = 'pill-important';
+					if (array_key_exists($view_perm,  $role_perms[2]))//authenticated
+						$class["auth"] = 'pill-warning';
+					foreach ($user_defined as $role_id=>$label){
+						if (array_key_exists($view_perm,  $role_perms[$role_id]))//authenticated
+							$class[$label] = 'pill-info';
+					}
+				}else{//if field permissions are not set, then the field is automatically public.
+					$class = array("public"=>'');
+				}
+				$badges = '';
+				foreach ($class as $label=>$color){
+					$badges .= '<div class="pill '.$color.'" style="float:right;margin-top:2px;">'.$label.'</div>';
+				}
+				//if ($badges) $badges .= '<br>';
+				$build[$field_name]['#prefix'] = $badges . '<div style="border-bottom:1px dotted #ddd">';
+				$build[$field_name]['#suffix'] = '</div>';
+				//d(user_access('view field er disabilities'));
+				
+			}
+		}
+		//d($build, '$build');
+		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
+	}
+}

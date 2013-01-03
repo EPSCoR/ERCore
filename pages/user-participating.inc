@@ -1,4 +1,5 @@
 <?php
+require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_user_participating extends er_page{
 
 	public function __construct() { 

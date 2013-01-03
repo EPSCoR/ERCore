@@ -130,7 +130,7 @@ function theme_er_profile_related_content($options){
     
   $node_types = node_type_get_types();
   foreach ($nodes as $type=>$data){
-    $content .= '<h2>'. $node_types[$type]->name . '</h2>';
+    //$content .= '<h2 class="title">'. $node_types[$type]->name . '</h2>';
     $items = array();
     foreach ($data as $node){
       $d = array_pop(module_invoke_all('related_content_'.$type.'_item_theme', $node, $show_links));
@@ -143,7 +143,7 @@ function theme_er_profile_related_content($options){
     }
     $content .= theme_item_list(array(
       'items' => $items,
-      'title' => '',//$node_types[$type]->name,
+      'title' => $node_types[$type]->name,
       'type' => 'ul',
       'attributes' => array(
           'class' => 'related_content_'.$type,

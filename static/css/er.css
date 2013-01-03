@@ -47,6 +47,17 @@ nav.full .item-list{
     margin-bottom: 40px;
 }
 
+/*
+ * This is used on the summary table to change the look of the date range form.
+ */
+.fake-inline .container-inline-date{
+    display: inline;
+}
+
+.fake-inline input[type="submit"]{
+    margin-top: 50px;
+}
+
 
 /* this is to compact the form
 form#user-profile-form .form-type-textfield label {

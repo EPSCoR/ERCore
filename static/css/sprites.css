@@ -437,3 +437,94 @@
 .icon-fullscreen {
   background-position: -456px -144px;
 }
+
+
+.tag,
+.pill {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #999999;
+}
+
+.tag {
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+
+.pill {
+  padding-right: 9px;
+  padding-left: 9px;
+  -webkit-border-radius: 9px;
+     -moz-border-radius: 9px;
+          border-radius: 9px;
+}
+
+.tag:empty,
+.pill:empty {
+  display: none;
+}
+
+a.tag:hover,
+a.pill:hover {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tag-important,
+.pill-important {
+  background-color: #b94a48;
+}
+
+.tag-important[href],
+.pill-important[href] {
+  background-color: #953b39;
+}
+
+.tag-warning,
+.pill-warning {
+  background-color: #f89406;
+}
+
+.tag-warning[href],
+.pill-warning[href] {
+  background-color: #c67605;
+}
+
+.tag-success,
+.pill-success {
+  background-color: #468847;
+}
+
+.tag-success[href],
+.pill-success[href] {
+  background-color: #356635;
+}
+
+.tag-info,
+.pill-info {
+  background-color: #3a87ad;
+}
+
+.tag-info[href],
+.pill-info[href] {
+  background-color: #2d6987;
+}
+
+.tag-inverse,
+.pill-inverse {
+  background-color: #333333;
+}
+
+.tag-inverse[href],
+.pill-inverse[href] {
+  background-color: #1a1a1a;
+}
