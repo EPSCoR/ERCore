@@ -1,0 +1,17 @@
+{ "rules_er_receive_data_notifications_unflagged" : {
+    "LABEL" : "User un-flagged for receiving data notifications",
+    "PLUGIN" : "reaction rule",
+    "REQUIRES" : [ "php", "rules", "flag" ],
+    "ON" : [ "flag_unflagged_er_receive_data_notifications" ],
+    "DO" : [
+      { "php_eval" : { "code" : "$addrs = variable_get(\u0027er_notification_email_addr\u0027);\u000D\u000Aif (isset($addrs[$flagged_user-\u003Euid])) unset($addrs[$flagged_user-\u003Euid]);\u000D\u000Avariable_set(\u0027er_notification_email_addr\u0027, $addrs);" } },
+      { "mail" : {
+          "to" : "\u003C?php\u000D\u000Aforeach (variable_get(\u0027er_notification_email_addr\u0027) as $uid=\u003E$mail){\u000D\u000A  echo $mail . \u0027, \u0027;\u000D\u000A}\u000D\u000A?\u003E",
+          "subject" : "Data collection notification",
+          "message" : "A user will NO LONGER be receiving notifications when content is flagged for \u0022content collection\u0022.\u000D\u000AUser: [flagged-user:name]\u000D\u000ASee: [flagged-user:url]",
+          "language" : [ "" ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{ "rules_er_urgent_review_flag" : {
+    "LABEL" : "Urgent content Institution flagged",
+    "PLUGIN" : "reaction rule",
+    "REQUIRES" : [ "rules", "flag" ],
+    "ON" : [ "flag_flagged_er_needs_review_urgent" ],
+    "DO" : [
+      { "mail" : {
+          "to" : "mikedotexe@gmail.com",
+          "subject" : "(Urgent) EPSCoR review needed of Institution [flagged-node:field-er-inst-name]",
+          "message" : "A new institution has been created by a new user sign-up.\u000D\u000AThis institution will not appear on the list until it is unflagged from being \u0022URGENT\u0022.\u000D\u000A\u000D\u000AThe immediate action needed is to confirm the existence of this institution. You may clear the \u0022URGENT\u0022 status here:\u000D\u000A[flagged-node:url]\u000D\u000A\u000D\u000A- EPSCoR Automated Message",
+          "language" : [ "" ]
+        }
+      }
+    ]
+  }
+}

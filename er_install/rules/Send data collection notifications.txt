@@ -1,0 +1,15 @@
+{ "rules_er_send_data_collection_notifications" : {
+    "LABEL" : "Send data collection notifications",
+    "PLUGIN" : "reaction rule",
+    "REQUIRES" : [ "php", "rules", "flag" ],
+    "ON" : [ "flag_flagged_er_collecting_data" ],
+    "DO" : [
+      { "mail" : {
+          "to" : "\u003C?php\u000D\u000Aforeach (variable_get(\u0027er_notification_email_addr\u0027) as $uid=\u003E$mail){\u000D\u000A  echo $mail . \u0027, \u0027;\u000D\u000A}\u000D\u000A?\u003E",
+          "subject" : "Data collection notification",
+          "message" : "New content has been flagged for \u0022content collection\u0022.\u000D\u000ATitle: [flagged-node:title]\u000D\u000ASee: [flagged-node:url]"
+        }
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@
  */
 
 function er_form_alter(&$form, &$form_state, $form_id){
-	d($form_id, 'form id in er_form_alter');
+	// d($form_id, 'form id in er_form_alter');
 	// $blob = variable_get(drupal_private_key);
 	// $blob = variable_get(menu_options_er_publication);
 	// d($blob, 'private key blob');
@@ -420,14 +420,26 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'select_or_other'){
 			if ($form[$enc_field][LANGUAGE_NONE]['#multiple'] == FALSE){
 				// this is a select list for select_or_other
-				d($enc_field, "found select or other mult(false), value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']['value']}'");
-				$form[$enc_field][LANGUAGE_NONE]['#default_value']['value'] .= ' CHANGED';
-				$form[$enc_field][LANGUAGE_NONE]['#default_value']['safe_value'] .= ' CHANGED';
+				$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value']['value'];
+				// d($enc_field, "found select or other mult(false), value is '$val'");
+				// d($enc_field, "found select or other mult(false), value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']['value']}'");
+				// $form[$enc_field][LANGUAGE_NONE]['#default_value']['value'] .= ' CHANGED';
+				// $form[$enc_field][LANGUAGE_NONE]['#default_value']['safe_value'] .= ' CHANGED';
+				if (is_serialized($val) && function_exists('decrypt')){
+					// this field is encrypted and can be decrypted
+					$val = decrypt($val);
+				}
 			}
 			else{
 				// this has checkboxes for select_or_other
 				for ($i = 0; $i < count($form[$enc_field][LANGUAGE_NONE]['#default_value']); $i++){
-					d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$i]}'");
+					$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value'][$i];
+					// d($enc_field, "found select or other, value is '$val'");
+					// d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$i]}'");
+					if (is_serialized($val) && function_exists('decrypt')){
+						// this field is encrypted and can be decrypted
+						$val = decrypt($val);
+					}					
 				}
 				// foreach ($form[$enc_field][LANGUAGE_NONE]['#default_value'] as $val){
 					// d($val, 'val');
@@ -437,13 +449,61 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 			
 		}
 		else if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'radios'){
-			
+			$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value'];
+			// d($enc_field, "found radios, value is '$val'");
+			// d($enc_field, "found radios, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']}'");
+			if (is_serialized($val) && function_exists('decrypt')){
+				// this field is encrypted and can be decrypted
+				$val = decrypt($val);
+			}			
 		}
 	}
+	// add encrypt function to the end of the #submit array
+	array_push($form['#validate'], '_encrypt_user_fields');
+	// array_push($form['#submit'], '_encrypt_user_fields');
 	d($form, 'form for encryption');
+	// debug($form_state, '$form_state in form alter', TRUE);
 	//if (in_array($variables['element']['#field_name'], $encrypted_fields_arr)) {
 		
 	//}
+}
+
+/* created by Mike and called from er_form_user_profile_form_alter */
+
+function _encrypt_user_fields(&$form, &$form_state){
+	// debug($form_state, '$form_state in submit', TRUE);
+	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
+	// d($form_state, 'form state in encrypt function');
+	// $form['field_er_gender'][LANGUAGE_NONE]['#value'] = 1;
+	// $form['field_er_gender'][LANGUAGE_NONE]['#entity']->field_er_gender[LANGUAGE_NONE][0]['value'] = 1;
+	// d($form['field_er_gender'], 'form in encrypt function');
+	// $form_state['values']['field_er_gender'][LANGUAGE_NONE][0]['value'] = 1;
+	// d($form_state['values']['field_er_gender'], 'field_er_gender');
+	// $form_state['complete form']['field_er_gender'][LANGUAGE_NONE][0]['value'] = 1;
+	// form_set_value($form['field_er_gender'], array('und' => array(0 => array('value' => 1))), $form_state);
+
+	$form['field_er_fname']['#parents'] = array('field_er_fname');
+	form_set_value($form['field_er_fname'], array(LANGUAGE_NONE => array(0 => array('value' => 'changed'))), $form_state);
+	// debug($form_state['complete form'], 'complete form', TRUE);
+	// debug($form_state['complete form'], 'complete form', TRUE);
+	
+	// dsm($form_state, 'form state');
+	// d('where');
+	
+	// var_dump($form_state);
+	
+}
+
+/* This is a function that assists in checking whether a field's value is encrypted or not */
+
+function is_serialized($val){
+	$data = @unserialize($val);
+	if ($val === 'b:0;' || $data !== false) {
+	    return TRUE;
+	} else {
+	    return FALSE;
+	}	
+	
 }
 
 
