@@ -57,6 +57,7 @@ function er_init(){
  * @return help text for the path
  */
 function er_help($path, $arg) {
+	// this hooks into the documentation for ER Core
 	//$output = '<p>'.	t("er is a simple module to test functions and pages in Drupal");
 	//	The line above outputs in ALL admin/module pages
 	$output = '';
