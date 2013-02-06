@@ -1,4 +1,5 @@
 <?php
+// this comment
 define('ER_DEBUG_EXCEL', 0); //Change this to True (1) in order to debug the excel downloads.
 
 define('ER_ADMIN_PERMISSION','administer er');
