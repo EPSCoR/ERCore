@@ -6,8 +6,8 @@ $node_types = node_type_get_types(); //we can use this to get the [human readibl
 // content types that appear in "ER Core" section
 //
 $core = array(
-    'er_book', 'er_event', 'er_collaboration', 'er_institution',
-    'er_internet', 'er_other_product', 'er_patent', 'er_presentation',
+    'er_event', 'er_collaboration', 'er_institution',
+    'er_other_product', 'er_patent', 'er_presentation',
     'er_proposal', 'er_publication');
 //
 // content types that appear in "Juristictional" section
@@ -18,14 +18,14 @@ $juris = array('er_news', 'er_award');
 //     er_collaborators, er_engagement, er_effort, er_paid
 //
 // content types soon-to-be deleted:
-//     er_nsf_fastlane, er_poster
+//     er_nsf_fastlane, er_poster, er_book, er_internet
 //
 
 $links = array(
   "Drupal Content"=>array(),
-  "ER Core"=>array(),
+  "EPSCoR Reporting Categories"=>array(),//changed from "ERCore" to "EPSCoR Reporting Categories" per admin direction
   "Juristictional"=>array(),
-  "Currently Hidden [debugging display]"=>array(),
+//  "Currently Hidden [debugging display]"=>array(),
 );
 //dsm(array_keys($node_types));
 $types = array_keys($node_types);
@@ -42,15 +42,15 @@ foreach ($nodes as $n){
     }else if (in_array($n->type, $core)) {
         // types in $core go in second section
         // need to do this in order to get them in alpha order...
-        $links["ER Core"][] = $n->type;
+        $links["EPSCoR Reporting Categories"][] = $n->type;
 
     }else if (in_array($n->type, $juris)) {
         // types in $juris go in third section
         $links['Juristictional'][] = $n->type;
 
-    }else{
+//    }else{
 //        // for debugging, list those that are hidden
-        $links['Currently Hidden [debugging display]'][] = $n->type;
+//        $links['Currently Hidden [debugging display]'][] = $n->type;
   }
   //dsm($type);
 }

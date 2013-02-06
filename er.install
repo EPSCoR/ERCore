@@ -4,6 +4,10 @@ function er_install(){
 	// $form_state = array();
 	// er_import_fields($form, $form_state);
 	
+	//Set up some default values; these are used on the summary table. see er.admin.inc
+	variable_set('er_summary_types', array());//
+	variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));
+	
 	er_import_taxonomy();
 	er_import_fields();	
 	er_import_flags();

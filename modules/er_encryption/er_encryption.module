@@ -1,0 +1,113 @@
+<?php
+
+function er_encryption_form_user_profile_form_alter(&$form, &$form_state, $form_id){
+	
+	// $query = db_select('node_type', 'u')
+	  // ->condition('u.orig_type', 'er_', 'LIKE')
+	  // ->fields('u', array('disabled', 'name'));
+// 	  
+	// $result = $query->execute();
+	// dsm($result, 'dsm the result');
+	// dpq($query, 'dpq the query');
+
+	// encryption for the add/edit page of the User Profile
+	
+	// The reason wny the rest of this code isn't wrapped in an if statment
+	// is because if someone turns on Encryption and then later takes it off, we want them to be able
+	// to see the decrypted values. Then when they click Save it'll save the plain-text versions
+	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
+	foreach ($encrypted_fields_arr as $enc_field){
+		if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'select_or_other'){
+			if ($form[$enc_field][LANGUAGE_NONE]['#multiple'] == FALSE){
+				// this has radios for select_or_other
+				$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value']['value'];
+
+				if (is_serialized(utf8_decode($val)) && function_exists('decrypt')){
+					// applies to field_er_disabilities
+					// this field is encrypted and can be decrypted
+					$val = decrypt(utf8_decode($val));
+					$form[$enc_field][LANGUAGE_NONE]['#default_value']['safe_value'] = $val;
+				}
+			}
+			else{
+				// this has checkboxes for select_or_other
+				for ($i = 0; $i < count($form[$enc_field][LANGUAGE_NONE]['#default_value']); $i++){
+					$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value'][$i];
+					if (is_serialized(utf8_decode($val)) && function_exists('decrypt')){
+						// this field is encrypted and can be decrypted
+						$val = decrypt(utf8_decode($val));
+					}
+				}
+			}			
+		}
+		else if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'radios'){
+			$val =& $form[$enc_field][LANGUAGE_NONE]['#entity']->{$enc_field}[LANGUAGE_NONE][0]['value'];
+			if (is_serialized(utf8_decode($val)) && function_exists('decrypt')){
+				// this field is encrypted and can be decrypted
+				$form[$enc_field][LANGUAGE_NONE]['#default_value'] = decrypt(utf8_decode($val));
+			}			
+		}
+	}
+	if (variable_get('er_use_encryption')){ // if they have the option set to enable encryption
+		// add encrypt function to the end of the #submit array
+		array_push($form['#validate'], '_encrypt_user_fields');
+	}
+
+}
+
+/* created by Mike and called from er_form_user_profile_form_alter */
+
+function _encrypt_user_fields(&$form, &$form_state){
+	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
+	
+	if (variable_get('er_use_encryption')){
+		// just testing for radio select_or_other
+		foreach ($encrypted_fields_arr as $enc_field){
+			if (function_exists('encrypt')){
+				if ($form[$enc_field][LANGUAGE_NONE]['#field_widget'] == 'select_or_other_buttons'){
+						if ($form[$enc_field][LANGUAGE_NONE]['#multiple'] == FALSE){
+							// field_er_disabilities at the time of this writing
+							$form_state['values'][$enc_field][LANGUAGE_NONE][0]['value'] = utf8_encode(encrypt($form_state['values'][$enc_field][LANGUAGE_NONE][0]['value']));
+							$form_state['input'][$enc_field][LANGUAGE_NONE]['select'] = utf8_encode(encrypt($form_state['input'][$enc_field][LANGUAGE_NONE]['select']));
+							$form_state['input'][$enc_field][LANGUAGE_NONE]['other'] = utf8_encode(encrypt($form_state['input'][$enc_field][LANGUAGE_NONE]['other']));					
+						}
+						else{
+							// field_er_race at the time of this writing
+							// values
+							for ($i = 0; $i < count($form_state['values'][$enc_field][LANGUAGE_NONE]); $i++){
+								$form_state['values'][$enc_field][LANGUAGE_NONE][$i]['value'] = utf8_encode(encrypt($form_state['values'][$enc_field][LANGUAGE_NONE][$i]['value'])); 
+							}
+							
+							// input
+							// must set the other
+							$form_state['input'][$enc_field][LANGUAGE_NONE]['other'] = utf8_encode(encrypt($form_state['input'][$enc_field][LANGUAGE_NONE]['other']));
+							// loop through the select list and encrypt the vals there (kind of pointless, but have to)
+							foreach ($form_state['input'][$enc_field][LANGUAGE_NONE]['select'] as $k => $v){
+								$form_state['input'][$enc_field][LANGUAGE_NONE]['select'][$k] = utf8_encode(encrypt($v));
+							}
+						}
+				}
+				if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'radios'){
+					// values
+					$form_state['values'][$enc_field][LANGUAGE_NONE][0]['value'] = utf8_encode(encrypt($form_state['values'][$enc_field][LANGUAGE_NONE][0]['value']));
+					
+					// input
+					$form_state['input'][$enc_field][LANGUAGE_NONE] = utf8_encode(encrypt($form_state['input'][$enc_field][LANGUAGE_NONE]));
+				}						
+			}	
+		} // /foreach		
+	} // end the user 2 thing	
+}
+
+/* This is a function that assists in checking whether a field's value is encrypted or not */
+
+function is_serialized($val){
+	$data = @unserialize($val);
+	if ($val === 'b:0;' || $data !== false) {
+	    return TRUE;
+	} else {
+	    return FALSE;
+	}	
+	
+}
+

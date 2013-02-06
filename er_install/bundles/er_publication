@@ -1,0 +1,3295 @@
+$data = array(
+  'bundles' => array(
+    'er_publication' => (object) array(
+      'type' => 'er_publication',
+      'name' => 'Publication',
+      'base' => 'node_content',
+      'module' => 'node',
+      'description' => 'Publications are journal articles, text books, monographs, chapters in books, conference proceedings, technical reports, abstracts, or other formal written documents, in both print and electronic media.',
+      'help' => '',
+      'has_title' => '1',
+      'title_label' => 'Title',
+      'custom' => '1',
+      'modified' => '1',
+      'locked' => '0',
+      'disabled' => '0',
+      'orig_type' => 'er_publication',
+      'disabled_changed' => FALSE,
+      'bc_entity_type' => 'node',
+    ),
+  ),
+  'fields' => array(
+    'body' => array(
+      'entity_types' => array(
+        0 => 'node',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'settings' => array(),
+      'translatable' => '1',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'body',
+      'type' => 'text_with_summary',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'summary' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'page',
+          1 => 'article',
+          2 => 'blog',
+          3 => 'er_award',
+          4 => 'er_event',
+          5 => 'er_institution',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
+          9 => 'image_gallery',
+          10 => 'node_gallery_gallery',
+          11 => 'node_gallery_image',
+          12 => 'webform',
+          13 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_ark' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_ark' => array(
+                'value' => 'field_er_ark_value',
+                'format' => 'field_er_ark_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_ark' => array(
+                'value' => 'field_er_ark_value',
+                'format' => 'field_er_ark_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_ark',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_collection_title' => array(
+      'type_name' => 'er_book',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => 255,
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_collection_title' => array(
+                'value' => 'field_er_collection_title_value',
+                'format' => 'field_er_collection_title_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_collection_title' => array(
+                'value' => 'field_er_collection_title_value',
+                'format' => 'field_er_collection_title_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_collection_title',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_doi' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_doi' => array(
+                'value' => 'field_er_doi_value',
+                'format' => 'field_er_doi_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_doi' => array(
+                'value' => 'field_er_doi_value',
+                'format' => 'field_er_doi_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_doi',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_epscor_acknowledged_' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Yes',
+          1 => 'No',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_epscor_acknowledged_' => array(
+                'value' => 'field_er_epscor_acknowledged__value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_epscor_acknowledged_' => array(
+                'value' => 'field_er_epscor_acknowledged__value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_epscor_acknowledged_',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_full_citation' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_full_citation' => array(
+                'value' => 'field_er_full_citation_value',
+                'format' => 'field_er_full_citation_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_full_citation' => array(
+                'value' => 'field_er_full_citation_value',
+                'format' => 'field_er_full_citation_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_full_citation',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_journal_name' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => 255,
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_journal_name' => array(
+                'value' => 'field_er_journal_name_value',
+                'format' => 'field_er_journal_name_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_journal_name' => array(
+                'value' => 'field_er_journal_name_value',
+                'format' => 'field_er_journal_name_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_journal_name',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_journal_pages' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => 255,
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_journal_pages' => array(
+                'value' => 'field_er_journal_pages_value',
+                'format' => 'field_er_journal_pages_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_journal_pages' => array(
+                'value' => 'field_er_journal_pages_value',
+                'format' => 'field_er_journal_pages_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_er_journal_pages',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_journal_volume' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => 255,
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_journal_volume' => array(
+                'value' => 'field_er_journal_volume_value',
+                'format' => 'field_er_journal_volume_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_journal_volume' => array(
+                'value' => 'field_er_journal_volume_value',
+                'format' => 'field_er_journal_volume_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_er_journal_volume',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_link' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'attributes' => array(
+          'target' => '_blank',
+          'rel' => '',
+          'class' => '',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'url' => 0,
+        'title' => 'none',
+        'title_value' => '',
+        'enable_tokens' => 0,
+        'validate_url' => 0,
+        'title_maxlength' => 128,
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_link' => array(
+                'url' => 'field_er_link_url',
+                'title' => 'field_er_link_title',
+                'attributes' => 'field_er_link_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_link' => array(
+                'url' => 'field_er_link_url',
+                'title' => 'field_er_link_title',
+                'attributes' => 'field_er_link_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_link',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_patent',
+          1 => 'er_presentation',
+          2 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_nsf_ack' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          1 => 'Acknowledged',
+          0 => 'Not Acknowledged',
+        ),
+        'allowed_values_function' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '',
+        'max' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_nsf_ack' => array(
+                'value' => 'field_er_nsf_ack_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_nsf_ack' => array(
+                'value' => 'field_er_nsf_ack_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_nsf_ack',
+      'type' => 'list_integer',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_other_product',
+          1 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_peer_reviewed' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '',
+        'max' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_peer_reviewed' => array(
+                'value' => 'field_er_peer_reviewed_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_peer_reviewed' => array(
+                'value' => 'field_er_peer_reviewed_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_peer_reviewed',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_pub_archived' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Not Yet',
+          1 => 'EPSCoR Repository',
+          2 => 'Another Repository',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pub_archived' => array(
+                'value' => 'field_er_pub_archived_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pub_archived' => array(
+                'value' => 'field_er_pub_archived_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pub_archived',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_pub_data' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pub_data' => array(
+                'value' => 'field_er_pub_data_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pub_data' => array(
+                'value' => 'field_er_pub_data_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pub_data',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_pub_what_archive_' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_pub_what_archive_' => array(
+                'value' => 'field_er_pub_what_archive__value',
+                'format' => 'field_er_pub_what_archive__format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_pub_what_archive_' => array(
+                'value' => 'field_er_pub_what_archive__value',
+                'format' => 'field_er_pub_what_archive__format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_pub_what_archive_',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_publication_date' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'year' => 'year',
+          'month' => 'month',
+          'day' => 0,
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => 0,
+        'todate' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_publication_date' => array(
+                'value' => 'field_er_publication_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_publication_date' => array(
+                'value' => 'field_er_publication_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_publication_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_publication_status' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          2 => 'Submitted - Under Review',
+          1 => 'Accepted - Awaiting Publication',
+          0 => 'Published',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_publication_status' => array(
+                'value' => 'field_er_publication_status_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_publication_status' => array(
+                'value' => 'field_er_publication_status_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_publication_status',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_publication_submit' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'year' => 'year',
+          'month' => 'month',
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => 0,
+        'todate' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_publication_submit' => array(
+                'value' => 'field_er_publication_submit_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_publication_submit' => array(
+                'value' => 'field_er_publication_submit_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_publication_submit',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_publication_type' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Journal Article' => 'Journal Article',
+          'Abstract' => 'Abstract',
+          'Book' => 'Book',
+          'Conference Proceedings' => 'Conference Proceedings',
+          'Magazine Article' => 'Magazine Article',
+          'Technical Report' => 'Technical Report',
+          'Newspaper Article' => 'Newspaper Article',
+          'Thesis/Dissertation' => 'Thesis/Dissertation',
+          'Internet Dissemination' => 'Internet Dissemination',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_publication_type' => array(
+                'value' => 'field_er_publication_type_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_publication_type' => array(
+                'value' => 'field_er_publication_type_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_publication_type',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_publisher' => array(
+      'type_name' => 'er_book',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => 255,
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_publisher' => array(
+                'value' => 'field_er_publisher_value',
+                'format' => 'field_er_publisher_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_publisher' => array(
+                'value' => 'field_er_publisher_value',
+                'format' => 'field_er_publisher_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_publisher',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_rii_support' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Primary',
+          1 => 'Partial',
+          2 => 'None',
+        ),
+        'allowed_values_function' => '',
+        'text_processing' => '0',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rii_support' => array(
+                'value' => 'field_er_rii_support_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rii_support' => array(
+                'value' => 'field_er_rii_support_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rii_support',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_other_product',
+          1 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_upload_file' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 0,
+        'uri_scheme' => 'public',
+        'profile2_private' => 1,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_upload_file',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+          1 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'user',
+        'handler' => 'realname',
+        'handler_settings' => array(
+          'target_bundles' => array(),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_user_entity_reference',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_award',
+          1 => 'er_event',
+          2 => 'er_news',
+          3 => 'er_other_product',
+          4 => 'er_patent',
+          5 => 'er_presentation',
+          6 => 'er_proposal',
+          7 => 'er_collaboration',
+          8 => 'er_publication',
+        ),
+      ),
+    ),
+  ),
+  'instances' => array(
+    'body' => array(
+      0 => array(
+        'label' => 'Abstract',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'text_textarea_with_summary',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '20',
+            'summary_rows' => 5,
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '1',
+          'display_summary' => 1,
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'text_default',
+            'weight' => '6',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'label' => 'hidden',
+            'type' => 'text_summary_or_trimmed',
+            'weight' => '57',
+            'settings' => array(
+              'trim_length' => 600,
+            ),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_ark' => array(
+      0 => array(
+        'label' => 'ARK',
+        'widget' => array(
+          'weight' => '17',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '20',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Archive Resource Key',
+        'default_value' => NULL,
+        'field_name' => 'field_er_ark',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_collection_title' => array(
+      0 => array(
+        'label' => 'Title of Series',
+        'widget' => array(
+          'weight' => '14',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 22,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_collection_title',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_doi' => array(
+      0 => array(
+        'label' => 'DOI',
+        'widget' => array(
+          'weight' => '16',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '9',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Digital Object Identifier',
+        'default_value' => NULL,
+        'field_name' => 'field_er_doi',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_epscor_acknowledged_' => array(
+      0 => array(
+        'label' => 'EPSCoR Acknowledged ',
+        'widget' => array(
+          'weight' => '10',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 0,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '10',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_epscor_acknowledged_',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_full_citation' => array(
+      0 => array(
+        'label' => 'Full Citation',
+        'widget' => array(
+          'weight' => '13',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '8',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_full_citation',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_journal_name' => array(
+      0 => array(
+        'weight' => '52',
+        'label' => 'Journal, Book, Magazine or Newspaper Name',
+        'widget_type' => 'text_textfield',
+        'description' => 'For Publication Types of Journal Article, Book, Conference Proceedings, Magazine Article, and Newspaper Article.',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '11',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '52',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_journal_name',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_journal_pages' => array(
+      0 => array(
+        'weight' => '54',
+        'label' => 'Pages',
+        'widget_type' => 'text_textfield',
+        'description' => '',
+        'default_value' => '',
+        'widget' => array(
+          'type' => 'text_textfield',
+          'weight' => '15',
+          'module' => 'text',
+          'active' => '1',
+          'settings' => array(
+            'rows' => 5,
+            'size' => '60',
+            'default_value' => NULL,
+            'default_value_php' => NULL,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '54',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '14',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => FALSE,
+        'field_name' => 'field_er_journal_pages',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_journal_volume' => array(
+      0 => array(
+        'weight' => '53',
+        'label' => 'Volume',
+        'widget_type' => 'text_textfield',
+        'description' => '',
+        'default_value' => '',
+        'widget' => array(
+          'type' => 'text_textfield',
+          'weight' => '12',
+          'module' => 'text',
+          'active' => '1',
+          'settings' => array(
+            'rows' => 5,
+            'size' => '60',
+            'default_value' => NULL,
+            'default_value_php' => NULL,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '53',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '13',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => FALSE,
+        'field_name' => 'field_er_journal_volume',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_link' => array(
+      0 => array(
+        'weight' => '56',
+        'label' => 'Internet Link',
+        'widget_type' => 'link',
+        'description' => '',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '14',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '56',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '15',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+        ),
+        'settings' => array(
+          'validate_url' => 1,
+          'url' => 0,
+          'title' => 'optional',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => 'default',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'enable_tokens' => 1,
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_link',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_nsf_ack' => array(
+      0 => array(
+        'weight' => '12',
+        'label' => 'NSF Acknowledgement',
+        'widget_type' => 'optionwidgets_buttons',
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
+        'widget' => array(
+          'weight' => '8',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '12',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '12',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '5',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_nsf_ack',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_peer_reviewed' => array(
+      0 => array(
+        'weight' => '3',
+        'label' => 'Peer Reviewed',
+        'widget_type' => 'optionwidgets_onoff',
+        'description' => 'Is this publication peer-reviewed?',
+        'default_value' => array(
+          0 => array(
+            'value' => '1',
+          ),
+        ),
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '1',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => 1,
+        'field_name' => 'field_er_peer_reviewed',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_pub_archived' => array(
+      0 => array(
+        'label' => 'Is it being archived?',
+        'widget' => array(
+          'weight' => '17',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '18',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pub_archived',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_pub_data' => array(
+      0 => array(
+        'label' => 'Are you collecting Data?',
+        'widget' => array(
+          'weight' => '16',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '19',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pub_data',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_pub_what_archive_' => array(
+      0 => array(
+        'label' => 'What Archive?',
+        'widget' => array(
+          'weight' => '18',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '17',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_pub_what_archive_',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_publication_date' => array(
+      0 => array(
+        'weight' => '10',
+        'label' => 'Date of Publication',
+        'widget_type' => 'date_popup',
+        'description' => '',
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'date_popup',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'Y-m-d H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '1',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'full' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'rss' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_index' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_result' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'print' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'token' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '10',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '4',
+            'settings' => array(
+              'format_type' => 'short',
+              'fromto' => 'both',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'blank',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_publication_date',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_publication_status' => array(
+      0 => array(
+        'label' => 'Status',
+        'widget' => array(
+          'weight' => '3',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '16',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_publication_status',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_publication_submit' => array(
+      0 => array(
+        'weight' => '9',
+        'label' => 'Date Submitted',
+        'widget_type' => 'date_popup',
+        'description' => '',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'date_popup',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'Y-m-d H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '1',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'full' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'rss' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'print' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_index' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_result' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'token' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '9',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '3',
+            'settings' => array(
+              'format_type' => 'short',
+              'fromto' => 'both',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'blank',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_publication_submit',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_publication_type' => array(
+      0 => array(
+        'label' => 'Publication Type',
+        'widget' => array(
+          'weight' => '11',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '7',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_publication_type',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_publisher' => array(
+      0 => array(
+        'label' => 'Publisher',
+        'widget' => array(
+          'weight' => '13',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 21,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_publisher',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rii_support' => array(
+      0 => array(
+        'weight' => '4',
+        'label' => 'What level of funding support did EPSCoR provide for this publication?',
+        'widget_type' => 'optionwidgets_select',
+        'description' => '',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '2',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => 1,
+        'field_name' => 'field_er_rii_support',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_upload_file' => array(
+      0 => array(
+        'label' => 'Upload File',
+        'widget' => array(
+          'weight' => '15',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'file_default',
+            'weight' => '11',
+            'settings' => array(),
+            'module' => 'file',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_upload_file',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      0 => array(
+        'label' => 'Author(s)',
+        'widget' => array(
+          'weight' => '1',
+          'type' => 'entityreference_autocomplete',
+          'module' => 'entityreference',
+          'active' => 1,
+          'settings' => array(
+            'match_operator' => 'CONTAINS',
+            'size' => '60',
+            'path' => '',
+          ),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'nodeaccess_userreference' => array(
+            'referenced' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+              'deny_view' => 0,
+              'deny_update' => 0,
+              'deny_delete' => 0,
+            ),
+            'referenced_published' => '0',
+            'create' => array(
+              'article' => 0,
+              'page' => 0,
+              'blog' => 0,
+              'er_book' => 0,
+              'er_event' => 0,
+              'er_collaboration' => 0,
+              'er_collaborators' => 0,
+              'er_engagement' => 0,
+              'node_gallery_gallery' => 0,
+              'node_gallery_image' => 0,
+              'group' => 0,
+              'er_news' => 0,
+              'er_award' => 0,
+              'image_gallery' => 0,
+              'er_institution' => 0,
+              'er_internet' => 0,
+              'er_nsf_fastlane' => 0,
+              'er_other_product' => 0,
+              'er_patent' => 0,
+              'post' => 0,
+              'er_poster' => 0,
+              'er_presentation' => 0,
+              'er_effort' => 0,
+              'er_paid' => 0,
+              'er_proposal' => 0,
+              'er_publication' => 0,
+              'webform' => 0,
+            ),
+            'author' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+            ),
+            'author_published' => '0',
+            'all' => array(
+              'view' => 'view',
+            ),
+            'all_published' => '0',
+            'unused' => '0',
+            'views' => array(
+              'view' => '',
+              'view_args' => '',
+            ),
+            'priority' => '0',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'entityreference_label',
+            'weight' => '0',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_er_user_entity_reference',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
+  ),
+  'fieldgroups' => array(
+    'group_er_journal|node|er_publication|form' => (object) array(
+      'id' => '19',
+      'identifier' => 'group_er_journal|node|er_publication|form',
+      'group_name' => 'group_er_journal',
+      'entity_type' => 'node',
+      'bundle' => 'er_publication',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Publication Information',
+      'weight' => '12',
+      'children' => array(
+        0 => 'field_er_doi',
+        1 => 'field_er_journal_name',
+        2 => 'field_er_journal_pages',
+        3 => 'field_er_journal_volume',
+        4 => 'field_er_ark',
+        5 => 'field_er_publisher',
+        6 => 'field_er_collection_title',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'Publication Information',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'collapsible',
+      ),
+    ),
+  ),
+);

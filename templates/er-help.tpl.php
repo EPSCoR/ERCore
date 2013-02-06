@@ -79,9 +79,25 @@
           You can then navigate to the <?php echo l('ER-Core Settings page', 'admin/config/epscor/er')?> to see if the library was detected.
         </p>
       </li>
+      <li>
+        <h4>(Optional) Cutomize the list of Event Types</h4>
+        <p>
+          Some states may wish to <?php echo l('customize the list of "Event Types"', 'admin/structure/types/manage/er_event/fields/field_er_event_type', array('fragment' => 'edit-submit'))?> which label calendar events.<br>
+          Notice: The available values should be of the form:<br>
+          <code style="margin:10px;">#|Label</code><br>
+          Where # is an integer value which is used as the internal representation (stored in the database), and Label is what is shown to the user.
+        </p>
+      </li>
+      <li>
+        <h4>(Optional) Public Profile settings</h4>
+        <p>
+          Some states may wish to hide the uer profiles from public view.<br>
+          This may be accomplished by changing the "View user profiles" flag located on the <?php echo l('user permissions', 'admin/people/permissions/1', array('fragment' => 'edit-access-user-profiles'))?> page.
+        </p>
+      </li>
     </ol>
   </div>
-  <h2>Quick-Start Guide</h2>
+<!--  <h2>Quick-Start Guide</h2>
   <div>
     <ol>
       <li>    
@@ -91,5 +107,5 @@
         </p>
       </li>
     </ol>
-  </div>
+  </div>-->
 </div>

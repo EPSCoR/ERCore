@@ -1,0 +1,1296 @@
+$data = array(
+  'bundles' => array(
+    'er_presentation' => (object) array(
+      'type' => 'er_presentation',
+      'name' => 'Presentation',
+      'base' => 'node_content',
+      'module' => 'node',
+      'description' => 'Use this form to report on presentations given by you on EPSCoR related research.',
+      'help' => '',
+      'has_title' => '1',
+      'title_label' => 'Title',
+      'custom' => '1',
+      'modified' => '1',
+      'locked' => '0',
+      'disabled' => '0',
+      'orig_type' => 'er_presentation',
+      'disabled_changed' => FALSE,
+      'bc_entity_type' => 'node',
+    ),
+  ),
+  'fields' => array(
+    'body' => array(
+      'entity_types' => array(
+        0 => 'node',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'settings' => array(),
+      'translatable' => '1',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'body',
+      'type' => 'text_with_summary',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'summary' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'page',
+          1 => 'article',
+          2 => 'blog',
+          3 => 'er_award',
+          4 => 'er_event',
+          5 => 'er_institution',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
+          9 => 'image_gallery',
+          10 => 'node_gallery_gallery',
+          11 => 'node_gallery_image',
+          12 => 'webform',
+          13 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_event' => array(
+      'type_name' => 'er_presentation',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '',
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_event' => array(
+                'value' => 'field_er_event_value',
+                'format' => 'field_er_event_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_event' => array(
+                'value' => 'field_er_event_value',
+                'format' => 'field_er_event_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_er_event',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_link' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'attributes' => array(
+          'target' => '_blank',
+          'rel' => '',
+          'class' => '',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'url' => 0,
+        'title' => 'none',
+        'title_value' => '',
+        'enable_tokens' => 0,
+        'validate_url' => 0,
+        'title_maxlength' => 128,
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_link' => array(
+                'url' => 'field_er_link_url',
+                'title' => 'field_er_link_title',
+                'attributes' => 'field_er_link_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_link' => array(
+                'url' => 'field_er_link_url',
+                'title' => 'field_er_link_title',
+                'attributes' => 'field_er_link_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_link',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_patent',
+          1 => 'er_presentation',
+          2 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_other_authors' => array(
+      'type_name' => 'er_publication',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'max_length' => '',
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_other_authors' => array(
+                'value' => 'field_er_other_authors_value',
+                'format' => 'field_er_other_authors_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_other_authors' => array(
+                'value' => 'field_er_other_authors_value',
+                'format' => 'field_er_other_authors_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_other_authors',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_presentation_date' => array(
+      'type_name' => 'er_presentation',
+      'entity_types' => array(),
+      'settings' => array(
+        'todate' => '',
+        'granularity' => array(
+          'year' => 'year',
+          'month' => 'month',
+          'day' => 'day',
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'repeat' => 0,
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_presentation_date' => array(
+                'value' => 'field_er_presentation_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_presentation_date' => array(
+                'value' => 'field_er_presentation_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_name' => 'field_er_presentation_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_type_of_presentation' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Invited Speaker' => 'Invited Speaker',
+          'Presentation' => 'Presentation',
+          'Panel' => 'Panel',
+          'Poster' => 'Poster',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_type_of_presentation' => array(
+                'value' => 'field_er_type_of_presentation_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_type_of_presentation' => array(
+                'value' => 'field_er_type_of_presentation_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_type_of_presentation',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_upload_file' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 0,
+        'uri_scheme' => 'public',
+        'profile2_private' => 1,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_upload_file' => array(
+                'fid' => 'field_er_upload_file_fid',
+                'display' => 'field_er_upload_file_display',
+                'description' => 'field_er_upload_file_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_upload_file',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_publication',
+          1 => 'er_presentation',
+        ),
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'user',
+        'handler' => 'realname',
+        'handler_settings' => array(
+          'target_bundles' => array(),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_user_entity_reference',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_award',
+          1 => 'er_event',
+          2 => 'er_news',
+          3 => 'er_other_product',
+          4 => 'er_patent',
+          5 => 'er_presentation',
+          6 => 'er_proposal',
+          7 => 'er_collaboration',
+          8 => 'er_publication',
+        ),
+      ),
+    ),
+  ),
+  'instances' => array(
+    'body' => array(
+      0 => array(
+        'label' => 'Abstract',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'text_textarea_with_summary',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '20',
+            'summary_rows' => 5,
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '1',
+          'display_summary' => 1,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '5',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'label' => 'hidden',
+            'type' => 'text_summary_or_trimmed',
+            'settings' => array(
+              'trim_length' => 600,
+            ),
+            'module' => 'text',
+            'weight' => -7,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_event' => array(
+      0 => array(
+        'weight' => '-10',
+        'label' => 'Event',
+        'widget_type' => 'text_textarea',
+        'description' => 'Example: DrupalCon 2013, Portland, OR',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '5',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '4',
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '-10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_event',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_link' => array(
+      0 => array(
+        'weight' => '-9',
+        'label' => 'Link',
+        'widget_type' => 'link',
+        'description' => '',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'full' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'rss' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'search_index' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'search_result' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'print' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'token' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '-9',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+        ),
+        'settings' => array(
+          'validate_url' => 1,
+          'url' => 0,
+          'title' => 'none',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'enable_tokens' => 1,
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => 'default',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'required' => 0,
+        'field_name' => 'field_er_link',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_other_authors' => array(
+      0 => array(
+        'weight' => '-12',
+        'label' => 'Other presenters',
+        'widget_type' => 'text_textarea',
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => '',
+            '_error_element' => 'default_value_widget][field_er_other_authors][0][value',
+          ),
+        ),
+        'widget' => array(
+          'type' => 'text_textarea',
+          'weight' => '3',
+          'module' => 'text',
+          'active' => '1',
+          'settings' => array(
+            'rows' => '2',
+            'size' => 60,
+            'default_value_php' => NULL,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'full' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'rss' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_index' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'search_result' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'print' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'token' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '-12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '0',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'required' => FALSE,
+        'field_name' => 'field_er_other_authors',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_presentation_date' => array(
+      0 => array(
+        'weight' => '-11',
+        'label' => 'Date',
+        'widget_type' => 'date_popup',
+        'description' => '',
+        'widget' => array(
+          'type' => 'date_popup',
+          'weight' => '4',
+          'module' => 'date',
+          'active' => '1',
+          'settings' => array(
+            'input_format' => 'm/d/Y',
+            'input_format_custom' => '',
+            'increment' => '1',
+            'text_parts' => array(),
+            'year_range' => '-3:+3',
+            'label_position' => 'above',
+            'repeat_collapsed' => '',
+            'display_all_day' => 0,
+          ),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'full' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'rss' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_index' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'search_result' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'print' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'token' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '-11',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '2',
+            'settings' => array(
+              'show_repeat_rule' => 'show',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'format_type' => 'medium',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'blank',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => FALSE,
+        ),
+        'required' => FALSE,
+        'field_name' => 'field_er_presentation_date',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_type_of_presentation' => array(
+      0 => array(
+        'label' => 'Type of Presentation',
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '1',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_type_of_presentation',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_upload_file' => array(
+      0 => array(
+        'label' => 'Upload File',
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc docx',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'file_default',
+            'settings' => array(),
+            'module' => 'file',
+            'weight' => 7,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_upload_file',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      0 => array(
+        'label' => 'Presenter(s)',
+        'widget' => array(
+          'weight' => '1',
+          'type' => 'entityreference_autocomplete',
+          'module' => 'entityreference',
+          'active' => 1,
+          'settings' => array(
+            'match_operator' => 'CONTAINS',
+            'size' => '60',
+            'path' => '',
+          ),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'nodeaccess_userreference' => array(
+            'referenced' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+              'deny_view' => 0,
+              'deny_update' => 0,
+              'deny_delete' => 0,
+            ),
+            'referenced_published' => '0',
+            'create' => array(
+              'article' => 0,
+              'page' => 0,
+              'blog' => 0,
+              'er_book' => 0,
+              'er_event' => 0,
+              'er_collaboration' => 0,
+              'er_collaborators' => 0,
+              'er_engagement' => 0,
+              'node_gallery_gallery' => 0,
+              'node_gallery_image' => 0,
+              'group' => 0,
+              'er_news' => 0,
+              'er_award' => 0,
+              'image_gallery' => 0,
+              'er_institution' => 0,
+              'er_internet' => 0,
+              'er_nsf_fastlane' => 0,
+              'er_other_product' => 0,
+              'er_patent' => 0,
+              'post' => 0,
+              'er_poster' => 0,
+              'er_presentation' => 0,
+              'er_effort' => 0,
+              'er_paid' => 0,
+              'er_proposal' => 0,
+              'er_publication' => 0,
+              'webform' => 0,
+            ),
+            'author' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+            ),
+            'author_published' => '0',
+            'all' => array(
+              'view' => 'view',
+            ),
+            'all_published' => '0',
+            'unused' => '0',
+            'views' => array(
+              'view' => '',
+              'view_args' => '',
+            ),
+            'priority' => '0',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'entityreference_label',
+            'weight' => '6',
+            'settings' => array(
+              'link' => 1,
+            ),
+            'module' => 'entityreference',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_er_user_entity_reference',
+        'entity_type' => 'node',
+        'bundle' => 'er_presentation',
+        'deleted' => '0',
+      ),
+    ),
+  ),
+);

@@ -77,13 +77,87 @@ function er_settings() {
     '#type' => 'submit',
     '#value' => t('Reset'),
     '#submit' => array('er_revert'),
-  );	  
+  );
+  
+// start
+
+	
+  $form['er_admin_container_reset_bundle'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Individual Content Types',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('Under construction ~Mike'),      
+  );
+  
+  // $form['er_admin_container_reset_bundle']['bundle_checkboxes'] = array(
+    // '#type' => 'checkboxes',
+    // '#options' => drupal_map_assoc($bundle_list),
+    // '#title' => t('Individual Content Types'),
+  // );  	
+  
+	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	$dir = new DirectoryIterator($drupal_path);
+	// loop through all rule files in the directory
+	$bundle_list = array();
+	// dpm($dir, 'what?');
+	foreach ($dir as $fileinfo) {
+		// d($fileinfo, '$fileinfo');
+		if (!$fileinfo->isDot()) {
+			// d('this is a file '. $fileinfo);
+			$bundle_filename = $fileinfo->getFilename();
+			// d('this file', $bundle_filename);
+			$result = db_select('node_type', 'n')
+			    ->fields('n')
+			    ->condition('orig_type', $bundle_filename ,'=')
+			    ->execute()
+			    ->fetchAssoc();
+				if (empty($result)){
+				   // dsm('nothing');
+					$form['er_admin_container_reset_bundle']['bundle'] = array(
+					  '#type' => 'checkbox',
+					  '#title' => $bundle_filename,
+					  '#description' => t('<b>Content type DOES NOT exists.</b>'),
+					);					
+				}
+				else{
+					// dsm($result, 'result');
+					$form['er_admin_container_reset_bundle']["$fileinfo"] = array(
+					  '#type' => 'checkbox',
+					  '#title' => t("{$result['name']} ($fileinfo)"),
+					  '#description' => t('Content type exists.'),
+					);				
+				}
+			
+			// check to see if it's in the database
+			//$bundle_list[] = $bundle_filename;		
+		}
+	}
+	
+  $form['er_admin_container_reset_bundle']['redo_bundle'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create / update Content Type(s)'),
+    '#submit' => array('er_revert_bundle'),
+  );
+
+	
+// end  
+  
+	if (module_exists('er_encryption')){
+		$form['er_use_encryption'] = array(
+		  '#type' => 'checkbox',
+		  '#title' => t('Use encryption.'),
+		  '#default_value' => variable_get('er_use_encryption'),
+		  '#description' => t('This applies to gender, disabilities, citizenship, ethnicity, and race.'),
+		);			
+	}
 	  
 	  // this below function will get deleted
 	function er_import_fields_temp($form, &$form_state){
 		d($form_state, 'this is being called from er_import_fields_temp');
 		watchdog('er', 'This is a test, ignore ~Mike',NULL,WATCHDOG_CRITICAL);
 	}
+  
   
   
   

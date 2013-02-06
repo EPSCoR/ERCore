@@ -89,23 +89,114 @@ function er_permission(){
 	);
 } // function er_perm()
 
+//function er_menu_link_alter(&$item) {
+//	d($item, '$item');
+//}
+
 /**
  * Menu for this module
  * @return array An array with this module's settings.
  */
 function er_menu() {
+	$items = array();
+// 	
+	//$items['test1'] = array(
+	//	'title' => 'Accomplishments',
+	//	'description' => 'Overview of reporting data',
+	//	'page callback' => 'er_accomplishments', 
+	//	//'page arguments' => array('summary'), 
+	//	'access arguments' => array(ER_ACCESS_PERMISSION),
+	//	'type' => MENU_CALLBACK,
+	//	'menu_name' => 'management',
+	//);  
+//   
 
-	// First get menu items from our overrides
-	//$items = er_overrides_menu();
-	// Module settings.
-  $items['admin/config/epscor'] = array(
-    'title' => 'EPSCoR',
-    'description' => 'EPSCoR Reporting',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('access administration pages'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
+  // $items['management:testchild'] = array(
+    // 'menu_name' => 'management',
+    // 'link_path' => 'testchild',
+    // 'router_path' => 'testchild',
+    // 'link_title' => 'testchild title',
+    // 'options' => array(
+      // 'attributes' => array(
+        // 'title' => 'testchild option title',
+      // ),
+    // ),
+    // 'module' => 'system',
+    // 'hidden' => '0',
+    // 'external' => '0',
+    // 'has_children' => '0',
+    // 'expanded' => '0',
+    // 'weight' => '-50',
+    // 'parent_path' => 'admin/config/epscor/er', // this must match the above parent info after the ':'
+  // );  	
+	
+// $items['admin/editorpanel'] = array(
+    // 'title' => 'Editor Control Panel',
+    // 'page callback' => 'drupal_goto',
+    // 'page arguments' => array('control/editor'),
+    // 'access arguments' => array('access editor control panel'),   
+    // 'weight' => 50,
+    // 'type' => MENU_LOCAL_TASK
+  // );	
+// 	
+  // $items['admin/config/parent-name'] = array(
+      // 'title' => 'ER TEST',
+      // 'description' => 'ER Description',
+      // 'position' => 'left',
+      // 'weight' => -100,
+      // 'page callback' => 'system_admin_menu_block_page',
+      // 'access arguments' => array('administer site configuration'),
+      // 'file' => 'system.admin.inc',
+      // 'file path' => drupal_get_path('module', 'system'),
+  // );
+  // //We need at least one child item, otherwise parent will not show up
+  // $items['admin/config/parent-name/child-name'] = array(
+      // 'title' => 'ER CHILD',
+      // 'description' => 'ER Child Description',
+      // 'page callback' => 'drupal_goto',
+      // 'page arguments' => array('my-path'),
+      // 'access arguments' => array('administer site configuration'),
+  // );	
+
+	//This sets up the EPSCoR Menu in the administration bar.
+	$items['admin/epscor'] = array(
+		'title' => 'EPSCoR',
+		'description' => 'EPSCoR Reporting',
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('access administration pages'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	);
+	$items['admin/epscor/views'] = array(
+		'title' => 'Admin Views',
+		'description' => 'Administrative views',
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('access administration pages'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	);
+	$items['admin/epscor/config'] = array(
+    'menu_name' => 'management',
+    'title' => 'EPSCoR Reporting Module Settings',
+    'description' => 'description',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('admin/config/epscor/er'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
   );
+	
+	
+	
+	// Set up the settings page located under Configuration.
+	$items['admin/config/epscor'] = array(
+		'title' => 'EPSCoR',
+		'description' => 'EPSCoR Reporting',
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('access administration pages'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+	);
+	
 	$items['admin/config/epscor/er'] = array(
 		'title' => 'EPSCoR Reporting Module Settings',
 		'description' => 'Settings which affect the functionality of the EPSCoR Reporting module.',
@@ -376,6 +467,11 @@ function list_cts_having_field($fieldname, $suffix = ''){
 		// d($k, 'k');
 	}
 	return $ret;	
+}
+
+/* this function is called from er.admin.inc when they reset individual bundles */
+function er_revert_bundle($form, &$form_state){
+	d($form_state['values']);
 }
 
 /* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
@@ -662,6 +758,7 @@ function er_get_reporting_ranges($everything = false){
 /*
  * Generates a nested array of date ranges corresponding to the start and end of a valid reporting period.
  * This is used primarily on the summary table.
+ * The date values get set via the form seen on the summary table.
  */
 function er_get_reporting_range(){
 	drupal_session_start();

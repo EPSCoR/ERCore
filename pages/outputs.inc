@@ -1,244 +1,306 @@
 <?php
 require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_outputs extends er_page{
-	private $reporting_range, $count;
-
-	public function __construct(){
-    parent::__construct();
-			$r = $this->get_reporting_range();
-			$this->reporting_range = array(date(DATE_ATOM, $r[0]), date(DATE_ATOM, $r[1]));
-  }
+  //public function __construct(){
+  //  parent::__construct();
+  //}
     
   public function title(){
-		return "Outputs";
-	}
-    
-	private function generate_patent_query($period, $type){
-		$p = new Table("content_type_er_patent", 'p');
-		//$p	->field('field_er_patent_status_value', 'status')->where("status", $status);
-		$p	->field($type[0], $type[1])->where($type[1], $type[2])
-			->field('field_er_patent_date', 'date');
-			
-		$this->add_date_query($p, $period);
-		$q = new Query($p);
-		if (!$this->count){
-			$p->select($type[1])->select('date')->field('nid')->select('nid');
-			$n = new Table('{node}', 'n');
-			$n->field('nid')->field('title')->select('title');
-		$q->join($n);
-		}
-		if ($this->count)
-			return intval($q->getObject()->count);
-		else
-			return $q->getData();
-		
-	}
-	
-	private function generate_cnp_query($period, $status){
-		$p = new Table("content_type_er_proposal", 'p');
-		$p	->field('field_er_award_amount', 'funds')
-			->field('field_er_proposal_status', 'status')
-			->where('status', $status)
-			->field("field_er_proposal_date", 'date');
-			
-		$this->add_date_query($p, $period);
-		$q = new Query($p, $count);
-		if ($this->count){
-			$p->select('funds', array('fn'=>'SUM'));
+    return "Outputs".$this->range_string();
+  }
+  
+	protected function generate_node_output($count, &$query, $distinct = false){
+		if ($count){
+			$result = $this->count_nodes($query, $distinct)->execute();
+			$data = $result->fetchAssoc();
 		}else{
-			$p->select('funds')->select('status')->select('date')->field('nid')->select('nid');
-			$n = new Table('{node}', 'n');
-	 	    $n->field('nid')->field('title')->select('title');
-			$q->join($n);
-		}
-		//return array('count'=>intval($data->count), 'funds'=>intval($data->funds));
-		if ($this->count){
-			$data = $q->getObject();
-			return array('count'=>intval($data->count), 'funds'=>intval($data->funds));
-		}
-		else
-			return $q->getData();
-	}
-	
-	private function generate_pub_query($period, $support){
-		$p = new Table("content_type_er_publication", 'p');
-		$p	->field('field_er_rii_support', 'support')
-			->where('support', $support)
-			->field("field_er_publication_date", 'date');
-		$this->add_date_query($p, $period);
-		$q = new Query($p);
-		if (!$this->count){
-			$p->select('support')->select('date')->field('nid')->select('nid');
-			$n = new Table('{node}', 'n');
-			$n->field('nid')->field('title')->select('title');
-			$q->join($n);
-		}
-		//return intval($q->getObject()->count);
-		if ($this->count)
-			return intval($q->getObject()->count);
-		else
-			return $q->getData();
-	}
-	//
-	//private function generate_user_query($period, $event_type, $person_type, $s = NULL){
-	//	static $minorities = array("American Indian or Alaskan Native", "Black or African American", "Native Hawaiian", "Pacific Islander", "Filipino");
-	//	static $employed = array("Employed", "Employed – STEM job Hawaii", "Employed – STEM job non-Hawaii", "Employed – non-STEM job Hawaii", "Employed – non-STEM job non-Hawaii");
-	//	$debug = false;
-	//	$p = new Table("content_type_er_user_profile", 'p');
-	//	$p	->field('nid');
-	//	if ($person_type == "minorities"){
-	//		$p->field("field_er_race", 'race')->field("field_er_ethnicity", 'ethnicity')->where(array(array('race', $minorities), array('ethnicity', "Hispanic or Latino")));
-	//		if (!$this->count) $p->select('race');
-	//	}else if ($person_type == "gender"){
-	//		$p->field("field_er_gender", 'gender')->where('gender', $s);
-	//		if (!$this->count) $p->select('gender');
-	//	}else if ($person_type == "disabilities"){
-	//		$p->field("field_er_disabilities", 'disabilities')->where('disabilities', null, array('op'=>'!='))->where('disabilities', 'None', array('op'=>'!='));
-	//		if (!$this->count) $p->select('disabilities');
-	//	}
-	//	if ($event_type == "Employed"){
-	//		$e = new Table("content_type_er_user_event", 'e');
-	//		$e	->field("field_er_event_user", 'uid')
-	//			->field("field_er_user_event_type", 'event_type')
-	//			->field("field_er_user_event_date", 'date')
-	//			->where('event_type', $employed);
-	//		$p	->field("field_er_involvement", 'involvement')->where('involvement', 'Faculty participant (or equivalent)');
-	//		if (!$this->count) {
-	//			$p->select('involvement');
-	//			$e->select('date2');
-	//		}
-	//		$debug = true;
-	//	}else{
-	//		$e = new Table("content_type_er_user_event_instance", 'e');
-	//		$e	->field("field_er_event_inst_user", 'uid')
-	//			->field("field_er_user_event_inst_type", 'event_type')
-	//			->field("field_er_user_event_inst_date", 'date')
-	//			->where('event_type', $event_type);
-	//	}
-	//	
-	//	
-	//	$this->add_date_query($e, $period);
-	//	$n = new Table("{node}", 'n');
-	//	$n	->field('nid')->field('uid')->group('uid');
-	//	$q = new Query($p);
-	//	$q->join($n)->join($e, $n, 'uid');
-	//	if (!$this->count){
-	//		$e->select('date')->select('uid')->select('event_type')->field('nid')->select('nid');
-	//		//$n->field('title')->select('title');
-	//		$p	->field('field_er_lname', 'lname')->field('field_er_fname', 'fname')
-	//			->select('lname')->select('fname')
-	//			->order('lname');
-	//	}
-	//	//return intval($q->getObject($debug)->count);
-	//	if ($this->count)
-	//		return intval($q->getObject()->count);
-	//	else
-	//		return $q->getData();
-	//}
-	//
-	//private function add_date_query($table, $period){
-	//	if ($period == 0)
-	//		$table->where('date', $this->reporting_range[0], array('op'=>'>=', 'fn2'=>'date'))->where('date', $this->reporting_range[1], array('op'=>'<=', 'fn2'=>'date'));
-	//}
-	
-	public function data($count = true){
-		$this->count = $count;
-		$data = array();
-		//$reporting_range = $this->get_reporting_range();
-		//$disabilities = $this->get_allowed_values("field_er_disabilities");
-		//unset($disabilities['None']); // not interested in counting "None" as a disability
-		
-		
-		foreach (array("Reporting Period", "Cumulative") as $period=>$label){//used for reporting period/cumulative
-			//if ($x)	$period = $reporting_range;
-			//else	$period = array();
-			
-			//foreach (array("Awarded", "Pending") as $s)
-			//	$data["Patents"][$s][$label] = $this->generate_patent_query($period, array('field_er_patent_status', 'status', $s));
-			//$data["Patents"]['Licensed'][$label] = $this->generate_patent_query($period, array('field_er_patent_licensed', 'licensed', 1));
-			
-			/*
-			foreach (array("Submitted", "Awarded", "Pending", "Expired", "Denied") as $s)
-				$data["Proposals/Grants/Contracts"][$s][$label] = $this->generate_cnp_query($period, $s);
-			
-			foreach (array("Primary", "Partial") as $s)
-				$data["Published Publications"][$s][$label] = $this->generate_pub_query($period, $s);
-			
-			$types = array(
-				"Employed"=>"Total New Faculty Hired",
-				"Undergraduate Graduation"=>"Total Post Docs Completed",
-				"Masters Graduation"=>"Total Graduate Students Graduated",
-				"Doctorate Graduation"=>"Total Undergraduates Graduated"
-			);
-			foreach ($types as $type=>$name){
-				foreach (array("Male", "Female") as $s)
-					$data[$name][$s][$label] = $this->generate_user_query($period, $type, 'gender', $s);
-				
-				$data[$name]['Underrepresented minority'][$label] = $this->generate_user_query($period, $type, 'minorities');
-				
-				//$data[$name]['Underrepresented minority'][$label] += $this->generate_user_query($period, $type, array("field_er_ethnicity", 'ethnicity', "Hispanic or Latino"));
-				//Need to integrate "Hispanic or Latino" selection?
-				
-				$data[$name]['Disabled'][$label] = $this->generate_user_query($period, $type, 'disabilities');
-			}*/
+			$query->addField('node', 'title', 'label');
+			$result = $this->find_nodes($query, $distinct)->execute();
+			while ($d = $result->fetchAssoc())
+				$data[] = $d;
 		}
 		return $data;
 	}
 	
-	public function html(){
-		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-		d($this->data(), 'counts');
-		$data = $this->data(false);
-		d($data, 'data');
-		$output = '';
-		foreach ($data as $content_type=>$content){
-			$output .= '<h1>'.$content_type.'</h1>';
-			foreach ($content as $subtype => $periods){
-				$output .= '<h2>'.$subtype.'</h1>';
-				foreach ($periods as $period=>$period_data){
-					$output .= '<h3>'.$period.'</h3>';
-					$output .= '<ol>';
-					foreach ($period_data as $k=>$dat){
-						$output .= '<li>';
-						$output .= l($dat['title']?$dat['title']:$dat['lname'].', '.$dat['fname'], 'node/'.$dat['nid']) . '<br>';
-						foreach ($dat as $k=>$v){
-							if ($k != 'title' && $k != 'nid' && $k != 'lname' && $k != 'fname')
-								$output .= "$k: $v<br>";
+	protected function generate_user_output($count, &$query, $distinct = false){
+		if ($count){
+			$result = $this->count_users($query, $distinct)->execute();
+			$data = $result->fetchAssoc();//intval($result->fetchObject()->count);
+		}else{
+			$query->addField('users', 'name', 'label');
+			$result = $this->find_users($query, $distinct)->execute();
+			while ($d = $result->fetchAssoc())
+				$data[] = $d;
+		}
+		return $data;
+	}
+	
+	protected function applyDateRange(&$query, $date_field, $period, $isrange = false){
+		if ($period){
+			if ($isrange){
+				//find overlapping date ranges...
+				$query->condition("date.{$date_field}_value", $period[1], '<=');
+				$db_or = db_or()
+							->condition("date.{$date_field}_value2", $period[0], '>=')
+							->isNull("date.{$date_field}_value2");
+				$query->condition($db_or);
+			}else{
+				$query->condition("date.{$date_field}_value", $period, 'BETWEEN');
+			}
+		}else{
+			$query->isNotNull("date.{$date_field}_value");
+		}
+	}
+	
+  private function generate_patent_data($count, $period){
+		$data = array();
+		foreach (array("Awarded"=>'field_er_patent_award_date', "Pending"=>'field_er_provisional_date', "Licensed"=>'field_er_patent_date') as $label=>$date_field){
+			$query = db_select('node', 'node');
+			$query->condition("node.type", 'er_patent', '=');
+			$query->innerJoin("field_data_{$date_field}", 'date', 'node.nid = date.entity_id');
+			$this->applyDateRange($query, $date_field, $period);
+			$data[$label] = $this->generate_node_output($count, $query);
+		}
+		return $data;
+  }
+  
+  private function generate_proposal_data($count, $period){
+		$data = array();
+		foreach (array("Submitted"=>'field_er_proposal_submit', "Awarded"=>'field_er_proposal_date', "Pending"=>'field_er_proposal_pending') as $label=>$date_field){
+			$query = db_select('node', 'node');
+			$query->condition("node.type", 'er_proposal', '=');
+			
+			//we need to return the "funds requested" info:
+			$query->innerJoin("field_data_field_er_award_requested_dec", 'amount', 'node.nid = amount.entity_id');
+			if ($count)
+				$query->addExpression('SUM(amount.field_er_award_requested_dec_value)', 'amount');
+			else
+				$query->addField('amount', 'field_er_award_requested_dec_value', 'amount');
+			
+			$query->innerJoin("field_data_{$date_field}", 'date', 'node.nid = date.entity_id');
+			$this->applyDateRange($query, $date_field, $period, $label=="Awarded");//Note: Award date is a date range...
+			$data[$label] = $this->generate_node_output($count, $query);
+		}
+    return $data;
+  }
+  
+  private function generate_pub_data($count, $period){
+		$data = array();
+		foreach (array("Primary", "Partial") as $key=>$label){
+			$query = db_select('node', 'node');
+			$query->condition("node.type", 'er_publication', '=');
+			$date_field = 'field_er_publication_date';
+			
+			$query->innerJoin("field_data_field_er_rii_support", 'support', 'node.nid = support.entity_id');
+			$query->condition("support.field_er_rii_support_value", $key, '=');
+			
+			$query->innerJoin("field_data_{$date_field}", 'date', 'node.nid = date.entity_id');
+			$this->applyDateRange($query, $date_field, $period, $label=="Awarded");//Note: Award date is a date range...			
+			$data[$label] = $this->generate_node_output($count, $query);
+		}
+    return $data;
+  }
+	
+	//User queries:
+  
+	private function generate_fac_hired_query(&$query, $period){
+		$date_field = 'field_er_hired_date';
+		$query->innerJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
+		$this->applyDateRange($query, $date_field, $period);
+		
+		//Person must be faculty:
+		$query->innerJoin("field_data_field_er_position_type", 'type', 'users.uid = type.entity_id');
+		$query->condition("type.field_er_position_type_value", "Faculty participants (or equivalent)", '=');
+	}
+	
+	private function generate_post_docs_query(&$query, $period){
+		$date_field = 'field_er_participant_date';
+		$query->leftJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
+		$this->applyDateRange($query, $date_field, $period);
+		
+		$query->innerJoin("field_data_field_er_position_type", 'type', 'users.uid = type.entity_id');
+		$query->condition("type.field_er_position_type_value", "Post docs", '=');
+	}
+	
+	private function generate_grad_students_query(&$query, $period){
+		//TODO:
+		//NEED TO WORK IN DOCTORATE GRADUATIONS SOMEHOW.
+		$date_field1 = 'field_er_mas_act_grad_date';
+		$date_field2 = 'field_er_doc_act_grad_date';
+		$query->leftJoin("field_data_{$date_field1}", 'date1', 'users.uid = date1.entity_id');
+		$query->leftJoin("field_data_{$date_field2}", 'date2', 'users.uid = date2.entity_id');
+		//$this->applyDateRange($query, $date_field, $period);
+		if ($period){
+			$db_or = db_or()
+				->condition("date1.{$date_field1}_value", $period, 'BETWEEN')
+				->condition("date2.{$date_field2}_value", $period, 'BETWEEN');
+			$query->condition($db_or);
+		}else{
+			$db_or = db_or()
+				->isNotNull("date1.{$date_field1}_value")
+				->isNotNull("date2.{$date_field2}_value");
+			$query->condition($db_or);
+		}
+	}
+	
+	private function generate_undergrad_query(&$query, $period){
+		$date_field = 'field_er_und_act_grad_date';
+		$query->innerJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
+		$this->applyDateRange($query, $date_field, $period);
+	}
+	
+	//Attribute functions:
+	
+	private function generate_male_query(&$query){
+		$query->innerJoin("field_data_field_er_gender", 'gender', 'users.uid = gender.entity_id');
+		$query->condition("gender.field_er_gender_value", 0, '=');
+	}
+	
+	private function generate_female_query(&$query){
+		$query->innerJoin("field_data_field_er_gender", 'gender', 'users.uid = gender.entity_id');
+		$query->condition("gender.field_er_gender_value", 1, '=');
+	}
+	
+	private function generate_urm_query(&$query){
+		//This list could be appended:
+		//Note: Perhaps we should have some simpler means of customizing this list. Perhaps we can define a custom hook or put a form element in the ER-core settings page.
+		static $minorities = array("American Indian or Alaskan Native", "Black or African American", "Native Hawaiian", "Pacific Islander", "Filipino");
+		$query->innerJoin("field_data_field_er_race", 'race', 'users.uid = race.entity_id');
+		$query->innerJoin("field_data_field_er_ethnicity", 'ethnicity', 'users.uid = ethnicity.entity_id');
+		$query->condition(db_or()
+			->condition("race.field_er_race_value", $minorities, 'IN')
+			->condition("ethnicity.field_er_ethnicity_value", 1, '=')//1 == person is hispanic
+		);
+	}
+	
+	private function generate_disabled_query(&$query){
+		$query->innerJoin("field_data_field_er_disabilities", 'disabilities', 'users.uid = disabilities.entity_id');
+		$query->isNotNull("disabilities.field_er_disabilities_value");
+		$query->condition("disabilities.field_er_disabilities_value", 'None', '!=');
+		//$query->addField("disabilities", "field_er_disabilities_value");
+	}
+	
+  private function generate_user_data($count, $period, $event_type){
+		//note that this list has to match the array seen in the for loop in function generate_column_data.
+		static $event_type_map = array(
+			"Total New Faculty Hired"=>"generate_fac_hired_query",
+			"Total Post Docs Involved"=>"generate_post_docs_query",
+			"Total Graduate Students Graduated"=>"generate_grad_students_query",
+			"Total Undergraduates Graduated"=>"generate_undergrad_query"
+		);
+		static $attribute_map = array(
+			"Male" => "generate_male_query",
+			"Female" => "generate_female_query",
+			"Underrepresented minority" => "generate_urm_query",
+			"Disabled" => "generate_disabled_query"
+		);
+		$data = array();
+		$event_type_fn = $event_type_map[$event_type]; //get the name of the function to use.
+		foreach ($attribute_map as $label=>$attribute_fn){
+			$query = db_select('users', 'users');
+			$this->$event_type_fn($query, $period);//perform the section specific query alterations + date range additions.
+			$this->$attribute_fn($query);//perform the attribute specific query alterations (Male, Female, URM, Dis.)
+			$data[$label] = $this->generate_user_output($count, $query, true);//use the $distinct flag: give me only distinct uids.
+		}
+		return $data;
+  }
+	
+	private function generate_column_data($count, $date_range = array()){
+		$data["Patents"] = $this->generate_patent_data($count, $date_range);
+		
+		$data["Proposals/Grants/Contracts"] = $this->generate_proposal_data($count, $date_range);
+		
+		$data["Published Publications"] = $this->generate_pub_data($count, $date_range);
+		
+		foreach (array("Total New Faculty Hired", "Total Post Docs Involved", "Total Graduate Students Graduated", "Total Undergraduates Graduated") as $type){			
+			$data[$type] = $this->generate_user_data($count, $date_range, $type);
+		}
+		return $data;
+	}
+  
+  public function data($count = true){
+    $data = array();
+    //$disabilities = $this->get_allowed_values("field_er_disabilities");
+    //unset($disabilities['None']); // not interested in counting "None" as a disability
+    
+		$data["Cumulative"] = $this->generate_column_data($count);
+		if ($this->range)
+			$data["Reporting Period"] = $this->generate_column_data($count, $this->range);
+		
+    return $data;
+  }
+	
+  public function html(){
+    if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
+    d($this->data(), 'counts');
+    $data = $this->data(false);
+    d($data, 'data');
+		//$data = array();
+    $output = '';
+		$output .= $this->download_link();
+		$output = array(
+			'link'=>array(
+				'#type'=>'markup',
+				'#markup'=>$this->download_link()
+			)
+		);
+    foreach ($data as $range_label => $categories){
+			$output[$range_label.'-label'] = $this->h1($range_label);
+			foreach ($categories as $cat_key=>$cat_data){
+				$output[$cat_key . '-label'] = $this->h2($cat_key);
+				foreach ($cat_data as $row_key=>$row_data){
+					if (is_array($row_data)){
+						$list = array(
+							'#theme'=>'item_list',
+							'#title'=>$row_key,
+							'#type'=>'ul',
+							'#items'=>array()
+						);
+						foreach ($row_data as $row){
+							if (isset($row['amount'])){
+								$list['#items'][] = l($row['label'], 'node/'.$row['nid']) . ' (' . $row['amount'] . ')';
+							}else if (isset($row['nid'])){
+								$list['#items'][] = l($row['label'], 'node/'.$row['nid']);
+							}else if (isset($row['uid'])){
+								$list['#items'][] = l($row['label'], 'user/'.$row['uid']);
+							}
 						}
-						$output .= '</li>';
+						//$output[$cat_key . '-table'] = $table;
+						$output["$cat_key-$row_key-list"] = $list;
 					}
-					$output .= '</ol>';
 				}
 			}
 		}
-		$output .= $this->download_link();
 		return $output;
-	}
-	
-	public function write_excel(&$objPHPExcel, $sheet = 0){
-		$data = $this->data();
-		$worksheet = $objPHPExcel->setActiveSheetIndex($sheet);
-		$row = 4;
-		foreach ($data as $cat_key => $category){
-			foreach ($category as $row_key=>$row_data){
-				if ($cat_key == "Proposals/Grants/Contracts"){//just need to treat the second one different
-					$worksheet->setCellValue("B".$row, $row_data['Reporting Period']['count']);
-					$worksheet->setCellValue("C".$row, $row_data['Reporting Period']['funds']);
-					$worksheet->setCellValue("D".$row, $row_data['Cumulative']['count']);
-					$worksheet->setCellValue("E".$row, $row_data['Cumulative']['funds']);
-				}else{
-					$worksheet->setCellValue("B".$row, $row_data['Reporting Period']);
-					$worksheet->setCellValue("D".$row, $row_data['Cumulative']);
+  }
+  
+  public function write_excel(&$objPHPExcel, $sheet = 0){
+    $data = $this->data();
+		//d($data, '$data');
+    $worksheet = $objPHPExcel->setActiveSheetIndex($sheet);
+    $base_row = 4;
+		$col = 3;
+		foreach ($data as $range_label => $categories){
+			$row = $base_row;
+			foreach ($categories as $cat_key=>$cat_data){
+				foreach ($cat_data as $row_key=>$row_data){
+					if ($cat_key == "Proposals/Grants/Contracts"){//just need to treat the second one different
+						$worksheet->setCellValueByColumnAndRow($col, $row, intval($row_data['count']));
+						$worksheet->setCellValueByColumnAndRow($col+1, $row, intval($row_data['amount']));
+					}else{
+						$worksheet->setCellValueByColumnAndRow($col, $row, intval($row_data['count']));
+					}
+					$row++;
 				}
 				$row++;
 			}
-			$row++;
+			$col -= 2;
 		}
-	}
+  }
 
-	public function excel_file(){
-		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Outputs-template.xls");
-		return $objPHPExcel;
-	}
-	
+  public function excel_file(){
+    $objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Outputs-template.xls");
+    return $objPHPExcel;
+  }
+  
 }

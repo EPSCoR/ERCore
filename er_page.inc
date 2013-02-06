@@ -2,8 +2,10 @@
 class er_page{
 	protected $content_type_info;
 	protected $template_dir;
+	protected $range;
 	
 	public function __construct() {
+		$this->range = er_get_reporting_range();
 		//$this->template_dir = drupal_get_path('module', 'er') . '/templates/';
 	}
 	
@@ -12,7 +14,11 @@ class er_page{
 	 */
 	
 	public function title(){
-		return "Reporting";
+		return "Reporting".$this->range_string();
+	}
+	
+	public function range_string(){
+		return $this->range?' ['.date('M n, Y', $this->range[0]).' - '.date('M n, Y', $this->range[1]).']':'';
 	}
 	
 	public function data(){
@@ -93,22 +99,87 @@ class er_page{
 		return list_allowed_values($all_fields[$field]);
 	}
   
-  protected function current_reporting_year(){
-		return intval(date('n')) < 3 ? intval(date('Y'))-1 : intval(date('Y'));
+//  protected function current_reporting_year(){
+//		return intval(date('n')) < 3 ? intval(date('Y'))-1 : intval(date('Y'));
+//	}
+//	
+//	/*
+//	 * Using this in the summary tables, it outputs the reporting year ranges as a date/time stamp.
+//	 * This is used to fake the reporting year field for calendar events...
+//	 */
+//	protected function get_reporting_range($y = null){
+//		if ($y == null)
+//			$y = $this->current_reporting_year();
+//		if ($y == 2009)
+//			$date_lower = mktime(0, 0, 0, 9, 15, $y);
+//		else
+//			$date_lower = mktime(0, 0, 0, 4, 1, $y);
+//		$date_upper = mktime(0, 0, 0, 3, 31, $y+1);
+//		return array($date_lower, $date_upper);
+//	}
+	
+	//These functions are used in participants.inc or outputs.inc
+	//They are used in several places. They are used to generate content (queries) for excel sheets.
+	
+	public function er_get_realname($uid, $link = true){
+		static $names = array();
+		if (!array_key_exists($uid, $names)){
+			$query = db_select('users', 'users');
+			$query->condition('users.uid', $uid, '=');
+			$query->leftJoin('field_data_field_er_realname', 'rn', 'rn.entity_id = users.uid');
+			$query->addField('rn', 'field_er_realname_value', 'realname');
+			$query->addField('users', 'name', 'name');
+			$result = $query->execute()->fetchAssoc();
+			if (isset($result['realname']) && $result['realname'] != ' ' && $result['realname'] != '')
+				$names[$uid] = $result['realname'];
+			else
+				$names[$uid] = $result['name'];
+		}
+		//d($names);
+		return l($names[$uid], 'user/'.$uid);
 	}
 	
-	/*
-	 * Using this in the summary tables, it outputs the reporting year ranges as a date/time stamp.
-	 * This is used to fake the reporting year field for calendar events...
-	 */
-	protected function get_reporting_range($y = null){
-		if ($y == null)
-			$y = $this->current_reporting_year();
-		if ($y == 2009)
-			$date_lower = mktime(0, 0, 0, 9, 15, $y);
-		else
-			$date_lower = mktime(0, 0, 0, 4, 1, $y);
-		$date_upper = mktime(0, 0, 0, 3, 31, $y+1);
-		return array($date_lower, $date_upper);
+	protected function count_nodes(&$query, $distinct = false){
+		$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'node.nid)', 'count');
+		return $query;
+	}
+	
+	protected function count_users(&$query, $distinct = false){
+		$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
+		return $query;
+	}
+	
+	protected function find_nodes(&$query, $distinct = false){
+		if ($distinct)//This will remove duplicates from the display.
+			$query->groupBy('node.nid');
+		$query->addField('node', 'nid');
+		return $query;
+	}
+	
+	protected function find_users(&$query, $distinct = false){
+		if ($distinct)//This will remove duplicates from the display.
+			$query->groupBy('users.uid');
+		$query->addField('users', 'uid');
+		return $query;
+	}
+	
+	protected function markup($text, $options){
+		return array_merge(array(
+			'#type'=>"markup",
+			'#markup'=>$text,
+		), $options);
+	}
+	
+	protected function h1($text){
+		return $this->markup($text, array('#prefix'=>'<h1>', '#suffix'=>'</h1>'));
+	}
+	protected function h2($text){
+		return $this->markup($text, array('#prefix'=>'<h2>', '#suffix'=>'</h2>'));
+	}
+	protected function h3($text){
+		return $this->markup($text, array('#prefix'=>'<h3>', '#suffix'=>'</h3>'));
+	}
+	protected function h4($text){
+		return $this->markup($text, array('#prefix'=>'<h4>', '#suffix'=>'</h4>'));
 	}
 }

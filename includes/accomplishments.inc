@@ -11,7 +11,7 @@ function er_accomplishments(){
 function er_summary_table($variables){
 	$ranges = $variables['ranges'];
 	$debug = $variables['debug'];
-	$ret = Array('#theme'=>'table');
+	$ret = array('#theme'=>'table');
 	//$content_types = er_content_types();
 	//$ct_info = node_type_get_types();
 	$display_date = "M j, Y";
@@ -57,6 +57,11 @@ function er_summary_table($variables){
 		drupal_set_message(t('An administrator needs to select which content types you want to see on the summary table!')." $link", 'error');
 	}
 	
+	if (count($ranges) == 1)
+		$date_label = ' ('.date('n/j/y', $ranges[0][0]).' - '.date('n/j/y', $ranges[0][1]).')';
+	else
+		$date_label = '';
+	
 	$user_can_download = user_access(ER_DOWNLOAD_PERMISSION);
 	$ret = array(
 		'table'=>$ret,
@@ -67,7 +72,7 @@ function er_summary_table($variables){
 		'download' => array(
 			'#type' => 'markup',
 			'#access' => $user_can_download,
-			'#markup' => '<p style="text-align:center;">'.er_create_download_link('Download Reporting Tables', 'excel')."</p>",
+			'#markup' => '<p style="text-align:center;">'.er_create_download_link('Download EPSCoR Reporting Core Tables'.$date_label, 'excel')."</p>",
 		)
 	);
 	return render($ret);

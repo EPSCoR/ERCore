@@ -14,13 +14,13 @@ class er_participants extends er_page{
 	public function __construct() { 
 		parent::__construct();
 		$this->columns = array('Total', 'Male', 'Female', 'Black', 'Hispanic', 'Other Ethnic', 'Disabled');
-		if ($this->range = er_get_reporting_range()){//a reporting year date range has been specified.
+		if ($this->range){//a reporting year date range has been specified.
 			$this->columns[] = 'New Investigators';//So we can look up the new investigators, otherwise don't bother.
 		}
 	}
 	
 	public function title(){
-		return "Participants".($this->range?' ['.date('M n, Y', $this->range[0]).' - '.date('M n, Y', $this->range[1]).']':'');
+		return "Participants".$this->range_string();
 	}
 	
 	private function tryget(&$result, $field, $default){
@@ -51,24 +51,6 @@ class er_participants extends er_page{
 			return $titles[$nid]['title'];
 	}
 	
-	public function er_get_realname($uid, $link = true){
-		static $names = array();
-		if (!array_key_exists($uid, $names)){
-			$query = db_select('users', 'users');
-			$query->condition('users.uid', $uid, '=');
-			$query->leftJoin('field_data_field_er_realname', 'rn', 'rn.entity_id = users.uid');
-			$query->addField('rn', 'field_er_realname_value', 'realname');
-			$query->addField('users', 'name', 'name');
-			$result = $query->execute()->fetchAssoc();
-			if (isset($result['realname']) && $result['realname'] != ' ' && $result['realname'] != '')
-				$names[$uid] = $result['realname'];
-			else
-				$names[$uid] = $result['name'];
-		}
-		//d($names);
-		return l($names[$uid], 'user/'.$uid);
-	}
-	
 	/*
 	 * @param $count: boolean value indicating whether we are to display the actual content or just return the entity count.
 	 * @param $distinct: boolean value indicating whether we should count distinct users or allow duplicates.
@@ -96,11 +78,13 @@ class er_participants extends er_page{
 			$query->groupBy('institution.field_er_inst_ref_target_id');
 			$query->groupBy('position_type.field_er_position_type_value');
 			//Count the user ids...
-			$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
+			//$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
+			$query = $this->count_users($query, $distinct);
 		}else{
-			if ($distinct)//This will remove duplicate names from the display.
-				$query->groupBy('users.uid');
-			$query->addField('users', 'uid');
+			//if ($distinct)//This will remove duplicate names from the display.
+			//	$query->groupBy('users.uid');
+			//$query->addField('users', 'uid');
+			$query = $this->find_users($query, $distinct);
 		}
 		//d((string)$query);
 		return $query;
@@ -117,12 +101,14 @@ class er_participants extends er_page{
 		
 		if ($count){
 			//Count the user ids...
-			$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
+			//$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
+			$query = $this->count_users($query, $distinct);
 		}else{
-			if ($distinct)//This will remove duplicate names from the display.
-				$query->groupBy('users.uid');
-			$query->addField('users', 'uid');
+			//if ($distinct)//This will remove duplicate names from the display.
+			//	$query->groupBy('users.uid');
+			//$query->addField('users', 'uid');
 			$query->addField('comm', 'field_er_committees_value', 'committee');
+			$query = $this->find_users($query, $distinct);
 		}
 		//d((string)$query);
 		return $query;
@@ -245,8 +231,8 @@ class er_participants extends er_page{
 		d($this->data(), 'count');
 		$data = $this->data(false);
 		d($data, 'data');
-		$ret = $this->download_link();
-		$ret .= '<br>'.'<strong>NOTICE: The date range only affects the New Investigators column at this time. </strong>';
+		$ret = '<strong>NOTICE: The date range only affects the New Investigators column at this time. </strong>'.'<br>';
+		$ret .= $this->download_link();
 		foreach ($data['Institutions'] as $inst_id => $categories){
 			if ($inst_id == "Total")
 				$ret .= "<h1>RII Total</h1>";

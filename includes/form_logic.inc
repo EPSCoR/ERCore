@@ -56,25 +56,6 @@ function er_form_er_award_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
-// Book, Thesis, Dissertation
-function er_form_er_book_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-
-	$published = array(
-	        ':input[name="field_er_book_status[und]"]' => array('checked' => TRUE),
-	      ); 
-	$notpublished = array(
-	        ':input[name="field_er_book_status[und]"]' => array('checked' => FALSE),
-	      ); 
-	      
-	//published      
-	$form['field_er_book_date']['#states']  	  
-	  = array(
-	      'visible' => $notpublished,
-	      'required' => $notpublished,
-	  );
-}
-
 // Calendar Event
 function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
@@ -133,7 +114,7 @@ function _set_states_for_inst(&$form){
 function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_er_proposal_node_form_alter');
 
-// Setting up variables that will be used
+	// Setting up variables that will be used
 	$pending = array(
 		':input[name="field_er_proposal_status[und]"]' => array('value' => 'Pending'),
 	);
@@ -143,19 +124,24 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	$denied = array(
 		':input[name="field_er_proposal_status[und]"]' => array('value' => 'Denied'),
 	);	 
-   	$expired = array(
+  $expired = array(
 		':input[name="field_er_proposal_status[und]"]' => array('value' => 'Expired'),
 	);
 	  
-// The Date fields	
+	// The Date fields:
 	// Pending
 	$form['field_er_proposal_pending']['#states'] = array(
-	  'visible'=> $pending,
-	  'required' => $pending,
+	  'visible'=> array($pending, $awarded, $denied, $expired),
+	  'required' => array($pending, $awarded, $expired),
 	); 
 	
 	// Award Dates
 	$form['field_er_proposal_date']['#states'] = array(
+	  'visible' => array($awarded, $expired),
+	  'required' => array($awarded, $expired),
+	);
+	// Award Amount (Textfield)
+	$form['field_er_award_amount']['#states'] = array(
 	  'visible' => array($awarded, $expired),
 	  'required' => array($awarded, $expired),
 	);
@@ -166,12 +152,7 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'required' => $denied,
 	);	
 	
-// Textfield	
-	// Award Amount
-	$form['field_er_award_amount']['#states'] = array(
-	  'visible' => array($awarded, $expired),
-	  'required' => array($awarded, $expired),
-	);
+	
 	
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
@@ -216,16 +197,6 @@ function er_form_er_institution_node_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_er_institution_node_form_alter');
 }
 
-// Internet Dissemination
-function er_form_er_internet_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-}
-
-// NSF Fastlane Narrative
-function er_form_er_nsf_fastlane_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-}
-
 // Other Research Products
 function er_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
@@ -257,21 +228,19 @@ function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	  );
 }
 
-// Poster
-function er_form_er_poster_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-}
-
 // Presentation
 function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Publication
+// Modified by Brent on 2013-01-09
 function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
+	// d($form_id, 'form_id entering er_form_er_publication_node_form_alter');
+	// d($form, 'form entering er_form_er_publication_node_form_alter');
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
-// Setting up variables that will be used
+// Setting up SmartForm variables that will be used
 	$submitted = array(
 		':input[name="field_er_publication_status[und]"]' => array('value' => '2'),
 	);
@@ -287,14 +256,44 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	$where = array(
 		':input[name="field_er_pub_archived[und]"]' => array('value' => '2'),
 	); 
+	// values for Publication Type field
+	$journal = array(
+		':input[name="field_er_publication_type[und]"]' => array(
+			'value' => 'Journal Article'),
+	); 
+	$book = array(
+		':input[name="field_er_publication_type[und]"]' => array(
+			'value' => 'Book'),
+	); 
+	$proceedings = array(
+		':input[name="field_er_publication_type[und]"]' => array(
+			'value' => 'Conference Proceedings'),
+	); 
+	$magazine = array(
+		':input[name="field_er_publication_type[und]"]' => array(
+			'value' => 'Magazine Article'),
+	); 
+	$newspaper = array(
+		':input[name="field_er_publication_type[und]"]' => array(
+			'value' => 'Newspaper Article'),
+	); 
 
 // The Date fields	
 	// Submitted
+	// Date Submitted field is visible & required if:
+	// ... Publication Status contains values:  Submitted, Accepted, or Published
+	// Date Submitted field is invisible & optional if:
+	// ... Publication Status contain other values:  (eg. '-none-')
+
 	$form['field_er_publication_submit']['#states'] = array(
 	  'visible'=> array($submitted, $accepted, $published),
 	  'required' => array($submitted, $accepted, $published),
 	); 	
 	// Published
+	// Date Published, Abstract, NSF Ack fields are visible & required if:
+	// ... Publication Status contains value:  Submitted
+	// These fields are invisible & optional if:
+	// ... Publication Status contain other values:  (eg. '-none-', Accepted)
 	
 	$form['field_er_publication_date']['#states'] =
 	$form['body']['#states'] =
@@ -304,14 +303,38 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	);	
 // Data Collection	
 	// Yes
+	// 'Is it being archived?' field is visible & required if:
+	// ... 'Are you collecting data?' contains value:  1|Yes
+	// 'Is it being archived?' field is invisible & optional if:
+	// ... 'Are you collecting data?' contains any other value:  (eg. 0|No)
+
 	$form['field_er_pub_archived']['#states'] = array(
 	  'visible'=> $yesdata,
 	  'required' => $yesdata,
 	); 		
+	// 'What Archive?' field is visible & required if:
+	// ... 'Is it being archived?' contains value:  2|Another Repository
+	// 'What Archive?' field is invisible & optional if:
+	// ... 'Are you collecting data?' contains other values:
+	// ... (eg. 0|Not Yet, or 1|EPSCoR Repository)
+
 	$form['field_er_pub_what_archive_']['#states'] = array(
 	  'visible'=> $where,
 	  'required' => $where,
-	); 		
+	);
+
+// Publication Information group
+	// Journal Name field is required if:
+	// ... 'Publication Type' contains values: Journal Article, Book, ...
+	// Journal Name field is optional if:
+	// ... 'Publication Type' contains any other value.
+
+	$form['field_er_journal_name']['#states'] = array(
+	  'required'=> array($journal, $book, $proceedings, $magazine, $newspaper),
+	);
+	
+	
+	// d($form, 'form exiting er_form_er_publication_node_form_alter');
 }
 
 // Research Project
@@ -319,15 +342,15 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
-// User Event
-function er_form_er_user_event_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-}
+// User Event (DEPRECATED)
+//function er_form_er_user_event_node_form_alter(&$form, &$form_state, $form_id){
+//	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+//}
 
-// User Graduation Event
-function er_form_er_user_event_instance_node_form_alter(&$form, &$form_state, $form_id){
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
-}
+// User Graduation Event (DEPRECATED)
+//function er_form_er_user_event_instance_node_form_alter(&$form, &$form_state, $form_id){
+//	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+//}
 
 // User Profile Registration 
 //	This isn't a content type, instead, it's where people go to register:
@@ -413,99 +436,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// $form['#validate'][] = '_create_inst';
 	// array_push($form['#validate'], '_create_inst');
 	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
-	
-	// encryption for the add/edit page of the User Profile
-	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
-	foreach ($encrypted_fields_arr as $enc_field){
-		if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'select_or_other'){
-			if ($form[$enc_field][LANGUAGE_NONE]['#multiple'] == FALSE){
-				// this is a select list for select_or_other
-				$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value']['value'];
-				// d($enc_field, "found select or other mult(false), value is '$val'");
-				// d($enc_field, "found select or other mult(false), value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']['value']}'");
-				// $form[$enc_field][LANGUAGE_NONE]['#default_value']['value'] .= ' CHANGED';
-				// $form[$enc_field][LANGUAGE_NONE]['#default_value']['safe_value'] .= ' CHANGED';
-				if (is_serialized($val) && function_exists('decrypt')){
-					// this field is encrypted and can be decrypted
-					$val = decrypt($val);
-				}
-			}
-			else{
-				// this has checkboxes for select_or_other
-				for ($i = 0; $i < count($form[$enc_field][LANGUAGE_NONE]['#default_value']); $i++){
-					$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value'][$i];
-					// d($enc_field, "found select or other, value is '$val'");
-					// d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$i]}'");
-					if (is_serialized($val) && function_exists('decrypt')){
-						// this field is encrypted and can be decrypted
-						$val = decrypt($val);
-					}					
-				}
-				// foreach ($form[$enc_field][LANGUAGE_NONE]['#default_value'] as $val){
-					// d($val, 'val');
-					// d($enc_field, "found select or other, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value'][$val]}'");
-				// }
-			}
-			
-		}
-		else if ($form[$enc_field][LANGUAGE_NONE]['#type'] == 'radios'){
-			$val =& $form[$enc_field][LANGUAGE_NONE]['#default_value'];
-			// d($enc_field, "found radios, value is '$val'");
-			// d($enc_field, "found radios, value is '{$form[$enc_field][LANGUAGE_NONE]['#default_value']}'");
-			if (is_serialized($val) && function_exists('decrypt')){
-				// this field is encrypted and can be decrypted
-				$val = decrypt($val);
-			}			
-		}
-	}
-	// add encrypt function to the end of the #submit array
-	array_push($form['#validate'], '_encrypt_user_fields');
-	// array_push($form['#submit'], '_encrypt_user_fields');
-	d($form, 'form for encryption');
-	// debug($form_state, '$form_state in form alter', TRUE);
-	//if (in_array($variables['element']['#field_name'], $encrypted_fields_arr)) {
-		
-	//}
 }
-
-/* created by Mike and called from er_form_user_profile_form_alter */
-
-function _encrypt_user_fields(&$form, &$form_state){
-	// debug($form_state, '$form_state in submit', TRUE);
-	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
-	// d($form_state, 'form state in encrypt function');
-	// $form['field_er_gender'][LANGUAGE_NONE]['#value'] = 1;
-	// $form['field_er_gender'][LANGUAGE_NONE]['#entity']->field_er_gender[LANGUAGE_NONE][0]['value'] = 1;
-	// d($form['field_er_gender'], 'form in encrypt function');
-	// $form_state['values']['field_er_gender'][LANGUAGE_NONE][0]['value'] = 1;
-	// d($form_state['values']['field_er_gender'], 'field_er_gender');
-	// $form_state['complete form']['field_er_gender'][LANGUAGE_NONE][0]['value'] = 1;
-	// form_set_value($form['field_er_gender'], array('und' => array(0 => array('value' => 1))), $form_state);
-
-	$form['field_er_fname']['#parents'] = array('field_er_fname');
-	form_set_value($form['field_er_fname'], array(LANGUAGE_NONE => array(0 => array('value' => 'changed'))), $form_state);
-	// debug($form_state['complete form'], 'complete form', TRUE);
-	// debug($form_state['complete form'], 'complete form', TRUE);
-	
-	// dsm($form_state, 'form state');
-	// d('where');
-	
-	// var_dump($form_state);
-	
-}
-
-/* This is a function that assists in checking whether a field's value is encrypted or not */
-
-function is_serialized($val){
-	$data = @unserialize($val);
-	if ($val === 'b:0;' || $data !== false) {
-	    return TRUE;
-	} else {
-	    return FALSE;
-	}	
-	
-}
-
 
 /*
  * Below are validation, after_build, and other such functions
@@ -593,6 +524,7 @@ function _create_inst(&$form, &$form_state){
  */
 function er_field_group_build_pre_render_alter(&$element){
 	// d($element, 'element');
+	// This IF block was used for the User Profile
 	if (isset($element['group_er_certifications']) && isset($element['group_er_data_collection'])){
 		$element['group_er_certifications']['#states'] = array(
 	    	'visible' => array(
@@ -604,6 +536,39 @@ function er_field_group_build_pre_render_alter(&$element){
 	      	':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
 	    	)
 	    );			
+	}
+	
+	// This IF block is used for the Publications Content Type
+	if (isset($element['group_er_journal'])){
+		// Make Publication Info group visible/invisible depending on the selection
+		
+		// values for Publication Type field
+		$none = array(
+			':input[name="field_er_publication_type[und]"]' => array(
+				'value' => '_none'),
+		);
+		$abstract = array(
+			':input[name="field_er_publication_type[und]"]' => array(
+				'value' => 'Abstract'),
+		); 
+		$thesis = array(
+			':input[name="field_er_publication_type[und]"]' => array(
+				'value' => 'Thesis/Dissertation'),
+		); 
+		$internet = array(
+			':input[name="field_er_publication_type[und]"]' => array(
+				'value' => 'Internet Dissemination'),
+		); 
+		// 'Publication Information' group is invisible if:
+		// ... 'Publication Type' contains values:
+		// ...     '- None -', Abstract, Thesis, I-net Diss.
+		// 'Publication Information' group is visible if:
+		// ... 'Publication Type' contains values other values:
+		// ...     (eg. Journal Article, Book)
+		
+		$element['group_er_journal']['#states'] = array(
+			'invisible'=> array($none, $abstract, $thesis, $internet),
+		);
 	}
 }
 

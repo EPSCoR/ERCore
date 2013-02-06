@@ -10,6 +10,8 @@
 // http://api.drupal.org/api/drupal/modules!field!field.module/function/template_preprocess_field/7
 function er_preprocess_field(&$variables) {
 	// d($variables, 'variables');
+	
+	/* this block was used when trying out encryption stuff
 	$encrypted_fields_arr = array('field_er_disabilities', 'field_er_gender', 'field_er_race', 'field_er_ethnicity', 'field_er_citizenship');
 	if (in_array($variables['element']['#field_name'], $encrypted_fields_arr)) {
 		if (function_exists('encrypt')){
@@ -21,6 +23,7 @@ function er_preprocess_field(&$variables) {
 			$variables['items']['0']['#markup'] .= ' ALTERED';
 		// }
 	}
+	 * */
 }
 
 // function er_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {

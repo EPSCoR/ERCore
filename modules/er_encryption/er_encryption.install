@@ -1,0 +1,6 @@
+<?php
+function er_encryption_install(){
+	/* TODO do a variable_del call in the uninstall hook eventually */
+	variable_set('er_use_encryption', 1); // default to true (1)	
+}
+
