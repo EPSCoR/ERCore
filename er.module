@@ -99,6 +99,7 @@ function er_permission(){
  * @return array An array with this module's settings.
  */
 function er_menu() {
+// this is where we hardcode the EPSCoR menu system
 	$items = array();
 // 	
 	//$items['test1'] = array(
