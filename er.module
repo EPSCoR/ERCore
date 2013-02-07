@@ -1,5 +1,6 @@
 <?php
 // this comment plus a word from server
+// written on Mike's localhost
 define('ER_DEBUG_EXCEL', 0); //Change this to True (1) in order to debug the excel downloads.
 
 define('ER_ADMIN_PERMISSION','administer er');
