@@ -31,7 +31,7 @@ require_once ER_MODULE_DIR . '/includes/accomplishments.inc';
  ******************************************************************************/
  
 function er_init(){
-	// This is a new comment.
+	// No this a better comment.
 	// Uncomment out the below two lines to get error reporting in case of WSOD ~Mike
 	// error_reporting(E_ALL | E_STRICT);
 	// the line below will get rid of benign "notice" messages that do not look good during a demo
