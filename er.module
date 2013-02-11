@@ -163,14 +163,17 @@ function er_menu() {
 
 	//This sets up the EPSCoR Menu in the administration bar.
 	$items['admin/epscor'] = array(
+		'menu_name' => 'management',
 		'title' => 'EPSCoR',
 		'description' => 'EPSCoR Reporting',
 		'page callback' => 'system_admin_menu_block_page',
 		'access arguments' => array('access administration pages'),
 		'file' => 'system.admin.inc',
 		'file path' => drupal_get_path('module', 'system'),
+		'weight' => '-49',
 	);
 	$items['admin/epscor/views'] = array(
+		'menu_name' => 'management',
 		'title' => 'Admin Views',
 		'description' => 'Administrative views',
 		'page callback' => 'system_admin_menu_block_page',
@@ -178,17 +181,50 @@ function er_menu() {
 		'file' => 'system.admin.inc',
 		'file path' => drupal_get_path('module', 'system'),
 	);
+	
+	//use drupal_goto to hard code urls...
 	$items['admin/epscor/config'] = array(
     'menu_name' => 'management',
     'title' => 'EPSCoR Reporting Module Settings',
-    'description' => 'description',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/config/epscor/er'),
     'access arguments' => array(ER_ADMIN_PERMISSION),
   );
-	
-	
+	$items['admin/epscor/new-inst'] = array(
+    'menu_name' => 'management',
+    'title' => 'Create New Institution',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('node/add/er-institution'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/new-user'] = array(
+    'menu_name' => 'management',
+    'title' => 'Quick Add New User',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('admin/people/create'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/reporting'] = array(
+    'menu_name' => 'management',
+    'title' => 'EPSCoR Accomplishments',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/rules'] = array(
+    'menu_name' => 'management',
+    'title' => 'Notifications',
+    'description' => 'Notifications are handled by the Rules module.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('admin/config/workflow/rules'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	//admin/epscor/views/
 	
 	// Set up the settings page located under Configuration.
 	$items['admin/config/epscor'] = array(

@@ -13,10 +13,11 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Collaborations';
 $handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['access']['type'] = 'perm';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
-$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
 $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '15';
@@ -24,13 +25,20 @@ $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['pager']['options']['id'] = '0';
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['style_options']['grouping'] = array(
-  0 => array(
-    'field' => 'field_er_user_entity_reference',
+  1 => array(
+    'field' => 'field_er_collab_inst_ref',
     'rendered' => 1,
     'rendered_strip' => 0,
   ),
 );
 $handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_collab_department_unit' => 'field_er_collab_department_unit',
+);
+/* Relationship: Entity Reference: Referencing entity */
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['id'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['table'] = 'node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['field'] = 'reverse_field_er_collab_ref_node';
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -39,7 +47,7 @@ $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: Author(s) */
+/* Field: Content: Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -116,49 +124,36 @@ $handler->display->display_options['filters']['field_er_collaboration_dates_valu
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['access'] = FALSE;
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  166149871 => '166149871',
+  3 => '3',
+);
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'list';
-$handler->display->display_options['style_options']['grouping'] = array(
-  0 => array(
-    'field' => 'field_er_collab_title',
-    'rendered' => 1,
-    'rendered_strip' => 0,
-  ),
-);
 $handler->display->display_options['defaults']['style_options'] = FALSE;
 $handler->display->display_options['defaults']['row_plugin'] = FALSE;
 $handler->display->display_options['row_plugin'] = 'fields';
 $handler->display->display_options['row_options']['inline'] = array(
-  'field_er_collab_department_unit' => 'field_er_collab_department_unit',
+  'title' => 'title',
+  'field_er_collaboration_dates' => 'field_er_collaboration_dates',
+  'field_er_inst_ref' => 'field_er_inst_ref',
 );
 $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['fields'] = FALSE;
-/* Field: Content: Collaboration Group Title */
-$handler->display->display_options['fields']['field_er_collab_title']['id'] = 'field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['table'] = 'field_data_field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['field'] = 'field_er_collab_title';
-$handler->display->display_options['fields']['field_er_collab_title']['label'] = '';
-$handler->display->display_options['fields']['field_er_collab_title']['exclude'] = TRUE;
-$handler->display->display_options['fields']['field_er_collab_title']['element_label_colon'] = FALSE;
-/* Field: Content: Author(s) */
-$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborators';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['element_type'] = 'span';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
-  'link' => 0,
-);
-$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: Collaborating Institution Department/Unit */
-$handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['field'] = 'field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['label'] = 'Institution';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 /* Field: Content: Dates */
 $handler->display->display_options['fields']['field_er_collaboration_dates']['id'] = 'field_er_collaboration_dates';
 $handler->display->display_options['fields']['field_er_collaboration_dates']['table'] = 'field_data_field_er_collaboration_dates';
 $handler->display->display_options['fields']['field_er_collaboration_dates']['field'] = 'field_er_collaboration_dates';
+$handler->display->display_options['fields']['field_er_collaboration_dates']['label'] = '';
+$handler->display->display_options['fields']['field_er_collaboration_dates']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_collaboration_dates']['settings'] = array(
   'format_type' => 'short',
   'fromto' => 'both',
@@ -167,6 +162,27 @@ $handler->display->display_options['fields']['field_er_collaboration_dates']['se
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
+/* Field: Content: Presenter(s) */
+$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborators';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['element_type'] = 'span';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
+  'link' => 1,
+);
+$handler->display->display_options['fields']['field_er_user_entity_reference']['group_column'] = 'entity_id';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+/* Field: Field: Participating Institution */
+$handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['label'] = 'Institutions';
+$handler->display->display_options['fields']['field_er_inst_ref']['settings'] = array(
+  'link' => 1,
+);
+$handler->display->display_options['fields']['field_er_inst_ref']['group_column'] = 'entity_id';
+$handler->display->display_options['fields']['field_er_inst_ref']['delta_offset'] = '0';
 $handler->display->display_options['path'] = 'collaborations';
 
 /* Display: Attachment */
@@ -184,7 +200,7 @@ $handler->display->display_options['defaults']['row_plugin'] = FALSE;
 $handler->display->display_options['row_plugin'] = 'fields';
 $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['fields'] = FALSE;
-/* Field: Node Count */
+/* Field: COUNT(DISTINCT Node Count) */
 $handler->display->display_options['fields']['nid']['id'] = 'nid';
 $handler->display->display_options['fields']['nid']['table'] = 'node';
 $handler->display->display_options['fields']['nid']['field'] = 'nid';
@@ -226,7 +242,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: Author(s) */
+/* Field: Content: Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -257,16 +273,57 @@ $handler->display->display_options['fields']['field_er_collaboration_dates']['se
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
-/* Field: Content: Project Component */
-$handler->display->display_options['fields']['field_er_core_components']['id'] = 'field_er_core_components';
-$handler->display->display_options['fields']['field_er_core_components']['table'] = 'field_data_field_er_core_components';
-$handler->display->display_options['fields']['field_er_core_components']['field'] = 'field_er_core_components';
-$handler->display->display_options['fields']['field_er_core_components']['settings'] = array(
-  'link' => 0,
-);
-$handler->display->display_options['fields']['field_er_core_components']['delta_offset'] = '0';
 $handler->display->display_options['path'] = 'collaborations/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',
   'page' => 'page',
 );
+
+/* Display: Attachment */
+$handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Institution */
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['id'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['table'] = 'field_data_field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['field'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Collaborating Institution Department/Unit */
+$handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['field'] = 'field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['alter']['text'] = '@ [field_er_collab_department_unit]';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_department_unit']['empty'] = 'No Department';
+/* Field: Content: Non-EPSCoR Participant Research Product Creators */
+$handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_names']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_names']['group_column'] = 'entity_id';
+$handler->display->display_options['fields']['field_er_collab_names']['delta_offset'] = '0';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_collaborators' => 'er_collaborators',
+);
+$handler->display->display_options['filters']['type']['group'] = 1;

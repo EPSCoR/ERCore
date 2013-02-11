@@ -13,7 +13,11 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Participants';
 $handler->display->display_options['use_more_always'] = FALSE;
-$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  166149871 => '166149871',
+  3 => '3',
+);
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -63,24 +67,11 @@ $handler->display->display_options['fields']['field_er_realname']['alter']['path
 $handler->display->display_options['fields']['field_er_realname']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_realname']['empty'] = '[name]';
 $handler->display->display_options['fields']['field_er_realname']['hide_alter_empty'] = FALSE;
-/* Field: User: Position Type */
-$handler->display->display_options['fields']['field_er_involvement']['id'] = 'field_er_involvement';
-$handler->display->display_options['fields']['field_er_involvement']['table'] = 'field_data_field_er_involvement';
-$handler->display->display_options['fields']['field_er_involvement']['field'] = 'field_er_involvement';
-$handler->display->display_options['fields']['field_er_involvement']['label'] = '';
-$handler->display->display_options['fields']['field_er_involvement']['element_label_colon'] = FALSE;
 /* Filter criterion: User: Active */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'users';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
-/* Filter criterion: User: Roles */
-$handler->display->display_options['filters']['rid']['id'] = 'rid';
-$handler->display->display_options['filters']['rid']['table'] = 'users_roles';
-$handler->display->display_options['filters']['rid']['field'] = 'rid';
-$handler->display->display_options['filters']['rid']['value'] = array(
-  4 => '4',
-);
 /* Filter criterion: Content: Participating (field_er_inst_participating) */
 $handler->display->display_options['filters']['field_er_inst_participating_value']['id'] = 'field_er_inst_participating_value';
 $handler->display->display_options['filters']['field_er_inst_participating_value']['table'] = 'field_data_field_er_inst_participating';
