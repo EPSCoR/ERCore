@@ -1,5 +1,4 @@
 <?php
-// written on Mike's localhost
 define('ER_DEBUG_EXCEL', 0); //Change this to True (1) in order to debug the excel downloads.
 
 define('ER_ADMIN_PERMISSION','administer er');
@@ -32,6 +31,8 @@ require_once ER_MODULE_DIR . '/includes/accomplishments.inc';
  ******************************************************************************/
  
 function er_init(){
+	// This is a new comment.
+	// This is a more accurate comment.
 	// Uncomment out the below two lines to get error reporting in case of WSOD ~Mike
 	// error_reporting(E_ALL | E_STRICT);
 	// the line below will get rid of benign "notice" messages that do not look good during a demo
@@ -57,6 +58,7 @@ function er_init(){
  * @return help text for the path
  */
 function er_help($path, $arg) {
+	//This is a different comment.
 	// this hooks into the documentation for ER Core
 	//$output = '<p>'.	t("er is a simple module to test functions and pages in Drupal");
 	//	The line above outputs in ALL admin/module pages
