@@ -1,0 +1,583 @@
+<?php
+$view = new view();
+$view->name = 'er_users';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'users';
+$view->human_name = 'er_users';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Participant Involvement';
+$handler->display->display_options['use_more'] = TRUE;
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '100';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'name' => 'name',
+  'field_er_fname' => 'field_er_fname',
+  'field_er_lname' => 'field_er_lname',
+  'field_er_description' => 'field_er_description',
+  'created' => 'created',
+  'field_er_participant_date' => 'field_er_participant_date',
+);
+$handler->display->display_options['style_options']['default'] = 'field_er_lname';
+$handler->display->display_options['style_options']['info'] = array(
+  'name' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_fname' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_lname' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_description' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_participant_date' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+/* Field: User: Last Name */
+$handler->display->display_options['fields']['field_er_lname']['id'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['field'] = 'field_er_lname';
+/* Field: User: First Name */
+$handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['table'] = 'field_data_field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['field'] = 'field_er_fname';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+/* Field: User: Position Type */
+$handler->display->display_options['fields']['field_er_position_type']['id'] = 'field_er_position_type';
+$handler->display->display_options['fields']['field_er_position_type']['table'] = 'field_data_field_er_position_type';
+$handler->display->display_options['fields']['field_er_position_type']['field'] = 'field_er_position_type';
+/* Field: Field: Description */
+$handler->display->display_options['fields']['field_er_description']['id'] = 'field_er_description';
+$handler->display->display_options['fields']['field_er_description']['table'] = 'field_data_field_er_description';
+$handler->display->display_options['fields']['field_er_description']['field'] = 'field_er_description';
+$handler->display->display_options['fields']['field_er_description']['label'] = 'Involvement';
+$handler->display->display_options['fields']['field_er_description']['element_label_colon'] = FALSE;
+/* Field: User: Created date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'users';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['label'] = 'Profile Created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: User: Participant Date */
+$handler->display->display_options['fields']['field_er_participant_date']['id'] = 'field_er_participant_date';
+$handler->display->display_options['fields']['field_er_participant_date']['table'] = 'field_data_field_er_participant_date';
+$handler->display->display_options['fields']['field_er_participant_date']['field'] = 'field_er_participant_date';
+$handler->display->display_options['fields']['field_er_participant_date']['settings'] = array(
+  'format_type' => 'short',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['fields']['field_er_participant_date']['delta_offset'] = '0';
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['path'] = 'user-involvement';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Participants';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'main-menu';
+$handler->display->display_options['menu']['context'] = 0;
+
+/* Display: User Activity */
+$handler = $view->new_display('page', 'User Activity', 'page_2');
+$handler->display->display_options['display_description'] = 'Table of User Activity';
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['defaults']['access'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'field_er_realname',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['columns'] = array(
+  'field_er_realname' => 'field_er_realname',
+  'name' => 'name',
+  'uid' => 'uid',
+  'created' => 'created',
+  'created_1' => 'created_1',
+  'login' => 'login',
+  'timestamp' => 'timestamp',
+  'nid' => 'nid',
+  'title' => 'title',
+);
+$handler->display->display_options['style_options']['default'] = 'created_1';
+$handler->display->display_options['style_options']['info'] = array(
+  'field_er_realname' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'name' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'uid' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created_1' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'desc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'login' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'timestamp' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'nid' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'title' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: User: Content authored */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'users';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_realname']['alter']['path'] = '[view_user] == User: Link';
+$handler->display->display_options['fields']['field_er_realname']['alter']['strip_tags'] = TRUE;
+$handler->display->display_options['fields']['field_er_realname']['type'] = 'computed_field_markup';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = 'System User Name';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['relationship'] = 'uid';
+$handler->display->display_options['fields']['created']['group_type'] = 'min';
+$handler->display->display_options['fields']['created']['label'] = 'First Content Created';
+$handler->display->display_options['fields']['created']['date_format'] = 'time ago';
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created_1']['id'] = 'created_1';
+$handler->display->display_options['fields']['created_1']['table'] = 'node';
+$handler->display->display_options['fields']['created_1']['field'] = 'created';
+$handler->display->display_options['fields']['created_1']['relationship'] = 'uid';
+$handler->display->display_options['fields']['created_1']['group_type'] = 'max';
+$handler->display->display_options['fields']['created_1']['label'] = 'Last Content Created';
+$handler->display->display_options['fields']['created_1']['date_format'] = 'time ago';
+/* Field: User: Last login */
+$handler->display->display_options['fields']['login']['id'] = 'login';
+$handler->display->display_options['fields']['login']['table'] = 'users';
+$handler->display->display_options['fields']['login']['field'] = 'login';
+$handler->display->display_options['fields']['login']['date_format'] = 'time ago';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: User: Created date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'users';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+$handler->display->display_options['path'] = 'admin/epscor/views/user-involvement-activity';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'User Activity';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+
+/* Display: Collecting Data Information */
+$handler = $view->new_display('page', 'Collecting Data Information', 'page_1');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Data Collection Information';
+$handler->display->display_options['display_description'] = 'Table of User Data Collection Information';
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['defaults']['access'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'field_er_lname' => 'field_er_lname',
+  'field_er_fname' => 'field_er_fname',
+  'field_er_realname' => 'field_er_realname',
+  'uid' => 'uid',
+  'created' => 'created',
+  'created_1' => 'created_1',
+  'login' => 'login',
+);
+$handler->display->display_options['style_options']['default'] = 'created_1';
+$handler->display->display_options['style_options']['info'] = array(
+  'field_er_lname' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_fname' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_realname' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'uid' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created_1' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'desc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'login' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<em><strong>This view lists all Users who have indicated that “I’ll Be Collecting Data” box AND that they have not been in contact with the data manager.<em><strong>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: User: Content authored */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'users';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['alter']['path'] = '[view_user] == User: Link';
+$handler->display->display_options['fields']['field_er_realname']['alter']['strip_tags'] = TRUE;
+$handler->display->display_options['fields']['field_er_realname']['type'] = 'computed_field_markup';
+/* Field: User: Edit link */
+$handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['table'] = 'users';
+$handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['label'] = 'This staff member has not contacted the data manager.';
+$handler->display->display_options['fields']['edit_node']['text'] = 'click here to update this user';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = 'System User Name';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+/* Field: User: Type of Data */
+$handler->display->display_options['fields']['field_er_type_of_data']['id'] = 'field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['table'] = 'field_data_field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['field'] = 'field_er_type_of_data';
+/* Field: User: Data Repository Submission */
+$handler->display->display_options['fields']['field_er_data_submit_date']['id'] = 'field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['table'] = 'field_data_field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['field'] = 'field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['settings'] = array(
+  'format_type' => 'short',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: I will be collecting data (field_er_collecting_data_bool) */
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['id'] = 'field_er_collecting_data_bool_value';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['table'] = 'field_data_field_er_collecting_data_bool';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['field'] = 'field_er_collecting_data_bool_value';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['value'] = array(
+  1 => '1',
+);
+/* Filter criterion: User: Has this user been put in touch with the Data Manager? (field_er_has_this_user) */
+$handler->display->display_options['filters']['field_er_has_this_user_value']['id'] = 'field_er_has_this_user_value';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['table'] = 'field_data_field_er_has_this_user';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['field'] = 'field_er_has_this_user_value';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['operator'] = 'not';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['value'] = array(
+  1 => '1',
+);
+$handler->display->display_options['filters']['field_er_has_this_user_value']['reduce_duplicates'] = TRUE;
+$handler->display->display_options['path'] = 'admin/epscor/views/collecting-data-information';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Data Collection Information';
+$handler->display->display_options['menu']['description'] = 'Data Collection Information';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+
+/* Display: User Activity */
+$handler = $view->new_display('page', 'User Activity', 'page_3');
+$handler->display->display_options['display_description'] = 'Table of User Activity';
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['defaults']['access'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'field_er_realname',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['columns'] = array(
+  'field_er_realname' => 'field_er_realname',
+  'title' => 'title',
+  'type' => 'type',
+  'timestamp' => 'timestamp',
+);
+$handler->display->display_options['style_options']['default'] = 'timestamp';
+$handler->display->display_options['style_options']['info'] = array(
+  'field_er_realname' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'title' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'type' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'timestamp' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: User: Content authored */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'users';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_realname']['alter']['path'] = '[view_user] == User: Link';
+$handler->display->display_options['fields']['field_er_realname']['alter']['strip_tags'] = TRUE;
+$handler->display->display_options['fields']['field_er_realname']['type'] = 'computed_field_markup';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['hide_empty'] = TRUE;
+/* Field: Content: Type */
+$handler->display->display_options['fields']['type']['id'] = 'type';
+$handler->display->display_options['fields']['type']['table'] = 'node';
+$handler->display->display_options['fields']['type']['field'] = 'type';
+$handler->display->display_options['fields']['type']['relationship'] = 'uid';
+$handler->display->display_options['fields']['type']['label'] = 'Content Type';
+/* Field: Content revision: Updated date */
+$handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['table'] = 'node_revision';
+$handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['relationship'] = 'uid';
+$handler->display->display_options['fields']['timestamp']['label'] = 'Last Updated date';
+$handler->display->display_options['fields']['timestamp']['date_format'] = 'time ago';
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: User: Last Name (field_er_lname) */
+$handler->display->display_options['sorts']['field_er_lname_value']['id'] = 'field_er_lname_value';
+$handler->display->display_options['sorts']['field_er_lname_value']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['sorts']['field_er_lname_value']['field'] = 'field_er_lname_value';
+$handler->display->display_options['sorts']['field_er_lname_value']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['field_er_lname_value']['expose']['label'] = 'Last Name';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+$handler->display->display_options['path'] = 'admin/epscor/views/user-involvement-activity-titles';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'User Activity2';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;

@@ -1,0 +1,197 @@
+<?php
+$view = new view();
+$view->name = 'er_flagged_for_new_investigator';
+$view->description = 'This provides a list of items that are flagged for new investigators';
+$view->tag = 'default';
+$view->base_table = 'users';
+$view->human_name = 'er_flagged_for_new_investigator';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'New Investigators';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access user profiles';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_fname' => 'field_er_fname',
+  'field_er_lname' => 'field_er_lname',
+);
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = 'This page displays new participants who meet the requirements: 365 days from Participating Date, and student or faculty Involvement.
+';
+$handler->display->display_options['header']['area']['format'] = 'filtered_html';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+/* Field: User: First Name */
+$handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['table'] = 'field_data_field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['field'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['label'] = '';
+$handler->display->display_options['fields']['field_er_fname']['alter']['path'] = '[name] == User: Name';
+$handler->display->display_options['fields']['field_er_fname']['element_label_colon'] = FALSE;
+/* Field: User: Last Name */
+$handler->display->display_options['fields']['field_er_lname']['id'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['field'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['label'] = '';
+$handler->display->display_options['fields']['field_er_lname']['alter']['path'] = '[name] == User: Name';
+$handler->display->display_options['fields']['field_er_lname']['element_label_colon'] = FALSE;
+/* Sort criterion: User: Last Name (field_er_lname) */
+$handler->display->display_options['sorts']['field_er_lname_value']['id'] = 'field_er_lname_value';
+$handler->display->display_options['sorts']['field_er_lname_value']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['sorts']['field_er_lname_value']['field'] = 'field_er_lname_value';
+/* Contextual filter: Date: Date (users) */
+$handler->display->display_options['arguments']['date_argument']['id'] = 'date_argument';
+$handler->display->display_options['arguments']['date_argument']['table'] = 'users';
+$handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
+$handler->display->display_options['arguments']['date_argument']['summary']['format'] = 'default_summary';
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Link */
+$handler->display->display_options['fields']['view_user']['id'] = 'view_user';
+$handler->display->display_options['fields']['view_user']['table'] = 'users';
+$handler->display->display_options['fields']['view_user']['field'] = 'view_user';
+$handler->display->display_options['fields']['view_user']['exclude'] = TRUE;
+/* Field: User: First Name */
+$handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['table'] = 'field_data_field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['field'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['label'] = '';
+$handler->display->display_options['fields']['field_er_fname']['alter']['path'] = '[name] == User: Name';
+$handler->display->display_options['fields']['field_er_fname']['element_label_colon'] = FALSE;
+/* Field: User: Last Name */
+$handler->display->display_options['fields']['field_er_lname']['id'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['field'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['label'] = '';
+$handler->display->display_options['fields']['field_er_lname']['alter']['path'] = '[name] == User: Name';
+$handler->display->display_options['fields']['field_er_lname']['element_label_colon'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = 'User Name';
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['filter_groups']['groups'] = array(
+  1 => 'AND',
+  2 => 'OR',
+);
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: Participant Date -  start date (field_er_participant_date) */
+$handler->display->display_options['filters']['field_er_participant_date_value']['id'] = 'field_er_participant_date_value';
+$handler->display->display_options['filters']['field_er_participant_date_value']['table'] = 'field_data_field_er_participant_date';
+$handler->display->display_options['filters']['field_er_participant_date_value']['field'] = 'field_er_participant_date_value';
+$handler->display->display_options['filters']['field_er_participant_date_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_participant_date_value']['group'] = 1;
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['operator_id'] = 'field_er_participant_date_value_op';
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['label'] = 'Participant Date -  start date';
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['use_operator'] = TRUE;
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['operator'] = 'field_er_participant_date_value_op';
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['identifier'] = 'field_er_participant_date_value';
+$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  66784200 => 0,
+  137756511 => 0,
+  166149871 => 0,
+  3 => 0,
+  1 => 0,
+);
+$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['label'] = 'Participant Date -  start date (field_er_participant_date)';
+$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['identifier'] = 'field_er_participant_date_value';
+$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['remember'] = FALSE;
+$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['group_items'] = array(
+  1 => array(),
+  2 => array(),
+  3 => array(),
+);
+$handler->display->display_options['filters']['field_er_participant_date_value']['default_date'] = 'now-365 days';
+$handler->display->display_options['filters']['field_er_participant_date_value']['default_to_date'] = 'now';
+$handler->display->display_options['filters']['field_er_participant_date_value']['year_range'] = '-1:+0';
+/* Filter criterion: User: Roles */
+$handler->display->display_options['filters']['rid']['id'] = 'rid';
+$handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+$handler->display->display_options['filters']['rid']['field'] = 'rid';
+$handler->display->display_options['filters']['rid']['value'] = array(
+  137756511 => '137756511',
+);
+$handler->display->display_options['filters']['rid']['group'] = 2;
+$handler->display->display_options['filters']['rid']['reduce_duplicates'] = TRUE;
+$handler->display->display_options['path'] = 'admin/epscor/views/er-flagged-for-new-investigator';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'New Investigators';
+$handler->display->display_options['menu']['description'] = 'New Investigators';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+
+/* Display: New Investigator - XLS */
+$handler = $view->new_display('views_data_export', 'New Investigator - XLS', 'views_data_export_1');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['style_plugin'] = 'views_data_export_xls';
+$handler->display->display_options['style_options']['provide_file'] = 1;
+$handler->display->display_options['style_options']['parent_sort'] = 0;
+$handler->display->display_options['path'] = 'admin/epscor/views/er-flagged-for-new-investigator-xls';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+
+/* Display: New Investigator - CSV */
+$handler = $view->new_display('views_data_export', 'New Investigator - CSV', 'views_data_export_2');
+$handler->display->display_options['display_description'] = 'er-flagged-for-new-investigator-csv';
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+$handler->display->display_options['style_options']['provide_file'] = 1;
+$handler->display->display_options['style_options']['parent_sort'] = 0;
+$handler->display->display_options['style_options']['quote'] = 1;
+$handler->display->display_options['style_options']['trim'] = 0;
+$handler->display->display_options['style_options']['replace_newlines'] = 0;
+$handler->display->display_options['style_options']['header'] = 1;
+$handler->display->display_options['path'] = 'admin/epscor/views/er-flagged-for-new-investigator-csv';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
