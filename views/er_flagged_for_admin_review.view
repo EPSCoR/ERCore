@@ -83,4 +83,10 @@ $handler->display->display_options['filters']['status']['expose']['operator'] = 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-$handler->display->display_options['path'] = 'flagged-for-admin-review';
+$handler->display->display_options['path'] = 'admin/epscor/views/flagged-for-admin-review';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Items Flagged for Admin Review';
+$handler->display->display_options['menu']['description'] = 'Items Flagged for Admin Review';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;

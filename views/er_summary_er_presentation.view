@@ -13,7 +13,11 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Presentations';
 $handler->display->display_options['use_more_always'] = FALSE;
-$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  166149871 => '166149871',
+  3 => '3',
+);
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -23,13 +27,61 @@ $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['pager']['options']['id'] = '0';
 $handler->display->display_options['pager']['options']['quantity'] = '9';
 $handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'field_er_type_of_presentation' => 'field_er_type_of_presentation',
+  'title' => 'title',
+  'field_er_user_entity_reference' => 'field_er_user_entity_reference',
+  'field_er_presentation_date' => 'field_er_presentation_date',
+  'field_er_upload_file' => 'field_er_upload_file',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'field_er_type_of_presentation' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'desc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'title' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_user_entity_reference' => array(
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_presentation_date' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_upload_file' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+/* Field: Content: Type of Presentation */
+$handler->display->display_options['fields']['field_er_type_of_presentation']['id'] = 'field_er_type_of_presentation';
+$handler->display->display_options['fields']['field_er_type_of_presentation']['table'] = 'field_data_field_er_type_of_presentation';
+$handler->display->display_options['fields']['field_er_type_of_presentation']['field'] = 'field_er_type_of_presentation';
+$handler->display->display_options['fields']['field_er_type_of_presentation']['label'] = 'Type';
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: Author(s) */
+/* Field: Content: Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -116,6 +168,23 @@ $handler->display->display_options['filters']['field_er_presentation_date_value_
 $handler->display->display_options['filters']['field_er_presentation_date_value_1']['expose']['operator'] = 'field_er_presentation_date_value_1_op';
 $handler->display->display_options['filters']['field_er_presentation_date_value_1']['expose']['identifier'] = 'end_date';
 $handler->display->display_options['filters']['field_er_presentation_date_value_1']['form_type'] = 'date_popup';
+/* Filter criterion: Content: Type of Presentation (field_er_type_of_presentation) */
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['id'] = 'field_er_type_of_presentation_value';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['table'] = 'field_data_field_er_type_of_presentation';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['field'] = 'field_er_type_of_presentation_value';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['operator_id'] = 'field_er_type_of_presentation_value_op';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['label'] = 'Type';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['operator'] = 'field_er_type_of_presentation_value_op';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['identifier'] = 'field_er_type_of_presentation_value';
+$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  66784200 => 0,
+  137756511 => 0,
+  166149871 => 0,
+  3 => 0,
+  1 => 0,
+);
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
@@ -141,7 +210,7 @@ $handler->display->display_options['sorts']['title']['table'] = 'node';
 $handler->display->display_options['sorts']['title']['field'] = 'title';
 $handler->display->display_options['sorts']['title']['exposed'] = TRUE;
 $handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
-/* Sort criterion: Content: Author(s) (field_er_user_entity_reference) */
+/* Sort criterion: Content: Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -199,11 +268,10 @@ $handler->display->display_options['fields']['nid']['table'] = 'node';
 $handler->display->display_options['fields']['nid']['field'] = 'nid';
 $handler->display->display_options['fields']['nid']['label'] = 'Node ID';
 $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-/* Field: Content: Author(s) */
+/* Field: Content: Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Presenter(s)';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
   'link' => 0,

@@ -6300,4 +6300,6306 @@ White|White',
       ),
     ),
   ),
+=======
+$data = array(
+  'bundles' => array(
+    'user' => NULL,
+  ),
+  'fields' => array(
+    'field_er_160hours' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'allowed_values_php' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_160hours' => array(
+                'value' => 'field_er_160hours_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_160hours' => array(
+                'value' => 'field_er_160hours_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_160hours',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_additional_doc' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 1,
+        'uri_scheme' => 'public',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'description_field' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_additional_doc' => array(
+                'fid' => 'field_er_additional_doc_fid',
+                'display' => 'field_er_additional_doc_display',
+                'description' => 'field_er_additional_doc_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_additional_doc' => array(
+                'fid' => 'field_er_additional_doc_fid',
+                'display' => 'field_er_additional_doc_display',
+                'description' => 'field_er_additional_doc_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_additional_doc',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_address' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'max_length' => '',
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_address' => array(
+                'value' => 'field_er_address_value',
+                'format' => 'field_er_address_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_address' => array(
+                'value' => 'field_er_address_value',
+                'format' => 'field_er_address_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_address',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_citizenship' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'U.S. Citizen',
+          1 => 'Permanent Resident',
+          2 => 'Other non-U.S. Citizen',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'allowed_values_php' => '',
+        'text_processing' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_citizenship' => array(
+                'value' => 'field_er_citizenship_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_citizenship' => array(
+                'value' => 'field_er_citizenship_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_citizenship',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_collecting_data_bool' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_collecting_data_bool' => array(
+                'value' => 'field_er_collecting_data_bool_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_collecting_data_bool' => array(
+                'value' => 'field_er_collecting_data_bool_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_collecting_data_bool',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_committees' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_committees' => array(
+                'value' => 'field_er_committees_value',
+                'format' => 'field_er_committees_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_committees' => array(
+                'value' => 'field_er_committees_value',
+                'format' => 'field_er_committees_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_committees',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_components' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'taxonomy_term',
+        'handler' => 'views',
+        'handler_settings' => array(
+          'view' => array(
+            'view_name' => 'er_components',
+            'display_name' => 'entityreference_1',
+            'args' => array(),
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_components' => array(
+                'target_id' => 'field_er_components_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_components' => array(
+                'target_id' => 'field_er_components_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_components',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_news',
+        ),
+      ),
+    ),
+    'field_er_data_frequency' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'One time',
+          1 => 'Ongoing',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_data_frequency' => array(
+                'value' => 'field_er_data_frequency_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_data_frequency' => array(
+                'value' => 'field_er_data_frequency_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_data_frequency',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_data_submit_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'year' => 'year',
+          'day' => 0,
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_data_submit_date' => array(
+                'value' => 'field_er_data_submit_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_data_submit_date' => array(
+                'value' => 'field_er_data_submit_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_data_submit_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_department' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_department' => array(
+                'value' => 'field_er_department_value',
+                'format' => 'field_er_department_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_department' => array(
+                'value' => 'field_er_department_value',
+                'format' => 'field_er_department_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_department',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_description' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'max_length' => '',
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_description' => array(
+                'value' => 'field_er_description_value',
+                'format' => 'field_er_description_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_description' => array(
+                'value' => 'field_er_description_value',
+                'format' => 'field_er_description_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_description',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_other_product',
+          1 => 'er_patent',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_disabilities' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          66784200 => 0,
+          137756511 => 0,
+          166149871 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_disabilities' => array(
+                'value' => 'field_er_disabilities_value',
+                'format' => 'field_er_disabilities_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_disabilities' => array(
+                'value' => 'field_er_disabilities_value',
+                'format' => 'field_er_disabilities_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_disabilities',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_doc_act_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_doc_act_grad_date' => array(
+                'value' => 'field_er_doc_act_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_doc_act_grad_date' => array(
+                'value' => 'field_er_doc_act_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_doc_act_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_doc_ant_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_doc_ant_grad_date' => array(
+                'value' => 'field_er_doc_ant_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_doc_ant_grad_date' => array(
+                'value' => 'field_er_doc_ant_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_doc_ant_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_ethnicity' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Hispanic or Latino',
+          1 => 'Not Hispanic or Latino',
+          2 => 'Unknown',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'allowed_values_php' => '',
+        'text_processing' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_ethnicity' => array(
+                'value' => 'field_er_ethnicity_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_ethnicity' => array(
+                'value' => 'field_er_ethnicity_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_ethnicity',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_fname' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_fname' => array(
+                'value' => 'field_er_fname_value',
+                'format' => 'field_er_fname_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_fname' => array(
+                'value' => 'field_er_fname_value',
+                'format' => 'field_er_fname_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'cck_required_by_role' => array(
+        'roles' => array(
+          2 => '2',
+          5 => '5',
+          4 => '4',
+          1 => 0,
+          3 => 0,
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_fname',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_gender' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Male',
+          1 => 'Female',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'allowed_values_php' => '',
+        'text_processing' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_gender' => array(
+                'value' => 'field_er_gender_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_gender' => array(
+                'value' => 'field_er_gender_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_gender',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_hired_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_hired_date' => array(
+                'value' => 'field_er_hired_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_hired_date' => array(
+                'value' => 'field_er_hired_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_hired_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_abbreviation' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_abbreviation' => array(
+                'value' => 'field_er_inst_abbreviation_value',
+                'format' => 'field_er_inst_abbreviation_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_abbreviation' => array(
+                'value' => 'field_er_inst_abbreviation_value',
+                'format' => 'field_er_inst_abbreviation_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_abbreviation',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_add_bool' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_add_bool' => array(
+                'value' => 'field_er_inst_add_bool_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_add_bool' => array(
+                'value' => 'field_er_inst_add_bool_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_add_bool',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_inst_country' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          6 => '6',
+          5 => 0,
+          4 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_country' => array(
+                'value' => 'field_er_inst_country_value',
+                'format' => 'field_er_inst_country_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_country' => array(
+                'value' => 'field_er_inst_country_value',
+                'format' => 'field_er_inst_country_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_country',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_description' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          6 => '6',
+          5 => 0,
+          4 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_description' => array(
+                'value' => 'field_er_inst_description_value',
+                'format' => 'field_er_inst_description_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_description' => array(
+                'value' => 'field_er_inst_description_value',
+                'format' => 'field_er_inst_description_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_description',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_inst_link' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'attributes' => array(
+          'target' => 'default',
+          'class' => '',
+          'rel' => '',
+        ),
+        'url' => 0,
+        'title' => 'optional',
+        'title_value' => '',
+        'title_maxlength' => 128,
+        'enable_tokens' => 1,
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_link' => array(
+                'url' => 'field_er_inst_link_url',
+                'title' => 'field_er_inst_link_title',
+                'attributes' => 'field_er_inst_link_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_link' => array(
+                'url' => 'field_er_inst_link_url',
+                'title' => 'field_er_inst_link_title',
+                'attributes' => 'field_er_inst_link_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_link',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_name' => array(
+      'type_name' => 'er_institution',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_name' => array(
+                'value' => 'field_er_inst_name_value',
+                'format' => 'field_er_inst_name_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_name' => array(
+                'value' => 'field_er_inst_name_value',
+                'format' => 'field_er_inst_name_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_name',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_inst_ref' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'node',
+        'handler' => 'views',
+        'handler_settings' => array(
+          'view' => array(
+            'view_name' => 'er_collaborating_institutions',
+            'display_name' => 'entityreference_1',
+            'args' => array(),
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 1,
+            ),
+          ),
+        ),
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_ref' => array(
+                'target_id' => 'field_er_inst_ref_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_ref' => array(
+                'target_id' => 'field_er_inst_ref_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_ref',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_lname' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_lname' => array(
+                'value' => 'field_er_lname_value',
+                'format' => 'field_er_lname_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_lname' => array(
+                'value' => 'field_er_lname_value',
+                'format' => 'field_er_lname_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_lname',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_mas_act_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_mas_act_grad_date' => array(
+                'value' => 'field_er_mas_act_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_mas_act_grad_date' => array(
+                'value' => 'field_er_mas_act_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_mas_act_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_mas_ant_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_mas_ant_grad_date' => array(
+                'value' => 'field_er_mas_ant_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_mas_ant_grad_date' => array(
+                'value' => 'field_er_mas_ant_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_mas_ant_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_mentoring_plan' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => 0,
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_mentoring_plan' => array(
+                'value' => 'field_er_mentoring_plan_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_mentoring_plan' => array(
+                'value' => 'field_er_mentoring_plan_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_mentoring_plan',
+      'type' => 'date',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 20,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_mentoring_plan_ul' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 1,
+        'uri_scheme' => 'public',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'description_field' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_mentoring_plan_ul' => array(
+                'fid' => 'field_er_mentoring_plan_ul_fid',
+                'display' => 'field_er_mentoring_plan_ul_display',
+                'description' => 'field_er_mentoring_plan_ul_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_mentoring_plan_ul' => array(
+                'fid' => 'field_er_mentoring_plan_ul_fid',
+                'display' => 'field_er_mentoring_plan_ul_display',
+                'description' => 'field_er_mentoring_plan_ul_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_mentoring_plan_ul',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_nsf_grant_signatory' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_nsf_grant_signatory' => array(
+                'value' => 'field_er_nsf_grant_signatory_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_nsf_grant_signatory' => array(
+                'value' => 'field_er_nsf_grant_signatory_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_nsf_grant_signatory',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_paid' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'allowed_values_php' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_paid' => array(
+                'value' => 'field_er_paid_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_paid' => array(
+                'value' => 'field_er_paid_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_paid',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_participant_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => 'optional',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          66784200 => 0,
+          137756511 => 0,
+          166149871 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_participant_date' => array(
+                'value' => 'field_er_participant_date_value',
+                'value2' => 'field_er_participant_date_value2',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_participant_date' => array(
+                'value' => 'field_er_participant_date_value',
+                'value2' => 'field_er_participant_date_value2',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_participant_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+        'value2' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_phone_personal' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '20',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_phone_personal' => array(
+                'value' => 'field_er_phone_personal_value',
+                'format' => 'field_er_phone_personal_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_phone_personal' => array(
+                'value' => 'field_er_phone_personal_value',
+                'format' => 'field_er_phone_personal_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_phone_personal',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '20',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_phone_work' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '20',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_phone_work' => array(
+                'value' => 'field_er_phone_work_value',
+                'format' => 'field_er_phone_work_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_phone_work' => array(
+                'value' => 'field_er_phone_work_value',
+                'format' => 'field_er_phone_work_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_phone_work',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '20',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_position_type' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Faculty participants (or equivalent)' => 'Faculty participants (or equivalent)',
+          'Technical support staff' => 'Technical support staff',
+          'Non-technical support staff' => 'Non-technical support staff',
+          'Post docs' => 'Post docs',
+          'Graduate students' => 'Graduate students',
+          'Undergraduate students' => 'Undergraduate students',
+          'RII Leadership Team' => 'RII Leadership Team',
+          'Evaluation' => 'Evaluation',
+          'Other' => 'Other',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_position_type' => array(
+                'value' => 'field_er_position_type_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_position_type' => array(
+                'value' => 'field_er_position_type_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_position_type',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_professional_link' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => '3',
+          1 => 0,
+          2 => 0,
+        ),
+        'attributes' => array(
+          'target' => '_blank',
+          'rel' => '',
+          'class' => '',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'url' => 0,
+        'title' => 'none',
+        'title_value' => '',
+        'enable_tokens' => 0,
+        'validate_url' => 1,
+        'title_maxlength' => 128,
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_professional_link' => array(
+                'url' => 'field_er_professional_link_url',
+                'title' => 'field_er_professional_link_title',
+                'attributes' => 'field_er_professional_link_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_professional_link' => array(
+                'url' => 'field_er_professional_link_url',
+                'title' => 'field_er_professional_link_title',
+                'attributes' => 'field_er_professional_link_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_professional_link',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_race' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_race' => array(
+                'value' => 'field_er_race_value',
+                'format' => 'field_er_race_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_race' => array(
+                'value' => 'field_er_race_value',
+                'format' => 'field_er_race_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'field_name' => 'field_er_race',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_rcr_completion_bool' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rcr_completion_bool' => array(
+                'value' => 'field_er_rcr_completion_bool_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rcr_completion_bool' => array(
+                'value' => 'field_er_rcr_completion_bool_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rcr_completion_bool',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_rcr_inperson' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => 0,
+        'todate' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rcr_inperson' => array(
+                'value' => 'field_er_rcr_inperson_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rcr_inperson' => array(
+                'value' => 'field_er_rcr_inperson_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rcr_inperson',
+      'type' => 'date',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 20,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_rcr_inperson_ul' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 1,
+        'uri_scheme' => 'public',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'description_field' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rcr_inperson_ul' => array(
+                'fid' => 'field_er_rcr_inperson_ul_fid',
+                'display' => 'field_er_rcr_inperson_ul_display',
+                'description' => 'field_er_rcr_inperson_ul_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rcr_inperson_ul' => array(
+                'fid' => 'field_er_rcr_inperson_ul_fid',
+                'display' => 'field_er_rcr_inperson_ul_display',
+                'description' => 'field_er_rcr_inperson_ul_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rcr_inperson_ul',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_rcr_online' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => 0,
+        'todate' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rcr_online' => array(
+                'value' => 'field_er_rcr_online_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rcr_online' => array(
+                'value' => 'field_er_rcr_online_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rcr_online',
+      'type' => 'date',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 20,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_rcr_online_ul' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'display_field' => 0,
+        'display_default' => 1,
+        'uri_scheme' => 'public',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'description_field' => '0',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_rcr_online_ul' => array(
+                'fid' => 'field_er_rcr_online_ul_fid',
+                'display' => 'field_er_rcr_online_ul_display',
+                'description' => 'field_er_rcr_online_ul_description',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_rcr_online_ul' => array(
+                'fid' => 'field_er_rcr_online_ul_fid',
+                'display' => 'field_er_rcr_online_ul_display',
+                'description' => 'field_er_rcr_online_ul_description',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'table' => 'file_managed',
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_rcr_online_ul',
+      'type' => 'file',
+      'module' => 'file',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'fid' => array(
+          'description' => 'The {file_managed}.fid being referenced in this field.',
+          'type' => 'int',
+          'not null' => FALSE,
+          'unsigned' => TRUE,
+        ),
+        'display' => array(
+          'description' => 'Flag to control whether this file should be displayed when viewing content.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 1,
+        ),
+        'description' => array(
+          'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_realname' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'code' => '$fname = field_get_items($entity_type, $entity, \'field_er_fname\');
+$lname = field_get_items($entity_type, $entity, \'field_er_lname\');
+$entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'];',
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+        'database' => array(
+          'data_type' => 'varchar',
+          'data_length' => '32',
+          'data_size' => 'normal',
+          'data_precision' => '10',
+          'data_scale' => '2',
+          'data_default' => '',
+          'data_not_NULL' => 0,
+          'data_index' => 1,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_realname' => array(
+                'value' => 'field_er_realname_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_realname' => array(
+                'value' => 'field_er_realname_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_name' => 'field_er_realname',
+      'type' => 'computed',
+      'module' => 'computed_field',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '32',
+          'not null' => 0,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_supervisor' => array(
+      'type_name' => 'er_user_profile',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_supervisor' => array(
+                'value' => 'field_er_supervisor_value',
+                'format' => 'field_er_supervisor_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_supervisor' => array(
+                'value' => 'field_er_supervisor_value',
+                'format' => 'field_er_supervisor_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_supervisor',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_type_of_data' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_type_of_data' => array(
+                'value' => 'field_er_type_of_data_value',
+                'format' => 'field_er_type_of_data_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_type_of_data' => array(
+                'value' => 'field_er_type_of_data_value',
+                'format' => 'field_er_type_of_data_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_type_of_data',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_und_act_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_und_act_grad_date' => array(
+                'value' => 'field_er_und_act_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_und_act_grad_date' => array(
+                'value' => 'field_er_und_act_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_und_act_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_und_ant_grad_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          5 => '5',
+          4 => 0,
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_und_ant_grad_date' => array(
+                'value' => 'field_er_und_ant_grad_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_und_ant_grad_date' => array(
+                'value' => 'field_er_und_ant_grad_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_und_ant_grad_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_veteran_status' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'I am not a veteran.',
+          1 => 'I am a veteran.',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_veteran_status' => array(
+                'value' => 'field_er_veteran_status_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_veteran_status' => array(
+                'value' => 'field_er_veteran_status_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_veteran_status',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+  ),
+  'instances' => array(
+    'field_er_160hours' => array(
+      0 => array(
+        'label' => '> 160 hours / year',
+        'widget' => array(
+          'weight' => '61',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '25',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_160hours',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_additional_doc' => array(
+      0 => array(
+        'label' => 'Upload Additional Document',
+        'widget' => array(
+          'weight' => '33',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'file_default',
+            'weight' => '10',
+            'settings' => array(),
+            'module' => 'file',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_additional_doc',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_address' => array(
+      0 => array(
+        'label' => 'Work Address',
+        'widget' => array(
+          'weight' => '51',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '5',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_address',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_citizenship' => array(
+      0 => array(
+        'label' => 'Citizenship',
+        'widget' => array(
+          'weight' => '47',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '19',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_citizenship',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_collecting_data_bool' => array(
+      0 => array(
+        'label' => 'I will be collecting data',
+        'widget' => array(
+          'weight' => '17',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 1,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '10',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_collecting_data_bool',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_committees' => array(
+      0 => array(
+        'label' => 'Advisory Boards',
+        'widget' => array(
+          'weight' => '55',
+          'type' => 'select_or_other_buttons',
+          'module' => 'select_or_other',
+          'active' => 1,
+          'settings' => array(
+            'available_options' => 'Community Advisory Committee (CAC)
+Monitoring Assessment Panel (MAP)
+Statewide Committee (SWC)',
+            'available_options_php' => '',
+            'other' => 'Other',
+            'other_title' => '',
+            'other_unknown_defaults' => 'other',
+            'sort_options' => 1,
+            'markup_available_options_php' => '&lt;none&gt;',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '22',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_committees',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_components' => array(
+      0 => array(
+        'label' => 'Project Component',
+        'widget' => array(
+          'weight' => '54',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'entityreference_label',
+            'weight' => '20',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_er_components',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_data_frequency' => array(
+      0 => array(
+        'label' => 'Data Frequency',
+        'widget' => array(
+          'weight' => '19',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 0,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '12',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Will you be collecting this data one time or will it be on going?',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_data_frequency',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_data_submit_date' => array(
+      0 => array(
+        'label' => 'Data Repository Submission',
+        'widget' => array(
+          'weight' => '20',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '13',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => 'When do you anticipate the data be available to the data repository?',
+        'default_value' => NULL,
+        'field_name' => 'field_er_data_submit_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_department' => array(
+      0 => array(
+        'label' => 'Department',
+        'widget' => array(
+          'weight' => '10',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '14',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_department',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_description' => array(
+      0 => array(
+        'label' => 'Brief Description of EPSCoR Involvement',
+        'widget' => array(
+          'weight' => '62',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '26',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_description',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_disabilities' => array(
+      0 => array(
+        'label' => 'Disabilities',
+        'widget' => array(
+          'weight' => '44',
+          'type' => 'select_or_other_buttons',
+          'module' => 'select_or_other',
+          'active' => 1,
+          'settings' => array(
+            'available_options' => 'None
+Hearing Impairment
+Visual Impairment
+Mobility/Orthopedic Impairment',
+            'available_options_php' => '',
+            'other' => 'Other',
+            'other_title' => '',
+            'other_unknown_defaults' => 'other',
+            'sort_options' => 0,
+            'markup_available_options_php' => '&lt;none&gt;',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '18',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 'None',
+          ),
+        ),
+        'field_name' => 'field_er_disabilities',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_doc_act_grad_date' => array(
+      0 => array(
+        'label' => 'Actual Doctorate Graduation Date',
+        'widget' => array(
+          'weight' => '17',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '20',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_doc_act_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_doc_ant_grad_date' => array(
+      0 => array(
+        'label' => 'Anticipated Doctorate Graduation Date',
+        'widget' => array(
+          'weight' => '16',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '19',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_doc_ant_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_ethnicity' => array(
+      0 => array(
+        'label' => 'Ethnicity',
+        'widget' => array(
+          'weight' => '46',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '17',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_ethnicity',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_fname' => array(
+      0 => array(
+        'label' => 'First Name',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '1',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_fname',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_gender' => array(
+      0 => array(
+        'label' => 'Gender',
+        'widget' => array(
+          'weight' => '43',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '16',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_gender',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_hired_date' => array(
+      0 => array(
+        'label' => 'Date Hired',
+        'widget' => array(
+          'weight' => '57',
+          'type' => 'date_popup',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+            'weight' => 28,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_hired_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_abbreviation' => array(
+      0 => array(
+        'label' => 'Institution Abbreviation',
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '10',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '(Optional) Example: University of Hawai`i at Hilo might be abbreviated to "UHH"',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_abbreviation',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_add_bool' => array(
+      0 => array(
+        'label' => 'My institution is not listed here (add a new institution)',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 1,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'hidden',
+            'weight' => '3',
+            'settings' => array(),
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_inst_add_bool',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_country' => array(
+      0 => array(
+        'label' => 'Institution Country',
+        'widget' => array(
+          'weight' => '8',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '13',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_country',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_description' => array(
+      0 => array(
+        'label' => 'Brief Description of the Institution',
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '12',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_description',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_link' => array(
+      0 => array(
+        'label' => 'Institution Link',
+        'widget' => array(
+          'weight' => '7',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'validate_url' => 1,
+          'url' => 0,
+          'title' => 'none',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => 'default',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'user_register_form' => 0,
+          'enable_tokens' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '11',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_link',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_name' => array(
+      0 => array(
+        'label' => 'Name of Institution',
+        'widget' => array(
+          'weight' => '5',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '9',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_name',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_ref' => array(
+      0 => array(
+        'label' => 'Participating Institution',
+        'widget' => array(
+          'weight' => '3',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'entityreference_label',
+            'weight' => '8',
+            'settings' => array(
+              'link' => 0,
+            ),
+            'module' => 'entityreference',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_er_inst_ref',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_lname' => array(
+      0 => array(
+        'label' => 'Last Name',
+        'widget' => array(
+          'weight' => '5',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '2',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_lname',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_mas_act_grad_date' => array(
+      0 => array(
+        'label' => 'Actual Master\'s Graduation Date',
+        'widget' => array(
+          'weight' => '15',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '18',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_mas_act_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_mas_ant_grad_date' => array(
+      0 => array(
+        'label' => 'Anticipated Master\'s Graduation Date',
+        'widget' => array(
+          'weight' => '14',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '17',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_mas_ant_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_mentoring_plan' => array(
+      0 => array(
+        'label' => 'Mentoring Plan (Post-docs only)',
+        'widget' => array(
+          'weight' => '34',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '21',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_mentoring_plan',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_mentoring_plan_ul' => array(
+      0 => array(
+        'label' => 'Mentoring Plan Upload',
+        'widget' => array(
+          'weight' => '35',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'file_default',
+            'weight' => '22',
+            'settings' => array(),
+            'module' => 'file',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_mentoring_plan_ul',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_nsf_grant_signatory' => array(
+      0 => array(
+        'label' => 'NSF Grant Signatory',
+        'widget' => array(
+          'weight' => '36',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '25',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
+        'field_name' => 'field_er_nsf_grant_signatory',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_paid' => array(
+      0 => array(
+        'label' => 'Are you paid by the EPSCoR RII3 grant?',
+        'widget' => array(
+          'weight' => '59',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '23',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_paid',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_participant_date' => array(
+      0 => array(
+        'label' => 'Participant Date',
+        'widget' => array(
+          'weight' => '58',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'M j Y - g:i:sa',
+            'input_format_custom' => '',
+            'year_range' => '-5:+5',
+            'increment' => '30',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'blank',
+          'default_value_code' => '',
+          'default_value2' => 'blank',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '27',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Enter date of anticipated EPSCOR activities/involvement. If still involved, leave "end date" blank.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_participant_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_phone_personal' => array(
+      0 => array(
+        'label' => 'Phone (mobile)',
+        'widget' => array(
+          'weight' => '49',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_phone_personal',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_phone_work' => array(
+      0 => array(
+        'label' => 'Phone (work)',
+        'widget' => array(
+          'weight' => '50',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '4',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_phone_work',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_position_type' => array(
+      0 => array(
+        'label' => 'Position Type',
+        'widget' => array(
+          'weight' => '56',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '21',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_position_type',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_professional_link' => array(
+      0 => array(
+        'label' => 'Professional Link',
+        'widget' => array(
+          'weight' => '52',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'validate_url' => 0,
+          'url' => 0,
+          'title' => 'none',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => 'default',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'user_register_form' => 0,
+          'enable_tokens' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'link_default',
+            'weight' => '6',
+            'settings' => array(),
+            'module' => 'link',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_professional_link',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_race' => array(
+      0 => array(
+        'label' => 'Race',
+        'widget' => array(
+          'weight' => '45',
+          'type' => 'select_or_other_buttons',
+          'module' => 'select_or_other',
+          'active' => 1,
+          'settings' => array(
+            'available_options' => 'American Indian or Alaskan Native|American Indian or Alaskan Native
+Asian|Asian
+Filipino|Filipino
+Black or African American|Black or African American
+Pacific Islander|Pacific Islander
+Native Hawaiian|Native Hawaiian
+White|White',
+            'available_options_php' => '',
+            'other' => 'Other',
+            'other_title' => '',
+            'other_unknown_defaults' => 'other',
+            'sort_options' => 0,
+            'markup_available_options_php' => '&lt;none&gt;',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '21',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_race',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rcr_completion_bool' => array(
+      0 => array(
+        'label' => 'I have completed the RCR training',
+        'widget' => array(
+          'weight' => '28',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 1,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '5',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_rcr_completion_bool',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rcr_inperson' => array(
+      0 => array(
+        'label' => 'RCR In-person',
+        'widget' => array(
+          'weight' => '29',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '8',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_rcr_inperson',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rcr_inperson_ul' => array(
+      0 => array(
+        'label' => 'RCR In-person Upload',
+        'widget' => array(
+          'weight' => '30',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'file_default',
+            'weight' => '9',
+            'settings' => array(),
+            'module' => 'file',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_rcr_inperson_ul',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rcr_online' => array(
+      0 => array(
+        'label' => 'RCR Online',
+        'widget' => array(
+          'weight' => '31',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '6',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_rcr_online',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_rcr_online_ul' => array(
+      0 => array(
+        'label' => 'RCR Online Upload',
+        'widget' => array(
+          'weight' => '32',
+          'type' => 'file_generic',
+          'module' => 'file',
+          'active' => 1,
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+          ),
+        ),
+        'settings' => array(
+          'file_directory' => '',
+          'file_extensions' => 'txt pdf doc',
+          'max_filesize' => '',
+          'description_field' => 0,
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'file_default',
+            'weight' => '7',
+            'settings' => array(),
+            'module' => 'file',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_rcr_online_ul',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_realname' => array(
+      0 => array(
+        'label' => 'Name',
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'computed',
+          'module' => 'computed_field',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'hidden',
+            'weight' => '2',
+            'settings' => array(),
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_realname',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_supervisor' => array(
+      0 => array(
+        'label' => 'Supervisor',
+        'widget' => array(
+          'weight' => '60',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '24',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_supervisor',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_type_of_data' => array(
+      0 => array(
+        'label' => 'Type of Data',
+        'widget' => array(
+          'weight' => '18',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '3',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'text_default',
+            'weight' => '11',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+        ),
+        'required' => 0,
+        'description' => 'What type of data will you be collecting?',
+        'default_value' => NULL,
+        'field_name' => 'field_er_type_of_data',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_und_act_grad_date' => array(
+      0 => array(
+        'label' => 'Actual Undergraduate Graduation Date',
+        'widget' => array(
+          'weight' => '13',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '16',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_und_act_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_und_ant_grad_date' => array(
+      0 => array(
+        'label' => 'Anticipated Undergraduate Graduation Date',
+        'widget' => array(
+          'weight' => '12',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'date_default',
+            'weight' => '15',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_und_ant_grad_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_veteran_status' => array(
+      0 => array(
+        'label' => 'Veteran',
+        'widget' => array(
+          'weight' => '48',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 1,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'list_default',
+            'weight' => '22',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_veteran_status',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+  ),
+  'fieldgroups' => array(
+    'group_er_data|user|user|form' => (object) array(
+      'id' => '21',
+      'identifier' => 'group_er_data|user|user|form',
+      'group_name' => 'group_er_data',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Data Collection',
+      'weight' => '54',
+      'children' => array(
+        0 => 'field_er_collecting_data_bool',
+        1 => 'field_er_data_frequency',
+        2 => 'field_er_data_submit_date',
+        3 => 'field_er_type_of_data',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'label' => 'Data Collection',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'closed',
+      ),
+    ),
+    'group_er_personal_info|user|user|form' => (object) array(
+      'id' => '22',
+      'identifier' => 'group_er_personal_info|user|user|form',
+      'group_name' => 'group_er_personal_info',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Personal Info',
+      'weight' => '49',
+      'children' => array(
+        0 => 'field_er_address',
+        1 => 'field_er_citizenship',
+        2 => 'field_er_disabilities',
+        3 => 'field_er_ethnicity',
+        4 => 'field_er_gender',
+        5 => 'field_er_phone_personal',
+        6 => 'field_er_phone_work',
+        7 => 'field_er_professional_link',
+        8 => 'field_er_race',
+        9 => 'field_er_veteran_status',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'label' => 'Personal Info',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'closed',
+      ),
+    ),
+    'group_er_inst|user|user|form' => (object) array(
+      'id' => '24',
+      'identifier' => 'group_er_inst|user|user|form',
+      'group_name' => 'group_er_inst',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Institution',
+      'weight' => '52',
+      'children' => array(
+        0 => 'field_er_department',
+        1 => 'field_er_inst_abbreviation',
+        2 => 'field_er_inst_add_bool',
+        3 => 'field_er_inst_country',
+        4 => 'field_er_inst_description',
+        5 => 'field_er_inst_link',
+        6 => 'field_er_inst_name',
+        7 => 'field_er_inst_ref',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'label' => 'Institution',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'closed',
+      ),
+    ),
+    'group_er_certs|user|user|form' => (object) array(
+      'id' => '25',
+      'identifier' => 'group_er_certs|user|user|form',
+      'group_name' => 'group_er_certs',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Certifications',
+      'weight' => '55',
+      'children' => array(
+        0 => 'field_er_additional_doc',
+        1 => 'field_er_mentoring_plan',
+        2 => 'field_er_mentoring_plan_ul',
+        3 => 'field_er_nsf_grant_signatory',
+        4 => 'field_er_rcr_completion_bool',
+        5 => 'field_er_rcr_inperson',
+        6 => 'field_er_rcr_inperson_ul',
+        7 => 'field_er_rcr_online',
+        8 => 'field_er_rcr_online_ul',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'label' => 'Certifications',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'closed',
+      ),
+    ),
+    'group_er_demographic|user|user|form' => (object) array(
+      'id' => '26',
+      'identifier' => 'group_er_demographic|user|user|form',
+      'group_name' => 'group_er_demographic',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Demographics',
+      'weight' => '50',
+      'children' => array(),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'label' => 'Demographics',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'closed',
+      ),
+    ),
+    'group_er_profile|user|user|form' => (object) array(
+      'id' => '54',
+      'identifier' => 'group_er_profile|user|user|form',
+      'group_name' => 'group_er_profile',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Profile',
+      'weight' => '4',
+      'children' => array(
+        0 => 'group_er_data',
+        1 => 'group_er_personal_info',
+        2 => 'group_er_inst',
+        3 => 'group_er_certs',
+        4 => 'group_er_demographic',
+        5 => 'group_er_account',
+        6 => 'group_education',
+        7 => 'group_involvement',
+      ),
+      'format_type' => 'tabs',
+      'format_settings' => array(
+        'formatter' => '',
+        'instance_settings' => array(
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_er_account|user|user|form' => (object) array(
+      'id' => '55',
+      'identifier' => 'group_er_account|user|user|form',
+      'group_name' => 'group_er_account',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Account Information',
+      'weight' => '48',
+      'children' => array(
+        0 => 'field_er_fname',
+        1 => 'field_er_lname',
+        2 => 'field_er_realname',
+        3 => 'account',
+        4 => 'picture',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+          'required_fields' => 1,
+        ),
+      ),
+    ),
+    'group_education|user|user|form' => (object) array(
+      'id' => '56',
+      'identifier' => 'group_education|user|user|form',
+      'group_name' => 'group_education',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Education',
+      'weight' => '53',
+      'children' => array(
+        0 => 'field_er_mas_act_grad_date',
+        1 => 'field_er_mas_ant_grad_date',
+        2 => 'field_er_und_act_grad_date',
+        3 => 'field_er_und_ant_grad_date',
+        4 => 'field_er_doc_ant_grad_date',
+        5 => 'field_er_doc_act_grad_date',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+          'required_fields' => 1,
+        ),
+      ),
+    ),
+    'group_involvement|user|user|form' => (object) array(
+      'id' => '57',
+      'identifier' => 'group_involvement|user|user|form',
+      'group_name' => 'group_involvement',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'form',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'EPSCoR Involvement',
+      'weight' => '51',
+      'children' => array(
+        0 => 'field_er_160hours',
+        1 => 'field_er_committees',
+        2 => 'field_er_components',
+        3 => 'field_er_description',
+        4 => 'field_er_paid',
+        5 => 'field_er_participant_date',
+        6 => 'field_er_supervisor',
+        7 => 'field_er_position_type',
+        8 => 'field_er_hired_date',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+          'required_fields' => 1,
+        ),
+      ),
+    ),
+    'group_er_profile|user|user|default' => (object) array(
+      'id' => '58',
+      'identifier' => 'group_er_profile|user|user|default',
+      'group_name' => 'group_er_profile',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Profile',
+      'weight' => '0',
+      'children' => array(
+        0 => 'group_contact',
+        1 => 'group_institute',
+        2 => 'group_data',
+        3 => 'group_certifications',
+        4 => 'group_demgraphics',
+        5 => 'group_involvement',
+      ),
+      'format_type' => 'tabs',
+      'format_settings' => array(
+        'formatter' => '',
+        'instance_settings' => array(
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_contact|user|user|default' => (object) array(
+      'id' => '59',
+      'identifier' => 'group_contact|user|user|default',
+      'group_name' => 'group_contact',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Contact Information',
+      'weight' => '24',
+      'children' => array(
+        0 => 'field_er_address',
+        1 => 'field_er_fname',
+        2 => 'field_er_lname',
+        3 => 'field_er_phone_personal',
+        4 => 'field_er_phone_work',
+        5 => 'field_er_professional_link',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_institute|user|user|default' => (object) array(
+      'id' => '60',
+      'identifier' => 'group_institute|user|user|default',
+      'group_name' => 'group_institute',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Institute',
+      'weight' => '27',
+      'children' => array(
+        0 => 'field_er_department',
+        1 => 'field_er_inst_abbreviation',
+        2 => 'field_er_inst_country',
+        3 => 'field_er_inst_description',
+        4 => 'field_er_inst_link',
+        5 => 'field_er_inst_name',
+        6 => 'field_er_inst_ref',
+        7 => 'field_er_mas_act_grad_date',
+        8 => 'field_er_mas_ant_grad_date',
+        9 => 'field_er_mentoring_plan',
+        10 => 'field_er_mentoring_plan_ul',
+        11 => 'field_er_nsf_grant_signatory',
+        12 => 'field_er_und_act_grad_date',
+        13 => 'field_er_und_ant_grad_date',
+        14 => 'field_er_doc_ant_grad_date',
+        15 => 'field_er_doc_act_grad_date',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_data|user|user|default' => (object) array(
+      'id' => '61',
+      'identifier' => 'group_data|user|user|default',
+      'group_name' => 'group_data',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Data',
+      'weight' => '26',
+      'children' => array(
+        0 => 'field_er_collecting_data_bool',
+        1 => 'field_er_data_frequency',
+        2 => 'field_er_data_submit_date',
+        3 => 'field_er_type_of_data',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_certifications|user|user|default' => (object) array(
+      'id' => '63',
+      'identifier' => 'group_certifications|user|user|default',
+      'group_name' => 'group_certifications',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Certifications',
+      'weight' => '29',
+      'children' => array(
+        0 => 'field_er_additional_doc',
+        1 => 'field_er_rcr_completion_bool',
+        2 => 'field_er_rcr_inperson',
+        3 => 'field_er_rcr_inperson_ul',
+        4 => 'field_er_rcr_online',
+        5 => 'field_er_rcr_online_ul',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_demgraphics|user|user|default' => (object) array(
+      'id' => '65',
+      'identifier' => 'group_demgraphics|user|user|default',
+      'group_name' => 'group_demgraphics',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Deomographics',
+      'weight' => '28',
+      'children' => array(
+        0 => 'field_er_citizenship',
+        1 => 'field_er_disabilities',
+        2 => 'field_er_ethnicity',
+        3 => 'field_er_gender',
+        4 => 'field_er_race',
+        5 => 'field_er_veteran_status',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+    'group_involvement|user|user|default' => (object) array(
+      'id' => '66',
+      'identifier' => 'group_involvement|user|user|default',
+      'group_name' => 'group_involvement',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'mode' => 'default',
+      'parent_name' => 'group_er_profile',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Involvement',
+      'weight' => '25',
+      'children' => array(
+        0 => 'field_er_160hours',
+        1 => 'field_er_committees',
+        2 => 'field_er_components',
+        3 => 'field_er_description',
+        4 => 'field_er_paid',
+        5 => 'field_er_participant_date',
+        6 => 'field_er_supervisor',
+        7 => 'field_er_position_type',
+      ),
+      'format_type' => 'tab',
+      'format_settings' => array(
+        'formatter' => 'closed',
+        'instance_settings' => array(
+          'description' => '',
+          'classes' => '',
+        ),
+      ),
+    ),
+  ),
 );

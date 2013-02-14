@@ -471,4 +471,477 @@ $data = array(
       ),
     ),
   ),
+=======
+$data = array(
+  'bundles' => array(
+    'er_award' => (object) array(
+      'type' => 'er_award',
+      'name' => 'Honors and Awards',
+      'base' => 'node_content',
+      'module' => 'node',
+      'description' => 'Honors and awards for special recognition of research or achievement.',
+      'help' => '',
+      'has_title' => '1',
+      'title_label' => 'Title',
+      'custom' => '1',
+      'modified' => '1',
+      'locked' => '0',
+      'disabled' => '0',
+      'orig_type' => 'er_award',
+      'disabled_changed' => FALSE,
+      'bc_entity_type' => 'node',
+    ),
+  ),
+  'fields' => array(
+    'body' => array(
+      'entity_types' => array(
+        0 => 'node',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'settings' => array(),
+      'translatable' => '1',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_body' => array(
+                'value' => 'body_value',
+                'summary' => 'body_summary',
+                'format' => 'body_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'body',
+      'type' => 'text_with_summary',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'summary' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'page',
+          1 => 'article',
+          2 => 'blog',
+          3 => 'er_award',
+          4 => 'er_event',
+          5 => 'er_institution',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
+          9 => 'image_gallery',
+          10 => 'node_gallery_gallery',
+          11 => 'node_gallery_image',
+          12 => 'webform',
+          13 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_er_award_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'day' => 'day',
+          'year' => 'year',
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_award_date' => array(
+                'value' => 'field_er_award_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_award_date' => array(
+                'value' => 'field_er_award_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_award_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_award',
+        ),
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'user',
+        'handler' => 'realname',
+        'handler_settings' => array(
+          'target_bundles' => array(),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_user_entity_reference' => array(
+                'target_id' => 'field_er_user_entity_reference_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_user_entity_reference',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_award',
+          1 => 'er_event',
+          2 => 'er_news',
+          3 => 'er_other_product',
+          4 => 'er_patent',
+          5 => 'er_presentation',
+          6 => 'er_proposal',
+          7 => 'er_collaboration',
+          8 => 'er_publication',
+        ),
+      ),
+    ),
+  ),
+  'instances' => array(
+    'body' => array(
+      0 => array(
+        'label' => 'Description',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'text_textarea_with_summary',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '10',
+            'summary_rows' => 5,
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '1',
+          'display_summary' => 1,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'text_default',
+            'weight' => '0',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'label' => 'hidden',
+            'type' => 'text_summary_or_trimmed',
+            'settings' => array(
+              'trim_length' => 600,
+            ),
+            'module' => 'text',
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'bundle' => 'er_award',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_award_date' => array(
+      0 => array(
+        'label' => 'Date Awarded',
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'date_popup',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'display_all_day' => 0,
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'weight' => '1',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'field_name' => 'field_er_award_date',
+        'entity_type' => 'node',
+        'bundle' => 'er_award',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_user_entity_reference' => array(
+      0 => array(
+        'label' => 'EPSCoR Researcher',
+        'widget' => array(
+          'weight' => '1',
+          'type' => 'entityreference_autocomplete',
+          'module' => 'entityreference',
+          'active' => 1,
+          'settings' => array(
+            'match_operator' => 'CONTAINS',
+            'size' => '60',
+            'path' => '',
+          ),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'nodeaccess_userreference' => array(
+            'referenced' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+              'deny_view' => 0,
+              'deny_update' => 0,
+              'deny_delete' => 0,
+            ),
+            'referenced_published' => '0',
+            'create' => array(
+              'article' => 0,
+              'page' => 0,
+              'blog' => 0,
+              'er_book' => 0,
+              'er_event' => 0,
+              'er_collaboration' => 0,
+              'er_collaborators' => 0,
+              'er_engagement' => 0,
+              'node_gallery_gallery' => 0,
+              'node_gallery_image' => 0,
+              'group' => 0,
+              'er_news' => 0,
+              'er_award' => 0,
+              'image_gallery' => 0,
+              'er_institution' => 0,
+              'er_internet' => 0,
+              'er_nsf_fastlane' => 0,
+              'er_other_product' => 0,
+              'er_patent' => 0,
+              'post' => 0,
+              'er_poster' => 0,
+              'er_presentation' => 0,
+              'er_effort' => 0,
+              'er_paid' => 0,
+              'er_proposal' => 0,
+              'er_publication' => 0,
+              'webform' => 0,
+            ),
+            'author' => array(
+              'view' => 'view',
+              'update' => 'update',
+              'delete' => 'delete',
+            ),
+            'author_published' => '0',
+            'all' => array(
+              'view' => 'view',
+            ),
+            'all_published' => '0',
+            'unused' => '0',
+            'views' => array(
+              'view' => '',
+              'view_args' => '',
+            ),
+            'priority' => '0',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'entityreference_label',
+            'weight' => '4',
+            'settings' => array(
+              'link' => 1,
+            ),
+            'module' => 'entityreference',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => '',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_er_user_entity_reference',
+        'entity_type' => 'node',
+        'bundle' => 'er_award',
+        'deleted' => '0',
+      ),
+    ),
+  ),
 );

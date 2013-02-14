@@ -31,14 +31,15 @@ $handler->display->display_options['fields']['name']['element_label_colon'] = FA
 $handler->display->display_options['sorts']['name']['id'] = 'name';
 $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
 $handler->display->display_options['sorts']['name']['field'] = 'name';
-/* Contextual filter: Taxonomy term: Core Component (field_er_core_component) */
-$handler->display->display_options['arguments']['field_er_core_component_value']['id'] = 'field_er_core_component_value';
-$handler->display->display_options['arguments']['field_er_core_component_value']['table'] = 'field_data_field_er_core_component';
-$handler->display->display_options['arguments']['field_er_core_component_value']['field'] = 'field_er_core_component_value';
-$handler->display->display_options['arguments']['field_er_core_component_value']['default_argument_type'] = 'fixed';
-$handler->display->display_options['arguments']['field_er_core_component_value']['summary']['number_of_records'] = '0';
-$handler->display->display_options['arguments']['field_er_core_component_value']['summary']['format'] = 'default_summary';
-$handler->display->display_options['arguments']['field_er_core_component_value']['summary_options']['items_per_page'] = '25';
+/* Contextual filter: Taxonomy term: Name */
+$handler->display->display_options['arguments']['name']['id'] = 'name';
+$handler->display->display_options['arguments']['name']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['arguments']['name']['field'] = 'name';
+$handler->display->display_options['arguments']['name']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['name']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['name']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['name']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['name']['limit'] = '0';
 /* Filter criterion: Taxonomy vocabulary: Machine name */
 $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
 $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';

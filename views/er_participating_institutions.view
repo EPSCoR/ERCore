@@ -46,14 +46,14 @@ $handler->display->display_options['fields']['title']['alter']['word_boundary'] 
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-/* Field: Field: Participating */
+/* Field: Content: Participating */
 $handler->display->display_options['fields']['field_er_inst_participating']['id'] = 'field_er_inst_participating';
 $handler->display->display_options['fields']['field_er_inst_participating']['table'] = 'field_data_field_er_inst_participating';
 $handler->display->display_options['fields']['field_er_inst_participating']['field'] = 'field_er_inst_participating';
 $handler->display->display_options['fields']['field_er_inst_participating']['label'] = '';
 $handler->display->display_options['fields']['field_er_inst_participating']['exclude'] = TRUE;
 $handler->display->display_options['fields']['field_er_inst_participating']['element_label_colon'] = FALSE;
-/* Sort criterion: Field: Participating (field_er_inst_participating) */
+/* Sort criterion: Content: Participating (field_er_inst_participating) */
 $handler->display->display_options['sorts']['field_er_inst_participating_value']['id'] = 'field_er_inst_participating_value';
 $handler->display->display_options['sorts']['field_er_inst_participating_value']['table'] = 'field_data_field_er_inst_participating';
 $handler->display->display_options['sorts']['field_er_inst_participating_value']['field'] = 'field_er_inst_participating_value';
