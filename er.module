@@ -247,6 +247,16 @@ function er_menu() {
 		'file' => 'includes/er.admin.inc',
 		'type' => MENU_NORMAL_ITEM,
 	);
+	
+	$items['admin/config/epscor/er/testing'] = array(
+		'title' => 'EPSCoR Reporting Module Tests',
+		'description' => 'This will help verify if the ER Core installed correctly.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('er_testing'),
+		'access arguments' => array('administer er'),
+		'file' => 'includes/er.testing.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);	
 
 	// This is the page for the overview. We only need one menu entry for this
 	// because the choice of whether to view it in reporting year or calendar
