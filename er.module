@@ -522,7 +522,8 @@ function list_cts_having_field($fieldname, $suffix = ''){
 
 /* this function is called from er.admin.inc when they reset individual bundles */
 function er_revert_bundle($form, &$form_state){
-	d($form_state['values']);
+	d("This function er_revert_bundle is not done. It will be allow the importation of individuals bundles. I am in er.module");
+	d($form_state['values'], 'form_state values in er_revert_bundle');
 }
 
 /* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
