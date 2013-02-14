@@ -9,7 +9,39 @@ function er_install(){
 	variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));
 	
 	er_import_taxonomy();
-	er_import_fields();	
+	
+// BEGIN NEW CODE
+
+	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	// call function that returns array of files names in the er_install/bundles directory
+	$batch = array (
+		'operations' => array(),
+		'finished' => 'batch_example_finished',
+		'title' => t('Processing Example Batch'),
+		'init_message' => t('Example Batch is starting.'),
+		'progress_message' => t('Processed @current out of @total.'),
+		'error_message' => t('EPSCoR Bundle Batch has encountered an error.'),
+	);
+		$bundle_names = bundle_filenames($drupal_path);
+	// here's where we do a batch call
+	foreach ($bundle_names as $file) {
+		// set up a batch operation for each file import
+		$batch['operations'][] = array('er_import_fields', array($file, count($bundle_names)));
+	}
+	batch_set($batch);
+	batch_process('admin/epscor/config');
+	
+	
+	watchdog('er', 'Finished installing Content Types and User Account fields');
+	drupal_set_message('Finished installing Content Types and User Account fields');
+		
+	// er_import_fields(); // old way	
+// END NEW CODE	
+	
+	
+	
+	
+	
 	er_import_flags();
 	er_import_rules();	
 	er_import_perms();
@@ -213,4 +245,43 @@ function er_install(){
 	}
  */
  
+}
+
+/**
+* Batch 'finished' callback
+*/
+function batch_example_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we do something meaningful with the results.
+    $message = count($results) .' processed.';
+    $message .= theme('item_list', $results);  // D6 syntax
+    drupal_set_message($message);
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    drupal_set_message($message, 'error');
+  }
+ 
+}
+
+function bundle_filenames($drupal_path){
+	// get list of all files in the bundles directory
+	$bundle_names = array();
+	if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy			
+		$dir = new DirectoryIterator($drupal_path);
+		// loop through all bundle files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$bundle_names[] = $fileinfo->getFilename();			
+			}
+		}
+	}
+	else{
+		drupal_set_message('No bundle_copy_import_submit function found in er.install');
+		watchdog('er', 'No bundle_copy_import_submit function found in er.install', NULL, WATCHDOG_CRITICAL);
+	}
+	return $bundle_names;	
 }
