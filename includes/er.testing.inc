@@ -31,8 +31,8 @@ function er_testing() {
     '#collapsed' => FALSE,
   ); 
   
-	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
-	$dir = new DirectoryIterator($drupal_path);
+	$bundle_path = ER_INSTALL_DIR . '/bundles';
+	$dir = new DirectoryIterator($bundle_path);
 	// loop through all rule files in the directory
 	$bundle_list = array();
 	
@@ -43,8 +43,8 @@ function er_testing() {
 			// d('this is a file '. $fileinfo);
 			$bundle_filename = $fileinfo->getFilename();
 			//d('this file', $bundle_filename);
-			//$bundle_config = file_get_contents($drupal_path . '/' . $bundle_filename);
-			include($drupal_path . '/' . $bundle_filename);
+			//$bundle_config = file_get_contents($bundle_path . '/' . $bundle_filename);
+			include($bundle_path . '/' . $bundle_filename);
 			// now all the bundle information is contained in $data
 			//d($bundle_config, 'bundle config');
 			//d($data, 'bundle config');
@@ -91,4 +91,8 @@ function er_testing() {
 // end  
 
 	return $form;
+}
+
+function er_test_flags(){
+	
 }
