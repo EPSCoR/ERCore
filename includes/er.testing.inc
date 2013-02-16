@@ -3,6 +3,7 @@
  * This file contains the tests for the er module.
  */
 function er_testing() {
+	er_test_flags();
 	$library = libraries_detect('PHPExcel');
 	if ($library['installed'])
 		drupal_set_message('PHPExcel library version '.$library['version'].' detected.');
@@ -93,6 +94,40 @@ function er_testing() {
 	return $form;
 }
 
+
+/*
+ * This function tests to see if all of the flags are up to date with what's in the flags install directory.
+ * @author Andrew Wessels
+ */
 function er_test_flags(){
-	
+	$drupal_path = ER_INSTALL_DIR . '/flags';
+	$dir = new DirectoryIterator($drupal_path);
+	$internal_flags = flag_get_flags();
+	//d($internal_flags, '$internal_flags');
+	// loop through all flag files in the directory
+	$missing = array();
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
+			$flag_filename = $fileinfo->getFilename();
+			// this grabs the text from the file and puts it in a variable
+			$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
+			eval($flag_config);
+			if (isset($flags) && is_array($flags)){
+				foreach ($flags as $name=>$flag){
+					if (isset($internal_flags[$name])){
+						//unset this flag from the list of internal flags, that way all that's left will be extras flags that are not necessary for er-core.
+						//this will be useful info because we might remove some of these flags in the futuere, this will allow us to display the no-longer-necessary flags to the user.
+						unset($internal_flags[$name]);
+					}else{
+						$missing[$flag->name] = $flag_config;
+					}
+				}
+			}else{
+				drupal_set_message('Bad installation file detected, see: ' .  $flag_filename, 'error');	
+			}
+		}
+	}
+	$return = array('missing'=>$missing, 'extras'=>$internal_flags);
+	d($return, 'Flags status');
+	return $return;
 }
