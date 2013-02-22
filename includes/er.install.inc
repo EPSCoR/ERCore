@@ -1,8 +1,172 @@
 <?php
+
+function install_all(){
+	//Set up some default values; these are used on the summary table. see er.admin.inc
+	variable_set('er_summary_types', array());//
+	variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));
+	
+	//TODO: needs to use Batch API
+	er_import_taxonomy();
+	
+	// This section is for Content Types	
+// BEGIN BATCH API CODE
+	$batch = array (
+		'operations' => array(),
+		'finished' => 'batch_has_finished',
+		'title' => t('Processing ER Core Bundles'),
+		'init_message' => t('ER Core Bundles is starting.'),
+		'progress_message' => t('Processed @current out of @total.'),
+		'error_message' => t('EPSCoR Bundle Batch has encountered an error.'),
+	);
+	// This function returns array of files names in the install/bundles directory
+	$bundle_names = get_install_filenames('bundles'); // argument is the folder name
+	
+	// Here's where we do a batch call, one file at a time
+	foreach ($bundle_names as $file) {
+		// Add a batch operation for each file import
+		// 		Translates to: "call the function er_import_fields() with two arguments: the filename and the total"
+		$batch['operations'][] = array('er_import_fields', array($file, count($bundle_names)));
+	}
+	batch_set($batch); // Standard Batch call
+	// Send them to this location after it's complete
+	// 		If we're doing a bunch of batches, you can leave this argument empty
+	batch_process('admin/config/epscor/er/testing'); 	
+	
+	watchdog('er', 'Finished installing Content Types and User Account fields');
+	drupal_set_message('Finished installing Content Types and User Account fields');
+// END BATCH API CODE	
+	
+	//TODO: all three calls below need to use Batch API
+	er_import_flags();
+	er_import_rules();	
+	er_import_perms();	
+}
+
+/*
+ * This function returns the list of all bundle filenames
+ */
+function get_install_filenames($folder){
+	// get list of all files in the bundles directory
+	$drupal_path = ER_INSTALL_DIR . '/' . $folder;
+	$names = array();
+	// if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy			
+		$dir = new DirectoryIterator($drupal_path);
+		// loop through all bundle files in the directory
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				$names[] = $fileinfo->getFilename();			
+			}
+		}
+	// }
+	// else{
+		// drupal_set_message('No bundle_copy_import_submit function found in er.install');
+		// watchdog('er', 'No bundle_copy_import_submit function found in er.install', NULL, WATCHDOG_CRITICAL);
+	// }
+	return $names;	
+}
+
+/**
+* Batch 'finished' callback
+*/
+function batch_has_finished($success, $results, $operations) {
+  if ($success) {
+  	//TODO: why are the $results and $operations not working
+    // Here we do something meaningful with the results.
+    // d($success, 'success');
+    // d($results, 'results');
+    // d($operations, 'operations');
+    // $message = count($results) .' processed.';
+    $message = 'Batch processed.';
+    // $message .= theme('item_list', $results);  // D6 syntax
+    drupal_set_message($message);
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    drupal_set_message($message, 'error');
+  }
+ 
+}
+
+function er_import_fields($file, $total, &$context){
+	// BEGIN BATCH API CODE
+	if (!isset($context['sandbox']['progress'])) {
+		$context['sandbox']['progress'] = 0;
+		$context['sandbox']['current_node'] = 0; // don't know if we need this line at all
+		$context['sandbox']['max'] = $total;
+	}
+	// END BATCH API CODE
+	
+	// TODO: try placing this module_load_include into the .install and see if it works
+	// Make sure we have the ctools include file loaded so we can use ctools_var_export()
+	module_load_include('inc', 'ctools', 'includes/export');
+		
+	// TODO: try moving this to the .install too
+	$drupal_path = ER_INSTALL_DIR . '/bundles';
+	watchdog('er', 'Looping bundle '.$file);
+	// after the include, we have access to the $data variable for this object
+	include($drupal_path . '/' . $file);
+	$form_state = array();
+	// 	ctools_var_export() will take an object and turn it into nice text basically. 
+	// 		that's what we put into the import textarea
+	$ready_for_textarea = '$data = ' . ctools_var_export($data) . ';';
+	// d($ready_for_textarea, 'ready for textarea');
+	$form_state['values']['macro'] = $ready_for_textarea; // remember $data comes into being from the include call
+	// TODO: add guard here making sure the function exists
+	bundle_copy_import_submit('', $form_state); // function doesn't use first arg
+
+
+	// BEGIN BATCH API CODE
+	// 		Update the progress for the Batch API
+	$context['sandbox']['progress']++;
+    // $context['sandbox']['current_node'] = 0; // TODO: I think we can get rid of this
+    $context['message'] = t('Now processing bundle %b', array('%b' => $file));	
+	if ($context['sandbox']['progress'] == $total){
+		// Give the signal that it's finished
+		$context['sandbox']['finished'] = 1;
+	}
+	// END BATCH API CODE
+}
+
 /* this function is called from er.admin.inc when they reset individual bundles */
 function er_revert_bundle($form, &$form_state){
 	d("This function er_revert_bundle is not done. It will be allow the importation of individuals bundles. I am in er.module");
 	d($form_state['values'], 'form_state values in er_revert_bundle');
+	
+	// get list of all the keys with a value of 1, which in this case indicates all the bundles to import
+	$bundle_names = array();
+	foreach ($form_state['values'] as $key => $value) {
+		if ($value == 1){
+			$bundle_names[] = $key;
+		}			  
+	}
+	// now we have a list of filenames that exist in the install/bundles directory
+// BEGIN BATCH API CODE
+	$batch = array (
+		'operations' => array(),
+		'finished' => 'batch_has_finished',
+		'title' => t('Processing ER Core Bundles'),
+		'init_message' => t('ER Core Bundles is starting.'),
+		'progress_message' => t('Processed @current out of @total.'),
+		'error_message' => t('EPSCoR Bundle Batch has encountered an error.'),
+	);
+	
+	// Here's where we do a batch call, one file at a time
+	foreach ($bundle_names as $file) {
+		// Add a batch operation for each file import
+		// 		Translates to: "call the function er_import_fields() with two arguments: the filename and the total"
+		$batch['operations'][] = array('er_import_fields', array($file, count($bundle_names)));
+	}
+	batch_set($batch); // Standard Batch call
+	// Send them to this location after it's complete
+	// 		If we're doing a bunch of batches, you can leave this argument empty
+	batch_process('admin/config/epscor/er/testing'); 	
+	
+	watchdog('er', 'Finished updating Content Types');
+	drupal_set_message('Finished updating Content Types');
+// END BATCH API CODE		
 }
 
 /* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
@@ -21,6 +185,7 @@ function er_revert($form, &$form_state){
 		er_import_taxonomy();	
 	}
 	
+	// This is the one MIKE is assigned to
 	if ($form_state['values']['redo_checkboxes']['Fields'] !== 0){
 		// Create Content Types and Field Settings, User Profile Fields
 		// d('you checked Fields');
@@ -198,44 +363,6 @@ function er_import_flags(){
 		watchdog('er', 'No flag_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
 		drupal_set_message('No flag_import_form_validate function found in er.install');
 	}		
-}	
-
-// $bundle_names is an array containing the filenames found in the er_install/bundles folder
-function er_import_fields($file, $total, &$context){
-	if (!isset($context['sandbox']['progress'])) {
-		$context['sandbox']['progress'] = 0;
-		$context['sandbox']['current_node'] = 0; // don't know if we need this line at all
-		$context['sandbox']['max'] = $total;
-	}
-	// TODO: try placing this module_load_include into the .install and see if it works
-	// make sure we have the ctools include file loaded so we can use ctools_var_export()
-	// ctools_var_export() will take an object and turn it into nice text basically. 
-	// that's what we put into the import textarea
-	module_load_include('inc', 'ctools', 'includes/export');
-		
-	// TODO: move this to the .install too
-	$drupal_path = ER_INSTALL_DIR . '/bundles';
-	// loop through all files passed in $bundle_names
-	// foreach ($bundle_names as $file) {
-		watchdog('er', 'Looping bundle '.$file);
-		// after the include, we have access to the $data variable for this object
-		include($drupal_path . '/' . $file);
-		$form_state = array();
-		$ready_for_textarea = '$data = ' . ctools_var_export($data) . ';';
-		d($ready_for_textarea, 'ready for textarea');
-		$form_state['values']['macro'] = $ready_for_textarea; // remember $data comes into being from the include call
-	// TODO: add guard here making sure the function exists
-		bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-	// }
-
-	// update the progress for the Batch API
-	$context['sandbox']['progress']++;
-    $context['sandbox']['current_node'] = 0; // TODO: I think we can get rid of this
-    $context['message'] = t('Now processing %node', array('%node' => $file));	
-	if ($context['sandbox']['progress'] == $total){
-		// Give the signal that it's finished
-		$context['sandbox']['finished'] = 1;
-	}	
 }
 
 function er_import_fields_OLD(){	

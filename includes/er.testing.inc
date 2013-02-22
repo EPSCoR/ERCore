@@ -36,7 +36,7 @@ function er_testing() {
 	$dir = new DirectoryIterator($bundle_path);
 	// loop through all rule files in the directory
 	$bundle_list = array();
-	
+	$found_errors = false;
 	// dpm($dir, 'what?');
 	foreach ($dir as $fileinfo) {
 		// d($fileinfo, '$fileinfo');
@@ -61,8 +61,9 @@ function er_testing() {
 						$missing_list[] = $field['field_name'];
 					}
 				}
-				if ($field_not_found){
+				if ($field_not_found){					
 					// Content Types were found where the fields did not work
+					$found_errors = true; // set this flag so we can add a message if all are okay
 					$form['er_testing_container']['er_admin_container_reset_bundle_error']["$bundle_filename"] = array(
 					  '#type' => 'checkbox',
 					  '#title' => t("{$data['bundles'][$bundle_filename]->name} ($bundle_filename)"),
@@ -71,8 +72,8 @@ function er_testing() {
 				}else{
 					//dsm($exist, 'this field exists');
 					$form['er_testing_container']['er_admin_container_reset_bundle']["$bundle_filename"] = array(
-					  '#type' => 'checkbox',
-					  '#title' => t("{$data['bundles'][$bundle_filename]->name} ($bundle_filename)"),
+					  '#type' => 'markup',
+					  '#markup' => t("{$data['bundles'][$bundle_filename]->name} ($bundle_filename)<br/>"),
 					);							
 				}				
 			
@@ -81,6 +82,14 @@ function er_testing() {
 			}
 		}
 	}
+	// instead of having a blank fieldgroup for the errors, let's add a message if there were no errors
+	if (!$found_errors){
+		$form['er_testing_container']['er_admin_container_reset_bundle_error']['no_error_msg'] = array(
+		  '#type' => 'markup',
+		  '#markup' => t('No Content Types had errors.'),
+		);		
+	}
+	
 	
   $form['er_admin_container_reset_bundle']['redo_bundle'] = array(
     '#type' => 'submit',
