@@ -114,21 +114,22 @@ function er_test_flags(){
 	$internal_flags = flag_get_flags();
 	//d($internal_flags, '$internal_flags');
 	// loop through all flag files in the directory
-	$missing = array();
+	$return = array('found'=>array(), 'missing'=>array(), 'extras'=>array());
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
 			$flag_filename = $fileinfo->getFilename();
 			// this grabs the text from the file and puts it in a variable
 			$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
-			eval($flag_config);
+			eval($flag_config);//This will set the $flags variable as defined in the file.
 			if (isset($flags) && is_array($flags)){
 				foreach ($flags as $name=>$flag){
 					if (isset($internal_flags[$name])){
+						$return['found'][$name] = $internal_flags[$name];
 						//unset this flag from the list of internal flags, that way all that's left will be extras flags that are not necessary for er-core.
 						//this will be useful info because we might remove some of these flags in the futuere, this will allow us to display the no-longer-necessary flags to the user.
 						unset($internal_flags[$name]);
 					}else{
-						$missing[$flag->name] = $flag_config;
+						$return['missing'][$name] = $flag_config;
 					}
 				}
 			}else{
@@ -136,7 +137,7 @@ function er_test_flags(){
 			}
 		}
 	}
-	$return = array('missing'=>$missing, 'extras'=>$internal_flags);
+	$return['extras'] = $internal_flags;//all that will be left after all the unsets will be any extra flags still in the system
 	d($return, 'Flags status');
 	return $return;
 }
