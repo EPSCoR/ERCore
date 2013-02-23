@@ -710,45 +710,7 @@ function er_import_flags(){
 	}		
 }	
 
-// $bundle_names is an array containing the filenames found in the er_install/bundles folder
-function er_import_fields($file, $total, &$context){
-	if (!isset($context['sandbox']['progress'])) {
-		$context['sandbox']['progress'] = 0;
-		$context['sandbox']['current_node'] = 0; // don't know if we need this line at all
-		$context['sandbox']['max'] = $total;
-	}
-	// TODO: try placing this module_load_include into the .install and see if it works
-	// make sure we have the ctools include file loaded so we can use ctools_var_export()
-	// ctools_var_export() will take an object and turn it into nice text basically. 
-	// that's what we put into the import textarea
-	module_load_include('inc', 'ctools', 'includes/export');
-		
-	// TODO: move this to the .install too
-	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
-	// loop through all files passed in $bundle_names
-	// foreach ($bundle_names as $file) {
-		watchdog('er', 'Looping bundle '.$file);
-		// after the include, we have access to the $data variable for this object
-		include($drupal_path . '/' . $file);
-		$form_state = array();
-		$ready_for_textarea = '$data = ' . ctools_var_export($data) . ';';
-		d($ready_for_textarea, 'ready for textarea');
-		$form_state['values']['macro'] = $ready_for_textarea; // remember $data comes into being from the include call
-	// TODO: add guard here making sure the function exists
-		bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-	// }
-
-	// update the progress for the Batch API
-	$context['sandbox']['progress']++;
-    $context['sandbox']['current_node'] = 0; // TODO: I think we can get rid of this
-    $context['message'] = t('Now processing %node', array('%node' => $file));	
-	if ($context['sandbox']['progress'] == $total){
-		// Give the signal that it's finished
-		$context['sandbox']['finished'] = 1;
-	}	
-}
-
-function er_import_fields_OLD(){	
+function er_import_fields(){	
 	if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy
 	
 		$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
