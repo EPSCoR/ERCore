@@ -3,14 +3,64 @@
  * This file contains the tests for the er module.
  */
 function er_testing() {
-	er_test_flags();
+	//Available severity values:
+	//	REQUIREMENT_INFO, REQUIREMENT_OK, REQUIREMENT_WARNING, REQUIREMENT_ERROR
+	
+	$requirements = array();
+	
+	//ER Module info
+	$info = drupal_parse_info_file(ER_MODULE_DIR.'/er.info');
+	$requirements[] = array(
+		'severity' => REQUIREMENT_INFO,
+		'title' => $info['name'],
+		'value' => $info['version'],
+	);
+	
+	//PHPExcel status
 	$library = libraries_detect('PHPExcel');
+	if ($library['installed']){
+		$requirements[] = array(
+			'title' => 'PHPExcel library',
+			'severity' => REQUIREMENT_OK,
+			'value' => $library['version'],
+		);
+	}else{
+		$requirements[] = array(
+			'title' => 'PHPExcel library',
+			'severity' => REQUIREMENT_ERROR,
+			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
+		);
+	}
+	
+	//Flags
+	$flags_status = er_test_flags();
+	foreach ($flags_status['missing'] as $name=>$flags_value){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_ERROR,
+			'title' => "Flag: $name missing!",
+			'value' => 'Fix this issue. Heres a button: ...',
+		);
+	}
+	
+	$requirements[] = array(
+		'severity' => REQUIREMENT_OK,
+		'title' => '',
+		'description' => "something",
+		'value' => '1.2.3.4',
+	);
+	//Display the table
+	$form['status'] = array(
+		"#theme"=>"er_status_report",
+		'#requirements'=>$requirements,
+	);
+	
+	
 	if ($library['installed'])
 		drupal_set_message('PHPExcel library version '.$library['version'].' detected.');
 	else
 		drupal_set_message('PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.', 'error');	
   
-// start
+	//start
   $form['er_testing_container'] = array(
     '#type' => 'fieldset',
     '#title' => 'Individual Content Types',
@@ -96,6 +146,8 @@ function er_testing() {
     '#value' => t('Create / Update Content Type(s)'),
     '#submit' => array('er_revert_bundle'),
   );
+	
+	
 
 	
 // end  
@@ -107,6 +159,16 @@ function er_testing() {
 /*
  * This function tests to see if all of the flags are up to date with what's in the flags install directory.
  * @author Andrew Wessels
+ * @return associative array structure:
+ * 		"found" =>
+ *			flag name => flag_node object
+ *			...
+ *		"missing" =>
+ *			flag name => $flags array code as a string (comes directly from the files) - can then be used to import the flag.
+ *			...
+ *		"extras" =>
+ *			flag name => flag_node object of any flag that does not belong to er-core
+ *			...
  */
 function er_test_flags(){
 	$drupal_path = ER_INSTALL_DIR . '/flags';
@@ -138,6 +200,5 @@ function er_test_flags(){
 		}
 	}
 	$return['extras'] = $internal_flags;//all that will be left after all the unsets will be any extra flags still in the system
-	d($return, 'Flags status');
 	return $return;
 }
