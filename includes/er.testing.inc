@@ -3,10 +3,15 @@
  * This file contains the tests for the er module.
  */
 function er_testing() {
-	//Available severity values:
-	//	REQUIREMENT_INFO, REQUIREMENT_OK, REQUIREMENT_WARNING, REQUIREMENT_ERROR
-	
 	$requirements = array();
+	/* Example usage:
+	$requirements[] = array(
+		'severity' => REQUIREMENT_OK,//Acceptable values: REQUIREMENT_INFO, REQUIREMENT_OK, REQUIREMENT_WARNING, REQUIREMENT_ERROR
+		'title' => 'Test',
+		'description' => "This is a test",
+		'value' => '1.0',//May be a version number
+	);
+	*/
 	
 	//ER Module info
 	$info = drupal_parse_info_file(ER_MODULE_DIR.'/er.info');
@@ -28,38 +33,65 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'PHPExcel library',
 			'severity' => REQUIREMENT_ERROR,
+			'value' => 'missing',
 			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
 		);
 	}
 	
 	//Flags
 	$flags_status = er_test_flags();
+	//d($flags_status, '$flags_status');
 	foreach ($flags_status['missing'] as $name=>$flags_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Flag: $name missing!",
-			'value' => 'Fix this issue. Heres a button: ...',
+			'value' => 'Fix this issue [button]',
+		);
+	}
+	foreach ($flags_status['extra'] as $name=>$flag_node){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_WARNING,
+			'title' => "Flag: $name is extraneous",
+			'description' => 'This flag is unknown to this version of the EPSCoR Reporting module, and may be removed.',
+			'value' => l('delete', 'admin/structure/flags/manage/'.$name.'/delete'),
+		);
+	}
+	foreach ($flags_status['found'] as $name=>$flag_node){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_OK,
+			'title' => "Flag: $name",
+			'value' => "Flag " . l('found', 'admin/structure/flags/manage/'.$name),
 		);
 	}
 	
-	$requirements[] = array(
-		'severity' => REQUIREMENT_OK,
-		'title' => '',
-		'description' => "something",
-		'value' => '1.2.3.4',
-	);
+	//Fields and fieldgroups
+	$field_status = er_test_fields();
+	foreach ($field_status as $bundle=>$results){
+		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
+			$requirements[] = array(
+				'severity' => REQUIREMENT_ERROR,
+				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
+				'description' => "Missing fields: ".implode($results['fields']).", missing fieldgroups: ".implode($results['groups']),
+				'value' => 'Fix this issue [button]',
+			);
+		}else{
+			$requirements[] = array(
+				'severity' => REQUIREMENT_OK,
+				'title' => "Bundle: ".$results['name']." ($bundle)",
+				'value' => 'Ok',
+			);
+		}
+		
+	}
+	d($field_status, '$field_status');
+	
+	
 	//Display the table
 	$form['status'] = array(
 		"#theme"=>"er_status_report",
 		'#requirements'=>$requirements,
 	);
 	
-	
-	if ($library['installed'])
-		drupal_set_message('PHPExcel library version '.$library['version'].' detected.');
-	else
-		drupal_set_message('PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.', 'error');	
-  
 	//start
   $form['er_testing_container'] = array(
     '#type' => 'fieldset',
@@ -82,6 +114,7 @@ function er_testing() {
     '#collapsed' => FALSE,
   ); 
   
+	//THIS SECTION SHOULD BE DEPRECATED IN FAVOR OF THE BROKEN-OUT er_test_fields() FUNCTION (see below)
 	$bundle_path = ER_INSTALL_DIR . '/bundles';
 	$dir = new DirectoryIterator($bundle_path);
 	// loop through all rule files in the directory
@@ -155,6 +188,62 @@ function er_testing() {
 	return $form;
 }
 
+/**
+ * Check the status of fields and fieldgroups
+ */
+function er_test_fields(){
+	$bundle_path = ER_INSTALL_DIR . '/bundles';
+	$dir = new DirectoryIterator($bundle_path);
+	$bundle_list = array();
+	$found_errors = false;
+	$return = array();
+	foreach ($dir as $fileinfo) {//loop through all files in the directory
+		if (!$fileinfo->isDot()) { //Check that it's not . or .. (which are not really files)
+			$bundle_filename = $fileinfo->getFilename();
+			include($bundle_path . '/' . $bundle_filename);//now all the bundle information is contained in $data
+			
+			//This will give me the name of the bundle. This should be equivalent to th e filename, but doesn't have to be:
+			$bundle_info = end($data['bundles']);//this will be empty for the user profile bundle
+			$bundle_type = key($data['bundles']);//this gets the internal name of the bundle
+			$bundle_label = isset($bundle_info->name)?$bundle_info->name:'User Profile';
+			$entity_type = $bundle_type=='user'?'user':'node';
+			
+			$groups = field_group_info_groups($entity_type, $bundle_type, 'form', TRUE);//get the list of groups in this bundle.
+			//d($data, '$data');
+			
+			//Note: I think we could use field_info_instances("node",$source_node_type) to determine if a CT has extra fields.
+			
+			$missing_fields = array();
+			if (isset($data['fields'])){ //Make sure there are fields
+				foreach ($data['fields'] as $field){ //Check each field
+					// see if the field exists
+					$field_info = field_info_field($field['field_name']);
+					if (is_null($field_info)){
+						$missing_fields[] = $field['field_name'];
+					}
+				}
+			}
+			
+			$missing_groups = array();
+			if (isset($data['fieldgroups'])){ //if this bundle has fieldgroups...
+				foreach ($data['fieldgroups'] as $group){ //Check each fieldgroup
+					if (!isset($groups[$group->group_name])){
+						$missing_groups[] = $group->group_name;
+					}
+				}
+			}
+			
+			$return[$bundle_filename] = array(
+				'fields' => $missing_fields,
+				'goups' => $missing_groups,
+				'name' => $bundle_label
+			);
+			
+		}
+	}
+	return $return;
+}
+
 
 /*
  * This function tests to see if all of the flags are up to date with what's in the flags install directory.
@@ -166,8 +255,8 @@ function er_testing() {
  *		"missing" =>
  *			flag name => $flags array code as a string (comes directly from the files) - can then be used to import the flag.
  *			...
- *		"extras" =>
- *			flag name => flag_node object of any flag that does not belong to er-core
+ *		"extra" =>
+ *			flag name => flag_node object of any flag that does not belong to er-core but starts with "er_"
  *			...
  */
 function er_test_flags(){
@@ -176,7 +265,7 @@ function er_test_flags(){
 	$internal_flags = flag_get_flags();
 	//d($internal_flags, '$internal_flags');
 	// loop through all flag files in the directory
-	$return = array('found'=>array(), 'missing'=>array(), 'extras'=>array());
+	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
 			$flag_filename = $fileinfo->getFilename();
@@ -199,6 +288,10 @@ function er_test_flags(){
 			}
 		}
 	}
-	$return['extras'] = $internal_flags;//all that will be left after all the unsets will be any extra flags still in the system
+	foreach ($internal_flags as $name => $flag_node){//iterate over the remaining flags, and look for er_ prefix.
+		if (substr($name, 0, 3) == "er_")
+			$return['extra'][$name] = $flag_node;
+	}
 	return $return;
+
 }
