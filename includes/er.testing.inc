@@ -83,7 +83,7 @@ function er_testing() {
 		}
 		
 	}
-	d($field_status, '$field_status');
+	//d($field_status, '$field_status');
 	
 	
 	//Display the table

@@ -51,7 +51,7 @@ function er_theme($existing, $type, $theme, $path){
  * @author Andrew
  */
 function theme_er_status_report($variables){
-	d($variables, '$variables');
+	//d($variables, '$variables');
   $requirements = $variables['requirements'];
   return theme('status_report', array('requirements' => $requirements));
 }
