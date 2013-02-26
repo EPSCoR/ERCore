@@ -254,8 +254,8 @@ function er_menu() {
 		'type' => MENU_NORMAL_ITEM,
 	);
 	
-	$items['admin/config/epscor/er/testing'] = array(
-		'title' => 'EPSCoR Reporting Module Tests',
+	$items['admin/config/epscor/er/status'] = array(
+		'title' => 'EPSCoR Reporting Status Report',
 		'description' => 'This will help verify if the ER Core installed correctly.',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('er_testing'),

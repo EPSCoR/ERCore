@@ -38,10 +38,25 @@ function er_theme($existing, $type, $theme, $path){
 			'variables' => array('ranges' => array(), 'debug'=>false),
 			'function' => 'er_summary_table'
 		),
+		'er_status_report' => array(
+			'variables' => array('requirements'=>array()),
+			//'render element' => 'requirements',
+			'function' => 'theme_er_status_report',
+		)
 	);
 	return $theme;
 }
 
+/**
+ * @author Andrew
+ */
+function theme_er_status_report($variables){
+	//d($variables, '$variables');
+  $requirements = $variables['requirements'];
+  return theme('status_report', array('requirements' => $requirements));
+}
+ 
+ 
 /**
  * Theme a format interval for a date element
  *
