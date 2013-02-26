@@ -30,7 +30,7 @@ function install_all(){
 	batch_set($batch); // Standard Batch call
 	// Send them to this location after it's complete
 	// 		If we're doing a bunch of batches, you can leave this argument empty
-	batch_process('admin/config/epscor/er/testing');	
+	batch_process('admin/config/epscor/er/status');	
 	
 	watchdog('er', 'Finished installing Content Types and User Account fields');
 	drupal_set_message('Finished installing Content Types and User Account fields');
