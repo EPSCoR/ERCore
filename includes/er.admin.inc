@@ -29,7 +29,8 @@ function er_settings() {
 		"er_award"=>"er_award",
 		"er_event"=>"er_event",
 		"er_news"=>"er_news",
-    "participants"=>"participants",
+		"participants"=>"participants",
+		"taxonomy"=>"taxonomy",
 	);
 	$types = variable_get('er_summary_types');
   if (!$types) $types = array();
@@ -60,24 +61,6 @@ function er_settings() {
 		'#description' => t("Select the content types that you want to be displayed on the summary table. Each content type must have a corresponding view set up in order for it to be displayed in the summary table."),
 	);
 	
-  $form['er_admin_container_reset'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Reset to default ER Setting(s)',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,      
-  );	
-
-  $form['er_admin_container_reset']['redo_checkboxes'] = array(
-    '#type' => 'checkboxes',
-    '#options' => drupal_map_assoc(array(t('Rules'), t('Taxonomy'), t('Fields'), t('Flags'), t('Permissions'))),
-    '#title' => t('Setting'),
-  );  
-
-  $form['er_admin_container_reset']['redo_fields'] = array(
-    '#type' => 'submit',
-    '#value' => t('Reset'),
-    '#submit' => array('er_revert'),
-  );
   
 // start
 
@@ -96,7 +79,7 @@ function er_settings() {
     // '#title' => t('Individual Content Types'),
   // );  	
   
-	$drupal_path = ER_INSTALL_DIR . '/bundles';
+	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
 	$dir = new DirectoryIterator($drupal_path);
 	// loop through all rule files in the directory
 	$bundle_list = array();
@@ -142,6 +125,63 @@ function er_settings() {
 
 	
 // end  
+
+// start taxonomy
+	
+  $form['er_admin_taxonomy_container_reset_bundle'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Taxonomy Vocabulary',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('Under construction: Jeannine  is taxonomy_vocabulary the correct db_select?'),      
+  );
+
+	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	$dir = new DirectoryIterator($drupal_path);
+	// loop through all rule files in the directory
+	$bundle_list = array();
+	// dpm($dir, 'what?');
+	foreach ($dir as $fileinfo) {
+		// d($fileinfo, '$fileinfo');
+		if (!$fileinfo->isDot()) {
+			// d('this is a file '. $fileinfo);
+			$bundle_filename = $fileinfo->getFilename();
+			// d('this file', $bundle_filename);
+			$result = db_select('node_type', 'n')
+			    ->fields('n')
+			    ->condition('orig_type', $bundle_filename ,'=')
+			    ->execute()
+			    ->fetchAssoc();
+				if (empty($result)){
+				   // dsm('nothing');
+					$form['er_admin_taxonomy_container_reset_bundle']['bundle'] = array(
+					  '#type' => 'checkbox',
+					  '#title' => $bundle_filename,
+					  '#description' => t('<b>Vocabulary DOES NOT exist.</b>'),
+					);					
+				}
+				else{
+					// dsm($result, 'result');
+					$form['er_admin_taxonomy_container_reset_bundle']["$fileinfo"] = array(
+					  '#type' => 'checkbox',
+					  '#title' => t("{$result['name']} ($fileinfo)"),
+					  '#description' => t('Vocabulary Exists.'),
+					);				
+				}
+			
+			// check to see if it's in the database
+			//$bundle_list[] = $bundle_filename;		
+		}
+	}
+	
+  $form['er_admin_taxonomy_container_reset_bundle']['redo_bundle'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create / Update Vocabulary'),
+    '#submit' => array('er_revert_bundle'),
+  );
+
+	
+// end  taxonomy
   
 	if (module_exists('er_encryption')){
 		$form['er_use_encryption'] = array(
@@ -159,7 +199,24 @@ function er_settings() {
 	}
   
   
-  
+  $form['er_admin_container_reset'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Reset to default ER Setting(s)',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,      
+  );	
+
+  $form['er_admin_container_reset']['redo_checkboxes'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(array(t('Rules'), t('Taxonomy'), t('Fields'), t('Flags'), t('Permissions'))),
+    '#title' => t('Setting'),
+  );  
+
+  $form['er_admin_container_reset']['redo_fields'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset'),
+    '#submit' => array('er_revert'),
+  ); 
   
   //// ...nah, not necessary:
   //$root_name = variable_get('er_root_name');
