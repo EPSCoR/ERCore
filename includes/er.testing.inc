@@ -295,3 +295,40 @@ function er_test_flags(){
 	return $return;
 
 }
+
+/*
+ * This function tests to see if all of the taxonomy vocabularies are up to date with what's in the taxonomy install directory.
+ * @author Jeannine Haney
+ */
+
+function er_test_taxonomy(){
+	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
+	$dir = new DirectoryIterator($drupal_path);
+	$taxonomy_vocabulary = taxonomy_vocabulary();
+	
+	// loop through all taxonomy files in the directory
+	$missing = array();
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
+			$taxonomy_filename = $fileinfo->getFilename();
+			// this grabs the text from the file and puts it in a variable
+			$taxonomy_vocabulary = file_get_contents($drupal_path . '/' . $taxonomy_filename);
+			eval($tax_config);
+			if (isset($taxonomy_vocabulary) && is_array($taxonomy_vocabulary)){
+				foreach ($taxonomy_vocabulary as $name=>$taxonomy_vocabulary){
+					if (isset($taxonomy_vocabulary[$name])){
+						unset($taxonomy_vocabulary[$name]);
+					}else{
+						$missing[$taxonomy_vocabulary->name] = $taxonomy_vocabulary;
+					}
+				}
+			}else{
+				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_vocabulary, 'error');	
+			}
+		}
+	}
+	
+	$return = array('missing'=>$missing, 'extras'=>$internal_taxonomy);
+	d($return, 'Taxonomy status');
+	return $return;
+}

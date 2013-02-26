@@ -391,6 +391,7 @@ function er_import_fields_OLD(){
 	drupal_set_message('Finished installing Content Types and User Account fields');	
 }
 
+
 function er_import_taxonomy(){
 	// create taxonomy term 1 for the Project Compnents
 	// make sure we're not uninstalling and reinstalling it
