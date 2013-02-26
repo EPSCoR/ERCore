@@ -334,6 +334,8 @@ function er_test_taxonomy(){
 					}
 				}
 			}
+		}
+	}
 			
 	
 	// loop through all taxonomy files in the directory
