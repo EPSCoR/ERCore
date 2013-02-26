@@ -367,6 +367,6 @@ function er_test_taxonomy(){
 
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
- * @author Chris Allen
+ * @author Chris Allen - cjallen@epscor.unm.edu
  */
 
