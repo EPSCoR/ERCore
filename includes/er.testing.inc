@@ -57,7 +57,7 @@ function er_testing() {
 					$exist = field_info_field($field['field_name']);
 					if (is_null($exist)){
 						dsm('this field doesnt exist: ' . $field['field_name']);
-						$field_not_found = true;						
+						$field_not_found = true;
 						$missing_list[] = $field['field_name'];
 					}
 				}
@@ -132,7 +132,7 @@ function er_test_flags(){
 					}
 				}
 			}else{
-				drupal_set_message('Bad installation file detected, see: ' .  $flag_filename, 'error');	
+				drupal_set_message('Bad installation file detected, see: ' .  $flag_filename, 'error');
 			}
 		}
 	}

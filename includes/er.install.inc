@@ -30,7 +30,7 @@ function install_all(){
 	batch_set($batch); // Standard Batch call
 	// Send them to this location after it's complete
 	// 		If we're doing a bunch of batches, you can leave this argument empty
-	batch_process('admin/config/epscor/er/testing'); 	
+	batch_process('admin/config/epscor/er/testing');	
 	
 	watchdog('er', 'Finished installing Content Types and User Account fields');
 	drupal_set_message('Finished installing Content Types and User Account fields');
@@ -38,8 +38,8 @@ function install_all(){
 	
 	//TODO: all three calls below need to use Batch API
 	er_import_flags();
-	er_import_rules();	
-	er_import_perms();	
+	er_import_rules();
+	er_import_perms();
 }
 
 /*
@@ -162,7 +162,7 @@ function er_revert_bundle($form, &$form_state){
 	batch_set($batch); // Standard Batch call
 	// Send them to this location after it's complete
 	// 		If we're doing a bunch of batches, you can leave this argument empty
-	batch_process('admin/config/epscor/er/testing'); 	
+	batch_process('admin/config/epscor/er/testing'); // this call will be done at the end, for now it's here to demonstrate
 	
 	watchdog('er', 'Finished updating Content Types');
 	drupal_set_message('Finished updating Content Types');
