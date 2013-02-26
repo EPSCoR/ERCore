@@ -79,7 +79,8 @@ function er_settings() {
     // '#title' => t('Individual Content Types'),
   // );  	
   
-	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	// $drupal_path = drupal_get_path('module', 'er') . '/install/bundles';
+	$drupal_path = ER_INSTALL_DIR . '/bundles';
 	$dir = new DirectoryIterator($drupal_path);
 	// loop through all rule files in the directory
 	$bundle_list = array();
@@ -136,7 +137,8 @@ function er_settings() {
     '#description' => t('Under construction: Jeannine  is taxonomy_vocabulary the correct db_select?'),      
   );
 
-	$drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	// $drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	$drupal_path = ER_INSTALL_DIR . '/bundles';
 	$dir = new DirectoryIterator($drupal_path);
 	// loop through all rule files in the directory
 	$bundle_list = array();
