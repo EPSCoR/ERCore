@@ -1,3 +1,4 @@
+<?php
 $flags = array();
 // Exported flag: "Content needs administrator review".
 $flags['er_needs_review'] = array(

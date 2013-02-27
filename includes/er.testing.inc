@@ -45,7 +45,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Flag: $name missing!",
-			'value' => 'Fix this issue [button]',
+			'value' => l("Reset this flag", "admin/config/epscor/er/reset/flags/$name"),
 		);
 	}
 	foreach ($flags_status['extra'] as $name=>$flag_node){
@@ -68,10 +68,12 @@ function er_testing() {
 	$field_status = er_test_fields();
 	foreach ($field_status as $bundle=>$results){
 		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
+			$missing[] = count($results['fields'])?"fields: ".implode($results['fields']):'';
+			$missing[] = count($results['groups'])?"groups: ".implode($results['groups']):'';
 			$requirements[] = array(
 				'severity' => REQUIREMENT_ERROR,
 				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
-				'description' => "Missing fields: ".implode($results['fields']).", missing fieldgroups: ".implode($results['groups']),
+				'description' => "Missing ".implode($missing),
 				'value' => 'Fix this issue [button]',
 			);
 		}else{
@@ -233,7 +235,7 @@ function er_test_fields(){
 				}
 			}
 			
-			$return[$bundle_filename] = array(
+			$return[$bundle_type] = array(
 				'fields' => $missing_fields,
 				'goups' => $missing_groups,
 				'name' => $bundle_label
@@ -270,8 +272,9 @@ function er_test_flags(){
 		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
 			$flag_filename = $fileinfo->getFilename();
 			// this grabs the text from the file and puts it in a variable
-			$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
-			eval($flag_config);//This will set the $flags variable as defined in the file.
+			//$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
+			//eval($flag_config);//This will set the $flags variable as defined in the file.
+			include($drupal_path . '/' . $flag_filename);//$flags variable should be set now.
 			if (isset($flags) && is_array($flags)){
 				foreach ($flags as $name=>$flag){
 					if (isset($internal_flags[$name])){
@@ -280,7 +283,7 @@ function er_test_flags(){
 						//this will be useful info because we might remove some of these flags in the futuere, this will allow us to display the no-longer-necessary flags to the user.
 						unset($internal_flags[$name]);
 					}else{
-						$return['missing'][$name] = $flag_config;
+						$return['missing'][$name] = $flags;
 					}
 				}
 			}else{
@@ -293,7 +296,6 @@ function er_test_flags(){
 			$return['extra'][$name] = $flag_node;
 	}
 	return $return;
-
 }
 
 /*

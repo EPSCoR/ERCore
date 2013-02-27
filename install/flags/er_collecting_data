@@ -1,14 +1,18 @@
+<?php
 $flags = array();
-// Exported flag: "Receive Data Collection Notifications".
-$flags['er_receive_data_notifications'] = array(
-  'content_type' => 'user',
-  'title' => 'Receive Data Collection Notifications',
+// Exported flag: "Collecting Data".
+$flags['er_collecting_data'] = array(
+  'content_type' => 'node',
+  'title' => 'Collecting Data',
   'global' => '1',
-  'types' => array(),
-  'flag_short' => 'Receive data collection notifications',
+  'types' => array(
+    0 => 'er_poster',
+    1 => 'er_publication',
+  ),
+  'flag_short' => 'Collecting data',
   'flag_long' => '',
   'flag_message' => '',
-  'unflag_short' => 'Do not receive data collection notifications',
+  'unflag_short' => 'Not collecting data',
   'unflag_long' => '',
   'unflag_message' => '',
   'unflag_denied_text' => '',
@@ -24,8 +28,10 @@ $flags['er_receive_data_notifications'] = array(
   'weight' => 0,
   'show_on_form' => TRUE,
   'access_author' => '',
-  'show_on_profile' => TRUE,
-  'access_uid' => '',
+  'show_on_page' => TRUE,
+  'show_on_teaser' => TRUE,
+  'show_contextual_link' => FALSE,
+  'i18n' => 0,
   'api_version' => 2,
 );
 return $flags;

@@ -110,65 +110,6 @@ function er_permission(){
 function er_menu() {
 // this is where we hardcode the EPSCoR menu system
 	$items = array();
-// 	
-	//$items['test1'] = array(
-	//	'title' => 'Accomplishments',
-	//	'description' => 'Overview of reporting data',
-	//	'page callback' => 'er_accomplishments', 
-	//	//'page arguments' => array('summary'), 
-	//	'access arguments' => array(ER_ACCESS_PERMISSION),
-	//	'type' => MENU_CALLBACK,
-	//	'menu_name' => 'management',
-	//);  
-//   
-
-  // $items['management:testchild'] = array(
-    // 'menu_name' => 'management',
-    // 'link_path' => 'testchild',
-    // 'router_path' => 'testchild',
-    // 'link_title' => 'testchild title',
-    // 'options' => array(
-      // 'attributes' => array(
-        // 'title' => 'testchild option title',
-      // ),
-    // ),
-    // 'module' => 'system',
-    // 'hidden' => '0',
-    // 'external' => '0',
-    // 'has_children' => '0',
-    // 'expanded' => '0',
-    // 'weight' => '-50',
-    // 'parent_path' => 'admin/config/epscor/er', // this must match the above parent info after the ':'
-  // );  	
-	
-// $items['admin/editorpanel'] = array(
-    // 'title' => 'Editor Control Panel',
-    // 'page callback' => 'drupal_goto',
-    // 'page arguments' => array('control/editor'),
-    // 'access arguments' => array('access editor control panel'),   
-    // 'weight' => 50,
-    // 'type' => MENU_LOCAL_TASK
-  // );	
-// 	
-  // $items['admin/config/parent-name'] = array(
-      // 'title' => 'ER TEST',
-      // 'description' => 'ER Description',
-      // 'position' => 'left',
-      // 'weight' => -100,
-      // 'page callback' => 'system_admin_menu_block_page',
-      // 'access arguments' => array('administer site configuration'),
-      // 'file' => 'system.admin.inc',
-      // 'file path' => drupal_get_path('module', 'system'),
-  // );
-  // //We need at least one child item, otherwise parent will not show up
-  // $items['admin/config/parent-name/child-name'] = array(
-      // 'title' => 'ER CHILD',
-      // 'description' => 'ER Child Description',
-      // 'page callback' => 'drupal_goto',
-      // 'page arguments' => array('my-path'),
-      // 'access arguments' => array('administer site configuration'),
-  // );	
-
 	//This sets up the EPSCoR Menu in the administration bar.
 	$items['admin/epscor'] = array(
 		'menu_name' => 'management',
@@ -262,7 +203,16 @@ function er_menu() {
 		'access arguments' => array('administer er'),
 		'file' => 'includes/er.testing.inc',
 		'type' => MENU_NORMAL_ITEM,
-	);	
+	);
+	
+	$items['admin/config/epscor/er/reset/%'] = array(
+		'title' => 'Reset part of er-core',
+		'description' => '',
+		'page callback' => 'er_installer_reset_callback',
+		'page arguments' => array(5, 6),
+		'access arguments' => array(ER_ADMIN_PERMISSION),
+		'file' => 'includes/er.install.inc',
+	);
 
 	// This is the page for the overview. We only need one menu entry for this
 	// because the choice of whether to view it in reporting year or calendar
@@ -314,14 +264,6 @@ function er_menu() {
 		'access arguments' => array(ER_ACCESS_PERMISSION),
 		'type' => MENU_SUGGESTED_ITEM, //hidden by default
 	);
-	//$items['node/add3'] = array(
-	//	'title' => 'Add content',
-	//	'description' => 'Replace Drupal\'s built in "Add content" functionality.',
-	//	'page callback' => 'theme',
-	//	'page arguments' => array('er_add_core_content', array('full_view'=>true)),
-	//	'access arguments' => array(ER_ACCESS_PERMISSION),
-	//	//'type' => MENU_CALLBACK,
-	//);
 	return $items;
 }
 

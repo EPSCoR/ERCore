@@ -1,3 +1,4 @@
+<?php
 $flags = array();
 // Exported flag: "Urgent admin review needed".
 $flags['er_needs_review_urgent'] = array(
