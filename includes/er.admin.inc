@@ -185,6 +185,67 @@ function er_settings() {
 	
 // end  taxonomy
   
+  
+// start rules
+	
+  $form['er_admin_rules_container_reset_bundle'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Installed Rules',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('<em>Under construction ~ chris</em>'),      
+  );
+
+	// $drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	$drupal_path = ER_INSTALL_DIR . '/rules';
+	$dir = new DirectoryIterator($drupal_path);
+	// loop through all rule files in the directory
+	$bundle_list = array();
+	// dpm($dir, 'what?');
+	foreach ($dir as $fileinfo) {
+		// d($fileinfo, '$fileinfo');
+		if (!$fileinfo->isDot()) {//Check that it's not . or .. (which are not really files)
+			// d('this is a file '. $fileinfo);
+			$bundle_filename = $fileinfo->getFilename();
+			// d('this file', $bundle_filename);
+			$result = db_select('node_type', 'n')
+			    ->fields('n')
+			    ->condition('orig_type', $bundle_filename ,'=')
+			    ->execute()
+			    ->fetchAssoc();
+				if (empty($result)){
+				   // dsm('nothing');
+					$form['er_admin_rules_container_reset_bundle']['bundle'] = array(
+					  '#type' => 'checkbox',
+					  '#title' => $bundle_filename,
+					  '#description' => t('<strong>The Rule DOES NOT exist.</strongs>'),
+					);					
+				}
+				else{
+					// dsm($result, 'result');
+					$form['er_admin_rules_container_reset_bundle']["$fileinfo"] = array(
+					  '#type' => 'checkbox',
+					  '#title' => t("{$result['name']} ($fileinfo)"),
+					  '#description' => t('The Rule Exists.'),
+					);				
+				}
+			
+			// check to see if it's in the database
+			//$bundle_list[] = $bundle_filename;		
+		}
+	}
+	
+  $form['er_admin_rules_container_reset_bundle']['redo_bundle'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create / Update Rules'),
+    '#submit' => array('er_revert_bundle'),
+  );
+
+	
+// end  rules  
+  
+  
+  
 	if (module_exists('er_encryption')){
 		$form['er_use_encryption'] = array(
 		  '#type' => 'checkbox',
