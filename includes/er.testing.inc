@@ -369,6 +369,38 @@ function er_test_taxonomy(){
 
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
- * @author Chris Allen - cjallen@epscor.unm.edu
+ * @author Chris Allen
  */
 
+function er_test_rules(){
+	
+	
+	$drupal_path = ER_INSTALL_DIR . '/rules';
+	$dir = new DirectoryIterator($drupal_path);
+	$internal_rules = rules_get_rules();
+	// loop through all rule files in the directory
+	$return = array();
+	
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {
+			$rules_filename = $fileinfo->getFilename();
+			
+			include($drupal_path . '/' . $rules_filename);
+			if (isset($rules) && is_array($rules)){
+				foreach ($rules as $name=>$rules){
+					if (isset($internal_rules[$name])){
+						$return['found'][$name] = $internal_rules[$name];
+						
+						unset($internal_rules[$name]);
+					}else{
+						$return['missing'][$name] = $rules;
+					}
+				}
+			}else{
+				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
+			}
+		}
+	}
+
+	return $return;
+}
