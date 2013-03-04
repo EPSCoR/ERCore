@@ -310,36 +310,7 @@ function er_test_taxonomy(){
 	$bundle_list = array();
 	$found_errors = false;
 	$return = array();
-	foreach ($dir as $fileinfo) {//loop through all files in the directory
-		if (!$fileinfo->isDot()) { //Check that it's not . or .. (which are not really files)
-			$bundle_filename = $fileinfo->getFilename();
-			include($bundle_path . '/' . $bundle_filename);//now all the bundle information is contained in $data
-			
-			//This will give me the name of the bundle. This should be equivalent to th e filename, but doesn't have to be:
-			$bundle_info = end($data['bundles']);//this will be empty for the user profile bundle
-			$bundle_type = key($data['bundles']);//this gets the internal name of the bundle
-			$bundle_label = isset($bundle_info->name)?$bundle_info->name:'taxonomy';
-			$entity_type = $bundle_type=='user'?'user':'node';
-			
-			$groups = field_group_info_groups($entity_type, $bundle_type, 'form', TRUE);//get the list of groups in this bundle.
-			//d($data, '$data');
-			
-			//Note: I think we could use field_info_instances("node",$source_node_type) to determine if a CT has extra fields.
-			
-			$missing_fields = array();
-			if (isset($data['fields'])){ //Make sure there are fields
-				foreach ($data['fields'] as $field){ //Check each field
-					// see if the field exists
-					$field_info = field_info_field($field['field_name']);
-					if (is_null($field_info)){
-						$missing_fields[] = $field['field_name'];
-					}
-				}
-			}
-		}
-	}
-			
-	
+
 	// loop through all taxonomy files in the directory
 	$missing = array();
 	foreach ($dir as $fileinfo) {
