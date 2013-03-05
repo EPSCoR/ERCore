@@ -472,7 +472,7 @@ function er_installer_reset_callback($type, $filename){
 }
 
 function er_installer_reset_form($form, &$form_state){
-	static $acceptable = array("all", "flags", "bundles");
+	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles_perms");
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)
