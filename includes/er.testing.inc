@@ -3,6 +3,9 @@
  * This file contains the tests for the er module.
  */
 function er_testing() {
+	////this may be useful for checking taxonomy or content types.
+	//d(field_info_bundles(), 'field_info_bundles()');
+	
 	$requirements = array();
 	/* Example usage:
 	$requirements[] = array(
@@ -344,7 +347,10 @@ function er_test_taxonomy(){
  */
 
 function er_test_rules(){
-	
+	//This will get the active rules in the system
+	$conditions = array('plugin' => 'reaction rule', 'active' => TRUE);
+	$entities = entity_load('rules_config', FALSE, $conditions);
+	d($entities, '$entities');//check out the results
 	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);

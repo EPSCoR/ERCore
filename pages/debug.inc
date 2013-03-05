@@ -105,6 +105,11 @@ class er_debug extends er_page{
 
 
 		switch(arg(2)){
+			case 'bundle':
+				d(get_batch_operations("all"), 'all');
+				d(get_batch_operations("flags"), 'flags');
+				d(get_batch_operations("bundles"), 'bundles');
+				return '';
 			case 'EFQ':
 				$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
 				$query = db_select('users', 'users');

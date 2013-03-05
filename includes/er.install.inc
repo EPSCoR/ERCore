@@ -514,11 +514,10 @@ function er_batch_reset($type, $filename = ""){
 function get_batch_operations($type, $filename = ""){
 	static $fn_map = array(
 		"flags"=>"er_batch_import_flag",
-		"bundles"=>"er_import_fields",
-		//Something like this:
-			//"rules"=>"er_import_rules",
-			//"taxonomy"=>"er_import_taxonomy",
-			//"roles_perms"=>"er_import_roles",
+		//"bundles"=>"er_batch_import_fields",
+		//"rules"=>"er_batch_import_rules",
+		//"taxonomy"=>"er_batch_import_taxonomy",
+		//"roles_perms"=>"er_batch_import_roles",
 	);
 	
 	$operations = array();
