@@ -438,21 +438,27 @@ function er_import_taxonomy(){
 //	}
 //}
 
+function prep_file_contents($file_path){
+	if (file_exists($file_path)){
+		$file_contents = file_get_contents($file_path);
+		if (substr($file_contents, 0, 5) == '<?php')
+			return substr($file_contents, 5);
+		else
+			return $file_contents;
+	}else
+		return FALSE;
+}
+
 function er_batch_import_flag($file_path, &$context){
 	$name = basename($file_path);
 	$context['message'] = t('Now processing @name', array('@name' => $name));
 	module_load_include('inc', 'flag', 'includes/flag.export');
-	// Make sure we have the ctools include file loaded so we can use ctools_var_export()
-	module_load_include('inc', 'ctools', 'includes/export');
 	if (function_exists('flag_import_form_validate')){
 		//watchdog('er', 'Importing flag: ' . $file_path);
-		if (file_exists($file_path)){
-			//$config_string = file_get_contents($file_path);
-			include($file_path);//$flags variable should be set now.
-			$ready_for_textarea = '$flags = ' . ctools_var_export($flags) . ';';
+		if (($contents = prep_file_contents($file_path)) !== FALSE){
 			$form = array();
 			$form_state = array();
-			$form_state['values']['import'] = $ready_for_textarea;
+			$form_state['values']['import'] = $contents;
 			// for these imports, work gets done in the _validate and _submit functions to do the actual import
 			flag_import_form_validate($form, $form_state);
 			flag_import_form_submit($form, $form_state);
@@ -460,19 +466,49 @@ function er_batch_import_flag($file_path, &$context){
 		}else{
 			watchdog('er', "Flag $name was not imported! File not found: $file_path", NULL, WATCHDOG_CRITICAL);
 		}
-	}
-	else{		
-		watchdog('er', 'No flag_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
-		drupal_set_message('No flag_import_form_validate function found in er.install');
+	}else{		
+		$error = 'No flag_import_form_validate function found, installation cannot proceed.';
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error);
 	}
 }
 
+function er_batch_import_fields($file_path, &$context){
+	$name = basename($file_path);
+	$context['message'] = t('Now processing @name', array('@name' => $name));
+	if (function_exists('bundle_copy_import_submit')){
+		if (($contents = prep_file_contents($file_path)) !== FALSE){
+			$form = array();
+			$form_state = array();
+			$form_state['values']['macro'] = $contents;
+			// for these imports, work gets done in the _validate and _submit functions to do the actual import
+			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
+			watchdog('er', "Bundle $name imported successfully.");
+		}else{
+			watchdog('er', "Bundle $name was not imported! File not found: $file_path", NULL, WATCHDOG_CRITICAL);
+		}
+	}else{
+		$error = 'No bundle_copy_import_submit function found, installation cannot proceed.';
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error);
+	}
+	
+}
+
+/*
+ * This menu callback gets called for URI: admin/config/epscor/er/reset/*
+ * See er_install_reset_form function
+ */
 function er_installer_reset_callback($type, $filename){
 	return drupal_get_form("er_installer_reset_form", $type, $filename);
 }
 
+/*
+ * This sets up a confirmation form which is presented to the user before running batch operations
+ *  that will reset/re-run some part of the installation process.
+ */
 function er_installer_reset_form($form, &$form_state){
-	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles_perms");
+	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles_perms");//only accept these expected installation types
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)
@@ -487,7 +523,7 @@ function er_installer_reset_form($form, &$form_state){
 		}
 		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone.'), t('Reset'), t('Cancel'));
 	}
-	return array('#disabled'=>true);
+	return array('#disabled'=>true);//invalid input, just return a junk form.
 }
 
 function er_installer_reset_form_submit($form, &$form_state){
@@ -495,7 +531,12 @@ function er_installer_reset_form_submit($form, &$form_state){
 	er_batch_reset($type, $filename);
 }
 
-function er_batch_reset($type, $filename = ""){
+/*
+ * This function prepares the Batch API calls used in er-core installation, and begins the process.
+ * This is being used by the reset form, it allows you to begin a batch operation to reset some part of the install.
+ * see get_batch_operations function below
+ */
+function er_batch_reset($type = "all", $filename = ""){
 	$batch = array (
 		'operations' => get_batch_operations($type, $filename),
 		'finished' => 'batch_has_finished',
@@ -510,19 +551,22 @@ function er_batch_reset($type, $filename = ""){
 
 /**
  * Automatically generate batch operations for the different installation types
+ * 
  */
-function get_batch_operations($type, $filename = ""){
+function get_batch_operations($type = "all", $filename = ""){
+	//This array represents the available "installation types".
+	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
 	static $fn_map = array(
 		"flags"=>"er_batch_import_flag",
-		//"bundles"=>"er_batch_import_fields",
+		"bundles"=>"er_batch_import_fields",
 		//"rules"=>"er_batch_import_rules",
 		//"taxonomy"=>"er_batch_import_taxonomy",
 		//"roles_perms"=>"er_batch_import_roles",
 	);
 	
 	$operations = array();
-	if ($type == "all"){
-		foreach ($fn_map as $type => $fn){
+	if ($type == "all"){//indicates that we want to install everything
+		foreach ($fn_map as $type => $fn){//loop through each of the installation types
 			$drupal_path = ER_INSTALL_DIR . '/' . $type;
 			$dir = new DirectoryIterator($drupal_path);
 			foreach ($dir as $fileinfo) {// loop through each file in the directory
@@ -531,12 +575,12 @@ function get_batch_operations($type, $filename = ""){
 				}
 			}
 		}
-	}else{
-		if (isset($fn_map[$type]) && $fn = $fn_map[$type]){
+	}else{//We want to reset a specific installation type
+		if (isset($fn_map[$type]) && $fn = $fn_map[$type]){//get the corresponding installation function if it exists.
 			$drupal_path = ER_INSTALL_DIR . '/' . $type;
-			if (isset($filename) && $filename != ""){//if a specific filename was specified
+			if (isset($filename) && $filename != ""){//if a specific filename was given...
 				$operations[] = array($fn, array($drupal_path . '/' . $filename));//just return the one file
-			}else{
+			}else{// .. otherwise loop over each file in the directory belonging to this installation type (ex: 'bundles', 'flags', ...)
 				$dir = new DirectoryIterator($drupal_path);
 				foreach ($dir as $fileinfo) {// loop through each file in the directory
 					if (!$fileinfo->isDot()) { // make sure its not . or ..

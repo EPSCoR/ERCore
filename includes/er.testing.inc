@@ -71,13 +71,13 @@ function er_testing() {
 	$field_status = er_test_fields();
 	foreach ($field_status as $bundle=>$results){
 		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
-			$missing[] = count($results['fields'])?"fields: ".implode($results['fields']):'';
-			$missing[] = count($results['groups'])?"groups: ".implode($results['groups']):'';
+			$missing[] = count($results['fields'])?"fields: ".implode($results['fields']):'';//collect the names of the missing fields
+			$missing[] = count($results['groups'])?"groups: ".implode($results['groups']):'';//collect the names of the missing fieldgroups
 			$requirements[] = array(
 				'severity' => REQUIREMENT_ERROR,
 				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
 				'description' => "Missing ".implode($missing),
-				'value' => 'Fix this issue [button]',
+				'value' => l("Reset this bundle", "admin/config/epscor/er/reset/bundles/$bundle"),
 			);
 		}else{
 			$requirements[] = array(
