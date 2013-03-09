@@ -192,7 +192,7 @@ function er_menu() {
 		'description' => 'Settings which affect the functionality of the EPSCoR Reporting module.',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('er_settings'),
-		'access arguments' => array('administer er'),
+		'access arguments' => array(ER_ADMIN_PERMISSION),
 		'file' => 'includes/er.admin.inc',
 		'type' => MENU_NORMAL_ITEM,
 	);
@@ -202,7 +202,7 @@ function er_menu() {
 		'description' => 'This will help verify if the ER Core installed correctly.',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('er_testing'),
-		'access arguments' => array('administer er'),
+		'access arguments' => array(ER_ADMIN_PERMISSION),
 		'file' => 'includes/er.testing.inc',
 		'type' => MENU_NORMAL_ITEM,
 	);
@@ -258,43 +258,24 @@ function er_menu() {
 		'type' => MENU_CALLBACK,
 	);
 	
-	$items['node/add2'] = array(
-		'title' => 'Add content',
-		'description' => 'Replace Drupal\'s built in "Add content" functionality.',
-		'page callback' => 'theme',
-		'page arguments' => array('er_content_links', array('full_view'=>true)),
-		'access arguments' => array(ER_ACCESS_PERMISSION),
-		'type' => MENU_SUGGESTED_ITEM, //hidden by default
+	$items['admin/help/er/feedback'] = array(
+		'title' => 'User Feedback',
+		'description' => 'Provide feedback on the user interface',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('er_feedback_form'),
+		'access arguments' => array(ER_ACCESS_PERMISSION),//maybe different permission for this.
+		'file' => 'includes/er.feedback.inc',
+		'type' => MENU_NORMAL_ITEM,
 	);
 	return $items;
-}
-
-
-function er_admin_paths() {
-  return array(
-    'node/add2' => TRUE,
-		//'node/add3' => TRUE,
-  );
 }
 
 //This hook replaces the original node/add page with one that separates the different types of content.
 //See also er/templates/er-content-links.tpl.php, and er/includes/theme.inc
 //Changes in this function require that you flush the menu cache.
 function er_menu_alter(&$items) {
-  /*ORIGINAL DATA IN $items['node/add'] :=
-			title (String, 11 characters ) Add content
-			page callback (String, 13 characters ) node_add_page
-			access callback (String, 16 characters ) _node_add_access | (Callback) _node_add_access();
-			file (String, 14 characters ) node.pages.inc
-			module (String, 4 characters ) node
-	*/
-	//d($items, 'hook_menu_alter');
-	
 	$items['node/add']['page callback'] = 'theme';
 	$items['node/add']['page arguments'] = array('er_add_core_content', array('full_view'=>true));
-	
-	//dsm($items['node/add']);
-  //$items['node/add']['access callback'] = FALSE;
 }
 
 //initializes, then returns an instance of a er_page object which will be defined in an "inc" file ex: /modules/er/pages/_____.inc
