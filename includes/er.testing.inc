@@ -378,35 +378,31 @@ function er_test_rules(){
 function er_test_taxonomy(){
 	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
 	$dir = new DirectoryIterator($drupal_path);
-	$internal_taxonomy = taxonomy_vocabulary_get_names();
-	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
+	$vocabulary = taxonomy_get_vocabularies();
+	// loop through all rule files in the directory
+	$return = array();
+	
 	foreach ($dir as $fileinfo) {
-		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
-			$internal_taxonomy = $fileinfo->getFilename();
-			// this grabs the text from the file and puts it in a variable
-			//$taxonomy_config = file_get_contents($drupal_path . '/' . $taxonomy_vocabulary_get_names);
-			//eval($flag_config);//This will set the $taxonomy variable as defined in the file.
-			include($drupal_path . '/' . $internal_taxonomy);
-			//$taxonomy variable should be set now.
+		if (!$fileinfo->isDot()) {
+			$taxonomy_filename = $fileinfo->getFilename();
+			
+			include($drupal_path . '/' . $taxonomy_filename);
 			if (isset($taxonomy) && is_array($taxonomy)){
 				foreach ($taxonomy as $name=>$taxonomy){
-					if (isset($internal_taxonomy[$name])){
-						$return['found'][$name] = $internal_taxonomy[$name];
+					if (isset($vocabulary[$name])){
+						$return['found'][$name] = $vocabulary[$name];
 						
-						unset($internal_taxonomy[$name]);
+						unset($vocabulary[$name]);
 					}else{
-						$return['missing'][$name] = $tax;
+						$return['missing'][$name] = $taxonomy;
 					}
 				}
-			}else{
+
+				}else{
 				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
 			}
 		}
 	}
-	foreach ($internal_taxonomy as $name => $taxonomy){
-	//iterate over the remaining taxonomy, and look for er_ prefix.
-		if (substr($name, 0, 3) == "er_")
-			$return['extra'][$name] = $taxonomy;
-	}
+
 	return $return;
 }
