@@ -5,8 +5,7 @@ function install_all(){
 	variable_set('er_summary_types', array());//
 	variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));
 	
-	//TODO: needs to use Batch API
-	er_import_taxonomy();
+	//TODO: needs to use Batch API  er_import_taxonomy();
 	
 	// This section is for Content Types	
 // BEGIN BATCH API CODE
@@ -169,22 +168,22 @@ function er_revert_bundle($form, &$form_state){
 // END BATCH API CODE		
 }
 
-/* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
+//* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
 function er_revert($form, &$form_state){
 /* The order of this install is as such:
-
 	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
 	- create Content Types and Fields, create User Profile Fields
 	- create flags, that may now attach to the proper bundles (content types)
 	- create rules
 */
-	
-	if ($form_state['values']['redo_checkboxes']['Taxonomy'] !== 0){ // you need the explicit equals btw
+
+	//Jeannine's attempt at taxonomy import	
+	if ($form_state['values']['redo_checkboxes']['Taxonomy'] !== 0){ 
+	    // you need the explicit equals btw
 		// Create taxonomy terms
 		// d('you checked Taxonomy');
 		er_import_taxonomy();	
-	}
-	
+	}	
 	// This is the one MIKE is assigned to
 	if ($form_state['values']['redo_checkboxes']['Fields'] !== 0){
 		// Create Content Types and Field Settings, User Profile Fields
@@ -366,7 +365,8 @@ function er_import_flags(){
 }
 
 function er_import_fields_OLD(){	
-	if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy
+	if (function_exists('bundle_copy_import_submit')){ 
+	// double check the dependency worked for bundle copy
 	
 		$drupal_path = ER_INSTALL_DIR . '/bundles';
 		$dir = new DirectoryIterator($drupal_path);
@@ -393,7 +393,20 @@ function er_import_fields_OLD(){
 
 
 function er_import_taxonomy(){
-	// create taxonomy term 1 for the Project Compnents
+	// create taxonomy term 1 for the Project Components
+	// make sure we're not uninstalling and reinstalling it
+	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_position_type'")->fetchField();
+	if (!is_numeric($vid)){
+		watchdog('er', 'Creating taxonomy er_position_type');
+		taxonomy_vocabulary_save((object) array(
+		  'name' => 'Position Type',
+		  'machine_name' => 'er_position_type',
+		));	
+	}
+	else{
+		watchdog('er', 'NOT creating taxonomy er_position_type, it already exists');
+	}
+	
 	// make sure we're not uninstalling and reinstalling it
 	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_components'")->fetchField();
 	if (!is_numeric($vid)){

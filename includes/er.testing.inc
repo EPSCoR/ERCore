@@ -42,28 +42,28 @@ function er_testing() {
 	}
 
 	//Taxonomy
-	$taxonomy_status = er_test_flags();
+	$taxonomy_status = er_test_taxonomy();
 	//d($taxonomy_status, '$taxonomy_status');
 	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
-			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
+			'title' => "Taxonomy: $machine_name missing!",
+			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_name"),
 		);
 	}
 	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_node){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_WARNING,
-			'title' => "Taxonomy: $name is extraneous",
+			'title' => "Taxonomy: $machine_name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('delete', 'admin/structure/taxonomy/manage/'.$name.'/delete'),
+			'value' => l('delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete'),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_node){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
-			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/manage/'.$name),
+			'title' => "Taxonomy: $machine_name",
+			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/manage/'.$machine_name),
 		);
 	}
 		
@@ -366,5 +366,47 @@ function er_test_rules(){
 		}
 	}
 
+	return $return;
+}
+
+
+/*
+ * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
+ * @author Jeannine Haney
+ */
+
+function er_test_taxonomy(){
+	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
+	$dir = new DirectoryIterator($drupal_path);
+	$internal_taxonomy = taxonomy_vocabulary_get_names();
+	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
+			$internal_taxonomy = $fileinfo->getFilename();
+			// this grabs the text from the file and puts it in a variable
+			//$taxonomy_config = file_get_contents($drupal_path . '/' . $taxonomy_vocabulary_get_names);
+			//eval($flag_config);//This will set the $taxonomy variable as defined in the file.
+			include($drupal_path . '/' . $internal_taxonomy);
+			//$taxonomy variable should be set now.
+			if (isset($taxonomy) && is_array($taxonomy)){
+				foreach ($taxonomy as $name=>$taxonomy){
+					if (isset($internal_taxonomy[$name])){
+						$return['found'][$name] = $internal_taxonomy[$name];
+						
+						unset($internal_taxonomy[$name]);
+					}else{
+						$return['missing'][$name] = $tax;
+					}
+				}
+			}else{
+				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
+			}
+		}
+	}
+	foreach ($internal_taxonomy as $name => $taxonomy){
+	//iterate over the remaining taxonomy, and look for er_ prefix.
+		if (substr($name, 0, 3) == "er_")
+			$return['extra'][$name] = $taxonomy;
+	}
 	return $return;
 }
