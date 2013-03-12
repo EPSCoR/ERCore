@@ -40,7 +40,33 @@ function er_testing() {
 			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
 		);
 	}
-	
+
+	//Taxonomy
+	$taxonomy_status = er_test_flags();
+	//d($taxonomy_status, '$taxonomy_status');
+	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_ERROR,
+			'title' => "Taxonomy: $name missing!",
+			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
+		);
+	}
+	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_node){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_WARNING,
+			'title' => "Taxonomy: $name is extraneous",
+			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
+			'value' => l('delete', 'admin/structure/taxonomy/manage/'.$name.'/delete'),
+		);
+	}
+	foreach ($taxonomy_status['found'] as $name=>$taxonomy_node){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_OK,
+			'title' => "Taxonomy: $name",
+			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/manage/'.$name),
+		);
+	}
+		
 	//Flags
 	$flags_status = er_test_flags();
 	//d($flags_status, '$flags_status');
@@ -301,45 +327,6 @@ function er_test_flags(){
 	return $return;
 }
 
-/*
- * This function tests to see if all of the taxonomy vocabularies are up to date with what's in the taxonomy install directory.
- * @author Jeannine Haney
- */
-
-function er_test_taxonomy(){
-	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
-	$dir = new DirectoryIterator($drupal_path);
-	$taxonomy_vocabulary = taxonomy_vocabulary();
-	$bundle_list = array();
-	$found_errors = false;
-	$return = array();
-
-	// loop through all taxonomy files in the directory
-	$missing = array();
-	foreach ($dir as $fileinfo) {
-		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
-			$taxonomy_filename = $fileinfo->getFilename();
-			// this grabs the text from the file and puts it in a variable
-			$taxonomy_vocabulary = file_get_contents($drupal_path . '/' . $taxonomy_filename);
-			eval($tax_config);
-			if (isset($taxonomy_vocabulary) && is_array($taxonomy_vocabulary)){
-				foreach ($taxonomy_vocabulary as $name=>$taxonomy_vocabulary){
-					if (isset($taxonomy_vocabulary[$name])){
-						unset($taxonomy_vocabulary[$name]);
-					}else{
-						$missing[$taxonomy_vocabulary->name] = $taxonomy_vocabulary;
-					}
-				}
-			}else{
-				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_vocabulary, 'error');	
-			}
-		}
-	}
-	
-	$return = array('missing'=>$missing, 'extras'=>$internal_taxonomy);
-	d($return, 'Taxonomy status');
-	return $return;
-}
 
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
