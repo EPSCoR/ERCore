@@ -1,67 +1,16 @@
 <?php
-
 function install_all(){
-	//Set up some default values; these are used on the summary table. see er.admin.inc
-	variable_set('er_summary_types', array());//
-	variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));
+	//Set up some default values for er-core settings; these are used on the summary table.
+  variable_set('er_summary_types', array());//This is used on the summary table, see: includes/accomplishments.inc
+  variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));//This is the internal start date of the grant. see: includes/er.admin.inc
+  
+  //run batch api, install everything.
+  er_batch_reset();
 	
-	//TODO: needs to use Batch API  er_import_taxonomy();
+	//TODO: Taxonomy and Rules need to be integrated into the er_batch_reset procedure.
 	
-	// This section is for Content Types	
-// BEGIN BATCH API CODE
-	$batch = array (
-		'operations' => array(),
-		'finished' => 'batch_has_finished',
-		'title' => t('Processing ER Core Bundles'),
-		'init_message' => t('ER Core Bundles is starting.'),
-		'progress_message' => t('Processed @current out of @total.'),
-		'error_message' => t('EPSCoR Bundle Batch has encountered an error.'),
-	);
-	// This function returns array of files names in the install/bundles directory
-	$bundle_names = get_install_filenames('bundles'); // argument is the folder name
-	
-	// Here's where we do a batch call, one file at a time
-	foreach ($bundle_names as $file) {
-		// Add a batch operation for each file import
-		// 		Translates to: "call the function er_import_fields() with two arguments: the filename and the total"
-		$batch['operations'][] = array('er_import_fields', array($file, count($bundle_names)));
-	}
-	batch_set($batch); // Standard Batch call
-	// Send them to this location after it's complete
-	// 		If we're doing a bunch of batches, you can leave this argument empty
-	batch_process('admin/config/epscor/er/status');	
-	
-	watchdog('er', 'Finished installing Content Types and User Account fields');
-	drupal_set_message('Finished installing Content Types and User Account fields');
-// END BATCH API CODE	
-	
-	//TODO: all three calls below need to use Batch API
-	er_import_flags();
 	er_import_rules();
 	er_import_perms();
-}
-
-/*
- * This function returns the list of all bundle filenames
- */
-function get_install_filenames($folder){
-	// get list of all files in the bundles directory
-	$drupal_path = ER_INSTALL_DIR . '/' . $folder;
-	$names = array();
-	// if (function_exists('bundle_copy_import_submit')){ // double check the dependency worked for bundle copy			
-		$dir = new DirectoryIterator($drupal_path);
-		// loop through all bundle files in the directory
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {
-				$names[] = $fileinfo->getFilename();			
-			}
-		}
-	// }
-	// else{
-		// drupal_set_message('No bundle_copy_import_submit function found in er.install');
-		// watchdog('er', 'No bundle_copy_import_submit function found in er.install', NULL, WATCHDOG_CRITICAL);
-	// }
-	return $names;	
 }
 
 /**
@@ -89,85 +38,7 @@ function batch_has_finished($success, $results, $operations) {
  
 }
 
-function er_import_fields($file, $total, &$context){
-	// BEGIN BATCH API CODE
-	if (!isset($context['sandbox']['progress'])) {
-		$context['sandbox']['progress'] = 0;
-		$context['sandbox']['current_node'] = 0; // don't know if we need this line at all
-		$context['sandbox']['max'] = $total;
-	}
-	// END BATCH API CODE
-	
-	// TODO: try placing this module_load_include into the .install and see if it works
-	// Make sure we have the ctools include file loaded so we can use ctools_var_export()
-	module_load_include('inc', 'ctools', 'includes/export');
-		
-	// TODO: try moving this to the .install too
-	$drupal_path = ER_INSTALL_DIR . '/bundles';
-	watchdog('er', 'Looping bundle '.$file);
-	// after the include, we have access to the $data variable for this object
-	include($drupal_path . '/' . $file);
-	$form_state = array();
-	// 	ctools_var_export() will take an object and turn it into nice text basically. 
-	// 		that's what we put into the import textarea
-	$ready_for_textarea = '$data = ' . ctools_var_export($data) . ';';
-	// d($ready_for_textarea, 'ready for textarea');
-	$form_state['values']['macro'] = $ready_for_textarea; // remember $data comes into being from the include call
-	// TODO: add guard here making sure the function exists
-	bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-
-
-	// BEGIN BATCH API CODE
-	// 		Update the progress for the Batch API
-	$context['sandbox']['progress']++;
-    // $context['sandbox']['current_node'] = 0; // TODO: I think we can get rid of this
-    $context['message'] = t('Now processing bundle %b', array('%b' => $file));	
-	if ($context['sandbox']['progress'] == $total){
-		// Give the signal that it's finished
-		$context['sandbox']['finished'] = 1;
-	}
-	// END BATCH API CODE
-}
-
-/* this function is called from er.admin.inc when they reset individual bundles */
-function er_revert_bundle($form, &$form_state){
-	d("This function er_revert_bundle is not done. It will be allow the importation of individuals bundles. I am in er.module");
-	d($form_state['values'], 'form_state values in er_revert_bundle');
-	
-	// get list of all the keys with a value of 1, which in this case indicates all the bundles to import
-	$bundle_names = array();
-	foreach ($form_state['values'] as $key => $value) {
-		if ($value == 1){
-			$bundle_names[] = $key;
-		}			  
-	}
-	// now we have a list of filenames that exist in the install/bundles directory
-// BEGIN BATCH API CODE
-	$batch = array (
-		'operations' => array(),
-		'finished' => 'batch_has_finished',
-		'title' => t('Processing ER Core Bundles'),
-		'init_message' => t('ER Core Bundles is starting.'),
-		'progress_message' => t('Processed @current out of @total.'),
-		'error_message' => t('EPSCoR Bundle Batch has encountered an error.'),
-	);
-	
-	// Here's where we do a batch call, one file at a time
-	foreach ($bundle_names as $file) {
-		// Add a batch operation for each file import
-		// 		Translates to: "call the function er_import_fields() with two arguments: the filename and the total"
-		$batch['operations'][] = array('er_import_fields', array($file, count($bundle_names)));
-	}
-	batch_set($batch); // Standard Batch call
-	// Send them to this location after it's complete
-	// 		If we're doing a bunch of batches, you can leave this argument empty
-	batch_process('admin/config/epscor/er/testing'); // this call will be done at the end, for now it's here to demonstrate
-	
-	watchdog('er', 'Finished updating Content Types');
-	drupal_set_message('Finished updating Content Types');
-// END BATCH API CODE		
-}
-
+//THIS SHOULD BE DEPRECATED IN FAVOR OF er_installer_reset_form
 //* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
 function er_revert($form, &$form_state){
 /* The order of this install is as such:
@@ -297,6 +168,7 @@ function searchRIDfile($array, $name) {
    return null;
 }
 
+//SHOULD BE DEPRECATED
 function er_import_rules(){
 	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
 	$ret = module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
@@ -331,67 +203,8 @@ function er_import_rules(){
 	}	
 }
 
-function er_import_flags(){
-	// again I'm mimicking functionality in the import function, check to make sure it exists, for good measure
-	module_load_include('inc', 'flag', 'includes/flag.export');
-	 //require_once(drupal_get_path('module', 'rules_admin') .'/ui/ui.forms.inc');
-	if (function_exists('flag_import_form_validate')){
-		watchdog('er', 'Begin creating flags, found the flag_import_form_validate function');
-
-		$drupal_path = ER_INSTALL_DIR . '/flags';
-		$dir = new DirectoryIterator($drupal_path);
-		// loop through all flag files in the directory
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
-				$flag_filename = $fileinfo->getFilename();
-				watchdog('er', 'Looping flag '.$flag_filename);
-				// this grabs the text from the file and puts it in a variable
-				$flag_config = file_get_contents($drupal_path . '/' . $flag_filename);
-				
-				$form = array();
-				$form_state = array();
-				$form_state['values']['import'] = $flag_config;
-				
-				// for these imports, work gets done in the _validate and _submit functions to do the actual import
-				flag_import_form_validate($form, $form_state);
-				flag_import_form_submit($form, $form_state);
-			}
-		}
-	}
-	else{		
-		watchdog('er', 'No flag_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
-		drupal_set_message('No flag_import_form_validate function found in er.install');
-	}		
-}
-
-function er_import_fields_OLD(){	
-	if (function_exists('bundle_copy_import_submit')){ 
-	// double check the dependency worked for bundle copy
-	
-		$drupal_path = ER_INSTALL_DIR . '/bundles';
-		$dir = new DirectoryIterator($drupal_path);
-		// loop through all rule files in the directory
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {
-				$bundle_filename = $fileinfo->getFilename();
-				watchdog('er', 'Looping bundle '.$bundle_filename);
-				// this grabs the text from the file and puts it in a variable
-				$bundle_config = file_get_contents($drupal_path . '/' . $bundle_filename);
-				$form_state = array();
-				$form_state['values']['macro'] = $bundle_config;
-				bundle_copy_import_submit('', $form_state); // function doesn't use first arg			
-			}
-		}
-	}
-	else{
-		drupal_set_message('No bundle_copy_import_submit function found in er.install');
-		watchdog('er', 'No bundle_copy_import_submit function found in er.install', NULL, WATCHDOG_CRITICAL);
-	}
-	watchdog('er', 'Finished installing Content Types and User Account fields');
-	drupal_set_message('Finished installing Content Types and User Account fields');	
-}
-
-
+//SHOULD BE DEPRECATED
+//Looks like this procedure is incomplete. This does not import the fields.
 function er_import_taxonomy(){
 	// create taxonomy term 1 for the Project Components
 	// make sure we're not uninstalling and reinstalling it
@@ -451,6 +264,8 @@ function er_import_taxonomy(){
 //	}
 //}
 
+//This function uses a shortcut to get the contents of an install file then remove the <?php part and return the result.
+//Function returns FALSE if the file could not be read
 function prep_file_contents($file_path){
 	if (file_exists($file_path)){
 		$file_contents = file_get_contents($file_path);
@@ -462,6 +277,7 @@ function prep_file_contents($file_path){
 		return FALSE;
 }
 
+//This function is used by Batch API; it installs a flag from file.
 function er_batch_import_flag($file_path, &$context){
 	$name = basename($file_path);
 	$context['message'] = t('Now processing @name', array('@name' => $name));
@@ -477,7 +293,9 @@ function er_batch_import_flag($file_path, &$context){
 			flag_import_form_submit($form, $form_state);
 			watchdog('er', "Flag $name imported successfully.");
 		}else{
-			watchdog('er', "Flag $name was not imported! File not found: $file_path", NULL, WATCHDOG_CRITICAL);
+			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error);
 		}
 	}else{		
 		$error = 'No flag_import_form_validate function found, installation cannot proceed.';
@@ -486,6 +304,7 @@ function er_batch_import_flag($file_path, &$context){
 	}
 }
 
+//This function is used by Batch API; it installs a content type + fields from file.
 function er_batch_import_fields($file_path, &$context){
 	$name = basename($file_path);
 	$context['message'] = t('Now processing @name', array('@name' => $name));
@@ -498,14 +317,57 @@ function er_batch_import_fields($file_path, &$context){
 			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
 			watchdog('er', "Bundle $name imported successfully.");
 		}else{
-			watchdog('er', "Bundle $name was not imported! File not found: $file_path", NULL, WATCHDOG_CRITICAL);
+			$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error);
 		}
 	}else{
-		$error = 'No bundle_copy_import_submit function found, installation cannot proceed.';
+		$error = 'No bundle_copy_import_submit function found, bundle installation cannot proceed.';
 		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
 		drupal_set_message($error);
 	}
-	
+}
+
+function er_batch_import_role($file_path, &$context){
+	$name = basename($file_path);
+	$context['message'] = t('Now processing @name', array('@name' => $name));
+	if (file_exists($file_path)){
+		include($file_path);
+		if (isset($role)){
+			$rid = $role['rid'];
+			$name = $role['name'];
+			d((object) $role, 'role');
+			user_role_save((object) $role);
+			watchdog('er', "Role $name imported successfully.");
+			if (isset($role_permission)){//now to set permissions...
+				// Define our $role role permissions
+				$array_perms = array();
+				$modules = user_permission_get_modules();//List all of the available permissions, with the given modules that are currently installed.
+				foreach ($role_permission as $perm){
+					// This next call has to do with avoiding a Fatal Error when you try to add a permission
+					//	that's not associated with an enabled module.		
+					// see http://drupal.org/node/737816 and http://drupal.org/node/1249952 for more info	
+					$permission_name = $perm['permission'];
+					if (isset($modules[$permission_name])){//This permission currently exists in the system
+						$array_perms[] = $permission_name;
+					}
+				}
+				// Add that array of permissions to the role. a Drupal API call
+				user_role_grant_permissions($rid, $array_perms);
+				d($array_perms, '$array_perms');
+				watchdog('er', 'Granted permissions to role '.$name);
+			}
+			
+		}else{
+			$error = "Role $name was not imported! Unable to read data contained in: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error);
+		}
+	}else{
+		$error = "Role $name was not imported! File not found: $file_path";
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error);
+	}
 }
 
 /*
@@ -521,7 +383,7 @@ function er_installer_reset_callback($type, $filename){
  *  that will reset/re-run some part of the installation process.
  */
 function er_installer_reset_form($form, &$form_state){
-	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles_perms");//only accept these expected installation types
+	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles");//only accept these expected installation types
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)
@@ -567,14 +429,22 @@ function er_batch_reset($type = "all", $filename = ""){
  * 
  */
 function get_batch_operations($type = "all", $filename = ""){
+	/*
+	Note: We should install things in this order:
+		- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
+		- create Content Types and Fields
+		- create User Profile Fields
+		- create flags, that may now attach to the proper bundles (content types)
+		- create rules
+  */
 	//This array represents the available "installation types".
 	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
 	static $fn_map = array(
-		"flags"=>"er_batch_import_flag",
-		"bundles"=>"er_batch_import_fields",
-		//"rules"=>"er_batch_import_rules",
 		//"taxonomy"=>"er_batch_import_taxonomy",
-		//"roles_perms"=>"er_batch_import_roles",
+		"bundles"=>"er_batch_import_fields",
+		"flags"=>"er_batch_import_flag",
+		//"rules"=>"er_batch_import_rule",
+		"roles"=>"er_batch_import_role",
 	);
 	
 	$operations = array();

@@ -56,7 +56,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $machine_name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete'),
+			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete'),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_node){
@@ -66,7 +66,7 @@ function er_testing() {
 			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/manage/'.$machine_name),
 		);
 	}
-		
+	
 	//Flags
 	$flags_status = er_test_flags();
 	//d($flags_status, '$flags_status');
@@ -82,7 +82,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Flag: $name is extraneous",
 			'description' => 'This flag is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('delete', 'admin/structure/flags/manage/'.$name.'/delete'),
+			'value' => l('Delete', 'admin/structure/flags/manage/'.$name.'/delete'),
 		);
 	}
 	foreach ($flags_status['found'] as $name=>$flag_node){
@@ -90,6 +90,34 @@ function er_testing() {
 			'severity' => REQUIREMENT_OK,
 			'title' => "Flag: $name",
 			'value' => "Flag " . l('found', 'admin/structure/flags/manage/'.$name),
+		);
+	}
+	
+	//Roles
+	$role_status = er_test_role_perms();
+	//d($role_status, '$role_status');
+	foreach ($role_status['missing'] as $rid=>$role_value){
+		$name = $role_value['name'];
+		$requirements[] = array(
+			'severity' => REQUIREMENT_ERROR,
+			'title' => "Role: $name user role is missing!",
+			'value' => l("Reset this role", "admin/config/epscor/er/reset/roles/$rid"),
+		);
+	}
+	foreach ($role_status['extra'] as $rid=>$name){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_WARNING,
+			'title' => "Role: $name role is extraneous",
+			'description' => 'This user role is unknown to this version of the EPSCoR Reporting module, and may be removed if desired.',
+			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid),
+		);
+	}
+	foreach ($role_status['found'] as $rid=>$name){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_OK,
+			'title' => "Role: $name",
+			'value' => 'Role '.($rid>2?l('found', 'admin/people/permissions/roles/edit/'.$rid):'found'),
+			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Role + Permissions", "admin/config/epscor/er/reset/roles/$rid"),
 		);
 	}
 	
@@ -122,100 +150,6 @@ function er_testing() {
 		"#theme"=>"er_status_report",
 		'#requirements'=>$requirements,
 	);
-	
-	//start
-  $form['er_testing_container'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Individual Content Types',
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-    '#description' => t('Under construction ~Mike'),      
-  );
-	
-  $form['er_testing_container']['er_admin_container_reset_bundle'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Installed correctly',
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  );
-  $form['er_testing_container']['er_admin_container_reset_bundle_error'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Fields Missing',
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  ); 
-  
-	//THIS SECTION SHOULD BE DEPRECATED IN FAVOR OF THE BROKEN-OUT er_test_fields() FUNCTION (see below)
-	$bundle_path = ER_INSTALL_DIR . '/bundles';
-	$dir = new DirectoryIterator($bundle_path);
-	// loop through all rule files in the directory
-	$bundle_list = array();
-	$found_errors = false;
-	// dpm($dir, 'what?');
-	foreach ($dir as $fileinfo) {
-		// d($fileinfo, '$fileinfo');
-		if (!$fileinfo->isDot()) {
-			// d('this is a file '. $fileinfo);
-			$bundle_filename = $fileinfo->getFilename();
-			//d('this file', $bundle_filename);
-			//$bundle_config = file_get_contents($bundle_path . '/' . $bundle_filename);
-			include($bundle_path . '/' . $bundle_filename);
-			// now all the bundle information is contained in $data
-			//d($bundle_config, 'bundle config');
-			//d($data, 'bundle config');
-			if (isset($data['fields'])){ // standard check before going into foreach loop
-				$field_not_found = false;
-				$missing_list = array();
-				foreach ($data['fields'] as $field){
-					// see if the field exists
-					$exist = field_info_field($field['field_name']);
-					if (is_null($exist)){
-						dsm('this field doesnt exist: ' . $field['field_name']);
-						$field_not_found = true;
-						$missing_list[] = $field['field_name'];
-					}
-				}
-				if ($field_not_found){					
-					// Content Types were found where the fields did not work
-					$found_errors = true; // set this flag so we can add a message if all are okay
-					$form['er_testing_container']['er_admin_container_reset_bundle_error']["$bundle_filename"] = array(
-					  '#type' => 'checkbox',
-					  '#title' => t("{$data['bundles'][$bundle_filename]->name} ($bundle_filename)"),
-					  '#description' => t('Missing: ') . implode(', ', $missing_list),
-					);						
-				}else{
-					//dsm($exist, 'this field exists');
-					$form['er_testing_container']['er_admin_container_reset_bundle']["$bundle_filename"] = array(
-					  '#type' => 'markup',
-					  '#markup' => t("{$data['bundles'][$bundle_filename]->name} ($bundle_filename)<br/>"),
-					);							
-				}				
-			
-			// check to see if it's in the database
-			//$bundle_list[] = $bundle_filename;		
-			}
-		}
-	}
-	// instead of having a blank fieldgroup for the errors, let's add a message if there were no errors
-	if (!$found_errors){
-		$form['er_testing_container']['er_admin_container_reset_bundle_error']['no_error_msg'] = array(
-		  '#type' => 'markup',
-		  '#markup' => t('No Content Types had errors.'),
-		);		
-	}
-	
-	
-  $form['er_admin_container_reset_bundle']['redo_bundle'] = array(
-    '#type' => 'submit',
-    '#value' => t('Create / Update Content Type(s)'),
-    '#submit' => array('er_revert_bundle'),
-  );
-	
-	
-
-	
-// end  
-
 	return $form;
 }
 
@@ -387,6 +321,7 @@ function er_test_taxonomy(){
 			$taxonomy_filename = $fileinfo->getFilename();
 			
 			include($drupal_path . '/' . $taxonomy_filename);
+			//Note to Jeannine: $taxonomy is not defined anywhere, however; after the include() call $data should be defined.
 			if (isset($taxonomy) && is_array($taxonomy)){
 				foreach ($taxonomy as $name=>$taxonomy){
 					if (isset($vocabulary[$name])){
@@ -404,5 +339,61 @@ function er_test_taxonomy(){
 		}
 	}
 
+	return $return;
+}
+
+//function er_test_roles(){
+//	$drupal_path = ER_INSTALL_DIR . '/roles_perms';
+//	$user_roles = user_roles();
+//	unset($user_roles[1], $user_roles[2], $user_roles[3]);//anonymous, authenticated, administrator
+//	
+//	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
+//	$filename = 'role.php';
+//	include($drupal_path.'/'.$filename);
+//	if (isset($role) && is_array($role)){
+//		foreach ($role as $r){
+//			$rid = $r['rid'];
+//			if (isset($user_roles[$rid])){
+//				$return['found'][$name] = $user_roles[$rid];
+//				unset($user_roles[$rid]);
+//			}else{
+//				$return['missing'][$rid] = $r;
+//			}
+//		}
+//	}else{
+//		drupal_set_message('Bad installation file detected, see: ' .  $filename, 'error');
+//	}
+//
+//	foreach ($user_roles as $rid=>$name){//iterate over the remaining flags, and look for er_ prefix.
+//		$return['extra'][$rid] = $name;
+//	}
+//	return $return;
+//}
+
+function er_test_role_perms(){
+	$drupal_path = ER_INSTALL_DIR . '/roles';
+	$dir = new DirectoryIterator($drupal_path);
+	$user_roles = user_roles();
+	
+	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
+			$filename = $fileinfo->getFilename();
+			include($drupal_path . '/' . $filename);//$role and $role_permission variables should be set now.
+			if (isset($role)){
+				$rid = $role['rid'];
+				if (isset($user_roles[$rid])){
+					$return['found'][$rid] = $user_roles[$rid];
+					unset($user_roles[$rid]);
+				}else{
+					$return['missing'][$rid] = $role;
+				}
+				
+			}else{
+				drupal_set_message('Bad installation file detected, see: ' .  $filename, 'error');
+			}
+		}
+	}
+	$return['extra'] = $user_roles;
 	return $return;
 }
