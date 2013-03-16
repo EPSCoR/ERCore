@@ -10,7 +10,7 @@ function install_all(){
 	//TODO: Taxonomy and Rules need to be integrated into the er_batch_reset procedure.
 	
 	er_import_rules();
-	er_import_perms();
+	//er_import_perms();
 }
 
 /**
@@ -116,7 +116,7 @@ function er_import_perms(){
 		// create role, remember we deleted it if it existed earlier
 		$newrole = new stdClass();
 		$newrole->name = $er_role;
-		user_role_save($newrole);		
+		user_role_save($newrole);
 		
 		// Role to grant the permissions to
 		$newrole = user_role_load_by_name($er_role);
@@ -336,25 +336,34 @@ function er_batch_import_role($file_path, &$context){
 		if (isset($role)){
 			$rid = $role['rid'];
 			$name = $role['name'];
-			d((object) $role, 'role');
-			user_role_save((object) $role);
-			watchdog('er', "Role $name imported successfully.");
-			if (isset($role_permission)){//now to set permissions...
-				// Define our $role role permissions
-				$array_perms = array();
-				$modules = user_permission_get_modules();//List all of the available permissions, with the given modules that are currently installed.
-				foreach ($role_permission as $perm){
+			if (user_role_load($rid) === FALSE){//role does not exist
+				$new_role = (object) array(
+					'name' => $role['name'],
+					'static_rid' => $role['rid'],
+				);
+				$status = user_role_save($new_role);
+				watchdog('er', "Role {$role['name']} successfully created.");
+			}
+			if (isset($role['permissions'])){//now to set permissions...
+				$array_perms = array(); //This becomes the final permissions array
+				//Get the list all of the available permissions, with the given modules that are currently installed:
+				$modules = user_permission_get_modules();
+				//Check to make sure the permissions are valid:
+				foreach ($role['permissions'] as $permission_name){
 					// This next call has to do with avoiding a Fatal Error when you try to add a permission
 					//	that's not associated with an enabled module.		
 					// see http://drupal.org/node/737816 and http://drupal.org/node/1249952 for more info	
-					$permission_name = $perm['permission'];
 					if (isset($modules[$permission_name])){//This permission currently exists in the system
 						$array_perms[] = $permission_name;
+					}else{
+						$error = "Unable to attach \"$permission_name \" to role $name, module is likely missing!";
+						watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+						//drupal_set_message($error);
 					}
 				}
 				// Add that array of permissions to the role. a Drupal API call
 				user_role_grant_permissions($rid, $array_perms);
-				d($array_perms, '$array_perms');
+				//d($array_perms, '$array_perms');
 				watchdog('er', 'Granted permissions to role '.$name);
 			}
 			
@@ -370,6 +379,25 @@ function er_batch_import_role($file_path, &$context){
 	}
 }
 
+/**
+ * Implements hook_user_role_insert().
+ * This function adjusts the RID of newly created roles, this will allow us to use the same RID on all installations of er-core.
+ * This allows the user to change the human-readible name of the role without breaking our testing/update/reset suite.
+ * I based this aproach on the role_export contrib module. - Andrew
+ */
+function er_user_role_insert($role) {
+  // Update the numeric id.
+  db_update('role')
+    ->fields(array(
+      'rid' => $role->static_rid//change the rid to use the static id provided
+    ))
+    ->condition('rid', $role->rid)
+    ->execute();
+  // Set the new role id in the role object, so that it is available for
+  // other modules.
+  $role->rid = $id;
+}
+
 /*
  * This menu callback gets called for URI: admin/config/epscor/er/reset/*
  * See er_install_reset_form function
@@ -378,12 +406,18 @@ function er_installer_reset_callback($type, $filename){
 	return drupal_get_form("er_installer_reset_form", $type, $filename);
 }
 
+//This just returns the list of acceptable installation types...
+function er_get_install_types(){
+	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles");//only accept these expected installation types
+	return $acceptable;
+}
+
 /*
  * This sets up a confirmation form which is presented to the user before running batch operations
  *  that will reset/re-run some part of the installation process.
  */
 function er_installer_reset_form($form, &$form_state){
-	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles");//only accept these expected installation types
+	$acceptable = er_get_install_types();
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)

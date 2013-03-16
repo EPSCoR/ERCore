@@ -96,15 +96,15 @@ function er_testing() {
 	//Roles
 	$role_status = er_test_role_perms();
 	//d($role_status, '$role_status');
-	foreach ($role_status['missing'] as $rid=>$role_value){
-		$name = $role_value['name'];
+	foreach ($role_status['missing'] as $rid=>$name){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
-			'title' => "Role: $name user role is missing!",
+			'title' => "Role: $name role is missing!",
 			'value' => l("Reset this role", "admin/config/epscor/er/reset/roles/$rid"),
 		);
 	}
-	foreach ($role_status['extra'] as $rid=>$name){
+	foreach ($role_status['extra'] as $rid=>$role){
+		$name = $role->name;
 		$requirements[] = array(
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Role: $name role is extraneous",
@@ -112,12 +112,13 @@ function er_testing() {
 			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid),
 		);
 	}
-	foreach ($role_status['found'] as $rid=>$name){
+	foreach ($role_status['found'] as $rid=>$role){
+		$name = $role->name;
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Role: $name",
 			'value' => 'Role '.($rid>2?l('found', 'admin/people/permissions/roles/edit/'.$rid):'found'),
-			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Role + Permissions", "admin/config/epscor/er/reset/roles/$rid"),
+			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Permissions", "admin/config/epscor/er/reset/roles/$rid"),
 		);
 	}
 	
@@ -143,7 +144,23 @@ function er_testing() {
 		
 	}
 	//d($field_status, '$field_status');
-	
+	$form['reset'] = array(
+		'#type'=>'fieldset',
+		'#title'=>'Bulk Reset',
+		'#collapsible'=>true,
+		'#collapsed'=>true,
+	);
+	$installation_types = er_get_install_types();
+	foreach ($installation_types as $type){
+		$form['reset'][$type] = array(
+			'#type' => 'link',
+			'#title' => 'Reset '.$type,
+			'#href' => 'admin/config/epscor/er/reset/'.$type,
+			//'#options' => $l_options,
+			'#prefix' => '<p>',
+			'#suffix' => '</p>',
+		);
+	}
 	
 	//Display the table
 	$form['status'] = array(
@@ -373,7 +390,12 @@ function er_test_taxonomy(){
 function er_test_role_perms(){
 	$drupal_path = ER_INSTALL_DIR . '/roles';
 	$dir = new DirectoryIterator($drupal_path);
-	$user_roles = user_roles();
+	//$user_roles = user_roles();
+	$user_roles = db_select('role')
+    ->fields('role')
+    ->execute()
+    ->fetchAllAssoc('rid');
+	//d($user_roles, '$user_roles');
 	
 	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
 	foreach ($dir as $fileinfo) {
@@ -386,7 +408,7 @@ function er_test_role_perms(){
 					$return['found'][$rid] = $user_roles[$rid];
 					unset($user_roles[$rid]);
 				}else{
-					$return['missing'][$rid] = $role;
+					$return['missing'][$rid] = $role['name'];
 				}
 				
 			}else{
