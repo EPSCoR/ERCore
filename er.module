@@ -12,7 +12,6 @@ define('ER_ROOT_NAME', 'reporting');//The name used in the URI
 //Start date of the grant, currently used in the accomplishments table (summary.inc).
 //DEPRECATED:: Use variable_get('er_start_date') instead.
 //define('ER_START_DATE', mktime(0, 0, 0, 9, 15, 2009));
-// Chris comment to be deleted 2
 
 define('ER_MODULE_DIR', drupal_get_path('module', 'er'));
 define('ER_INSTALL_DIR', ER_MODULE_DIR . '/install');
