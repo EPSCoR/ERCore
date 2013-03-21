@@ -43,29 +43,31 @@ function er_testing() {
 
 	//Taxonomy
 	$taxonomy_status = er_test_taxonomy();
+	
 	//d($taxonomy_status, '$taxonomy_status');
 	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
-			'title' => "Taxonomy: $machine_name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_name"),
+			'title' => "Taxonomy: $name missing!",
+			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_data"),
 		);
 	}
-	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_node){
+	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_WARNING,
-			'title' => "Taxonomy: $machine_name is extraneous",
+			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
 			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete'),
 		);
 	}
-	foreach ($taxonomy_status['found'] as $name=>$taxonomy_node){
+	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
-			'title' => "Taxonomy: $machine_name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/manage/'.$machine_name),
+			'title' => "Taxonomy: $name",
+			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$machine_name),
 		);
 	}
+	
 	
 	//Flags
 	$flags_status = er_test_flags();
@@ -329,24 +331,28 @@ function er_test_rules(){
 function er_test_taxonomy(){
 	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
 	$dir = new DirectoryIterator($drupal_path);
-	$vocabulary = taxonomy_get_vocabularies();
+		
 	// loop through all rule files in the directory
-	$return = array();
+	$return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
 	
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$taxonomy_filename = $fileinfo->getFilename();
-			
 			include($drupal_path . '/' . $taxonomy_filename);
-			//Note to Jeannine: $taxonomy is not defined anywhere, however; after the include() call $data should be defined.
-			if (isset($taxonomy) && is_array($taxonomy)){
-				foreach ($taxonomy as $name=>$taxonomy){
-					if (isset($vocabulary[$name])){
-						$return['found'][$name] = $vocabulary[$name];
+			$data = db_select('data');
+			
+// Note to Jeannine: $taxonomy is not defined anywhere, however; 
+// after the include() call $data should be defined.
+
+			$data = taxonomy_get_vocabularies();
+			if (isset($data) && is_array($data)){
+				foreach ($data as $name=>$taxonomy){
+					if (isset($data[$name])){
+						$return['found'][$name] = $data[$name];
 						
-						unset($vocabulary[$name]);
+						unset($data[$name]);
 					}else{
-						$return['missing'][$name] = $taxonomy;
+						$return['missing'][$name] = $data;
 					}
 				}
 
@@ -355,7 +361,7 @@ function er_test_taxonomy(){
 			}
 		}
 	}
-
+	
 	return $return;
 }
 

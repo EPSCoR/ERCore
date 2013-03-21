@@ -203,49 +203,31 @@ function er_import_rules(){
 	}	
 }
 
-//SHOULD BE DEPRECATED
-//Looks like this procedure is incomplete. This does not import the fields.
-function er_import_taxonomy(){
-	// create taxonomy term 1 for the Project Components
-	// make sure we're not uninstalling and reinstalling it
-	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_position_type'")->fetchField();
-	if (!is_numeric($vid)){
-		watchdog('er', 'Creating taxonomy er_position_type');
-		taxonomy_vocabulary_save((object) array(
-		  'name' => 'Position Type',
-		  'machine_name' => 'er_position_type',
-		));	
+//This function is used by Batch API; it installs a Taxonomy  from file.
+function er_import_taxonomy($file_path, &$context){
+	$name = basename($file_path);
+	$context['message'] = t('Now processing @name', array('@name' => $name));
+	module_load_include('inc', 'taxonomy', 'includes/taxonomy.export');
+	if (function_exists('bundle_copy_import_submit')){
+		if (($contents = prep_file_contents($file_path)) !== FALSE){
+			$form = array();
+			$form_state = array();
+			$form_state['values']['macro'] = $contents;
+			// for these imports, work gets done in the _validate and _submit functions to do the actual import
+			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
+			watchdog('er', "Taxonomy Vocabulary $name imported successfully.");
+		}else{
+			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error);
+		}
+	}else{
+		$error = 'No bundle_copy_import_submit function found, Taxonomy Vocabulary installation cannot proceed.';
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error);
 	}
-	else{
-		watchdog('er', 'NOT creating taxonomy er_position_type, it already exists');
-	}
-	
-	// make sure we're not uninstalling and reinstalling it
-	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'er_components'")->fetchField();
-	if (!is_numeric($vid)){
-		watchdog('er', 'Creating taxonomy er_components');
-		taxonomy_vocabulary_save((object) array(
-		  'name' => 'Component',
-		  'machine_name' => 'er_components',
-		));	
-	}
-	else{
-		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
-	}
-
-	// create taxonomy term 2 for the Collaborations
-	// again, make sure it's not already installed, otherwise fatal errors
-	$vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'collaborations'")->fetchField();
-	if (!is_numeric($vid)){
-		watchdog('er', 'Creating taxonomy collaborations');
-		taxonomy_vocabulary_save((object) array(
-		  'name' => 'Collaborations',
-		  'machine_name' => 'collaborations',
-		));	
-	} else {
-		watchdog('er', 'NOT creating taxonomy er_components, it already exists');
-	}	
 }
+
 
 /**
  * Retrieves the contents of one of the install files.
