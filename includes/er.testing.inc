@@ -5,7 +5,9 @@
 function er_testing() {
 	////this may be useful for checking taxonomy or content types.
 	//d(field_info_bundles(), 'field_info_bundles()');
-	
+	$link_options = array(
+		'query' => array('destination' => 'admin/config/epscor/er/status'),
+	);
 	$requirements = array();
 	/* Example usage:
 	$requirements[] = array(
@@ -57,7 +59,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete'),
+			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
@@ -84,7 +86,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Flag: $name is extraneous",
 			'description' => 'This flag is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/flags/manage/'.$name.'/delete'),
+			'value' => l('Delete', 'admin/structure/flags/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($flags_status['found'] as $name=>$flag_node){
@@ -111,7 +113,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Role: $name role is extraneous",
 			'description' => 'This user role is unknown to this version of the EPSCoR Reporting module, and may be removed if desired.',
-			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid),
+			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
 		);
 	}
 	foreach ($role_status['found'] as $rid=>$role){
