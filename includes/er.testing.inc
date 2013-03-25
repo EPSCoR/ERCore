@@ -394,7 +394,7 @@ function er_test_taxonomy(){
 //}
 
 function er_test_role_perms(){
-	$drupal_path = ER_INSTALL_DIR . '/roles_perms';
+	$drupal_path = ER_INSTALL_DIR . '/roles';
 	$dir = new DirectoryIterator($drupal_path);
 	//$user_roles = user_roles();
 	$user_roles = db_select('role')
