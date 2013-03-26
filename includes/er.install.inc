@@ -369,17 +369,15 @@ function er_batch_import_role($file_path, &$context){
  */
 function er_user_role_insert($role) {
   // Update the numeric id.
-	if ($role->static_rid){//if a statid rid is specified, use that, otherwise just let drupal generate one.
-		db_update('role')
-			->fields(array(
-				'rid' => $role->static_rid//change the rid to use the static id provided
-			))
-			->condition('rid', $role->rid)
-			->execute();
-		// Set the new role id in the role object, so that it is available for
-		// other modules.
-		$role->rid = $role->static_rid;
-	}
+  db_update('role')
+    ->fields(array(
+      'rid' => $role->static_rid//change the rid to use the static id provided
+    ))
+    ->condition('rid', $role->rid)
+    ->execute();
+  // Set the new role id in the role object, so that it is available for
+  // other modules.
+  $role->rid = $id;
 }
 
 /*
