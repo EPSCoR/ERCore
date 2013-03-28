@@ -142,7 +142,7 @@ function er_testing() {
 			$requirements[] = array(
 				'severity' => REQUIREMENT_OK,
 				'title' => "Bundle: ".$results['name']." ($bundle)",
-				'value' => 'Ok',
+				'value' => 'Bundle '. l('found', 'admin/structure/types/manage/'.$bundle),
 			);
 		}
 		
