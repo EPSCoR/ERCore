@@ -290,13 +290,15 @@ function er_test_flags(){
 
 function er_test_rules(){
 	//This will get the active rules in the system
-	$conditions = array('plugin' => 'reaction rule', 'active' => TRUE);
+	$conditions = array(
+	'plugin' => 'reaction rule', 
+	'active' => TRUE);
 	$entities = entity_load('rules_config', FALSE, $conditions);
 	d($entities, '$entities');//check out the results
 	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
-	$internal_rules = rules_get_rules();
+	$internal_rules = $fileinfo->getFilename();
 	// loop through all rule files in the directory
 	$return = array();
 	
