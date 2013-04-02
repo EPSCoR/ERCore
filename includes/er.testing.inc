@@ -70,7 +70,6 @@ function er_testing() {
 		);
 	}
 	
-	
 	//Flags
 	$flags_status = er_test_flags();
 	//d($flags_status, '$flags_status');
@@ -125,7 +124,25 @@ function er_testing() {
 			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Permissions", "admin/config/epscor/er/reset/roles/$rid"),
 		);
 	}
-	
+
+	//Rules
+	$rules_status = er_test_rules();
+	//d($rules_status, '$rules_status');
+	foreach ($rules_status['found'] as $rules_filename=>$rules_filename){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_OK,
+			'title' => "Rule: $rules_filename",
+			'value' => "Rule " . l('found', '/admin/config/workflow/rules'.$rules_filename),
+		);
+	}	
+	foreach ($rules_status['missing'] as $rules_filename=>$rules_value){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_ERROR,
+			'title' => "Rule Missing: $rules_filename",
+			'value' => l("Reset this Rule", "admin/config/epscor/er/reset/rules/$rules_filename"),
+		);
+	}
+
 	//Fields and fieldgroups
 	$field_status = er_test_fields();
 	foreach ($field_status as $bundle=>$results){
@@ -173,6 +190,8 @@ function er_testing() {
 	);
 	return $form;
 }
+
+
 
 /**
  * Check the status of fields and fieldgroups
@@ -282,50 +301,43 @@ function er_test_flags(){
 	return $return;
 }
 
-
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Chris Allen
  */
-
 function er_test_rules(){
-	//This will get the active rules in the system
-	$conditions = array(
-	'plugin' => 'reaction rule', 
-	'active' => TRUE);
-	$entities = entity_load('rules_config', FALSE, $conditions);
-	d($entities, '$entities');//check out the results
-	
+	$conditions = array('plugin' => 'reaction rule');
+	$entities = entity_load('rules_config', $conditions);		
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
-	$internal_rules = $fileinfo->getFilename();
-	// loop through all rule files in the directory
-	$return = array();
+
+	$return = array('found'=>array(), 'missing'=>array());
 	
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
-			$rules_filename = $fileinfo->getFilename();
 			
-			include($drupal_path . '/' . $rules_filename);
-			if (isset($rules) && is_array($rules)){
-				foreach ($rules as $name=>$rules){
-					if (isset($internal_rules[$name])){
-						$return['found'][$name] = $internal_rules[$name];
+			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
+			
+			if (isset($rules_filename) && is_array($rules_filename)){
+				foreach ($rules_filename as $entities=>$rules_filename){
+					if (isset($rules_filename[$entities])){
+						$return['found'][$entities] = $internal_rules[$entities];
 						
-						unset($internal_rules[$name]);
 					}else{
 						$return['missing'][$name] = $rules;
 					}
 				}
-			}else{
+			}
+			
+			
+			else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
 		}
 	}
-
+	
 	return $return;
 }
-
 
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
@@ -428,4 +440,5 @@ function er_test_role_perms(){
 	}
 	$return['extra'] = $user_roles;
 	return $return;
+
 }

@@ -9,7 +9,7 @@ function install_all(){
 	
 	//TODO: Taxonomy and Rules need to be integrated into the er_batch_reset procedure.
 	
-	er_import_rules();
+	//er_import_rules();
 	//er_import_perms();
 }
 
@@ -286,6 +286,14 @@ function er_batch_import_flag($file_path, &$context){
 	}
 }
 
+//This function is used by Batch API; it installs a rule from rules directory.
+function er_batch_import_rules($file_path, &$context){
+	$name = basename($file_path);
+	
+	echo t("rules here!");
+}
+
+
 //This function is used by Batch API; it installs a content type + fields from file.
 function er_batch_import_fields($file_path, &$context){
 	$name = basename($file_path);
@@ -457,12 +465,13 @@ function get_batch_operations($type = "all", $filename = ""){
   */
 	//This array represents the available "installation types".
 	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
-	static $fn_map = array(
+		static $fn_map = array(
 		//"taxonomy"=>"er_batch_import_taxonomy",
+		"roles"=>"er_batch_import_role",
 		"bundles"=>"er_batch_import_fields",
 		"flags"=>"er_batch_import_flag",
-		//"rules"=>"er_batch_import_rule",
-		"roles"=>"er_batch_import_role",
+		"rules"=>"er_batch_import_rules",
+		
 	);
 	
 	$operations = array();
