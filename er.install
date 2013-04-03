@@ -1,17 +1,7 @@
 <?php
 function er_install(){
-	
-	// er.module will require er.install.inc, and now we call install_all() in that include file
-	install_all();
-	
-/* The order of this install is as such:
-
-	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
-	- create Content Types and Fields
-	- create User Profile Fields
-	- create flags, that may now attach to the proper bundles (content types)
-	- create rules
-
-*/
+  
+  // er.module will require er.install.inc, and now we call install_all() in that include file
+  install_all();
 
 }

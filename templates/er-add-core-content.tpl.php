@@ -8,9 +8,10 @@ $node_types = node_type_get_types(); //we can use this to get the [human readibl
 $core = array(
     'er_event', 'er_collaboration', 'er_institution',
     'er_other_product', 'er_patent', 'er_presentation',
-    'er_proposal', 'er_publication');
+    'er_proposal', 'er_publication', 'er_collaborators',
+	'er_engagement', 'er_effort', 'er_paid');
 //
-// content types that appear in "Juristictional" section
+// content types that appear in "Jurisdictional" section
 //
 $juris = array('er_news', 'er_award');
 //
@@ -24,7 +25,7 @@ $juris = array('er_news', 'er_award');
 $links = array(
   "Drupal Content"=>array(),
   "EPSCoR Reporting Categories"=>array(),//changed from "ERCore" to "EPSCoR Reporting Categories" per admin direction
-  "Juristictional"=>array(),
+  "Jurisdictional"=>array(),
 //  "Currently Hidden [debugging display]"=>array(),
 );
 //dsm(array_keys($node_types));
@@ -46,7 +47,7 @@ foreach ($nodes as $n){
 
     }else if (in_array($n->type, $juris)) {
         // types in $juris go in third section
-        $links['Juristictional'][] = $n->type;
+        $links['Jurisdictional'][] = $n->type;
 
 //    }else{
 //        // for debugging, list those that are hidden

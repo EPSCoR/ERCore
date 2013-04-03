@@ -74,6 +74,22 @@ class er_debug extends er_page{
 	//	
 	//}
 	
+	public function load1(){//This version is considderably faster than version 2
+		$file_path = 'sites/all/modules/er/install/bundles/er_award';
+		$file_contents = file_get_contents($file_path);
+		if (substr($file_contents, 0, 5) == '<?php')
+			return substr($file_contents, 5);
+		else
+			return $file_contents;
+	}
+	
+	public function load2(){//This version is much slower, takes about 34x longer
+		$file_path = 'sites/all/modules/er/install/bundles/er_award';
+		module_load_include('inc', 'ctools', 'includes/export'); //allows us to use ctools_var_export(), stringifies a datastructure
+		include($file_path);//$flags variable should be set now.
+		return '$data = ' . ctools_var_export($data) . ';';
+	}
+	
 	public function html(){
 		//$addrs = variable_get('er_notification_email_addr');
 		//dsm($addrs, 'Notification email addresses');
@@ -105,6 +121,27 @@ class er_debug extends er_page{
 
 
 		switch(arg(2)){
+			case 'speed1':
+				$start = microtime(true);
+				for ($i = 0; $i<50; $i++){
+					$this->load1();
+				}
+				$end = microtime(true);
+				d(($end-$start)*100);
+				return '';
+			case 'speed2':
+				$start = microtime(true);
+				for ($i = 0; $i<50; $i++){
+					$this->load2();
+				}
+				$end = microtime(true);
+				d(($end-$start)*100);
+				return '';
+			case 'bundle':
+				d(get_batch_operations("all"), 'all');
+				d(get_batch_operations("flags"), 'flags');
+				d(get_batch_operations("bundles"), 'bundles');
+				return '';
 			case 'EFQ':
 				$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
 				$query = db_select('users', 'users');

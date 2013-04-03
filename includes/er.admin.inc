@@ -125,66 +125,7 @@ function er_settings() {
   );
 
 	
-// end  
-
-// start taxonomy
-	
-  $form['er_admin_taxonomy_container_reset_bundle'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Taxonomy Vocabulary',
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-    '#description' => t('Under construction: Jeannine  is taxonomy_vocabulary the correct db_select?'),      
-  );
-
-	// $drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
-	$drupal_path = ER_INSTALL_DIR . '/bundles';
-	$dir = new DirectoryIterator($drupal_path);
-	// loop through all rule files in the directory
-	$bundle_list = array();
-	// dpm($dir, 'what?');
-	foreach ($dir as $fileinfo) {
-		// d($fileinfo, '$fileinfo');
-		if (!$fileinfo->isDot()) {
-			// d('this is a file '. $fileinfo);
-			$bundle_filename = $fileinfo->getFilename();
-			// d('this file', $bundle_filename);
-			$result = db_select('node_type', 'n')
-			    ->fields('n')
-			    ->condition('orig_type', $bundle_filename ,'=')
-			    ->execute()
-			    ->fetchAssoc();
-				if (empty($result)){
-				   // dsm('nothing');
-					$form['er_admin_taxonomy_container_reset_bundle']['bundle'] = array(
-					  '#type' => 'checkbox',
-					  '#title' => $bundle_filename,
-					  '#description' => t('<b>Vocabulary DOES NOT exist.</b>'),
-					);					
-				}
-				else{
-					// dsm($result, 'result');
-					$form['er_admin_taxonomy_container_reset_bundle']["$fileinfo"] = array(
-					  '#type' => 'checkbox',
-					  '#title' => t("{$result['name']} ($fileinfo)"),
-					  '#description' => t('Vocabulary Exists.'),
-					);				
-				}
-			
-			// check to see if it's in the database
-			//$bundle_list[] = $bundle_filename;		
-		}
-	}
-	
-  $form['er_admin_taxonomy_container_reset_bundle']['redo_bundle'] = array(
-    '#type' => 'submit',
-    '#value' => t('Create / Update Vocabulary'),
-    '#submit' => array('er_revert_bundle'),
-  );
-
-	
-// end  taxonomy
-  
+// end
   
 // start rules
 	
@@ -193,46 +134,42 @@ function er_settings() {
     '#title' => 'Installed Rules',
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
-    '#description' => t('<em>Under construction ~ chris</em>'),      
+    '#description' => t('<em>For review ~ chris</em>'),      
   );
-
-	// $drupal_path = drupal_get_path('module', 'er') . '/er_install/bundles';
+	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
 	// loop through all rule files in the directory
-	$bundle_list = array();
-	// dpm($dir, 'what?');
+	$rules_list = array();
 	foreach ($dir as $fileinfo) {
-		// d($fileinfo, '$fileinfo');
-		if (!$fileinfo->isDot()) {//Check that it's not . or .. (which are not really files)
-			// d('this is a file '. $fileinfo);
-			$bundle_filename = $fileinfo->getFilename();
-			// d('this file', $bundle_filename);
-			$result = db_select('node_type', 'n')
+	
+		if (!$fileinfo->isDot()) {
+			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
+			//$rules_filename = $fileinfo->getFilename();
+		
+			$result = db_select('rules_config', 'n')
 			    ->fields('n')
-			    ->condition('orig_type', $bundle_filename ,'=')
+				->condition('label', $rules_filename,'!=')
 			    ->execute()
 			    ->fetchAssoc();
+			
 				if (empty($result)){
-				   // dsm('nothing');
+				  
 					$form['er_admin_rules_container_reset_bundle']['bundle'] = array(
 					  '#type' => 'checkbox',
-					  '#title' => $bundle_filename,
-					  '#description' => t('<strong>The Rule DOES NOT exist.</strongs>'),
+					  '#title' => $rules_filename,
+					  '#description' => t('<strong>The Rule Exists.</strongs>'),
 					);					
 				}
 				else{
-					// dsm($result, 'result');
+					
 					$form['er_admin_rules_container_reset_bundle']["$fileinfo"] = array(
 					  '#type' => 'checkbox',
-					  '#title' => t("{$result['name']} ($fileinfo)"),
-					  '#description' => t('The Rule Exists.'),
+					  '#title' => $rules_filename,
+					  '#description' => t('The Rule Does Not Exist.'),
 					);				
 				}
-			
-			// check to see if it's in the database
-			//$bundle_list[] = $bundle_filename;		
-		}
+			}
 	}
 	
   $form['er_admin_rules_container_reset_bundle']['redo_bundle'] = array(
