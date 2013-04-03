@@ -85,6 +85,7 @@ function er_testing() {
 		}
 		
 	}
+		
 	//d($field_status, '$field_status');
 	
 	
@@ -355,7 +356,7 @@ function er_test_rules(){
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$rules_filename = $fileinfo->getFilename();
-			
+			d($rules_filename, 'rules filename');
 			include($drupal_path . '/' . $rules_filename);
 			if (isset($rules) && is_array($rules)){
 				foreach ($rules as $name=>$rules){
