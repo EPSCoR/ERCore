@@ -51,7 +51,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_data"),
+			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
 		);
 	}
 	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
@@ -59,14 +59,14 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete', $link_options),
+			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$machine_name),
+			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$name),
 		);
 	}
 	
@@ -345,40 +345,38 @@ function er_test_rules(){
  */
 
 function er_test_taxonomy(){
-	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
-	$dir = new DirectoryIterator($drupal_path);
-		
-	// loop through all rule files in the directory
-	$return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
-	
-	foreach ($dir as $fileinfo) {
-		if (!$fileinfo->isDot()) {
-			$taxonomy_filename = $fileinfo->getFilename();
-			include($drupal_path . '/' . $taxonomy_filename);
-			$data = db_select('data');
-			
-// Note to Jeannine: $taxonomy is not defined anywhere, however; 
-// after the include() call $data should be defined.
-
-			$data = taxonomy_get_vocabularies();
-			if (isset($data) && is_array($data)){
-				foreach ($data as $name=>$taxonomy){
-					if (isset($data[$name])){
-						$return['found'][$name] = $data[$name];
-						
-						unset($data[$name]);
-					}else{
-						$return['missing'][$name] = $data;
-					}
-				}
-
-				}else{
-				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
-			}
-		}
-	}
-	
-	return $return;
+ $drupal_path = ER_INSTALL_DIR . '/taxonomy';
+ $dir = new DirectoryIterator($drupal_path);
+  
+ // loop through all rule files in the directory
+ $return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
+ $internal_taxonomy = array();
+ foreach (taxonomy_get_vocabularies() as $vocab){
+  $internal_taxonomy[$vocab->machine_name] = $vocab;
+ }
+// d($internal_taxonomy, 'taxonomy vocabularies');
+ foreach ($dir as $fileinfo) {
+  if (!$fileinfo->isDot()) {
+   $taxonomy_filename = $fileinfo->getFilename();
+   include($drupal_path . '/' . $taxonomy_filename);
+   //d($data, 'data');
+   if (isset($data) && is_array($data)){
+    foreach ($data['bundles'] as $name=>$install_taxa){
+     if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
+      $return['found'][$name] = $install_taxa;
+      unset($internal_taxonomy[$name]);
+     }else{
+      $return['missing'][$name] = $install_taxa;
+     }
+    }
+   }else{
+    drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
+   }
+  }
+ }
+ $return['extra'] = $internal_taxonomy;
+// d($return, '$return');
+ return $return;
 }
 
 //function er_test_roles(){
@@ -440,5 +438,4 @@ function er_test_role_perms(){
 	}
 	$return['extra'] = $user_roles;
 	return $return;
-
 }
