@@ -18,6 +18,10 @@ function er_testing() {
 	);
 	*/
 	
+	//$rules = er_test_rules();
+	//d($rules , '$rules ');
+	
+	
 	//ER Module info
 	$info = drupal_parse_info_file(ER_MODULE_DIR.'/er.info');
 	$requirements[] = array(
