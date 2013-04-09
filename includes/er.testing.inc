@@ -44,31 +44,9 @@ function er_testing() {
 	}
 
 	//Taxonomy
-	$taxonomy_status = er_test_taxonomy();
 	
 	//d($taxonomy_status, '$taxonomy_status');
-	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_ERROR,
-			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
-		);
-	}
-	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_WARNING,
-			'title' => "Taxonomy: $name is extraneous",
-			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
-		);
-	}
-	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_OK,
-			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$name),
-		);
-	}
+
 	
 	//Flags
 	$flags_status = er_test_flags();
@@ -306,83 +284,44 @@ function er_test_flags(){
  * @author Chris Allen
  */
 function er_test_rules(){
-	
-	$internal_rules = entity_load('rules_config', FALSE);		
+	$conditions = array('plugin' => 'reaction rule');
+	$entities = entity_load('rules_config', $conditions);		
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
+
 	$return = array('found'=>array(), 'missing'=>array());
 	
-	$output = json_decode("$internal_rules");
-		
-	foreach ($dir as $fileinfo) {
+	$file_path = $drupal_path . '/' . $fileinfo->getFilename();
+ 
+		foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			
-		$file_path = $drupal_path . '/' . $fileinfo->getFilename();
- 		if (($contents = prep_file_contents($file_path)) !== FALSE){
-	
-				if (isset($rules_filename) && is_array($rules_filename)){
+			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
 			
-				
-			foreach ($output as $name=>$output){	
-				
-				$return['found'][$name] = $internal_rules;
-				}		
-			}
-			else
-				{
-				$return['missing'][$name] = $internal_rules;
+			if (isset($rules_filename) && is_array($rules_filename)){
+				foreach ($rules_filename as $entities=>$rules_filename){
+					if (isset($rules_filename[$entities])){
+						$return['found'][$entities] = $internal_rules[$entities];
+						
+					}else{
+						$return['missing'][$name] = $rules;
 					}
-				
-			
-		}
+				}
+			}
+			}
 			
 			else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
-		}}
-
+		}
+	}
 	
 	return $return;
-}
+
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Jeannine Haney
  */
-
-function er_test_taxonomy(){
- $drupal_path = ER_INSTALL_DIR . '/taxonomy';
- $dir = new DirectoryIterator($drupal_path);
-  
- // loop through all rule files in the directory
- $return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
- $internal_taxonomy = array();
- foreach (taxonomy_get_vocabularies() as $vocab){
-  $internal_taxonomy[$vocab->machine_name] = $vocab;
- }
-// d($internal_taxonomy, 'taxonomy vocabularies');
- foreach ($dir as $fileinfo) {
-  if (!$fileinfo->isDot()) {
-   $taxonomy_filename = $fileinfo->getFilename();
-   include($drupal_path . '/' . $taxonomy_filename);
-   //d($data, 'data');
-   if (isset($data) && is_array($data)){
-    foreach ($data['bundles'] as $name=>$install_taxa){
-     if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
-      $return['found'][$name] = $install_taxa;
-      unset($internal_taxonomy[$name]);
-     }else{
-      $return['missing'][$name] = $install_taxa;
-     }
-    }
-   }else{
-    drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
-   }
-  }
- }
- $return['extra'] = $internal_taxonomy;
-// d($return, '$return');
- return $return;
-}
 
 //function er_test_roles(){
 //	$drupal_path = ER_INSTALL_DIR . '/roles_perms';

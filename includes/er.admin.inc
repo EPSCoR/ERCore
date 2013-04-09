@@ -30,7 +30,6 @@ function er_settings() {
 		"er_event"=>"er_event",
 		"er_news"=>"er_news",
 		"participants"=>"participants",
-		"taxonomy"=>"taxonomy",
 	);
 	$types = variable_get('er_summary_types');
   if (!$types) $types = array();
