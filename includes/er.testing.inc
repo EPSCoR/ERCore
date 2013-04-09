@@ -365,7 +365,6 @@ function er_test_taxonomy(){
  $return['extra'] = $internal_taxonomy;
 // d($return, '$return');
  return $return;
-
 }
 
 //function er_test_roles(){
