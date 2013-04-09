@@ -333,38 +333,39 @@ function er_test_rules(){
  */
 
 function er_test_taxonomy(){
-	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
-	$dir = new DirectoryIterator($drupal_path);
-		
-	// loop through all rule files in the directory
-	$return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
-	$internal_taxonomy = array();
-	foreach (taxonomy_get_vocabularies() as $vocab){
-		$internal_taxonomy[$vocab->machine_name] = $vocab;
-	}
-	//d($internal_taxonomy, 'taxonomy vocabularies');
-	foreach ($dir as $fileinfo) {
-		if (!$fileinfo->isDot()) {
-			$taxonomy_filename = $fileinfo->getFilename();
-			include($drupal_path . '/' . $taxonomy_filename);
-			//d($data, 'data');
-			if (isset($data) && is_array($data)){
-				foreach ($data['bundles'] as $name=>$install_taxa){
-					if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
-						$return['found'][$name] = $install_taxa;
-						unset($internal_taxonomy[$name]);
-					}else{
-						$return['missing'][$name] = $install_taxa;
-					}
-				}
-			}else{
-				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
-			}
-		}
-	}
-	$return['extra'] = $internal_taxonomy;
-	//d($return, '$return');
-	return $return;
+ $drupal_path = ER_INSTALL_DIR . '/taxonomy';
+ $dir = new DirectoryIterator($drupal_path);
+  
+ // loop through all rule files in the directory
+ $return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
+ $internal_taxonomy = array();
+ foreach (taxonomy_get_vocabularies() as $vocab){
+  $internal_taxonomy[$vocab->machine_name] = $vocab;
+ }
+// d($internal_taxonomy, 'taxonomy vocabularies');
+ foreach ($dir as $fileinfo) {
+  if (!$fileinfo->isDot()) {
+   $taxonomy_filename = $fileinfo->getFilename();
+   include($drupal_path . '/' . $taxonomy_filename);
+   //d($data, 'data');
+   if (isset($data) && is_array($data)){
+    foreach ($data['bundles'] as $name=>$install_taxa){
+     if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
+      $return['found'][$name] = $install_taxa;
+      unset($internal_taxonomy[$name]);
+     }else{
+      $return['missing'][$name] = $install_taxa;
+     }
+    }
+   }else{
+    drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
+   }
+  }
+ }
+ $return['extra'] = $internal_taxonomy;
+// d($return, '$return');
+ return $return;
+
 }
 
 //function er_test_roles(){

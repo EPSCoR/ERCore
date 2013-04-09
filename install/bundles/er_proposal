@@ -1,4 +1,3 @@
-<?php
 $data = array(
   'bundles' => array(
     'er_proposal' => (object) array(
@@ -38,7 +37,7 @@ $data = array(
         ),
       ),
       'settings' => array(),
-      'translatable' => '1',
+      'translatable' => '0',
       'storage' => array(
         'type' => 'field_sql_storage',
         'settings' => array(),
@@ -94,18 +93,20 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'blog',
-          3 => 'er_award',
+          2 => 'er_award',
+          3 => 'er_collaboration',
           4 => 'er_event',
           5 => 'er_institution',
           6 => 'er_presentation',
           7 => 'er_proposal',
           8 => 'er_publication',
-          9 => 'image_gallery',
-          10 => 'node_gallery_gallery',
-          11 => 'node_gallery_image',
-          12 => 'webform',
-          13 => 'er_collaboration',
+          9 => 'webform',
+          10 => 'blog',
+          11 => 'casetracker_basic_project',
+          12 => 'casetracker_basic_case',
+          13 => 'support_ticket',
+          14 => 'project',
+          15 => 'task',
         ),
       ),
     ),
@@ -950,13 +951,13 @@ $data = array(
       'bundles' => array(
         'node' => array(
           0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
+          1 => 'er_collaboration',
+          2 => 'er_event',
+          3 => 'er_news',
+          4 => 'er_other_product',
+          5 => 'er_patent',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
           8 => 'er_publication',
         ),
       ),
@@ -1033,6 +1034,12 @@ $data = array(
               'trim_length' => 600,
             ),
             'module' => 'text',
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
           ),
         ),
         'required' => 0,
@@ -1159,6 +1166,12 @@ $data = array(
             ),
             'module' => 'number',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'min' => '0',
@@ -1206,6 +1219,12 @@ $data = array(
             'weight' => 18,
           ),
           'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+          'ical' => array(
             'type' => 'hidden',
             'label' => 'above',
             'settings' => array(),
@@ -1301,6 +1320,12 @@ $data = array(
             'settings' => array(),
             'module' => 'text',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'text_processing' => '0',
@@ -1386,6 +1411,12 @@ $data = array(
             'weight' => '1',
             'settings' => array(),
             'module' => 'text',
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
           ),
         ),
         'settings' => array(
@@ -1534,6 +1565,12 @@ $data = array(
               'format_type' => 'format_custom_date',
             ),
             'module' => 'date',
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
           ),
         ),
         'settings' => array(
@@ -1686,6 +1723,12 @@ $data = array(
             ),
             'module' => 'date',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'default_value' => 'blank',
@@ -1725,6 +1768,12 @@ $data = array(
             'module' => 'list',
           ),
           'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+          'ical' => array(
             'type' => 'hidden',
             'label' => 'above',
             'settings' => array(),
@@ -1875,6 +1924,12 @@ $data = array(
             ),
             'module' => 'date',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'default_value' => 'blank',
@@ -1966,6 +2021,12 @@ $data = array(
             'settings' => array(),
             'module' => 'list',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'text_processing' => '0',
@@ -1998,6 +2059,7 @@ $data = array(
             'label_position' => 'above',
             'text_parts' => array(),
             'repeat_collapsed' => 0,
+            'display_all_day' => 0,
           ),
         ),
         'display' => array(
@@ -2113,6 +2175,12 @@ $data = array(
             ),
             'module' => 'date',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'default_value' => 'blank',
@@ -2207,6 +2275,12 @@ $data = array(
             'weight' => '2',
             'settings' => array(),
             'module' => 'text',
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
           ),
         ),
         'settings' => array(
@@ -2322,6 +2396,12 @@ $data = array(
             'settings' => array(),
             'module' => 'list',
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'settings' => array(
           'min' => '',
@@ -2432,6 +2512,12 @@ $data = array(
             'settings' => array(),
             'weight' => 0,
           ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
         ),
         'required' => 1,
         'description' => 'The label "Principal Investigator" used here is in reference to the EPSCoR researcher(s) who is reporting the external funding, and is used internally, strictly for reporting. Enter (one name per line) all <strong>EPSCoR participants</strong> who are named on the grant. This is an auto-lookup field. If the researcher\'s name is not found, that person needs to register. Do not enter the name of the official PI listed on the grant (unless the PI is an EPSCoR participant). List all other researchers (non-EPSCoR participants) named on the grant in the Other PI/Co-PI field below.',
@@ -2466,6 +2552,12 @@ $data = array(
             'module' => 'markup',
           ),
           'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+          'ical' => array(
             'type' => 'hidden',
             'label' => 'above',
             'settings' => array(),
