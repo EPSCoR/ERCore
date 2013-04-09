@@ -144,8 +144,7 @@ function er_settings() {
 	
 		if (!$fileinfo->isDot()) {
 			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
-			//$rules_filename = $fileinfo->getFilename();
-		
+					
 			$result = db_select('rules_config', 'n')
 			    ->fields('n')
 				->condition('label', $rules_filename,'!=')
