@@ -135,7 +135,7 @@ function er_testing() {
 			'value' => "Rule " . l('found', '/admin/config/workflow/rules'.$rules_filename),
 		);
 	}	
-	foreach ($rules_status['missing'] as $rules_filename=>$rules_value){
+	foreach ($rules_status['missing'] as $rules_filename=>$internal_rules){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Rule Missing: $rules_filename",
@@ -312,32 +312,35 @@ function er_test_rules(){
 	$dir = new DirectoryIterator($drupal_path);
 	$return = array('found'=>array(), 'missing'=>array());
 	
+	$output = json_decode("$internal_rules");
+		
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
+			
 		$file_path = $drupal_path . '/' . $fileinfo->getFilename();
- 		if (($contents = prep_file_contents($file_path)) !== FALSE){			
-						
-					$json = '{$internal_rules}';
-					
-						
-					var_dump(json_decode($json));
-					
-						
-					if (var_dump(json_decode($json) == true)){
-						$return['found'][$internal_rules] = $internal_rules[$internal_rules];
-						
-					}else{
-						$return['missing'][$name] = $rules;
+ 		if (($contents = prep_file_contents($file_path)) !== FALSE){
+	
+				if (isset($rules_filename) && is_array($rules_filename)){
+			
+				
+			foreach ($output as $name=>$output){	
+				
+				$return['found'][$name] = $internal_rules;
+				}		
+			}
+			else
+				{
+				$return['missing'][$name] = $internal_rules;
 					}
 				
-			}
 			
+		}
 			
 			else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
-		}
-	}
+		}}
+
 	
 	return $return;
 }
