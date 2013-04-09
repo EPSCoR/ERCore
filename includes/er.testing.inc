@@ -51,7 +51,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_data"),
+			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
 		);
 	}
 	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
@@ -59,16 +59,17 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete', $link_options),
+			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$machine_name),
+			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$name),
 		);
 	}
+	
 	
 	//Flags
 	$flags_status = er_test_flags();
@@ -124,25 +125,7 @@ function er_testing() {
 			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Permissions", "admin/config/epscor/er/reset/roles/$rid"),
 		);
 	}
-
-	//Rules
-	$rules_status = er_test_rules();
-	//d($rules_status, '$rules_status');
-	foreach ($rules_status['found'] as $rules_filename=>$rules_filename){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_OK,
-			'title' => "Rule: $rules_filename",
-			'value' => "Rule " . l('found', '/admin/config/workflow/rules'.$rules_filename),
-		);
-	}	
-	foreach ($rules_status['missing'] as $rules_filename=>$rules_value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_ERROR,
-			'title' => "Rule Missing: $rules_filename",
-			'value' => l("Reset this Rule", "admin/config/epscor/er/reset/rules/$rules_filename"),
-		);
-	}
-
+	
 	//Fields and fieldgroups
 	$field_status = er_test_fields();
 	foreach ($field_status as $bundle=>$results){
@@ -190,8 +173,6 @@ function er_testing() {
 	);
 	return $form;
 }
-
-
 
 /**
  * Check the status of fields and fieldgroups
@@ -301,43 +282,50 @@ function er_test_flags(){
 	return $return;
 }
 
+
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Chris Allen
  */
+
 function er_test_rules(){
-	$conditions = array('plugin' => 'reaction rule');
-	$entities = entity_load('rules_config', $conditions);		
+	//This will get the active rules in the system
+	$conditions = array(
+	'plugin' => 'reaction rule', 
+	'active' => TRUE);
+	$entities = entity_load('rules_config', FALSE, $conditions);
+	d($entities, '$entities');//check out the results
+	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
-
-	$return = array('found'=>array(), 'missing'=>array());
+	$internal_rules = $fileinfo->getFilename();
+	// loop through all rule files in the directory
+	$return = array();
 	
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
+			$rules_filename = $fileinfo->getFilename();
 			
-			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
-			
-			if (isset($rules_filename) && is_array($rules_filename)){
-				foreach ($rules_filename as $entities=>$rules_filename){
-					if (isset($rules_filename[$entities])){
-						$return['found'][$entities] = $internal_rules[$entities];
+			include($drupal_path . '/' . $rules_filename);
+			if (isset($rules) && is_array($rules)){
+				foreach ($rules as $name=>$rules){
+					if (isset($internal_rules[$name])){
+						$return['found'][$name] = $internal_rules[$name];
 						
+						unset($internal_rules[$name]);
 					}else{
 						$return['missing'][$name] = $rules;
 					}
 				}
-			}
-			
-			
-			else{
+			}else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
 		}
 	}
-	
+
 	return $return;
 }
+
 
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
@@ -350,34 +338,32 @@ function er_test_taxonomy(){
 		
 	// loop through all rule files in the directory
 	$return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
-	
+	$internal_taxonomy = array();
+	foreach (taxonomy_get_vocabularies() as $vocab){
+		$internal_taxonomy[$vocab->machine_name] = $vocab;
+	}
+	//d($internal_taxonomy, 'taxonomy vocabularies');
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$taxonomy_filename = $fileinfo->getFilename();
 			include($drupal_path . '/' . $taxonomy_filename);
-			$data = db_select('data');
-			
-// Note to Jeannine: $taxonomy is not defined anywhere, however; 
-// after the include() call $data should be defined.
-
-			$data = taxonomy_get_vocabularies();
+			//d($data, 'data');
 			if (isset($data) && is_array($data)){
-				foreach ($data as $name=>$taxonomy){
-					if (isset($data[$name])){
-						$return['found'][$name] = $data[$name];
-						
-						unset($data[$name]);
+				foreach ($data['bundles'] as $name=>$install_taxa){
+					if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
+						$return['found'][$name] = $install_taxa;
+						unset($internal_taxonomy[$name]);
 					}else{
-						$return['missing'][$name] = $data;
+						$return['missing'][$name] = $install_taxa;
 					}
 				}
-
-				}else{
+			}else{
 				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
 			}
 		}
 	}
-	
+	$return['extra'] = $internal_taxonomy;
+	//d($return, '$return');
 	return $return;
 }
 
@@ -440,5 +426,4 @@ function er_test_role_perms(){
 	}
 	$return['extra'] = $user_roles;
 	return $return;
-
 }
