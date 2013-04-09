@@ -284,40 +284,44 @@ function er_test_flags(){
  * @author Chris Allen
  */
 function er_test_rules(){
-	$conditions = array('plugin' => 'reaction rule');
-	$entities = entity_load('rules_config', $conditions);		
+	
+	$internal_rules = entity_load('rules_config', FALSE);		
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
-
 	$return = array('found'=>array(), 'missing'=>array());
 	
-	$file_path = $drupal_path . '/' . $fileinfo->getFilename();
- 
-		foreach ($dir as $fileinfo) {
+	$output = json_decode("$internal_rules");
+		
+	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			
-			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
+		$file_path = $drupal_path . '/' . $fileinfo->getFilename();
+ 		if (($contents = prep_file_contents($file_path)) !== FALSE){
+	
+				if (isset($rules_filename) && is_array($rules_filename)){
 			
-			if (isset($rules_filename) && is_array($rules_filename)){
-				foreach ($rules_filename as $entities=>$rules_filename){
-					if (isset($rules_filename[$entities])){
-						$return['found'][$entities] = $internal_rules[$entities];
-						
-					}else{
-						$return['missing'][$name] = $rules;
+				
+			foreach ($output as $name=>$output){	
+				
+				$return['found'][$name] = $internal_rules;
+				}		
+			}
+			else
+				{
+				$return['missing'][$name] = $internal_rules;
 					}
-				}
-			}
-			}
+				
+			
+		}
 			
 			else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
-		}
-	}
+		}}
+
 	
 	return $return;
-
+}
 /*
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Jeannine Haney
@@ -381,5 +385,4 @@ function er_test_role_perms(){
 		}
 	}
 	$return['extra'] = $user_roles;
-	return $return;
-}
+	return $return;}
