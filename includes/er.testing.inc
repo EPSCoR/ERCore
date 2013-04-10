@@ -7,6 +7,7 @@ function er_testing() {
 	//d(field_info_bundles(), 'field_info_bundles()');
 	$link_options = array(
 		'query' => array('destination' => 'admin/config/epscor/er/status'),
+		'html' => true,
 	);
 	$requirements = array();
 	/* Example usage:
@@ -38,7 +39,7 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'PHPExcel library',
 			'severity' => REQUIREMENT_ERROR,
-			'value' => 'missing',
+			'value' => '<i class="icon-exclamation-sign"></i> Missing',
 			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
 		);
 	}
@@ -50,7 +51,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$name"),
+			'value' => create_reset_link('taxonomy', $name, 'taxonomy'),
 		);
 	}
 	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
@@ -58,17 +59,16 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$name),
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/taxonomy/'.$name, array('html'=>true)) . ', ' . create_reset_link('taxonomy', $name),
 		);
 	}
-
 	
 	//Flags
 	$flags_status = er_test_flags();
@@ -77,7 +77,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Flag: $name missing!",
-			'value' => l("Reset this flag", "admin/config/epscor/er/reset/flags/$name"),
+			'value' => create_reset_link('flags', $name, 'flag'),
 		);
 	}
 	foreach ($flags_status['extra'] as $name=>$flag_node){
@@ -85,14 +85,14 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Flag: $name is extraneous",
 			'description' => 'This flag is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/flags/manage/'.$name.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/flags/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($flags_status['found'] as $name=>$flag_node){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Flag: $name",
-			'value' => "Flag " . l('found', 'admin/structure/flags/manage/'.$name),
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/flags/manage/'.$name, array('html'=>true)) . ', ' . create_reset_link('flags', $name),
 		);
 	}
 	
@@ -103,7 +103,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Role: $name role is missing!",
-			'value' => l("Reset this role", "admin/config/epscor/er/reset/roles/$rid"),
+			'value' => create_reset_link('roles', $rid, 'this role'),
 		);
 	}
 	foreach ($role_status['extra'] as $rid=>$role){
@@ -112,7 +112,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Role: $name role is extraneous",
 			'description' => 'This user role is unknown to this version of the EPSCoR Reporting module, and may be removed if desired.',
-			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
 		);
 	}
 	foreach ($role_status['found'] as $rid=>$role){
@@ -120,8 +120,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Role: $name",
-			'value' => 'Role '.($rid>2?l('found', 'admin/people/permissions/roles/edit/'.$rid):'found'),
-			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Permissions", "admin/config/epscor/er/reset/roles/$rid"),
+			'value' => ($rid>2?l('<i class="icon-ok"></i> Found', 'admin/people/permissions/roles/edit/'.$rid, array('html'=>true)):'<i class="icon-ok"></i> Found') . ', ' . create_reset_link('roles', $rid) . ', ' . l('<i class="icon-pencil"></i> View Permissions', 'admin/people/permissions/'.$rid, array('html'=>true)),
 		);
 	}
 
@@ -132,7 +131,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Rule: $name missing!",
-			'value' => l("Reset this rule", "admin/config/epscor/er/reset/rules/$name"),
+			'value' => create_reset_link('rules', $name, 'this rule'),
 		);
 	}
 	foreach ($rules_status['extra'] as $name=>$value){
@@ -140,14 +139,14 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Rule: $name is extraneous",
 			'description' => 'This rule is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/config/workflow/rules/reaction/manage/'.$value->id.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/config/workflow/rules/reaction/manage/'.$value->id.'/delete', $link_options),
 		);
 	}
 	foreach ($rules_status['found'] as $name=>$value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Rule: $name",
-			'value' => "Rule " . l('found', 'admin/config/workflow/rules/reaction/manage/'.$value->id),
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/config/workflow/rules/reaction/manage/'.$value->id, array('html'=>true)) . ', ' . create_reset_link('rules', $name),
 		);
 	}
 
@@ -161,17 +160,17 @@ function er_testing() {
 				'severity' => REQUIREMENT_ERROR,
 				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
 				'description' => "Missing ".implode($missing),
-				'value' => l("Reset this bundle", "admin/config/epscor/er/reset/bundles/$bundle"),
+				'value' => create_reset_link('bundles', $bundle, 'this bundle'),
 			);
 		}else{
 			$requirements[] = array(
 				'severity' => REQUIREMENT_OK,
 				'title' => "Bundle: ".$results['name']." ($bundle)",
-				'value' => 'Bundle '. l('found', 'admin/structure/types/manage/'.$bundle),
+				'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)) . ', ' . create_reset_link('bundles', $bundle),
 			);
 		}
-		
 	}
+	
 	//d($field_status, '$field_status');
 	$form['reset'] = array(
 		'#type'=>'fieldset',
@@ -179,6 +178,7 @@ function er_testing() {
 		'#collapsible'=>true,
 		'#collapsed'=>true,
 	);
+	
 	$installation_types = er_get_install_types();
 	foreach ($installation_types as $type){
 		$form['reset'][$type] = array(
@@ -199,7 +199,9 @@ function er_testing() {
 	return $form;
 }
 
-
+function create_reset_link($type, $name, $label = ''){
+	return l('<i class="icon-refresh"></i> Reset'.($label?" $label":""), "admin/config/epscor/er/reset/$type/$name", array('html'=>true));
+}
 
 /**
  * Check the status of fields and fieldgroups

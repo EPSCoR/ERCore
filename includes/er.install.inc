@@ -203,49 +203,6 @@ function er_import_rules(){
 	}	
 }
 
-//This function is used by Batch API; it installs a Taxonomy  from file.
-function er_import_taxonomy($file_path, &$context){
-	$name = basename($file_path);
-	$context['message'] = t('Now processing @name', array('@name' => $name));
-	module_load_include('inc', 'taxonomy', 'includes/taxonomy.export');
-	if (function_exists('bundle_copy_import_submit')){
-		if (($contents = prep_file_contents($file_path)) !== FALSE){
-			$form = array();
-			$form_state = array();
-			$form_state['values']['macro'] = $contents;
-			// for these imports, work gets done in the _validate and _submit functions to do the actual import
-			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-			watchdog('er', "Taxonomy Vocabulary $name imported successfully.");
-		}else{
-			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-			drupal_set_message($error);
-		}
-	}else{
-		$error = 'No bundle_copy_import_submit function found, Taxonomy Vocabulary installation cannot proceed.';
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error);
-	}
-}
-
-
-/**
- * Retrieves the contents of one of the install files.
- */
-//function er_get_file($type, $filename){
-//	$file_path = ER_INSTALL_DIR . '/' . $type . '/' . $name;
-//	if (file_exists($file_path)){
-//		if ($type == "bundle" || $type == "taxonomy"){
-//			include($file_path);
-//			return $data;
-//		}else{
-//			return file_get_contents($file_path);
-//		}
-//	}else{
-//		watchdog('er', "Unable to locate $type \"$name\". File not found: $file_path", NULL, WATCHDOG_CRITICAL);
-//	}
-//}
-
 //This function uses a shortcut to get the contents of an install file then remove the <?php part and return the result.
 //Function returns FALSE if the file could not be read
 function prep_file_contents($file_path){
@@ -262,7 +219,7 @@ function prep_file_contents($file_path){
 //This function is used by Batch API; it installs a flag from file.
 function er_batch_import_flag($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing @name', array('@name' => $name));
+	$context['message'] = t('Now processing flag: @name', array('@name' => $name));
 	module_load_include('inc', 'flag', 'includes/flag.export');
 	if (function_exists('flag_import_form_validate')){
 		//watchdog('er', 'Importing flag: ' . $file_path);
@@ -293,11 +250,36 @@ function er_batch_import_rules($file_path, &$context){
 	echo t("rules here!");
 }
 
+//This function is used by Batch API; it installs a Taxonomy Vocabulary + associated fields from file.
+//Note: This is function is basically the same as er_batch_import_fields.
+function er_batch_import_taxonomy($file_path, &$context){
+	$name = basename($file_path);
+	$context['message'] = t('Now processing taxonomy: @name', array('@name' => $name));
+	module_load_include('inc', 'taxonomy', 'includes/taxonomy.export');
+	if (function_exists('bundle_copy_import_submit')){
+		if (($contents = prep_file_contents($file_path)) !== FALSE){
+			$form = array();
+			$form_state = array();
+			$form_state['values']['macro'] = $contents;
+			// for these imports, work gets done in the _validate and _submit functions to do the actual import
+			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
+			watchdog('er', "Taxonomy Vocabulary $name imported successfully.");
+		}else{
+			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error);
+		}
+	}else{
+		$error = 'No bundle_copy_import_submit function found, Taxonomy Vocabulary installation cannot proceed.';
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error);
+	}
+}
 
 //This function is used by Batch API; it installs a content type + fields from file.
 function er_batch_import_fields($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing @name', array('@name' => $name));
+	$context['message'] = t('Now processing bundle: @name', array('@name' => $name));
 	if (function_exists('bundle_copy_import_submit')){
 		if (($contents = prep_file_contents($file_path)) !== FALSE){
 			$form = array();
@@ -320,7 +302,7 @@ function er_batch_import_fields($file_path, &$context){
 
 function er_batch_import_role($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing @name', array('@name' => $name));
+	$context['message'] = t('Now processing role: @name', array('@name' => $name));
 	if (file_exists($file_path)){
 		include($file_path);
 		if (isset($role)){
@@ -466,12 +448,11 @@ function get_batch_operations($type = "all", $filename = ""){
 	//This array represents the available "installation types".
 	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
 		static $fn_map = array(
-		//"taxonomy"=>"er_batch_import_taxonomy",
+		"taxonomy"=>"er_batch_import_taxonomy",
 		"roles"=>"er_batch_import_role",
 		"bundles"=>"er_batch_import_fields",
 		"flags"=>"er_batch_import_flag",
 		"rules"=>"er_batch_import_rules",
-		
 	);
 	
 	$operations = array();
