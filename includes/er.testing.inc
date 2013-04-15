@@ -7,6 +7,7 @@ function er_testing() {
 	//d(field_info_bundles(), 'field_info_bundles()');
 	$link_options = array(
 		'query' => array('destination' => 'admin/config/epscor/er/status'),
+		'html' => true,
 	);
 	$requirements = array();
 	/* Example usage:
@@ -38,20 +39,19 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'PHPExcel library',
 			'severity' => REQUIREMENT_ERROR,
-			'value' => 'missing',
+			'value' => '<i class="icon-exclamation-sign"></i> Missing',
 			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
 		);
 	}
 
 	//Taxonomy
 	$taxonomy_status = er_test_taxonomy();
-	
 	//d($taxonomy_status, '$taxonomy_status');
 	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Taxonomy: $name missing!",
-			'value' => l("Reset this taxonomy", "admin/config/epscor/er/reset/taxonomy/$machine_data"),
+			'value' => create_reset_link('taxonomy', $name, 'taxonomy'),
 		);
 	}
 	foreach ($taxonomy_status['extra'] as $name=>$taxonomy_value){
@@ -59,14 +59,14 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/taxonomy/manage/'.$machine_name.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Taxonomy: $name",
-			'value' => "Taxonomy " . l('found', 'admin/structure/taxonomy/'.$machine_name),
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/taxonomy/'.$name, array('html'=>true)) . ', ' . create_reset_link('taxonomy', $name),
 		);
 	}
 	
@@ -77,7 +77,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Flag: $name missing!",
-			'value' => l("Reset this flag", "admin/config/epscor/er/reset/flags/$name"),
+			'value' => create_reset_link('flags', $name, 'flag'),
 		);
 	}
 	foreach ($flags_status['extra'] as $name=>$flag_node){
@@ -85,14 +85,14 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Flag: $name is extraneous",
 			'description' => 'This flag is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('Delete', 'admin/structure/flags/manage/'.$name.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/flags/manage/'.$name.'/delete', $link_options),
 		);
 	}
 	foreach ($flags_status['found'] as $name=>$flag_node){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Flag: $name",
-			'value' => "Flag " . l('found', 'admin/structure/flags/manage/'.$name),
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/flags/manage/'.$name, array('html'=>true)) . ', ' . create_reset_link('flags', $name),
 		);
 	}
 	
@@ -103,7 +103,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Role: $name role is missing!",
-			'value' => l("Reset this role", "admin/config/epscor/er/reset/roles/$rid"),
+			'value' => create_reset_link('roles', $rid, 'this role'),
 		);
 	}
 	foreach ($role_status['extra'] as $rid=>$role){
@@ -112,7 +112,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Role: $name role is extraneous",
 			'description' => 'This user role is unknown to this version of the EPSCoR Reporting module, and may be removed if desired.',
-			'value' => l('Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
 		);
 	}
 	foreach ($role_status['found'] as $rid=>$role){
@@ -120,26 +120,33 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Role: $name",
-			'value' => 'Role '.($rid>2?l('found', 'admin/people/permissions/roles/edit/'.$rid):'found'),
-			'description' => l('View Permissions', 'admin/people/permissions/'.$rid) . ', ' . l("Reset Permissions", "admin/config/epscor/er/reset/roles/$rid"),
+			'value' => ($rid>2?l('<i class="icon-ok"></i> Found', 'admin/people/permissions/roles/edit/'.$rid, array('html'=>true)):'<i class="icon-ok"></i> Found') . ', ' . create_reset_link('roles', $rid) . ', ' . l('<i class="icon-pencil"></i> View Permissions', 'admin/people/permissions/'.$rid, array('html'=>true)),
 		);
 	}
 
 	//Rules
 	$rules_status = er_test_rules();
 	//d($rules_status, '$rules_status');
-	foreach ($rules_status['found'] as $rules_filename=>$rules_filename){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_OK,
-			'title' => "Rule: $rules_filename",
-			'value' => "Rule " . l('found', '/admin/config/workflow/rules'.$rules_filename),
-		);
-	}	
-	foreach ($rules_status['missing'] as $rules_filename=>$rules_value){
+	foreach ($rules_status['missing'] as $name=>$value){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
-			'title' => "Rule Missing: $rules_filename",
-			'value' => l("Reset this Rule", "admin/config/epscor/er/reset/rules/$rules_filename"),
+			'title' => "Rule: $name missing!",
+			'value' => create_reset_link('rules', $name, 'this rule'),
+		);
+	}
+	foreach ($rules_status['extra'] as $name=>$value){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_WARNING,
+			'title' => "Rule: $name is extraneous",
+			'description' => 'This rule is unknown to this version of the EPSCoR Reporting module, and may be removed.',
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/config/workflow/rules/reaction/manage/'.$value->id.'/delete', $link_options),
+		);
+	}
+	foreach ($rules_status['found'] as $name=>$value){
+		$requirements[] = array(
+			'severity' => REQUIREMENT_OK,
+			'title' => "Rule: $name",
+			'value' => l('<i class="icon-ok"></i> Found', 'admin/config/workflow/rules/reaction/manage/'.$value->id, array('html'=>true)) . ', ' . create_reset_link('rules', $name),
 		);
 	}
 
@@ -153,17 +160,17 @@ function er_testing() {
 				'severity' => REQUIREMENT_ERROR,
 				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
 				'description' => "Missing ".implode($missing),
-				'value' => l("Reset this bundle", "admin/config/epscor/er/reset/bundles/$bundle"),
+				'value' => create_reset_link('bundles', $bundle, 'this bundle'),
 			);
 		}else{
 			$requirements[] = array(
 				'severity' => REQUIREMENT_OK,
 				'title' => "Bundle: ".$results['name']." ($bundle)",
-				'value' => 'Bundle '. l('found', 'admin/structure/types/manage/'.$bundle),
+				'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)) . ', ' . create_reset_link('bundles', $bundle),
 			);
 		}
-		
 	}
+	
 	//d($field_status, '$field_status');
 	$form['reset'] = array(
 		'#type'=>'fieldset',
@@ -171,6 +178,7 @@ function er_testing() {
 		'#collapsible'=>true,
 		'#collapsed'=>true,
 	);
+	
 	$installation_types = er_get_install_types();
 	foreach ($installation_types as $type){
 		$form['reset'][$type] = array(
@@ -191,7 +199,9 @@ function er_testing() {
 	return $form;
 }
 
-
+function create_reset_link($type, $name, $label = ''){
+	return l('<i class="icon-refresh"></i> Reset'.($label?" $label":""), "admin/config/epscor/er/reset/$type/$name", array('html'=>true));
+}
 
 /**
  * Check the status of fields and fieldgroups
@@ -305,37 +315,36 @@ function er_test_flags(){
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Chris Allen
  */
-function er_test_rules(){
-	$conditions = array('plugin' => 'reaction rule');
-	$entities = entity_load('rules_config', $conditions);		
+function er_test_rules(){	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
-
 	$return = array('found'=>array(), 'missing'=>array());
 	
+	$internal_rules_raw = entity_load('rules_config', FALSE);
+	$internal_rules = array();//construct a associative array, where the key is the name of the rule
+	foreach ($internal_rules_raw as $k=>$r)
+		$internal_rules[$r->name] = $r;
+	
+	//d($internal_rules, '$internal_rules');
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
-			
-			$rules_filename = basename($fileinfo->getFilename(), ".txt"); // remove .txt extension
-			
-			if (isset($rules_filename) && is_array($rules_filename)){
-				foreach ($rules_filename as $entities=>$rules_filename){
-					if (isset($rules_filename[$entities])){
-						$return['found'][$entities] = $internal_rules[$entities];
-						
+			$file_path = $drupal_path . '/' . $fileinfo->getFilename();
+			if (($contents = prep_file_contents($file_path)) !== FALSE){
+				$data = json_decode($contents, TRUE);//convert the JSON string into a php array
+				foreach ($data as $name=>$value){//should just be one value
+					if (isset($internal_rules[$name])){
+						$return['found'][$name] = $internal_rules[$name];
+						unset($internal_rules[$name]);
 					}else{
-						$return['missing'][$name] = $rules;
+						$return['missing'][$name] = $value;
 					}
 				}
-			}
-			
-			
-			else{
+			}else{
 				drupal_set_message('Bad installation file detected, see: ' .  $rules_filename, 'error');
 			}
 		}
 	}
-	
+	$return['extra'] = $internal_rules;
 	return $return;
 }
 
@@ -343,71 +352,40 @@ function er_test_rules(){
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Jeannine Haney
  */
-
 function er_test_taxonomy(){
 	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
 	$dir = new DirectoryIterator($drupal_path);
-		
+	 
 	// loop through all rule files in the directory
 	$return = array('missing'=>array(), 'extra'=>array(), 'found'=>array());
-	
+	$internal_taxonomy = array();
+	foreach (taxonomy_get_vocabularies() as $vocab)
+		$internal_taxonomy[$vocab->machine_name] = $vocab;
+	// d($internal_taxonomy, 'taxonomy vocabularies');
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$taxonomy_filename = $fileinfo->getFilename();
 			include($drupal_path . '/' . $taxonomy_filename);
-			$data = db_select('data');
-			
-// Note to Jeannine: $taxonomy is not defined anywhere, however; 
-// after the include() call $data should be defined.
-
-			$data = taxonomy_get_vocabularies();
+			//d($data, 'data');
 			if (isset($data) && is_array($data)){
-				foreach ($data as $name=>$taxonomy){
-					if (isset($data[$name])){
-						$return['found'][$name] = $data[$name];
-						
-						unset($data[$name]);
+				foreach ($data['bundles'] as $name=>$install_taxa){
+					if (isset($internal_taxonomy[$name])){//the taxonomy exists in the system
+						$return['found'][$name] = $install_taxa;
+						unset($internal_taxonomy[$name]);
 					}else{
-						$return['missing'][$name] = $data;
+						$return['missing'][$name] = $install_taxa;
 					}
 				}
-
-				}else{
+			}else{
 				drupal_set_message('Bad installation file detected, see: ' .  $taxonomy_filename, 'error');
 			}
 		}
 	}
-	
+	$return['extra'] = $internal_taxonomy;
+	// d($return, '$return');
 	return $return;
 }
 
-//function er_test_roles(){
-//	$drupal_path = ER_INSTALL_DIR . '/roles_perms';
-//	$user_roles = user_roles();
-//	unset($user_roles[1], $user_roles[2], $user_roles[3]);//anonymous, authenticated, administrator
-//	
-//	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
-//	$filename = 'role.php';
-//	include($drupal_path.'/'.$filename);
-//	if (isset($role) && is_array($role)){
-//		foreach ($role as $r){
-//			$rid = $r['rid'];
-//			if (isset($user_roles[$rid])){
-//				$return['found'][$name] = $user_roles[$rid];
-//				unset($user_roles[$rid]);
-//			}else{
-//				$return['missing'][$rid] = $r;
-//			}
-//		}
-//	}else{
-//		drupal_set_message('Bad installation file detected, see: ' .  $filename, 'error');
-//	}
-//
-//	foreach ($user_roles as $rid=>$name){//iterate over the remaining flags, and look for er_ prefix.
-//		$return['extra'][$rid] = $name;
-//	}
-//	return $return;
-//}
 
 function er_test_role_perms(){
 	$drupal_path = ER_INSTALL_DIR . '/roles';
@@ -439,6 +417,4 @@ function er_test_role_perms(){
 		}
 	}
 	$return['extra'] = $user_roles;
-	return $return;
-
-}
+	return $return;}
