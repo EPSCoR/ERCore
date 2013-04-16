@@ -436,6 +436,8 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// $form['#validate'][] = '_create_inst';
 	// array_push($form['#validate'], '_create_inst');
 	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
+	
+	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
 }
 
 /*
