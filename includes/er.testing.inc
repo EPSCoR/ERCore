@@ -188,9 +188,9 @@ function er_testing() {
 			//'#options' => $l_options,
 			'#prefix' => '<p>',
 			'#suffix' => '</p>',
+			'#html' => true,
 		);
 	}
-	
 	//Display the table
 	$form['status'] = array(
 		"#theme"=>"er_status_report",
