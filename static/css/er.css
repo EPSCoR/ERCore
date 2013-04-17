@@ -75,3 +75,8 @@ form#user-profile-form .form-type-textfield .description, form#user-profile-form
   width:300px;
 }
 */
+
+/* Collaborations customizations */
+div.collaboration-sidebar{
+    float:right;
+}
