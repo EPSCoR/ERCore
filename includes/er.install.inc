@@ -347,7 +347,18 @@ function er_batch_reset($type = "all", $filename = "", $op = ""){
 }
 
 function er_batch_api_callbacks(){
-	static $acceptable_types = array(
+	/*
+	Note: We should install things in this order:
+		- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
+		- create Content Types and Fields
+		- create User Profile Fields
+		- create flags, that may now attach to the proper bundles (content types)
+		- create rules
+  */
+	//This array represents the available "installation types".
+	//The key values correspond to [TYPE] in the url:
+	//  admin/config/epscor/er/reset/[TYPE]/[FILENAME]
+	static $install_types = array(
 		"taxonomy"=>array(
 			'directory'=>'taxonomy',
 			'callback'=>"er_batch_import_taxonomy",
@@ -376,7 +387,7 @@ function er_batch_api_callbacks(){
 			'callback'=>"er_batch_hijack_roles",
 		),
 	);
-	return $acceptable_types;
+	return $install_types;
 }
 
 
@@ -390,49 +401,10 @@ function er_get_install_types(){
  * 
  */
 function get_batch_operations($type = "all", $filename = ""){
-	/*
-	Note: We should install things in this order:
-		- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
-		- create Content Types and Fields
-		- create User Profile Fields
-		- create flags, that may now attach to the proper bundles (content types)
-		- create rules
-  */
-	//This array represents the available "installation types".
-	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
-	static $acceptable_types = array(
-		"taxonomy"=>array(
-			'directory'=>'taxonomy',
-			'callback'=>"er_batch_import_taxonomy",
-		),
-		"roles"=>array(
-			'directory'=>'roles',
-			'callback'=>"er_batch_import_role",
-		),
-		"bundles"=>array(
-			'directory'=>'bundles',
-			'callback'=>"er_batch_import_fields",
-		),
-		"flags"=>array(
-			'directory'=>'flags',
-			'callback'=>"er_batch_import_flag",
-		),
-		"rules"=>array(
-			'directory'=>'rules',
-			'callback'=>"er_batch_import_rules",
-		),
-		
-		//Special functions:
-		//These do not correspond to installation types, but still may be run through batch api.
-		"hijack_roles"=>array(
-			'directory'=>'roles',
-			'callback'=>"er_batch_hijack_roles",
-		),
-	);
-	
+	$install_types = er_batch_api_callbacks();
 	$operations = array();
 	if ($type == "all"){//indicates that we want to install everything
-		foreach ($acceptable_types as $type => $tdata){//loop through each of the installation types
+		foreach ($install_types as $type => $tdata){//loop through each of the installation types
 			$drupal_path = ER_INSTALL_DIR . '/' . $tdata['directory'];
 			$dir = new DirectoryIterator($drupal_path);
 			foreach ($dir as $fileinfo) {// loop through each file in the directory
@@ -442,7 +414,7 @@ function get_batch_operations($type = "all", $filename = ""){
 			}
 		}
 	}else{//We want to reset a specific installation type
-		if (isset($acceptable_types[$type]) && $tdata = $acceptable_types[$type]){//get the corresponding installation function if it exists.
+		if (isset($install_types[$type]) && $tdata = $install_types[$type]){//get the corresponding installation function if it exists.
 			$drupal_path = ER_INSTALL_DIR . '/' . $tdata['directory'];
 			if (isset($filename) && $filename != ""){//if a specific filename was given...
 				$operations[] = array($tdata['callback'], array($drupal_path . '/' . $filename));//just return the one file
