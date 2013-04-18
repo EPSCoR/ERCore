@@ -79,7 +79,7 @@ class er_collaborations extends er_page{
 						$data[$category][$type]["Collaborators"][] = array(
 							"title"=>$result->node_title,
 							"inst_title"=>$result->node_field_data_field_er_inst_ref_title,
-							"names"=>$this->tryget($result, 'field_field_er_collab_names', 'none'),
+							"names"=>$this->tryget($result, 'field_field_er_collab_names', 'None'),
 							"nid"=>$nid,
 						);
 					}
@@ -128,7 +128,8 @@ class er_collaborations extends er_page{
 										//."Type: ".$v['inst_type']."<br>"
 										//."Category: ".$v['inst_category']."<br>"
 								}
-								$ret .= "Collaboration Title: ".$v['title'];"</li>";
+								$ret .= "Collaboration Title: ".l($v['title'], 'node/'.$v['nid'])."</li>";
+								//d($v, '$v');
 							}
 							$ret .= "</ol>";
 							$ret .= '</div>';
@@ -141,7 +142,7 @@ class er_collaborations extends er_page{
 		return $ret;
 	}
 	
-	public function write_excel($objPHPExcel, $sheet = 0){
+	public function write_excel(&$objPHPExcel, $sheet = 0){
 		$data = $this->data();
 		$worksheet = $objPHPExcel->setActiveSheetIndex($sheet);
 		$base_row = 5;

@@ -100,6 +100,7 @@ class er_salary_support extends er_page{
 		d($data, 'data');
 		$output = $this->download_link();
 		//er_get_realname($uid);
+		if (is_array($data['users']))
 		foreach ($data['users'] as $inst_nid=>$users){
 			$inst_name = $inst_nid?$data['inst'][$inst_nid]['name']:'Blank Institution';
 			$output .= "<h2>".$inst_name."</h2>";
@@ -177,28 +178,30 @@ class er_salary_support extends er_page{
 			"Other"=>array("effort"=>0,"funding"=>0),
 		);
 		$add_rows = 0;
-		foreach ($data['users'] as $p){
-			$add_rows += 1 + count($p);
-		}
-		if ($add_rows > 2)
-			$worksheet->insertNewRowBefore($base_row+1, $add_rows-2);
-		
-		foreach ($data['users'] as $inst_nid=>$users){
-			$inst_name = $inst_nid?$data['inst'][$inst_nid]['name']:'Blank Institution';
-			$abbr_name = $inst_nid?$data['inst'][$inst_nid]['abbr']:$inst_name;
-			$output .= "<h2>".$inst_name."</h2>";
-			foreach ($users as $uid=>$user){
-				$name = $user['lname'] . ', ' . $user['fname'];
-				$department = $user['department']?$user['department']:'?';
-				$output .= "<h3>".l($user['lname'] . ', ' . $user['fname'], 'user/'.$user['uid'])."</h3>";
-				$worksheet->setCellValue('A'.$row, $abbr_name);
-				$worksheet->setCellValue('B'.$row, $department);
-				$worksheet->setCellValue('C'.$row, $name);
+		if (is_array($data['users'])){
+			foreach ($data['users'] as $p){
+				$add_rows += 1 + count($p);
+			}
+			if ($add_rows > 2)
+				$worksheet->insertNewRowBefore($base_row+1, $add_rows-2);
+			
+			foreach ($data['users'] as $inst_nid=>$users){
+				$inst_name = $inst_nid?$data['inst'][$inst_nid]['name']:'Blank Institution';
+				$abbr_name = $inst_nid?$data['inst'][$inst_nid]['abbr']:$inst_name;
+				$output .= "<h2>".$inst_name."</h2>";
+				foreach ($users as $uid=>$user){
+					$name = $user['lname'] . ', ' . $user['fname'];
+					$department = $user['department']?$user['department']:'?';
+					$output .= "<h3>".l($user['lname'] . ', ' . $user['fname'], 'user/'.$user['uid'])."</h3>";
+					$worksheet->setCellValue('A'.$row, $abbr_name);
+					$worksheet->setCellValue('B'.$row, $department);
+					$worksheet->setCellValue('C'.$row, $name);
+					$row++;
+				}
+				$worksheet->setCellValue('A'.$row, "Total for $inst_name");
+				$this->write_total_formatting($worksheet, $row);
 				$row++;
 			}
-			$worksheet->setCellValue('A'.$row, "Total for $inst_name");
-			$this->write_total_formatting($worksheet, $row);
-			$row++;
 		}
 	}
 	

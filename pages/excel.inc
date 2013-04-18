@@ -7,13 +7,13 @@ class er_excel extends er_page{
 	//private $data;
 	
 	public function __construct(){ 
-        parent::__construct();
-        //$data = array();
-    }
-    
-    public function title(){
-    	return "Excel Sheet Output";
-    }
+		parent::__construct();
+		//$data = array();
+	}
+	
+	public function title(){
+		return "Excel Sheet Output";
+	}
     
 	public function excel_file(){
 		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Report-template.xls");
