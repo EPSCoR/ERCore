@@ -2,7 +2,7 @@
 require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_external_engagement extends er_page{
 	private $cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");
-	private $rows = array("total", "male", "female", "und", "urm");
+	private $rows = array("total", "male", "female", "urm");
 
 	public function __construct() { 
 		parent::__construct();
@@ -39,7 +39,7 @@ class er_external_engagement extends er_page{
 	}
 	
 	public function html(){
-		$attr_names = array('total'=>'Total', 'male'=>'Male', 'female'=>'Female', 'und'=>'Undeclared', 'urm'=>'Under-represented Minority');
+		$attr_names = array('total'=>'Total', 'male'=>'Male', 'female'=>'Female', 'urm'=>'Under-represented Minority');
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
 		d($this->data(), 'count');
 		$data = $this->data(false);
