@@ -42,7 +42,12 @@ function er_theme($existing, $type, $theme, $path){
 			'variables' => array('requirements'=>array()),
 			//'render element' => 'requirements',
 			'function' => 'theme_er_status_report',
-		)
+		),
+		'node__er_collaboration' => array(
+			//'variables' => array('requirements'=>array()),
+			'template' => 'node-er_collaboration',
+			'path' => $path,
+		),
 	);
 	return $theme;
 }

@@ -5,11 +5,6 @@ function er_block_info() {
     'title'=>'',
     //'cache'=>DRUPAL_NO_CACHE
   );
-  $blocks['er_collab_inst_block'] = array(
-    'info'=>t('Block used to attach Collaborators to Collaboration nodes'),
-    'title'=>'',
-    //'cache'=>DRUPAL_NO_CACHE
-  );
   return $blocks;
 }
 
@@ -25,14 +20,6 @@ function er_block_view($delta = '') {
         '#title' => '',//t('Create new EPSCoR Reporting content - title'),
       );
       break;
-    case 'er_collab_inst_block':
-      $block['subject'] = t('Institutions');
-      $block['content'] = array(
-        '#theme' => 'er_collab_inst_block', 
-        '#title' => '',
-      );
-      break;
-
     //case 'recent':
     //  if (user_access('access content')) {
     //    $block['subject'] = t('Recent content');

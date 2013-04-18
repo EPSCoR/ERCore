@@ -91,20 +91,21 @@
   $handler->display->display_options['fields']['field_er_pui_fac_total']['field'] = 'field_er_pui_fac_total';
   $handler->display->display_options['fields']['field_er_pui_fac_total']['group_type'] = 'sum';
   /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['id'] = 'field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['table'] = 'field_data_field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['field'] = 'field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['id'] = 'field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['table'] = 'field_data_field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['field'] = 'field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['id'] = 'field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['table'] = 'field_data_field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['field'] = 'field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['group_type'] = 'sum';
+  //Removed by Andrew: We are not allowed to add rows to the table.
+  //$handler->display->display_options['fields']['field_er_pui_fac_und']['id'] = 'field_er_pui_fac_und';
+  //$handler->display->display_options['fields']['field_er_pui_fac_und']['table'] = 'field_data_field_er_pui_fac_und';
+  //$handler->display->display_options['fields']['field_er_pui_fac_und']['field'] = 'field_er_pui_fac_und';
+  //$handler->display->display_options['fields']['field_er_pui_fac_und']['group_type'] = 'sum';
+  ///* Field: Content: Faculty - Undeclared */
+  //$handler->display->display_options['fields']['field_er_ari_fac_und']['id'] = 'field_er_ari_fac_und';
+  //$handler->display->display_options['fields']['field_er_ari_fac_und']['table'] = 'field_data_field_er_ari_fac_und';
+  //$handler->display->display_options['fields']['field_er_ari_fac_und']['field'] = 'field_er_ari_fac_und';
+  //$handler->display->display_options['fields']['field_er_ari_fac_und']['group_type'] = 'sum';
+  ///* Field: Content: Faculty - Undeclared */
+  //$handler->display->display_options['fields']['field_er_msi_fac_und']['id'] = 'field_er_msi_fac_und';
+  //$handler->display->display_options['fields']['field_er_msi_fac_und']['table'] = 'field_data_field_er_msi_fac_und';
+  //$handler->display->display_options['fields']['field_er_msi_fac_und']['field'] = 'field_er_msi_fac_und';
+  //$handler->display->display_options['fields']['field_er_msi_fac_und']['group_type'] = 'sum';
   /* Field: Content: Faculty - Under-represented Minority */
   $handler->display->display_options['fields']['field_er_msi_fac_urm']['id'] = 'field_er_msi_fac_urm';
   $handler->display->display_options['fields']['field_er_msi_fac_urm']['table'] = 'field_data_field_er_msi_fac_urm';
@@ -186,20 +187,20 @@
   $handler->display->display_options['fields']['field_er_ari_stu_total']['field'] = 'field_er_ari_stu_total';
   $handler->display->display_options['fields']['field_er_ari_stu_total']['group_type'] = 'sum';
   /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['id'] = 'field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['table'] = 'field_data_field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['field'] = 'field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['group_type'] = 'sum';
-  /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['id'] = 'field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['table'] = 'field_data_field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['field'] = 'field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['group_type'] = 'sum';
-  /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['id'] = 'field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['table'] = 'field_data_field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['field'] = 'field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['group_type'] = 'sum';
+  //$handler->display->display_options['fields']['field_er_ari_stu_und']['id'] = 'field_er_ari_stu_und';
+  //$handler->display->display_options['fields']['field_er_ari_stu_und']['table'] = 'field_data_field_er_ari_stu_und';
+  //$handler->display->display_options['fields']['field_er_ari_stu_und']['field'] = 'field_er_ari_stu_und';
+  //$handler->display->display_options['fields']['field_er_ari_stu_und']['group_type'] = 'sum';
+  ///* Field: Content: Students - Undeclared */
+  //$handler->display->display_options['fields']['field_er_pui_stu_und']['id'] = 'field_er_pui_stu_und';
+  //$handler->display->display_options['fields']['field_er_pui_stu_und']['table'] = 'field_data_field_er_pui_stu_und';
+  //$handler->display->display_options['fields']['field_er_pui_stu_und']['field'] = 'field_er_pui_stu_und';
+  //$handler->display->display_options['fields']['field_er_pui_stu_und']['group_type'] = 'sum';
+  ///* Field: Content: Students - Undeclared */
+  //$handler->display->display_options['fields']['field_er_msi_stu_und']['id'] = 'field_er_msi_stu_und';
+  //$handler->display->display_options['fields']['field_er_msi_stu_und']['table'] = 'field_data_field_er_msi_stu_und';
+  //$handler->display->display_options['fields']['field_er_msi_stu_und']['field'] = 'field_er_msi_stu_und';
+  //$handler->display->display_options['fields']['field_er_msi_stu_und']['group_type'] = 'sum';
   /* Field: Content: Students - Under-represented Minority */
   $handler->display->display_options['fields']['field_er_msi_stu_urm']['id'] = 'field_er_msi_stu_urm';
   $handler->display->display_options['fields']['field_er_msi_stu_urm']['table'] = 'field_data_field_er_msi_stu_urm';
@@ -231,10 +232,10 @@
   $handler->display->display_options['fields']['field_er_k12i_stud_total']['field'] = 'field_er_k12i_stud_total';
   $handler->display->display_options['fields']['field_er_k12i_stud_total']['group_type'] = 'sum';
   /* Field: Content: Students Reached Directly - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['id'] = 'field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['table'] = 'field_data_field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['field'] = 'field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['group_type'] = 'sum';
+  //$handler->display->display_options['fields']['field_er_k12i_stud_und']['id'] = 'field_er_k12i_stud_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stud_und']['table'] = 'field_data_field_er_k12i_stud_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stud_und']['field'] = 'field_er_k12i_stud_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stud_und']['group_type'] = 'sum';
   /* Field: Content: Students Reached Directly - Under-represented Minority */
   $handler->display->display_options['fields']['field_er_k12i_stud_urm']['id'] = 'field_er_k12i_stud_urm';
   $handler->display->display_options['fields']['field_er_k12i_stud_urm']['table'] = 'field_data_field_er_k12i_stud_urm';
@@ -256,10 +257,10 @@
   $handler->display->display_options['fields']['field_er_k12i_stut_total']['field'] = 'field_er_k12i_stut_total';
   $handler->display->display_options['fields']['field_er_k12i_stut_total']['group_type'] = 'sum';
   /* Field: Content: Students Reached via Teach. Training - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['id'] = 'field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['table'] = 'field_data_field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['field'] = 'field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['group_type'] = 'sum';
+  //$handler->display->display_options['fields']['field_er_k12i_stut_und']['id'] = 'field_er_k12i_stut_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stut_und']['table'] = 'field_data_field_er_k12i_stut_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stut_und']['field'] = 'field_er_k12i_stut_und';
+  //$handler->display->display_options['fields']['field_er_k12i_stut_und']['group_type'] = 'sum';
   /* Field: Content: Students Reached via Teach. Training - Under-represented Minority */
   $handler->display->display_options['fields']['field_er_k12i_stut_urm']['id'] = 'field_er_k12i_stut_urm';
   $handler->display->display_options['fields']['field_er_k12i_stut_urm']['table'] = 'field_data_field_er_k12i_stut_urm';
@@ -281,10 +282,10 @@
   $handler->display->display_options['fields']['field_er_k12i_tec_total']['field'] = 'field_er_k12i_tec_total';
   $handler->display->display_options['fields']['field_er_k12i_tec_total']['group_type'] = 'sum';
   /* Field: Content: Teachers - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['id'] = 'field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['table'] = 'field_data_field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['field'] = 'field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['group_type'] = 'sum';
+  //$handler->display->display_options['fields']['field_er_k12i_tec_und']['id'] = 'field_er_k12i_tec_und';
+  //$handler->display->display_options['fields']['field_er_k12i_tec_und']['table'] = 'field_data_field_er_k12i_tec_und';
+  //$handler->display->display_options['fields']['field_er_k12i_tec_und']['field'] = 'field_er_k12i_tec_und';
+  //$handler->display->display_options['fields']['field_er_k12i_tec_und']['group_type'] = 'sum';
   /* Field: Content: Teachers - Under-represented Minority */
   $handler->display->display_options['fields']['field_er_k12i_tec_urm']['id'] = 'field_er_k12i_tec_urm';
   $handler->display->display_options['fields']['field_er_k12i_tec_urm']['table'] = 'field_data_field_er_k12i_tec_urm';
@@ -301,15 +302,15 @@
   $handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
   $handler->display->display_options['fields']['field_er_tot_total']['group_type'] = 'sum';
   /* Field: Content: Undeclared */
-  $handler->display->display_options['fields']['field_er_oth_und']['id'] = 'field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['table'] = 'field_data_field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['field'] = 'field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['group_type'] = 'sum';
-  /* Field: Content: Undeclared */
-  $handler->display->display_options['fields']['field_er_tot_und']['id'] = 'field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['table'] = 'field_data_field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['field'] = 'field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['group_type'] = 'sum';
+  //$handler->display->display_options['fields']['field_er_oth_und']['id'] = 'field_er_oth_und';
+  //$handler->display->display_options['fields']['field_er_oth_und']['table'] = 'field_data_field_er_oth_und';
+  //$handler->display->display_options['fields']['field_er_oth_und']['field'] = 'field_er_oth_und';
+  //$handler->display->display_options['fields']['field_er_oth_und']['group_type'] = 'sum';
+  ///* Field: Content: Undeclared */
+  //$handler->display->display_options['fields']['field_er_tot_und']['id'] = 'field_er_tot_und';
+  //$handler->display->display_options['fields']['field_er_tot_und']['table'] = 'field_data_field_er_tot_und';
+  //$handler->display->display_options['fields']['field_er_tot_und']['field'] = 'field_er_tot_und';
+  //$handler->display->display_options['fields']['field_er_tot_und']['group_type'] = 'sum';
   /* Field: Content: Under-represented Minority */
   $handler->display->display_options['fields']['field_er_oth_urm']['id'] = 'field_er_oth_urm';
   $handler->display->display_options['fields']['field_er_oth_urm']['table'] = 'field_data_field_er_oth_urm';

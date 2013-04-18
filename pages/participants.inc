@@ -146,6 +146,7 @@ class er_participants extends er_page{
 	
 	public function generate_totals(&$data){
 		$total = array();
+		if (is_array($data['Institutions']))
 		foreach($data['Institutions'] as $inst_id=>$data_cat){
 			foreach ($data_cat as $cat_label => $cols){
 				foreach ($cols as $col_label=>$count){
@@ -212,10 +213,12 @@ class er_participants extends er_page{
 		$data = array();
 		foreach ($this->columns as $col){
 			//Institution counts:
-			$query = $this->apply_column_query($this->generate_inst_query($count), $col);
+			$query = $this->generate_inst_query($count);
+			$query = $this->apply_column_query($query, $col);
 			$this->sort_inst_results($data, $col, $query->execute(), $count);
 			//Advisory Board count:
-			$query = $this->apply_column_query($this->generate_advisory_query($count, ($col == 'New Investigators')), $col);
+			$query = $this->generate_advisory_query($count, ($col == 'New Investigators'));
+			$query = $this->apply_column_query($query, $col);
 			$this->sort_advisory_results($data, $col, $query->execute(), $count);
 		}
 		
@@ -260,6 +263,7 @@ class er_participants extends er_page{
 		}
 		$ret .= "<h1>Advisory Board(s)</h1>";
 		$ret .= "<ul>";
+		if (is_array($data['Advisory Board(s)']))//check to make sure it's cool first
 		foreach ($data['Advisory Board(s)'] as $type=>$v){
 			if (count($v)){
 				$ret .= "<li>$type:";

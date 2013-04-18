@@ -82,6 +82,8 @@ function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
+//This function is used to create the "smart form" functionality necessary
+// for creating new institutions while editing another node (like a collaboration)
 function _set_states_for_inst(&$form){
 	  $addInst = array(
 			':input[name="field_er_inst_add_bool[und]"]' => array('checked' => TRUE),
@@ -89,17 +91,16 @@ function _set_states_for_inst(&$form){
 	  $addInstUnchecked = array(
 			':input[name="field_er_inst_add_bool[und]"]' => array('checked' => FALSE),
 		); 
-		  
-	  // All four of these fields will be visible, and required
-	  $form['field_er_inst_name']['#states'] = $form['field_er_inst_country']['#states']
-	  	= $form['field_er_inst_description']['#states'] = $form['field_er_inst_link']['#states']  
-			= array(
+	  // These fields will be visible, and required
+	  $form['field_er_inst_name']['#states'] = array(
 	      'visible' => $addInst,
 	      'required' => $addInst,
 	  );
-		//This field will be visible but not required
-	  $form['field_er_inst_abbreviation']['#states']
-			= array(
+		//These fields will be visible but not required
+		$form['field_er_inst_country']['#states'] =
+		$form['field_er_inst_link']['#states'] =
+		$form['field_er_inst_description']['#states'] =
+	  $form['field_er_inst_abbreviation']['#states'] = array(
 	      'visible' => $addInst,
 	  );
 		//Make the institution field required/non-required based on the checkbox.
