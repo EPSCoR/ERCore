@@ -192,7 +192,7 @@ function er_batch_import_role($file_path, &$context){
 			$rid = $role['rid'];
 			$name = $role['name'];
 			if (user_role_load($rid) === FALSE){//role does not exist
-				if (count(er_get_roles_by_name($role['name']))){
+				if (count(er_get_role_by_name($role['name']))){
 					$error = "Unable to create role! The name \"$name\" was already taken!";
 					watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
 					drupal_set_message($error, 'error');
