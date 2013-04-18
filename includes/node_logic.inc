@@ -625,6 +625,7 @@ function er_user_view($account, $view_mode, $langcode) {
 	//d($account, '$account');
 	//d($view_mode, '$view_mode');
 	//d($langcode, '$langcode');
+  
 }
 
 /**
@@ -634,6 +635,7 @@ function er_user_view($account, $view_mode, $langcode) {
 function er_user_view_alter(&$build) {
 	global $user;
 	unset($build['flags']);//hide the flags, don't need it here.
+  //This adds the tags indicating the permissions on each field:
 	if (isset($user->roles[3])){//user is admin
 		$roles = user_roles();//3 == admin, 2 == authenticated, 1 == anonymous
 		$user_defined = $roles;
@@ -675,4 +677,13 @@ function er_user_view_alter(&$build) {
 		//d($build, '$build');
 		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
 	}
+  $build['related_content'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Related Content',
+    '#weight' => 100,
+    'table' => array(
+      '#title' => 'Related Content',
+      '#theme' => 'er_profile_related_content',
+    )
+  );
 }
