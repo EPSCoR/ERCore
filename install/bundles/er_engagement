@@ -3161,7 +3161,7 @@ $data = array(
         'markup' => array(
           'value' => '<h2>Notice: We offer two methods of filling out this form.</h2>
 
-<p><a href="http://wwwdev.epscor.hawaii.edu/sites/wwwdev.epscor.hawaii.edu/modules/er/static/files/External-Engagement-upload.xls">Download the Attendee Information template file. <a/>Take this sheet to your event and fill it out. Upload the excel sheet above, and the system will do the rest.<br>
+<p><a href="http://dev.nmepscor.org/sites/all/documents/External_Engagement_Reporting_Sheet.xls">Download the External Engagement Reporting Sheet. <a/>Take this sheet to your event and fill it out. Upload the excel sheet above, and the system will do the rest.<br>
 
 - OR -
 
@@ -4510,7 +4510,7 @@ Manually fill out the fields below.</p>',
     ),
     'field_er_cal_entity_reference' => array(
       0 => array(
-        'label' => 'Calendar Event',
+        'label' => 'Calendar Event Title',
         'widget' => array(
           'weight' => '1',
           'type' => 'entityreference_autocomplete_tags',
@@ -4567,7 +4567,7 @@ Manually fill out the fields below.</p>',
     ),
     'field_er_ee_file' => array(
       0 => array(
-        'label' => 'File Attachment',
+        'label' => 'Please upload the Event flyer or announcement, etc.',
         'widget' => array(
           'weight' => '2',
           'type' => 'file_generic',
