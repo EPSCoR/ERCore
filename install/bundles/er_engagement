@@ -3159,14 +3159,19 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'markup' => array(
-          'value' => '<h2>Notice: We offer two methods of filling out this form.</h2>
-
-<p><a href="http://dev.nmepscor.org/sites/all/documents/External_Engagement_Reporting_Sheet.xls">Download the External Engagement Reporting Sheet. <a/>Take this sheet to your event and fill it out. Upload the excel sheet above, and the system will do the rest.<br>
-
+          'value' => '<?php
+$file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagement_Reporting_Sheet.xls\');
+?>
+<h2>Notice: We offer two methods of filling out this form.</h2>
+<p>
+  <a href="<?php echo $file_url;?>">Download the External Engagement Reporting Sheet. </a>
+  Take this sheet to your event and fill it out. Upload the excel sheet above, and the system will do the rest.
+</p>
 - OR -
-
-Manually fill out the fields below.</p>',
-          'format' => 'full_html',
+<p>
+  Manually fill out the fields below.
+</p>',
+          'format' => 'php_code',
         ),
         'profile2_private' => FALSE,
       ),
@@ -10684,7 +10689,7 @@ Manually fill out the fields below.</p>',
   ),
   'fieldgroups' => array(
     'group_er_tot|node|er_engagement|form' => (object) array(
-      'id' => '11',
+      'id' => '1',
       'identifier' => 'group_er_tot|node|er_engagement|form',
       'group_name' => 'group_er_tot',
       'entity_type' => 'node',
@@ -10694,7 +10699,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Total',
       'weight' => '4',
       'children' => array(
@@ -10717,7 +10721,7 @@ Manually fill out the fields below.</p>',
       ),
     ),
     'group_er_oth|node|er_engagement|form' => (object) array(
-      'id' => '12',
+      'id' => '2',
       'identifier' => 'group_er_oth|node|er_engagement|form',
       'group_name' => 'group_er_oth',
       'entity_type' => 'node',
@@ -10727,7 +10731,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Other',
       'weight' => '5',
       'children' => array(
@@ -10749,7 +10752,7 @@ Manually fill out the fields below.</p>',
       ),
     ),
     'group_er_ari|node|er_engagement|form' => (object) array(
-      'id' => '13',
+      'id' => '3',
       'identifier' => 'group_er_ari|node|er_engagement|form',
       'group_name' => 'group_er_ari',
       'entity_type' => 'node',
@@ -10759,7 +10762,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Academic Research Institutions',
       'weight' => '6',
       'children' => array(
@@ -10786,7 +10788,7 @@ Manually fill out the fields below.</p>',
       ),
     ),
     'group_er_pui|node|er_engagement|form' => (object) array(
-      'id' => '14',
+      'id' => '4',
       'identifier' => 'group_er_pui|node|er_engagement|form',
       'group_name' => 'group_er_pui',
       'entity_type' => 'node',
@@ -10796,7 +10798,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Primary Undergraduate Institutions',
       'weight' => '7',
       'children' => array(
@@ -10823,7 +10824,7 @@ Manually fill out the fields below.</p>',
       ),
     ),
     'group_er_msi|node|er_engagement|form' => (object) array(
-      'id' => '15',
+      'id' => '5',
       'identifier' => 'group_er_msi|node|er_engagement|form',
       'group_name' => 'group_er_msi',
       'entity_type' => 'node',
@@ -10833,7 +10834,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Minority Serving Institutions',
       'weight' => '8',
       'children' => array(
@@ -10860,7 +10860,7 @@ Manually fill out the fields below.</p>',
       ),
     ),
     'group_er_k12i|node|er_engagement|form' => (object) array(
-      'id' => '16',
+      'id' => '6',
       'identifier' => 'group_er_k12i|node|er_engagement|form',
       'group_name' => 'group_er_k12i',
       'entity_type' => 'node',
@@ -10870,7 +10870,6 @@ Manually fill out the fields below.</p>',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'K-12 Institutions',
       'weight' => '9',
       'children' => array(
