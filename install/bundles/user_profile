@@ -2816,7 +2816,7 @@ $data = array(
           'Post docs' => 'Post docs',
           'Graduate students' => 'Graduate students',
           'Undergraduate students' => 'Undergraduate students',
-          'RII Leadership Team' => 'RII Leadership Team',
+          'EPSCoR Leadership Team' => 'EPSCoR Leadership Team',
           'Evaluation' => 'Evaluation',
           'Other' => 'Other',
         ),
@@ -5150,7 +5150,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_paid' => array(
       0 => array(
-        'label' => 'Are you paid by the EPSCoR RII3 grant?',
+        'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
           'weight' => '59',
           'type' => 'options_buttons',
