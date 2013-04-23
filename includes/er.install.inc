@@ -6,11 +6,6 @@ function install_all(){
   
   //run batch api, install everything.
   er_batch_reset();
-	
-	//TODO: Taxonomy and Rules need to be integrated into the er_batch_reset procedure.
-	
-	//er_import_rules();
-	//er_import_perms();
 }
 
 /**
@@ -35,172 +30,6 @@ function batch_has_finished($success, $results, $operations) {
     $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
     drupal_set_message($message, 'error');
   }
- 
-}
-
-//THIS SHOULD BE DEPRECATED IN FAVOR OF er_installer_reset_form
-//* this function is called from er.admin.inc when they reset fields, rules, flags, etc. */
-function er_revert($form, &$form_state){
-/* The order of this install is as such:
-	- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
-	- create Content Types and Fields, create User Profile Fields
-	- create flags, that may now attach to the proper bundles (content types)
-	- create rules
-*/
-
-	//Jeannine's attempt at taxonomy import	
-	if ($form_state['values']['redo_checkboxes']['Taxonomy'] !== 0){ 
-	    // you need the explicit equals btw
-		// Create taxonomy terms
-		// d('you checked Taxonomy');
-		er_import_taxonomy();	
-	}	
-	// This is the one MIKE is assigned to
-	if ($form_state['values']['redo_checkboxes']['Fields'] !== 0){
-		// Create Content Types and Field Settings, User Profile Fields
-		// d('you checked Fields');
-		er_import_fields();	
-	}	
-	
-	if ($form_state['values']['redo_checkboxes']['Flags'] !== 0){	
-		// Create flags
-		// d('you checked Flags');
-		er_import_flags();
-	}
-	
-	if ($form_state['values']['redo_checkboxes']['Rules'] !== 0){	
-		// Create rules
-		// d('you checked Rules');
-		er_import_rules();
-	}
-	
-	if ($form_state['values']['redo_checkboxes']['Permissions'] !== 0){	
-		// Reset permissions
-		// d('you checked Permissions');
-		er_import_perms();
-		drupal_set_message('Roles and permissions have been reset.');
-	}
-		
-}
-
-/* this function is called from er.admin.inc when they reset the permissions */
-function er_import_perms(){
-	$er_roles = array('student', 'administrative staff', 'faculty');
-	// these are the two dumps from phpMyAdmin, by including them, 
-	//   we load the arrays ($role_permission and $role) and can use them
-	$perms_path = ER_INSTALL_DIR . '/roles_perms/';
-	include $perms_path . 'role.php';
-	include $perms_path . 'role_permission.php';
-
-	foreach ($er_roles as $er_role){
-		// note: searchRIDdb and searchRIDfile are defined in this same file, not API calls
-		if (!is_null($student_rid = searchRIDdb($er_role))){
-			// Remove role, this is a Drupal API call 
-			// http://api.drupal.org/api/drupal/modules!user!user.module/function/user_role_delete/7
-			user_role_delete($er_role);
-			watchdog('er', 'Deleted existing role '.$er_role);
-		}
-		
-		// find indexes for permissions involving role
-		$ridArr = array();	
-		foreach ($role_permission as $row){
-			$ridArr[] = $row['rid'];
-		}
-	
-		// find out RID from database
-		$ridIdx = searchRIDfile($role, $er_role);
-		$rid = $role[$ridIdx]['rid'];
-		
-		$justIdx = array_keys($ridArr, $rid);
-		
-		// create role, remember we deleted it if it existed earlier
-		$newrole = new stdClass();
-		$newrole->name = $er_role;
-		user_role_save($newrole);
-		
-		// Role to grant the permissions to
-		$newrole = user_role_load_by_name($er_role);
-		$newrole_rid = $newrole->rid;
-		// Define our $er_role role permissions
-		$array_perms = array();
-		// Grant permissions to our $er_role role		
-		// loop through all of those indexes, telling what permissions they are		
-		
-		foreach ($justIdx as $idx){
-			// This next call has to do with avoiding a Fatal Error when you try to add a permission
-			//	that's not associated with an enabled module.		
-			// see http://drupal.org/node/737816 and http://drupal.org/node/1249952 for more info	
-			$modules = user_permission_get_modules();
-			if (!is_null($modules[$role_permission[$idx]['permission']])){
-				// there is an enabled/recognized module associated with this permission
-				$array_perms[] = $role_permission[$idx]['permission'];
-			}
-		}
-		
-		// Add that array of permissions to the role. a Drupal API call
-		user_role_grant_permissions($newrole_rid, $array_perms);
-		watchdog('er', 'Created and granted permissions to role '.$er_role);			
-	}	
-}
-
-function searchRIDdb($name){
-	$result = db_query("SELECT rid, name FROM {role} WHERE name = :name", array(
-	  ':name' => $name,
-	));
-	$rid = $result->fetchAll();
-	if (empty($rid)){
-		// d($name . ' does not exist.');
-		return NULL;
-	}		
-	else {
-		$rid = $rid[0]->rid;
-		// d($rid, $name . ' exists as ');
-		return $rid;
-	}	
-}
-
-function searchRIDfile($array, $name) {
-   foreach ($array as $key => $val) {
-       if ($val['name'] === $name) {
-           return $key;
-       }
-   }
-   return null;
-}
-
-//SHOULD BE DEPRECATED
-function er_import_rules(){
-	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
-	$ret = module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
-	 //require_once(drupal_get_path('module', 'rules_admin') .'/ui/ui.forms.inc');
-	if (function_exists('rules_ui_import_form_validate')){
-		watchdog('er', 'Begin creating rules, found the rules_ui_import_form_validate function');
-
-		$drupal_path = ER_INSTALL_DIR . '/rules';
-		$dir = new DirectoryIterator($drupal_path);
-		// loop through all rule files in the directory
-		foreach ($dir as $fileinfo) {
-			if (!$fileinfo->isDot()) {
-				$rule_filename = $fileinfo->getFilename();
-				watchdog('er', 'Looping rule '.$rule_filename);
-				// this grabs the text from the file and puts it in a variable
-				$rules_config = file_get_contents($drupal_path . '/' . $rule_filename);
-				
-				$form = array();
-				$form_state = array();
-				$form_state['values']['import'] = $rules_config;
-				$form_state['values']['overwrite'] = 1;
-				
-				// for these imports, work gets done in the _validate and _submit functions to do the actual import
-				rules_ui_import_form_validate($form, $form_state);
-				rules_ui_import_form_submit($form, $form_state);				
-			}
-		}
-	}
-	else{		
-		watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
-		drupal_set_message('No rules_ui_import_form_validate function found in er.install');
-	}	
 }
 
 //This function uses a shortcut to get the contents of an install file then remove the <?php part and return the result.
@@ -234,20 +63,42 @@ function er_batch_import_flag($file_path, &$context){
 		}else{
 			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-			drupal_set_message($error);
+			drupal_set_message($error, 'error');
 		}
 	}else{		
 		$error = 'No flag_import_form_validate function found, installation cannot proceed.';
 		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error);
+		drupal_set_message($error, 'error');
 	}
 }
 
 //This function is used by Batch API; it installs a rule from rules directory.
 function er_batch_import_rules($file_path, &$context){
 	$name = basename($file_path);
-	
-	echo t("rules here!");
+	$context['message'] = t('Now processing rule: @name', array('@name' => $name));
+	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
+	module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
+	if (function_exists('rules_ui_import_form_validate')){
+		//watchdog('er', 'Begin creating rules, found the rules_ui_import_form_validate function');		
+		if (($contents = prep_file_contents($file_path)) !== FALSE){			
+			$form = array();
+			$form_state = array();
+			$form_state['values']['import'] = $contents;
+			$form_state['values']['overwrite'] = 1;
+			
+			// for these imports, work gets done in the _validate and _submit functions to do the actual import
+			rules_ui_import_form_validate($form, $form_state);
+			rules_ui_import_form_submit($form, $form_state);
+			watchdog('er', "Rule $name imported successfully.");
+		}else{
+			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error, 'error');
+		}
+	}else{
+		watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
+		drupal_set_message('No rules_ui_import_form_validate function found in er.install');
+	}
 }
 
 //This function is used by Batch API; it installs a Taxonomy Vocabulary + associated fields from file.
@@ -267,12 +118,12 @@ function er_batch_import_taxonomy($file_path, &$context){
 		}else{
 			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-			drupal_set_message($error);
+			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = 'No bundle_copy_import_submit function found, Taxonomy Vocabulary installation cannot proceed.';
 		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error);
+		drupal_set_message($error, 'error');
 	}
 }
 
@@ -291,12 +142,44 @@ function er_batch_import_fields($file_path, &$context){
 		}else{
 			$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-			drupal_set_message($error);
+			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = 'No bundle_copy_import_submit function found, bundle installation cannot proceed.';
 		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error);
+		drupal_set_message($error, 'error');
+	}
+}
+
+function er_get_role_by_name($name){
+	return array_pop(db_select('role')
+		->fields('role')
+		->condition('name', $name)
+		->execute()
+		->fetchAllAssoc('rid'));
+}
+
+//This function was created to handle a special case in which the user already has a role by the name of one used in ER-Core.
+//This function will hijack the role by setting the role's RID to the RID that is expected by our system.
+function er_batch_hijack_roles($file_path, &$context){
+	$name = basename($file_path);
+	$context['message'] = t('Now hijacking role: @name', array('@name' => $name));
+	if (file_exists($file_path)){
+		include($file_path);//$role variable becomes available
+		$db_role = er_get_role_by_name($role['name']);
+		if (isset($db_role->rid) && $internal_role = user_role_load($db_role->rid)){
+			$internal_role->static_rid = $role['rid'];//get the system to reset it's rid to the one that is expected.
+			$status = user_role_save($internal_role);
+			watchdog('er', "Role {$role['name']} successfully hijacked.");
+		}else{
+			$error = "There is no role with RID:$rid in the system! The system was unable to hijack this role.";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error, 'error');
+		}
+	}else{
+		$error = "Role $name was not hijacked! File not found: $file_path";
+		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		drupal_set_message($error, 'error');
 	}
 }
 
@@ -309,6 +192,20 @@ function er_batch_import_role($file_path, &$context){
 			$rid = $role['rid'];
 			$name = $role['name'];
 			if (user_role_load($rid) === FALSE){//role does not exist
+				if (count(er_get_role_by_name($role['name']))){
+					$error = "Unable to create role! The name \"$name\" was already taken!";
+					watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+					drupal_set_message($error, 'error');
+					return;
+				}else{
+					$new_role = (object) array(
+						'name' => $role['name'],
+						'static_rid' => $role['rid'],
+					);
+					$status = user_role_save($new_role);
+					watchdog('er', "Role {$role['name']} successfully created.");
+				}
+				
 				$new_role = (object) array(
 					'name' => $role['name'],
 					'static_rid' => $role['rid'],
@@ -330,7 +227,7 @@ function er_batch_import_role($file_path, &$context){
 					}else{
 						$error = "Unable to attach \"$permission_name \" to role $name, module is likely missing!";
 						watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-						//drupal_set_message($error);
+						//drupal_set_message($error, 'error');
 					}
 				}
 				// Add that array of permissions to the role. a Drupal API call
@@ -342,22 +239,22 @@ function er_batch_import_role($file_path, &$context){
 		}else{
 			$error = "Role $name was not imported! Unable to read data contained in: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-			drupal_set_message($error);
+			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = "Role $name was not imported! File not found: $file_path";
 		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error);
+		drupal_set_message($error, 'error');
 	}
 }
 
+
 /**
- * Implements hook_user_role_insert().
  * This function adjusts the RID of newly created roles, this will allow us to use the same RID on all installations of er-core.
  * This allows the user to change the human-readible name of the role without breaking our testing/update/reset suite.
  * I based this aproach on the role_export contrib module. - Andrew
  */
-function er_user_role_insert($role) {
+function er_user_role_static_rid($role){
   // Update the numeric id.
 	if ($role->static_rid){//if a statid rid is specified, use that, otherwise just let drupal generate one.
 		db_update('role')
@@ -372,18 +269,28 @@ function er_user_role_insert($role) {
 	}
 }
 
+/**
+ * Implements hook_user_role_insert().
+ * See function er_user_role_static_rid
+ */
+function er_user_role_insert($role) {
+	er_user_role_static_rid($role);
+}
+
+/**
+ * Implements hook_user_role_update().
+ * See function er_user_role_static_rid
+ */
+function er_user_role_update($role) {
+	er_user_role_static_rid($role);
+}
+
 /*
  * This menu callback gets called for URI: admin/config/epscor/er/reset/*
  * See er_install_reset_form function
  */
 function er_installer_reset_callback($type, $filename){
 	return drupal_get_form("er_installer_reset_form", $type, $filename);
-}
-
-//This just returns the list of acceptable installation types...
-function er_get_install_types(){
-	static $acceptable = array("all", "flags", "bundles", "rules", "taxonomy", "roles");//only accept these expected installation types
-	return $acceptable;
 }
 
 /*
@@ -394,17 +301,24 @@ function er_installer_reset_form($form, &$form_state){
 	$acceptable = er_get_install_types();
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
+		$button_label = t('Reset');
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)
-			$label = "$filename ($type)";
-			$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
-			$cancel_path = 'admin/config/epscor/er/status';
+			if ($type == 'hijack_roles'){
+				$title = t('Are you sure you want to hijack the role?');
+				$cancel_path = 'admin/config/epscor/er/status';
+				$button_label = t('Hijack');
+			}else{
+				$label = "$filename ($type)";
+				$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
+				$cancel_path = 'admin/config/epscor/er/status';
+			}
 		}else{
 			//d(get_batch_operations($type), 'batch operations');
 			$label = $type=="all"?"everything imported by er-core":"all ER-core $type";
 			$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
 			$cancel_path = 'admin/config/epscor/er/status';
 		}
-		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone.'), t('Reset'), t('Cancel'));
+		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone.'), $button_label, t('Cancel'));
 	}
 	return array('#disabled'=>true);//invalid input, just return a junk form.
 }
@@ -419,7 +333,7 @@ function er_installer_reset_form_submit($form, &$form_state){
  * This is being used by the reset form, it allows you to begin a batch operation to reset some part of the install.
  * see get_batch_operations function below
  */
-function er_batch_reset($type = "all", $filename = ""){
+function er_batch_reset($type = "all", $filename = "", $op = ""){
 	$batch = array (
 		'operations' => get_batch_operations($type, $filename),
 		'finished' => 'batch_has_finished',
@@ -432,11 +346,7 @@ function er_batch_reset($type = "all", $filename = ""){
 	batch_process('admin/config/epscor/er/status');
 }
 
-/**
- * Automatically generate batch operations for the different installation types
- * 
- */
-function get_batch_operations($type = "all", $filename = ""){
+function er_batch_api_callbacks(){
 	/*
 	Note: We should install things in this order:
 		- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
@@ -446,36 +356,73 @@ function get_batch_operations($type = "all", $filename = ""){
 		- create rules
   */
 	//This array represents the available "installation types".
-	// It maps the name of the directory (from er/install/*) to the function used to import that installation type.
-		static $fn_map = array(
-		"taxonomy"=>"er_batch_import_taxonomy",
-		"roles"=>"er_batch_import_role",
-		"bundles"=>"er_batch_import_fields",
-		"flags"=>"er_batch_import_flag",
-		"rules"=>"er_batch_import_rules",
+	//The key values correspond to [TYPE] in the url:
+	//  admin/config/epscor/er/reset/[TYPE]/[FILENAME]
+	static $install_types = array(
+		"taxonomy"=>array(
+			'directory'=>'taxonomy',
+			'callback'=>"er_batch_import_taxonomy",
+		),
+		"roles"=>array(
+			'directory'=>'roles',
+			'callback'=>"er_batch_import_role",
+		),
+		"bundles"=>array(
+			'directory'=>'bundles',
+			'callback'=>"er_batch_import_fields",
+		),
+		"flags"=>array(
+			'directory'=>'flags',
+			'callback'=>"er_batch_import_flag",
+		),
+		"rules"=>array(
+			'directory'=>'rules',
+			'callback'=>"er_batch_import_rules",
+		),
+		
+		//Special functions:
+		//These do not correspond to installation types, but still may be run through batch api.
+		"hijack_roles"=>array(
+			'directory'=>'roles',
+			'callback'=>"er_batch_hijack_roles",
+		),
 	);
-	
+	return $install_types;
+}
+
+
+//This just returns the list of acceptable installation types...
+function er_get_install_types(){
+	return array_keys(er_batch_api_callbacks()) + array("all");
+}
+
+/**
+ * Automatically generate batch operations for the different installation types
+ * 
+ */
+function get_batch_operations($type = "all", $filename = ""){
+	$install_types = er_batch_api_callbacks();
 	$operations = array();
 	if ($type == "all"){//indicates that we want to install everything
-		foreach ($fn_map as $type => $fn){//loop through each of the installation types
-			$drupal_path = ER_INSTALL_DIR . '/' . $type;
+		foreach ($install_types as $type => $tdata){//loop through each of the installation types
+			$drupal_path = ER_INSTALL_DIR . '/' . $tdata['directory'];
 			$dir = new DirectoryIterator($drupal_path);
 			foreach ($dir as $fileinfo) {// loop through each file in the directory
 				if (!$fileinfo->isDot()) { // make sure its not . or ..
-					$operations[] = array($fn, array($drupal_path . '/' . $fileinfo->getFilename())); //;
+					$operations[] = array($tdata['callback'], array($drupal_path . '/' . $fileinfo->getFilename()));
 				}
 			}
 		}
 	}else{//We want to reset a specific installation type
-		if (isset($fn_map[$type]) && $fn = $fn_map[$type]){//get the corresponding installation function if it exists.
-			$drupal_path = ER_INSTALL_DIR . '/' . $type;
+		if (isset($install_types[$type]) && $tdata = $install_types[$type]){//get the corresponding installation function if it exists.
+			$drupal_path = ER_INSTALL_DIR . '/' . $tdata['directory'];
 			if (isset($filename) && $filename != ""){//if a specific filename was given...
-				$operations[] = array($fn, array($drupal_path . '/' . $filename));//just return the one file
+				$operations[] = array($tdata['callback'], array($drupal_path . '/' . $filename));//just return the one file
 			}else{// .. otherwise loop over each file in the directory belonging to this installation type (ex: 'bundles', 'flags', ...)
 				$dir = new DirectoryIterator($drupal_path);
 				foreach ($dir as $fileinfo) {// loop through each file in the directory
 					if (!$fileinfo->isDot()) { // make sure its not . or ..
-						$operations[] = array($fn, array($drupal_path . '/' . $fileinfo->getFilename())); //;
+						$operations[] = array($tdata['callback'], array($drupal_path . '/' . $fileinfo->getFilename()));
 					}
 				}
 			}

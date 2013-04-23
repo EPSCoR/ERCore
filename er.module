@@ -325,6 +325,7 @@ function er_page_download($arg) {
 		$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
 		$error_message = $library['error message'];// This contains a detailed (localized) error message.
 		drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
+		watchdog('er', $error_message, NULL, WATCHDOG_CRITICAL);
 	}
 	return drupal_not_found();
 }

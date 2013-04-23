@@ -105,7 +105,9 @@ function er_node_view($node, $view_mode, $langcode){
 		  // // '#markup' => $view,
 		// // );
 	  	// break;
-	// }	//er_manage_cnp_extra_nodes($node, 'view');
+	// }
+
+	//er_manage_cnp_extra_nodes($node, 'view');
 	// return $node;
 	// load the view by name (now using Panels for this)
 	if ($node->type == 'er_proposal')
@@ -290,112 +292,118 @@ function _manage_ee_nodes($node, $op){
  * This is part of the code that parses the external engagements uploads 
  */
 function er_parse_ee_file(&$node){
-	require_once ER_MODULE_DIR.'/Classes/PHPExcel.php';
-	require_once ER_MODULE_DIR.'/Classes/PHPExcel/IOFactory.php';
-	$lang = 'und';
-	$file = file_load($node->field_er_ee_file['und'][0]['fid']);
-	//dsm($file, '$file');
-	$path = $file->uri;//$_SERVER["DOCUMENT_ROOT"].base_path()."/".$file['filepath'];
-	//d($path);
-	//d(file_exists($path)?"file exists":"file doesn't exist!");
-	$objReader = PHPExcel_IOFactory::createReader('Excel5');
-	$objPHPExcel = $objReader->load($path);
-	$worksheet = $objPHPExcel->getActiveSheet();
-	//$worksheet = $objPHPExcel->setActiveSheetIndex(0); //initialize to the first page...
-
-	/* Excel Sheet Key:
-	 * (2,4) title
-	 * (2,5) location
-	 * (2,6) date
-	 * (2,7) poc
-	 * (2,8) notes
-	 * (0,14+) #
-	 * (1,14+) name
-	 * (2,14+) inst code
-	 * (3,14+) person code
-	 * (4,14+) gender
-	 * (5,14+) minority
-	 * (6,14+) paid?
-	 */
+  if (($library = libraries_detect('PHPExcel')) && !empty($library['installed']) && libraries_load_files($library)) {// The library is installed, and files are loaded.
+    $lang = 'und';
+    $file = file_load($node->field_er_ee_file['und'][0]['fid']);
+    //dsm($file, '$file');
+    $path = $file->uri;//$_SERVER["DOCUMENT_ROOT"].base_path()."/".$file['filepath'];
+    //d($path);
+    //d(file_exists($path)?"file exists":"file doesn't exist!");
+    $objReader = PHPExcel_IOFactory::createReader('Excel5');
+    $objPHPExcel = $objReader->load($path);
+    $worksheet = $objPHPExcel->getActiveSheet();
+    //$worksheet = $objPHPExcel->setActiveSheetIndex(0); //initialize to the first page...
+  
+    /* Excel Sheet Key:
+     * (2,4) title
+     * (2,5) location
+     * (2,6) date
+     * (2,7) poc
+     * (2,8) notes
+     * (0,14+) #
+     * (1,14+) name
+     * (2,14+) inst code
+     * (3,14+) person code
+     * (4,14+) gender
+     * (5,14+) minority
+     * (6,14+) paid?
+     */
+    
+    //really simple validation; this just makes sure that it's the expected excel sheet by checking for the header text.
+    if ($worksheet->getCellByColumnAndRow(2, 1)->getValue() != "External Engagement Reporting Sheet")
+      break;
+    
+    $title = $worksheet->getCellByColumnAndRow(2, 4)->getValue();
+    //d($title);
+    $location = $worksheet->getCellByColumnAndRow(2, 5)->getValue();
+    //d($location);
+    $date = gmdate('m-d-Y',PHPExcel_Shared_Date::ExcelToPHP($worksheet->getCellByColumnAndRow(2, 6)->getValue()));
+    //d($date);
+    $poc = $worksheet->getCellByColumnAndRow(2, 7)->getValue();
+    //d($poc);
+    $notes = $worksheet->getCellByColumnAndRow(2, 8)->getValue();
+    //d($notes);
+    
+    /* 1 = Academic Research * 2 = Primary Undergrad. * 3 = Minority Serving * 4 = K-12 * //5 = Other (pls specify) */
+    $instCodes = array('1'=>'ari', '2'=>'pui', '3'=>'msi', '4'=>'k12i');
+    /* 1 = Faculty * 2 = Student * 3 = Teacher * //4 = Other (pls specify) */
+    $personCodes1 = array('1'=>'tec', '2'=>'stud', '3'=>'tec'); //used for k12i
+    $personCodes2 = array('1'=>'fac', '2'=>'stu', '3'=>'fac'); //used for everything else
+    $genderCodes = array('m'=>'male', 'f'=>'female');
+    $genderCodes = array('m'=>'male', 'f'=>'female', ''=>'und');
+    $genderCodes = array('m'=>'male', 'f'=>'female');
+    $minorityCodes = array('y'=>'urm');
+    
+    //Use this to clear out all of the values in preparation for new values
+    foreach (array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth', 'tot') as $prefix){
+      foreach (array("total", "male", "female", "und", "urm") as $attr){
+        $node->{"field_er_{$prefix}_{$attr}"}[$lang][0]['value'] = 0;
+      }
+    }
+    
+    $highestRow = $worksheet->getHighestRow();//last filled out row of the template...
+    for ($y = 14; $y<=$highestRow; $y++){//14 is the start of the data rows
+      //note: using "get" function here is to avoid errors in cases where things should be classified into the catchall "other" fields.
+      //get function is defined in er.module
+      
+      //$number = $worksheet->getCellByColumnAndRow(0, $y)->getValue();
+      $name = $worksheet->getCellByColumnAndRow(1, $y)->getValue();
+      $inst = get($instCodes, $worksheet->getCellByColumnAndRow(2, $y)->getValue());
+      $personCodes = $inst=='k12i'?$personCodes1:$personCodes2;
+      $person = get($personCodes, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
+      //$person = personCodes($inst, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
+      
+      if (!$name && !$inst && !$person) //if the information dries up, just assume this is the end of the list.
+        break;
+      
+      $gender = get($genderCodes, strtolower($worksheet->getCellByColumnAndRow(4, $y)->getValue()));
+      $minority = get($minorityCodes, strtolower($worksheet->getCellByColumnAndRow(5, $y)->getValue()));
+      $paid = strtolower($worksheet->getCellByColumnAndRow(6, $y)->getValue()); //has no bearing on this form
+      //we can't count paid participants...
+      if (substr($paid, 0, 1) != 'y'){//someone might put in "yes" and not just "y"...
+        $col = $inst.'_'.$person;
+        if (!$person || !$inst)
+          $col = "oth";
+        
+        if ($gender){
+          $node->{"field_er_{$col}_{$gender}"}[$lang][0]['value']++;
+          $node->{"field_er_tot_{$gender}"}[$lang][0]['value']++;
+        } else {
+          $node->{"field_er_{$col}_und"}[$lang][0]['value']++;
+          $node->{"field_er_tot_und"}[$lang][0]['value']++;
+        }
+        
+        if ($minority){
+          $node->{"field_er_{$col}_urm"}[$lang][0]['value']++;
+          $node->{"field_er_tot_urm"}[$lang][0]['value']++;
+        }
+        
+        $node->{"field_er_{$col}_total"}[$lang][0]['value']++;
+        $node->{"field_er_tot_total"}[$lang][0]['value']++;
+      }
+    }
+    
+    $message = 'The attachment "%fn" was processed and the External Engagements have been filled out. Please verify that the counts are correct.';
+    $vars = array('%fn'=>$file->filename);
+    watchdog('er', $message, $vars, WATCHDOG_INFO);
+    drupal_set_message(t($message, $vars));
+  }else{//Libraries had a problem loading PHPExcel...
+		$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
+		$error_message = $library['error message'];// This contains a detailed (localized) error message.
+		drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
+		watchdog('er', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
 	
-	//really simple validation; this just makes sure that it's the expected excel sheet by checking for the header text.
-	if ($worksheet->getCellByColumnAndRow(2, 1)->getValue() != "External Engagement Reporting Sheet")
-		break;
-	
-	$title = $worksheet->getCellByColumnAndRow(2, 4)->getValue();
-	//d($title);
-	$location = $worksheet->getCellByColumnAndRow(2, 5)->getValue();
-	//d($location);
-	$date = gmdate('m-d-Y',PHPExcel_Shared_Date::ExcelToPHP($worksheet->getCellByColumnAndRow(2, 6)->getValue()));
-	//d($date);
-	$poc = $worksheet->getCellByColumnAndRow(2, 7)->getValue();
-	//d($poc);
-	$notes = $worksheet->getCellByColumnAndRow(2, 8)->getValue();
-	//d($notes);
-	
-	/* 1 = Academic Research * 2 = Primary Undergrad. * 3 = Minority Serving * 4 = K-12 * //5 = Other (pls specify) */
-	$instCodes = array('1'=>'ari', '2'=>'pui', '3'=>'msi', '4'=>'k12i');
-	/* 1 = Faculty * 2 = Student * 3 = Teacher * //4 = Other (pls specify) */
-	$personCodes1 = array('1'=>'tec', '2'=>'stud', '3'=>'tec'); //used for k12i
-	$personCodes2 = array('1'=>'fac', '2'=>'stu', '3'=>'fac'); //used for everything else
-	$genderCodes = array('m'=>'male', 'f'=>'female');
-	$genderCodes = array('m'=>'male', 'f'=>'female', ''=>'und');
-	$genderCodes = array('m'=>'male', 'f'=>'female');
-	$minorityCodes = array('y'=>'urm');
-	
-	//Use this to clear out all of the values in preparation for new values
-	foreach (array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth', 'tot') as $prefix){
-		foreach (array("total", "male", "female", "und", "urm") as $attr){
-			$node->{"field_er_{$prefix}_{$attr}"}[$lang][0]['value'] = 0;
-		}
-	}
-	
-	$highestRow = $worksheet->getHighestRow();//last filled out row of the template...
-	for ($y = 14; $y<=$highestRow; $y++){//14 is the start of the data rows
-		//note: using "get" function here is to avoid errors in cases where things should be classified into the catchall "other" fields.
-		//get function is defined in er.module
-		
-		//$number = $worksheet->getCellByColumnAndRow(0, $y)->getValue();
-		$name = $worksheet->getCellByColumnAndRow(1, $y)->getValue();
-		$inst = get($instCodes, $worksheet->getCellByColumnAndRow(2, $y)->getValue());
-		$personCodes = $inst=='k12i'?$personCodes1:$personCodes2;
-		$person = get($personCodes, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
-		//$person = personCodes($inst, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
-		
-		if (!$name && !$inst && !$person) //if the information dries up, just assume this is the end of the list.
-			break;
-		
-		$gender = get($genderCodes, strtolower($worksheet->getCellByColumnAndRow(4, $y)->getValue()));
-		$minority = get($minorityCodes, strtolower($worksheet->getCellByColumnAndRow(5, $y)->getValue()));
-		$paid = strtolower($worksheet->getCellByColumnAndRow(6, $y)->getValue()); //has no bearing on this form
-		//we can't count paid participants...
-		if (substr($paid, 0, 1) != 'y'){//someone might put in "yes" and not just "y"...
-			$col = $inst.'_'.$person;
-			if (!$person || !$inst)
-				$col = "oth";
-			
-			if ($gender){
-				$node->{"field_er_{$col}_{$gender}"}[$lang][0]['value']++;
-				$node->{"field_er_tot_{$gender}"}[$lang][0]['value']++;
-			} else {
-				$node->{"field_er_{$col}_und"}[$lang][0]['value']++;
-				$node->{"field_er_tot_und"}[$lang][0]['value']++;
-			}
-			
-			if ($minority){
-				$node->{"field_er_{$col}_urm"}[$lang][0]['value']++;
-				$node->{"field_er_tot_urm"}[$lang][0]['value']++;
-			}
-			
-			$node->{"field_er_{$col}_total"}[$lang][0]['value']++;
-			$node->{"field_er_tot_total"}[$lang][0]['value']++;
-		}
-	}
-	
-	$message = 'The attachment "%fn" was processed and the External Engagements have been filled out. Please verify that the counts are correct.';
-	$vars = array('%fn'=>$file->filename);
-	watchdog('er', $message, $vars, WATCHDOG_INFO);
-	drupal_set_message(t($message, $vars));
+  }
 }
 
 
@@ -617,6 +625,7 @@ function er_user_view($account, $view_mode, $langcode) {
 	//d($account, '$account');
 	//d($view_mode, '$view_mode');
 	//d($langcode, '$langcode');
+  
 }
 
 /**
@@ -626,6 +635,7 @@ function er_user_view($account, $view_mode, $langcode) {
 function er_user_view_alter(&$build) {
 	global $user;
 	unset($build['flags']);//hide the flags, don't need it here.
+  //This adds the tags indicating the permissions on each field:
 	if (isset($user->roles[3])){//user is admin
 		$roles = user_roles();//3 == admin, 2 == authenticated, 1 == anonymous
 		$user_defined = $roles;
@@ -667,4 +677,13 @@ function er_user_view_alter(&$build) {
 		//d($build, '$build');
 		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
 	}
+  $build['related_content'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Related Content',
+    '#weight' => 100,
+    'table' => array(
+      '#title' => 'Related Content',
+      '#theme' => 'er_profile_related_content',
+    )
+  );
 }

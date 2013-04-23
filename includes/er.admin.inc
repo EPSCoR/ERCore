@@ -5,12 +5,6 @@
  *
  */
 function er_settings() {
-	$library = libraries_detect('PHPExcel');
-	if ($library['installed'])
-		drupal_set_message('PHPExcel library version '.$library['version'].' detected.');
-	else
-		drupal_set_message('PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.', 'error');
-	
 	//these are the default content types that show up on the list:
 	$default_types = array(//it apparently has to be weird like this in order for it to work well with variable_get...
 		////PARTICIPANTS
@@ -35,7 +29,12 @@ function er_settings() {
   if (!$types) $types = array();
 	//dsm($types);
   
-  $form['help_description'] = array(
+  $form['status'] = array(
+    '#type' => 'item',
+    '#title'=> 'ER-Core Status',
+    '#markup' => t('Access the <b>!link</b> to diagnose problems, update your installation, or reset something if it\'s broken.', array('!link'=>l('ER-Core status page', 'admin/config/epscor/er/status')))
+  );
+	$form['help_description'] = array(
     '#type' => 'item',
     '#title'=> 'Notice:',
     '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('documentation', 'admin/help/er')))
@@ -59,7 +58,6 @@ function er_settings() {
 		'#multiple' => TRUE,
 		'#description' => t("Select the content types that you want to be displayed on the summary table. <br>Each content type must have a corresponding view set up in order for it to be displayed in the summary table."),
 	);
-  
   
 	if (module_exists('er_encryption')){
 		$form['er_use_encryption'] = array(

@@ -99,6 +99,15 @@ function er_testing() {
 	//Roles
 	$role_status = er_test_role_perms();
 	//d($role_status, '$role_status');
+	foreach ($role_status['hijack'] as $rid=>$role){
+		$name = $role->name;
+		$requirements[] = array(
+			'severity' => REQUIREMENT_ERROR,
+			'title' => "Role: $name",
+			'description' => "The system found a role by the name of \"$name\" that is in conflict with ER-Core. You can choose to rename the role, or you may hijack the role for use in ER-Core's system. Hijacking the role will <u>not</u> automatically reset it's permissions.",
+			'value' => l('<i class="icon-refresh"></i> Hijack role'.($label?" $label":""), "admin/config/epscor/er/reset/hijack_roles/$rid", array('html'=>true)),
+		);
+	}	
 	foreach ($role_status['missing'] as $rid=>$name){
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
@@ -188,9 +197,9 @@ function er_testing() {
 			//'#options' => $l_options,
 			'#prefix' => '<p>',
 			'#suffix' => '</p>',
+			'#html' => true,
 		);
 	}
-	
 	//Display the table
 	$form['status'] = array(
 		"#theme"=>"er_status_report",
@@ -395,9 +404,11 @@ function er_test_role_perms(){
     ->fields('role')
     ->execute()
     ->fetchAllAssoc('rid');
-	//d($user_roles, '$user_roles');
 	
-	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
+	$user_roles_by_name = array();
+	foreach ($user_roles as $key=>$obj) $user_roles_by_name[$obj->name] = $key;
+	
+	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array(), 'hijack'=>array());
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {//Determine if current DirectoryIterator item is '.' or '..'
 			$filename = $fileinfo->getFilename();
@@ -408,7 +419,12 @@ function er_test_role_perms(){
 					$return['found'][$rid] = $user_roles[$rid];
 					unset($user_roles[$rid]);
 				}else{
-					$return['missing'][$rid] = $role['name'];
+					if ($key = $user_roles_by_name[$role['name']]){
+						$return['hijack'][$rid] = $user_roles[$key];
+						unset($user_roles[$key]);
+					}else{
+						$return['missing'][$rid] = $role['name'];
+					}
 				}
 				
 			}else{
@@ -417,4 +433,5 @@ function er_test_role_perms(){
 		}
 	}
 	$return['extra'] = $user_roles;
-	return $return;}
+	return $return;
+}

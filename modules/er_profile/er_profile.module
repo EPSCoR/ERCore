@@ -133,7 +133,8 @@ function theme_er_profile_related_content($options){
     //$content .= '<h2 class="title">'. $node_types[$type]->name . '</h2>';
     $items = array();
     foreach ($data as $node){
-      $d = array_pop(module_invoke_all('related_content_'.$type.'_item_theme', $node, $show_links));
+			$d = module_invoke_all('related_content_'.$type.'_item_theme', $node, $show_links);
+      $d = array_pop($d);
       if (!$d) $d = l($node->title, 'node/'.$node->nid); //otherwise use the default
       $flagged = $needs_review->is_flagged($node->nid);
       $items[] = array(

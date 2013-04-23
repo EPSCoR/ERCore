@@ -1,343 +1,388 @@
-<?php
-  $view = new view;
-  $view->name = 'er_report_external_engagement';
-  $view->description = '';
-  $view->tag = 'NSF Report';
-  $view->base_table = 'node';
-  $view->human_name = 'NSF Table Generator - External Engagements';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+$view = new view();
+$view->name = 'external_engagements_information';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'node';
+$view->human_name = 'External Engagements-Information';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'External Engagements Report';
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Content: Faculty - Female */
-  $handler->display->display_options['fields']['field_er_pui_fac_female']['id'] = 'field_er_pui_fac_female';
-  $handler->display->display_options['fields']['field_er_pui_fac_female']['table'] = 'field_data_field_er_pui_fac_female';
-  $handler->display->display_options['fields']['field_er_pui_fac_female']['field'] = 'field_er_pui_fac_female';
-  $handler->display->display_options['fields']['field_er_pui_fac_female']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Female */
-  $handler->display->display_options['fields']['field_er_ari_fac_female']['id'] = 'field_er_ari_fac_female';
-  $handler->display->display_options['fields']['field_er_ari_fac_female']['table'] = 'field_data_field_er_ari_fac_female';
-  $handler->display->display_options['fields']['field_er_ari_fac_female']['field'] = 'field_er_ari_fac_female';
-  $handler->display->display_options['fields']['field_er_ari_fac_female']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Female */
-  $handler->display->display_options['fields']['field_er_msi_fac_female']['id'] = 'field_er_msi_fac_female';
-  $handler->display->display_options['fields']['field_er_msi_fac_female']['table'] = 'field_data_field_er_msi_fac_female';
-  $handler->display->display_options['fields']['field_er_msi_fac_female']['field'] = 'field_er_msi_fac_female';
-  $handler->display->display_options['fields']['field_er_msi_fac_female']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Male */
-  $handler->display->display_options['fields']['field_er_msi_fac_male']['id'] = 'field_er_msi_fac_male';
-  $handler->display->display_options['fields']['field_er_msi_fac_male']['table'] = 'field_data_field_er_msi_fac_male';
-  $handler->display->display_options['fields']['field_er_msi_fac_male']['field'] = 'field_er_msi_fac_male';
-  $handler->display->display_options['fields']['field_er_msi_fac_male']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Male */
-  $handler->display->display_options['fields']['field_er_pui_fac_male']['id'] = 'field_er_pui_fac_male';
-  $handler->display->display_options['fields']['field_er_pui_fac_male']['table'] = 'field_data_field_er_pui_fac_male';
-  $handler->display->display_options['fields']['field_er_pui_fac_male']['field'] = 'field_er_pui_fac_male';
-  $handler->display->display_options['fields']['field_er_pui_fac_male']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Male */
-  $handler->display->display_options['fields']['field_er_ari_fac_male']['id'] = 'field_er_ari_fac_male';
-  $handler->display->display_options['fields']['field_er_ari_fac_male']['table'] = 'field_data_field_er_ari_fac_male';
-  $handler->display->display_options['fields']['field_er_ari_fac_male']['field'] = 'field_er_ari_fac_male';
-  $handler->display->display_options['fields']['field_er_ari_fac_male']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Total */
-  $handler->display->display_options['fields']['field_er_msi_fac_total']['id'] = 'field_er_msi_fac_total';
-  $handler->display->display_options['fields']['field_er_msi_fac_total']['table'] = 'field_data_field_er_msi_fac_total';
-  $handler->display->display_options['fields']['field_er_msi_fac_total']['field'] = 'field_er_msi_fac_total';
-  $handler->display->display_options['fields']['field_er_msi_fac_total']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Total */
-  $handler->display->display_options['fields']['field_er_ari_fac_total']['id'] = 'field_er_ari_fac_total';
-  $handler->display->display_options['fields']['field_er_ari_fac_total']['table'] = 'field_data_field_er_ari_fac_total';
-  $handler->display->display_options['fields']['field_er_ari_fac_total']['field'] = 'field_er_ari_fac_total';
-  $handler->display->display_options['fields']['field_er_ari_fac_total']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Total */
-  $handler->display->display_options['fields']['field_er_pui_fac_total']['id'] = 'field_er_pui_fac_total';
-  $handler->display->display_options['fields']['field_er_pui_fac_total']['table'] = 'field_data_field_er_pui_fac_total';
-  $handler->display->display_options['fields']['field_er_pui_fac_total']['field'] = 'field_er_pui_fac_total';
-  $handler->display->display_options['fields']['field_er_pui_fac_total']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['id'] = 'field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['table'] = 'field_data_field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['field'] = 'field_er_pui_fac_und';
-  $handler->display->display_options['fields']['field_er_pui_fac_und']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['id'] = 'field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['table'] = 'field_data_field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['field'] = 'field_er_ari_fac_und';
-  $handler->display->display_options['fields']['field_er_ari_fac_und']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Undeclared */
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['id'] = 'field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['table'] = 'field_data_field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['field'] = 'field_er_msi_fac_und';
-  $handler->display->display_options['fields']['field_er_msi_fac_und']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_msi_fac_urm']['id'] = 'field_er_msi_fac_urm';
-  $handler->display->display_options['fields']['field_er_msi_fac_urm']['table'] = 'field_data_field_er_msi_fac_urm';
-  $handler->display->display_options['fields']['field_er_msi_fac_urm']['field'] = 'field_er_msi_fac_urm';
-  $handler->display->display_options['fields']['field_er_msi_fac_urm']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_pui_fac_urm']['id'] = 'field_er_pui_fac_urm';
-  $handler->display->display_options['fields']['field_er_pui_fac_urm']['table'] = 'field_data_field_er_pui_fac_urm';
-  $handler->display->display_options['fields']['field_er_pui_fac_urm']['field'] = 'field_er_pui_fac_urm';
-  $handler->display->display_options['fields']['field_er_pui_fac_urm']['group_type'] = 'sum';
-  /* Field: Content: Faculty - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_ari_fac_urm']['id'] = 'field_er_ari_fac_urm';
-  $handler->display->display_options['fields']['field_er_ari_fac_urm']['table'] = 'field_data_field_er_ari_fac_urm';
-  $handler->display->display_options['fields']['field_er_ari_fac_urm']['field'] = 'field_er_ari_fac_urm';
-  $handler->display->display_options['fields']['field_er_ari_fac_urm']['group_type'] = 'sum';
-  /* Field: Content: Female */
-  $handler->display->display_options['fields']['field_er_oth_female']['id'] = 'field_er_oth_female';
-  $handler->display->display_options['fields']['field_er_oth_female']['table'] = 'field_data_field_er_oth_female';
-  $handler->display->display_options['fields']['field_er_oth_female']['field'] = 'field_er_oth_female';
-  $handler->display->display_options['fields']['field_er_oth_female']['group_type'] = 'sum';
-  /* Field: Content: Female */
-  $handler->display->display_options['fields']['field_er_tot_female']['id'] = 'field_er_tot_female';
-  $handler->display->display_options['fields']['field_er_tot_female']['table'] = 'field_data_field_er_tot_female';
-  $handler->display->display_options['fields']['field_er_tot_female']['field'] = 'field_er_tot_female';
-  $handler->display->display_options['fields']['field_er_tot_female']['group_type'] = 'sum';
-  /* Field: Content: Male */
-  $handler->display->display_options['fields']['field_er_tot_male']['id'] = 'field_er_tot_male';
-  $handler->display->display_options['fields']['field_er_tot_male']['table'] = 'field_data_field_er_tot_male';
-  $handler->display->display_options['fields']['field_er_tot_male']['field'] = 'field_er_tot_male';
-  $handler->display->display_options['fields']['field_er_tot_male']['group_type'] = 'sum';
-  /* Field: Content: Male */
-  $handler->display->display_options['fields']['field_er_oth_male']['id'] = 'field_er_oth_male';
-  $handler->display->display_options['fields']['field_er_oth_male']['table'] = 'field_data_field_er_oth_male';
-  $handler->display->display_options['fields']['field_er_oth_male']['field'] = 'field_er_oth_male';
-  $handler->display->display_options['fields']['field_er_oth_male']['group_type'] = 'sum';
-  /* Field: Content: Students - Female */
-  $handler->display->display_options['fields']['field_er_pui_stu_female']['id'] = 'field_er_pui_stu_female';
-  $handler->display->display_options['fields']['field_er_pui_stu_female']['table'] = 'field_data_field_er_pui_stu_female';
-  $handler->display->display_options['fields']['field_er_pui_stu_female']['field'] = 'field_er_pui_stu_female';
-  $handler->display->display_options['fields']['field_er_pui_stu_female']['group_type'] = 'sum';
-  /* Field: Content: Students - Female */
-  $handler->display->display_options['fields']['field_er_msi_stu_female']['id'] = 'field_er_msi_stu_female';
-  $handler->display->display_options['fields']['field_er_msi_stu_female']['table'] = 'field_data_field_er_msi_stu_female';
-  $handler->display->display_options['fields']['field_er_msi_stu_female']['field'] = 'field_er_msi_stu_female';
-  $handler->display->display_options['fields']['field_er_msi_stu_female']['group_type'] = 'sum';
-  /* Field: Content: Students - Female */
-  $handler->display->display_options['fields']['field_er_ari_stu_female']['id'] = 'field_er_ari_stu_female';
-  $handler->display->display_options['fields']['field_er_ari_stu_female']['table'] = 'field_data_field_er_ari_stu_female';
-  $handler->display->display_options['fields']['field_er_ari_stu_female']['field'] = 'field_er_ari_stu_female';
-  $handler->display->display_options['fields']['field_er_ari_stu_female']['group_type'] = 'sum';
-  /* Field: Content: Students - Male */
-  $handler->display->display_options['fields']['field_er_msi_stu_male']['id'] = 'field_er_msi_stu_male';
-  $handler->display->display_options['fields']['field_er_msi_stu_male']['table'] = 'field_data_field_er_msi_stu_male';
-  $handler->display->display_options['fields']['field_er_msi_stu_male']['field'] = 'field_er_msi_stu_male';
-  $handler->display->display_options['fields']['field_er_msi_stu_male']['group_type'] = 'sum';
-  /* Field: Content: Students - Male */
-  $handler->display->display_options['fields']['field_er_ari_stu_male']['id'] = 'field_er_ari_stu_male';
-  $handler->display->display_options['fields']['field_er_ari_stu_male']['table'] = 'field_data_field_er_ari_stu_male';
-  $handler->display->display_options['fields']['field_er_ari_stu_male']['field'] = 'field_er_ari_stu_male';
-  $handler->display->display_options['fields']['field_er_ari_stu_male']['group_type'] = 'sum';
-  /* Field: Content: Students - Male */
-  $handler->display->display_options['fields']['field_er_pui_stu_male']['id'] = 'field_er_pui_stu_male';
-  $handler->display->display_options['fields']['field_er_pui_stu_male']['table'] = 'field_data_field_er_pui_stu_male';
-  $handler->display->display_options['fields']['field_er_pui_stu_male']['field'] = 'field_er_pui_stu_male';
-  $handler->display->display_options['fields']['field_er_pui_stu_male']['group_type'] = 'sum';
-  /* Field: Content: Students - Total */
-  $handler->display->display_options['fields']['field_er_msi_stu_total']['id'] = 'field_er_msi_stu_total';
-  $handler->display->display_options['fields']['field_er_msi_stu_total']['table'] = 'field_data_field_er_msi_stu_total';
-  $handler->display->display_options['fields']['field_er_msi_stu_total']['field'] = 'field_er_msi_stu_total';
-  $handler->display->display_options['fields']['field_er_msi_stu_total']['group_type'] = 'sum';
-  /* Field: Content: Students - Total */
-  $handler->display->display_options['fields']['field_er_pui_stu_total']['id'] = 'field_er_pui_stu_total';
-  $handler->display->display_options['fields']['field_er_pui_stu_total']['table'] = 'field_data_field_er_pui_stu_total';
-  $handler->display->display_options['fields']['field_er_pui_stu_total']['field'] = 'field_er_pui_stu_total';
-  $handler->display->display_options['fields']['field_er_pui_stu_total']['group_type'] = 'sum';
-  /* Field: Content: Students - Total */
-  $handler->display->display_options['fields']['field_er_ari_stu_total']['id'] = 'field_er_ari_stu_total';
-  $handler->display->display_options['fields']['field_er_ari_stu_total']['table'] = 'field_data_field_er_ari_stu_total';
-  $handler->display->display_options['fields']['field_er_ari_stu_total']['field'] = 'field_er_ari_stu_total';
-  $handler->display->display_options['fields']['field_er_ari_stu_total']['group_type'] = 'sum';
-  /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['id'] = 'field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['table'] = 'field_data_field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['field'] = 'field_er_ari_stu_und';
-  $handler->display->display_options['fields']['field_er_ari_stu_und']['group_type'] = 'sum';
-  /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['id'] = 'field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['table'] = 'field_data_field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['field'] = 'field_er_pui_stu_und';
-  $handler->display->display_options['fields']['field_er_pui_stu_und']['group_type'] = 'sum';
-  /* Field: Content: Students - Undeclared */
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['id'] = 'field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['table'] = 'field_data_field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['field'] = 'field_er_msi_stu_und';
-  $handler->display->display_options['fields']['field_er_msi_stu_und']['group_type'] = 'sum';
-  /* Field: Content: Students - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_msi_stu_urm']['id'] = 'field_er_msi_stu_urm';
-  $handler->display->display_options['fields']['field_er_msi_stu_urm']['table'] = 'field_data_field_er_msi_stu_urm';
-  $handler->display->display_options['fields']['field_er_msi_stu_urm']['field'] = 'field_er_msi_stu_urm';
-  $handler->display->display_options['fields']['field_er_msi_stu_urm']['group_type'] = 'sum';
-  /* Field: Content: Students - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_pui_stu_urm']['id'] = 'field_er_pui_stu_urm';
-  $handler->display->display_options['fields']['field_er_pui_stu_urm']['table'] = 'field_data_field_er_pui_stu_urm';
-  $handler->display->display_options['fields']['field_er_pui_stu_urm']['field'] = 'field_er_pui_stu_urm';
-  $handler->display->display_options['fields']['field_er_pui_stu_urm']['group_type'] = 'sum';
-  /* Field: Content: Students - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_ari_stu_urm']['id'] = 'field_er_ari_stu_urm';
-  $handler->display->display_options['fields']['field_er_ari_stu_urm']['table'] = 'field_data_field_er_ari_stu_urm';
-  $handler->display->display_options['fields']['field_er_ari_stu_urm']['field'] = 'field_er_ari_stu_urm';
-  $handler->display->display_options['fields']['field_er_ari_stu_urm']['group_type'] = 'sum';
-  /* Field: Content: Students Reached Directly - Female */
-  $handler->display->display_options['fields']['field_er_k12i_stud_female']['id'] = 'field_er_k12i_stud_female';
-  $handler->display->display_options['fields']['field_er_k12i_stud_female']['table'] = 'field_data_field_er_k12i_stud_female';
-  $handler->display->display_options['fields']['field_er_k12i_stud_female']['field'] = 'field_er_k12i_stud_female';
-  $handler->display->display_options['fields']['field_er_k12i_stud_female']['group_type'] = 'sum';
-  /* Field: Content: Students Reached Directly - Male */
-  $handler->display->display_options['fields']['field_er_k12i_stud_male']['id'] = 'field_er_k12i_stud_male';
-  $handler->display->display_options['fields']['field_er_k12i_stud_male']['table'] = 'field_data_field_er_k12i_stud_male';
-  $handler->display->display_options['fields']['field_er_k12i_stud_male']['field'] = 'field_er_k12i_stud_male';
-  $handler->display->display_options['fields']['field_er_k12i_stud_male']['group_type'] = 'sum';
-  /* Field: Content: Students Reached Directly - Total */
-  $handler->display->display_options['fields']['field_er_k12i_stud_total']['id'] = 'field_er_k12i_stud_total';
-  $handler->display->display_options['fields']['field_er_k12i_stud_total']['table'] = 'field_data_field_er_k12i_stud_total';
-  $handler->display->display_options['fields']['field_er_k12i_stud_total']['field'] = 'field_er_k12i_stud_total';
-  $handler->display->display_options['fields']['field_er_k12i_stud_total']['group_type'] = 'sum';
-  /* Field: Content: Students Reached Directly - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['id'] = 'field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['table'] = 'field_data_field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['field'] = 'field_er_k12i_stud_und';
-  $handler->display->display_options['fields']['field_er_k12i_stud_und']['group_type'] = 'sum';
-  /* Field: Content: Students Reached Directly - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_k12i_stud_urm']['id'] = 'field_er_k12i_stud_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stud_urm']['table'] = 'field_data_field_er_k12i_stud_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stud_urm']['field'] = 'field_er_k12i_stud_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stud_urm']['group_type'] = 'sum';
-  /* Field: Content: Students Reached via Teach. Training - Female */
-  $handler->display->display_options['fields']['field_er_k12i_stut_female']['id'] = 'field_er_k12i_stut_female';
-  $handler->display->display_options['fields']['field_er_k12i_stut_female']['table'] = 'field_data_field_er_k12i_stut_female';
-  $handler->display->display_options['fields']['field_er_k12i_stut_female']['field'] = 'field_er_k12i_stut_female';
-  $handler->display->display_options['fields']['field_er_k12i_stut_female']['group_type'] = 'sum';
-  /* Field: Content: Students Reached via Teach. Training - Male */
-  $handler->display->display_options['fields']['field_er_k12i_stut_male']['id'] = 'field_er_k12i_stut_male';
-  $handler->display->display_options['fields']['field_er_k12i_stut_male']['table'] = 'field_data_field_er_k12i_stut_male';
-  $handler->display->display_options['fields']['field_er_k12i_stut_male']['field'] = 'field_er_k12i_stut_male';
-  $handler->display->display_options['fields']['field_er_k12i_stut_male']['group_type'] = 'sum';
-  /* Field: Content: Students Reached via Teach. Training - Total */
-  $handler->display->display_options['fields']['field_er_k12i_stut_total']['id'] = 'field_er_k12i_stut_total';
-  $handler->display->display_options['fields']['field_er_k12i_stut_total']['table'] = 'field_data_field_er_k12i_stut_total';
-  $handler->display->display_options['fields']['field_er_k12i_stut_total']['field'] = 'field_er_k12i_stut_total';
-  $handler->display->display_options['fields']['field_er_k12i_stut_total']['group_type'] = 'sum';
-  /* Field: Content: Students Reached via Teach. Training - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['id'] = 'field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['table'] = 'field_data_field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['field'] = 'field_er_k12i_stut_und';
-  $handler->display->display_options['fields']['field_er_k12i_stut_und']['group_type'] = 'sum';
-  /* Field: Content: Students Reached via Teach. Training - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_k12i_stut_urm']['id'] = 'field_er_k12i_stut_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stut_urm']['table'] = 'field_data_field_er_k12i_stut_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stut_urm']['field'] = 'field_er_k12i_stut_urm';
-  $handler->display->display_options['fields']['field_er_k12i_stut_urm']['group_type'] = 'sum';
-  /* Field: Content: Teachers - Female */
-  $handler->display->display_options['fields']['field_er_k12i_tec_female']['id'] = 'field_er_k12i_tec_female';
-  $handler->display->display_options['fields']['field_er_k12i_tec_female']['table'] = 'field_data_field_er_k12i_tec_female';
-  $handler->display->display_options['fields']['field_er_k12i_tec_female']['field'] = 'field_er_k12i_tec_female';
-  $handler->display->display_options['fields']['field_er_k12i_tec_female']['group_type'] = 'sum';
-  /* Field: Content: Teachers - Male */
-  $handler->display->display_options['fields']['field_er_k12i_tec_male']['id'] = 'field_er_k12i_tec_male';
-  $handler->display->display_options['fields']['field_er_k12i_tec_male']['table'] = 'field_data_field_er_k12i_tec_male';
-  $handler->display->display_options['fields']['field_er_k12i_tec_male']['field'] = 'field_er_k12i_tec_male';
-  $handler->display->display_options['fields']['field_er_k12i_tec_male']['group_type'] = 'sum';
-  /* Field: Content: Teachers - Total */
-  $handler->display->display_options['fields']['field_er_k12i_tec_total']['id'] = 'field_er_k12i_tec_total';
-  $handler->display->display_options['fields']['field_er_k12i_tec_total']['table'] = 'field_data_field_er_k12i_tec_total';
-  $handler->display->display_options['fields']['field_er_k12i_tec_total']['field'] = 'field_er_k12i_tec_total';
-  $handler->display->display_options['fields']['field_er_k12i_tec_total']['group_type'] = 'sum';
-  /* Field: Content: Teachers - Undeclared */
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['id'] = 'field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['table'] = 'field_data_field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['field'] = 'field_er_k12i_tec_und';
-  $handler->display->display_options['fields']['field_er_k12i_tec_und']['group_type'] = 'sum';
-  /* Field: Content: Teachers - Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_k12i_tec_urm']['id'] = 'field_er_k12i_tec_urm';
-  $handler->display->display_options['fields']['field_er_k12i_tec_urm']['table'] = 'field_data_field_er_k12i_tec_urm';
-  $handler->display->display_options['fields']['field_er_k12i_tec_urm']['field'] = 'field_er_k12i_tec_urm';
-  $handler->display->display_options['fields']['field_er_k12i_tec_urm']['group_type'] = 'sum';
-  /* Field: Content: Total */
-  $handler->display->display_options['fields']['field_er_oth_total']['id'] = 'field_er_oth_total';
-  $handler->display->display_options['fields']['field_er_oth_total']['table'] = 'field_data_field_er_oth_total';
-  $handler->display->display_options['fields']['field_er_oth_total']['field'] = 'field_er_oth_total';
-  $handler->display->display_options['fields']['field_er_oth_total']['group_type'] = 'sum';
-  /* Field: Content: Total */
-  $handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
-  $handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
-  $handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
-  $handler->display->display_options['fields']['field_er_tot_total']['group_type'] = 'sum';
-  /* Field: Content: Undeclared */
-  $handler->display->display_options['fields']['field_er_oth_und']['id'] = 'field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['table'] = 'field_data_field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['field'] = 'field_er_oth_und';
-  $handler->display->display_options['fields']['field_er_oth_und']['group_type'] = 'sum';
-  /* Field: Content: Undeclared */
-  $handler->display->display_options['fields']['field_er_tot_und']['id'] = 'field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['table'] = 'field_data_field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['field'] = 'field_er_tot_und';
-  $handler->display->display_options['fields']['field_er_tot_und']['group_type'] = 'sum';
-  /* Field: Content: Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_oth_urm']['id'] = 'field_er_oth_urm';
-  $handler->display->display_options['fields']['field_er_oth_urm']['table'] = 'field_data_field_er_oth_urm';
-  $handler->display->display_options['fields']['field_er_oth_urm']['field'] = 'field_er_oth_urm';
-  $handler->display->display_options['fields']['field_er_oth_urm']['group_type'] = 'sum';
-  /* Field: Content: Under-represented Minority */
-  $handler->display->display_options['fields']['field_er_tot_urm']['id'] = 'field_er_tot_urm';
-  $handler->display->display_options['fields']['field_er_tot_urm']['table'] = 'field_data_field_er_tot_urm';
-  $handler->display->display_options['fields']['field_er_tot_urm']['field'] = 'field_er_tot_urm';
-  $handler->display->display_options['fields']['field_er_tot_urm']['group_type'] = 'sum';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'er_engagement' => 'er_engagement',
-  );
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'External Engagements-Information';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'title' => 'title',
+  'field_external_engagements_instr' => 'field_external_engagements_instr',
+  'created' => 'created',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'title' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_external_engagements_instr' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+/* Relationship: Content: Author */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'node';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Sort criterion: Content: Post date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'node';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
 
-  /* Display: Attachment */
-  $handler = $view->new_display('attachment', 'Attachment', 'count');
-  $handler->display->display_options['defaults']['group_by'] = FALSE;
-  $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Externally Engaged Events';
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all Calendar Events which are qualified (will the public attend this event = yes)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Path */
+$handler->display->display_options['fields']['path']['id'] = 'path';
+$handler->display->display_options['fields']['path']['table'] = 'node';
+$handler->display->display_options['fields']['path']['field'] = 'path';
+$handler->display->display_options['fields']['path']['exclude'] = TRUE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = 'Calendar Event Title';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Date */
+$handler->display->display_options['fields']['field_er_cal_event_date']['id'] = 'field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['field'] = 'field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['settings'] = array(
+  'format_type' => 'long',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['fields']['field_er_cal_event_date']['delta_offset'] = '0';
+/* Field: Content: Presenter(s) */
+$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Point of Contact';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['relationship'] = 'uid';
+$handler->display->display_options['fields']['name']['label'] = 'Author';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
+$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+  2 => '2',
+  66784200 => 0,
+  137756511 => 0,
+  166149871 => 0,
+  3 => 0,
+  1 => 0,
+);
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_event' => 'er_event',
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Will this event be attended by non-EPSCoR participants (field_er_event_reminders) */
+$handler->display->display_options['filters']['field_er_event_reminders_value']['id'] = 'field_er_event_reminders_value';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['table'] = 'field_data_field_er_event_reminders';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['field'] = 'field_er_event_reminders_value';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['value'] = array(
+  1 => '1',
+);
+$handler->display->display_options['path'] = 'admin/epscor/views/external-engagements-information';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'External Engagements Information';
+$handler->display->display_options['menu']['description'] = 'External Engagements Information';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+
+/* Display: EE with Data */
+$handler = $view->new_display('attachment', 'EE with Data', 'attachment_1');
+$handler->display->display_options['display_description'] = 'External Engagement table with data ';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all External Engagements that have data.</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = 'External Engagement';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Calendar Event Title */
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: Content: Total */
+$handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['label'] = 'Total Attendees';
+$handler->display->display_options['fields']['field_er_tot_total']['settings'] = array(
+  'thousand_separator' => ' ',
+  'prefix_suffix' => 1,
+);
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Calendar Event Title (field_er_cal_entity_reference) */
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['id'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['field'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['order'] = 'DESC';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Total (field_er_tot_total) */
+$handler->display->display_options['filters']['field_er_tot_total_value']['id'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['filters']['field_er_tot_total_value']['field'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['operator'] = '!=';
+$handler->display->display_options['filters']['field_er_tot_total_value']['value']['value'] = '0';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['attachment_position'] = 'after';
+
+/* Display: EE without Data */
+$handler = $view->new_display('attachment', 'EE without Data', 'attachment_2');
+$handler->display->display_options['display_description'] = 'External Engagement without data';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'title' => 'title',
+  'field_er_cal_entity_reference' => 'field_er_cal_entity_reference',
+  'created' => 'created',
+  'field_er_tot_total' => 'field_er_tot_total',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'title' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_cal_entity_reference' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_tot_total' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['empty_table'] = TRUE;
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all external engagements that DO NOT have data entered.</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Calendar Event Title */
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: Content: Total */
+$handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['settings'] = array(
+  'thousand_separator' => ' ',
+  'prefix_suffix' => 1,
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Total (field_er_tot_total) */
+$handler->display->display_options['filters']['field_er_tot_total_value']['id'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['filters']['field_er_tot_total_value']['field'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['value']['value'] = '0';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['attachment_position'] = 'after';
