@@ -15,6 +15,7 @@ dependencies[] = date_views
 dependencies[] = date_popup
 dependencies[] = entity
 dependencies[] = entityreference
+dependencies[] = entityreference_prepopulate
 dependencies[] = field_group
 dependencies[] = link
 dependencies[] = php
