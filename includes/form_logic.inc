@@ -152,10 +152,9 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'visible' => $denied,
 	  'required' => $denied,
 	);	
-	
-	
-	
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+
+	// This automatically attaches the user's name to this field...	
+	//er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Current and Pending Support - Effort
