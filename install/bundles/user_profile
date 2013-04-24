@@ -6261,7 +6261,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Certifications',
+      'label' => 'Certifications and Supporting Documents',
       'weight' => '64',
       'children' => array(
         0 => 'field_er_additional_doc',
@@ -6276,7 +6276,7 @@ White|White',
       ),
       'format_type' => 'tab',
       'format_settings' => array(
-        'label' => 'Certifications',
+        'label' => 'Certifications and Supporting Documents',
         'instance_settings' => array(
           'required_fields' => 0,
           'classes' => '',
