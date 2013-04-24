@@ -288,7 +288,7 @@ function er_installer_reset_callback($type, $filename){
  *  that will reset/re-run some part of the installation process.
  */
 function er_installer_reset_form($form, &$form_state){
-	$acceptable = er_get_install_types();
+	$acceptable = er_get_install_types(true);
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		$button_label = t('Reset');
@@ -383,7 +383,7 @@ function er_batch_api_callbacks($include_specials = true){
 
 
 //This just returns the list of acceptable installation types...
-function er_get_install_types($include_specials = true){
+function er_get_install_types($include_specials = false){
 	return array_keys(er_batch_api_callbacks($include_specials)) + array("all");
 }
 

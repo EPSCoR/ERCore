@@ -188,7 +188,7 @@ function er_testing() {
 		'#collapsed'=>true,
 	);
 	
-	$installation_types = er_get_install_types(false);//don't include the special functions...
+	$installation_types = er_get_install_types();//don't include the special functions...
 	foreach ($installation_types as $type){
 		$form['reset'][$type] = array(
 			'#type' => 'link',
