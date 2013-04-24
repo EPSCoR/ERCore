@@ -1,4 +1,3 @@
-<?php
 $view = new view();
 $view->name = 'er_users';
 $view->description = '';
@@ -73,14 +72,6 @@ $handler->display->display_options['style_options']['info'] = array(
     'empty_column' => 0,
   ),
 );
-/* Field: User: Last Name */
-$handler->display->display_options['fields']['field_er_lname']['id'] = 'field_er_lname';
-$handler->display->display_options['fields']['field_er_lname']['table'] = 'field_data_field_er_lname';
-$handler->display->display_options['fields']['field_er_lname']['field'] = 'field_er_lname';
-/* Field: User: First Name */
-$handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
-$handler->display->display_options['fields']['field_er_fname']['table'] = 'field_data_field_er_fname';
-$handler->display->display_options['fields']['field_er_fname']['field'] = 'field_er_fname';
 /* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -385,7 +376,7 @@ $handler->display->display_options['defaults']['header'] = FALSE;
 $handler->display->display_options['header']['area']['id'] = 'area';
 $handler->display->display_options['header']['area']['table'] = 'views';
 $handler->display->display_options['header']['area']['field'] = 'area';
-$handler->display->display_options['header']['area']['content'] = '<em><strong>This view lists all Users who have indicated that “I’ll Be Collecting Data” box AND that they have not been in contact with the data manager.<em><strong>';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all users who have indicated that they will be collecting data <em>AND</em> that they <em>HAVE NOT</em> been in contact with the data manager.</h2>';
 $handler->display->display_options['header']['area']['format'] = 'full_html';
 $handler->display->display_options['defaults']['relationships'] = FALSE;
 /* Relationship: User: Content authored */
@@ -400,27 +391,29 @@ $handler->display->display_options['fields']['field_er_realname']['field'] = 'fi
 $handler->display->display_options['fields']['field_er_realname']['alter']['path'] = '[view_user] == User: Link';
 $handler->display->display_options['fields']['field_er_realname']['alter']['strip_tags'] = TRUE;
 $handler->display->display_options['fields']['field_er_realname']['type'] = 'computed_field_markup';
-/* Field: User: Edit link */
-$handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-$handler->display->display_options['fields']['edit_node']['table'] = 'users';
-$handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-$handler->display->display_options['fields']['edit_node']['label'] = 'This staff member has not contacted the data manager.';
-$handler->display->display_options['fields']['edit_node']['text'] = 'click here to update this user';
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['label'] = 'Update';
+$handler->display->display_options['fields']['uid']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['uid']['alter']['text'] = 'click here to update this user';
+$handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
+$handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit#edit-field-er-has-this-user';
+$handler->display->display_options['fields']['uid']['alter']['alt'] = 'click here to update this user';
+$handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
 /* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
 $handler->display->display_options['fields']['name']['field'] = 'name';
 $handler->display->display_options['fields']['name']['label'] = 'System User Name';
 $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-/* Field: User: Uid */
-$handler->display->display_options['fields']['uid']['id'] = 'uid';
-$handler->display->display_options['fields']['uid']['table'] = 'users';
-$handler->display->display_options['fields']['uid']['field'] = 'uid';
-$handler->display->display_options['fields']['uid']['exclude'] = TRUE;
 /* Field: User: Type of Data */
 $handler->display->display_options['fields']['field_er_type_of_data']['id'] = 'field_er_type_of_data';
 $handler->display->display_options['fields']['field_er_type_of_data']['table'] = 'field_data_field_er_type_of_data';
 $handler->display->display_options['fields']['field_er_type_of_data']['field'] = 'field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['alter']['max_length'] = '225';
+$handler->display->display_options['fields']['field_er_type_of_data']['alter']['trim'] = TRUE;
 /* Field: User: Data Repository Submission */
 $handler->display->display_options['fields']['field_er_data_submit_date']['id'] = 'field_er_data_submit_date';
 $handler->display->display_options['fields']['field_er_data_submit_date']['table'] = 'field_data_field_er_data_submit_date';
@@ -453,9 +446,9 @@ $handler->display->display_options['filters']['field_er_collecting_data_bool_val
 $handler->display->display_options['filters']['field_er_has_this_user_value']['id'] = 'field_er_has_this_user_value';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['table'] = 'field_data_field_er_has_this_user';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['field'] = 'field_er_has_this_user_value';
-$handler->display->display_options['filters']['field_er_has_this_user_value']['operator'] = 'not';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['operator'] = 'and';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['value'] = array(
-  1 => '1',
+  0 => '0',
 );
 $handler->display->display_options['filters']['field_er_has_this_user_value']['reduce_duplicates'] = TRUE;
 $handler->display->display_options['path'] = 'admin/epscor/views/collecting-data-information';
@@ -581,3 +574,87 @@ $handler->display->display_options['menu']['title'] = 'User Activity2';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
+
+/* Display: Collecting Data AND is in contact with Manager */
+$handler = $view->new_display('attachment', 'Collecting Data AND is in contact with Manager', 'attachment_1');
+$handler->display->display_options['display_description'] = 'Collecting Data AND is in contact with Data Manager';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all users who will be collecting data and have been in contact with the data manager.</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
+$handler->display->display_options['fields']['field_er_realname']['field'] = 'field_er_realname';
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['label'] = 'Update';
+$handler->display->display_options['fields']['uid']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['uid']['alter']['text'] = 'click here to update this user';
+$handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
+$handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit#edit-field-er-has-this-user';
+$handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+/* Field: User: Type of Data */
+$handler->display->display_options['fields']['field_er_type_of_data']['id'] = 'field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['table'] = 'field_data_field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['field'] = 'field_er_type_of_data';
+$handler->display->display_options['fields']['field_er_type_of_data']['alter']['max_length'] = '225';
+$handler->display->display_options['fields']['field_er_type_of_data']['alter']['trim'] = TRUE;
+/* Field: User: Data Repository Submission */
+$handler->display->display_options['fields']['field_er_data_submit_date']['id'] = 'field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['table'] = 'field_data_field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['field'] = 'field_er_data_submit_date';
+$handler->display->display_options['fields']['field_er_data_submit_date']['settings'] = array(
+  'format_type' => 'short',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: I will be collecting data (field_er_collecting_data_bool) */
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['id'] = 'field_er_collecting_data_bool_value';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['table'] = 'field_data_field_er_collecting_data_bool';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['field'] = 'field_er_collecting_data_bool_value';
+$handler->display->display_options['filters']['field_er_collecting_data_bool_value']['value'] = array(
+  1 => '1',
+);
+/* Filter criterion: User: Has this user been put in touch with the Data Manager? (field_er_has_this_user) */
+$handler->display->display_options['filters']['field_er_has_this_user_value']['id'] = 'field_er_has_this_user_value';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['table'] = 'field_data_field_er_has_this_user';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['field'] = 'field_er_has_this_user_value';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['operator'] = 'and';
+$handler->display->display_options['filters']['field_er_has_this_user_value']['value'] = array(
+  1 => '1',
+);
+$handler->display->display_options['displays'] = array(
+  'page_1' => 'page_1',
+  'default' => 0,
+  'page' => 0,
+  'page_2' => 0,
+  'page_3' => 0,
+);
+$handler->display->display_options['attachment_position'] = 'after';
