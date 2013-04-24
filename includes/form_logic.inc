@@ -152,10 +152,9 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'visible' => $denied,
 	  'required' => $denied,
 	);	
-	
-	
-	
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+
+	// This automatically attaches the user's name to this field...	
+	//er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Current and Pending Support - Effort
@@ -232,6 +231,16 @@ function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 // Presentation
 function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+	
+	// smart form to show "Other" text box...
+	  $presOther = array(
+			':input[name="field_er_type_of_presentation[und]"]' => array('value' => 'Other'),
+		);
+	  // These fields will be visible, and required
+	  $form['field_er_other_pres']['#states'] = array(
+	      'visible' => $presOther
+	  );
+	
 }
 
 // Publication

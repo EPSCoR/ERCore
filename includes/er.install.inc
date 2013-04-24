@@ -167,7 +167,8 @@ function er_batch_hijack_roles($file_path, &$context){
 	if (file_exists($file_path)){
 		include($file_path);//$role variable becomes available
 		$db_role = er_get_role_by_name($role['name']);
-		if (isset($db_role->rid) && $internal_role = user_role_load($db_role->rid)){
+		if (isset($db_role->rid)){
+			$internal_role = $db_role;
 			$internal_role->static_rid = $role['rid'];//get the system to reset it's rid to the one that is expected.
 			$status = user_role_save($internal_role);
 			watchdog('er', "Role {$role['name']} successfully hijacked.");
@@ -192,24 +193,13 @@ function er_batch_import_role($file_path, &$context){
 			$rid = $role['rid'];
 			$name = $role['name'];
 			if (user_role_load($rid) === FALSE){//role does not exist
-				if (count(er_get_role_by_name($role['name']))){
-					$error = "Unable to create role! The name \"$name\" was already taken!";
-					watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-					drupal_set_message($error, 'error');
-					return;
-				}else{
-					$new_role = (object) array(
-						'name' => $role['name'],
-						'static_rid' => $role['rid'],
-					);
-					$status = user_role_save($new_role);
-					watchdog('er', "Role {$role['name']} successfully created.");
-				}
-				
 				$new_role = (object) array(
 					'name' => $role['name'],
-					'static_rid' => $role['rid'],
 				);
+				$db_role = er_get_role_by_name($role['name']);//if a role by this name already exists, just hijack it.
+				if (isset($db_role->rid))
+					$new_role = $db_role;//hijack the role.
+				$new_role->static_rid = $role['rid'];
 				$status = user_role_save($new_role);
 				watchdog('er', "Role {$role['name']} successfully created.");
 			}
@@ -298,7 +288,7 @@ function er_installer_reset_callback($type, $filename){
  *  that will reset/re-run some part of the installation process.
  */
 function er_installer_reset_form($form, &$form_state){
-	$acceptable = er_get_install_types();
+	$acceptable = er_get_install_types(true);
 	list($type, $filename) = $form_state['build_info']['args'];//Note: $type comes directly from user input. Don't trust it.
 	if (in_array($type, $acceptable)){//only accept certain known values.
 		$button_label = t('Reset');
@@ -346,7 +336,7 @@ function er_batch_reset($type = "all", $filename = "", $op = ""){
 	batch_process('admin/config/epscor/er/status');
 }
 
-function er_batch_api_callbacks(){
+function er_batch_api_callbacks($include_specials = true){
 	/*
 	Note: We should install things in this order:
 		- create taxonomy terms, they will be used by Entity Reference fields when we create Content Types
@@ -378,8 +368,9 @@ function er_batch_api_callbacks(){
 		"rules"=>array(
 			'directory'=>'rules',
 			'callback'=>"er_batch_import_rules",
-		),
-		
+		)
+	);
+	static $special_functions = array(
 		//Special functions:
 		//These do not correspond to installation types, but still may be run through batch api.
 		"hijack_roles"=>array(
@@ -387,13 +378,13 @@ function er_batch_api_callbacks(){
 			'callback'=>"er_batch_hijack_roles",
 		),
 	);
-	return $install_types;
+	return $include_specials?$install_types+$special_functions:$install_types;
 }
 
 
 //This just returns the list of acceptable installation types...
-function er_get_install_types(){
-	return array_keys(er_batch_api_callbacks()) + array("all");
+function er_get_install_types($include_specials = false){
+	return array_keys(er_batch_api_callbacks($include_specials)) + array("all");
 }
 
 /**
