@@ -683,7 +683,7 @@ function er_user_view_alter(&$build) {
     '#weight' => 100,
     'table' => array(
       '#title' => 'Related Content',
-      '#theme' => 'er_profile_related_content',
+      '#theme' => 'er_related_content',
     )
   );
 }

@@ -26,6 +26,7 @@ class er_summary extends er_page{
    * Function returns the final html markup for this page.
    */
   public function html(){
+		//see: includes/accomplishments.inc
 		return drupal_get_form('er_date_range_form');
   }
 }

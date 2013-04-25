@@ -17,7 +17,7 @@ $plugin = array(
 
 function er_profile_related_content_content_type_render($subtype, $conf, $context = NULL) {
   //$block->title = 'Related Content';
-  $block->content = theme('er_profile_related_content', array('conf'=>$conf));
+  $block->content = theme('er_related_content', array('conf'=>$conf));
   $block->css_id = "related-content";
   //$block->css_class = "related-content";
   return $block;

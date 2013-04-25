@@ -48,6 +48,11 @@ function er_theme($existing, $type, $theme, $path){
 			'template' => 'node-er_collaboration',
 			'path' => $path,
 		),
+		'er_related_content' => array(
+			'variables' => array('conf' => array('links'=>1, 'type'=>2)),
+			'function' => 'theme_er_related_content',
+			'file' => 'includes/related_content.inc',
+		),
 	);
 	return $theme;
 }
