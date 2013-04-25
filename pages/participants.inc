@@ -64,11 +64,15 @@ class er_participants extends er_page{
 		$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
 		//Join in position type
 		$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
+		//Join in field_er_160hours field
+		$query->leftJoin('field_data_field_er_160hours', '160hours', 'users.uid = 160hours.entity_id');
 		
 		//only give me valid position types (not Other, or Evaluation)
 		$query->condition('position_type.field_er_position_type_value', $this->categories, 'IN');
 		//Institution must be "Participating"
 		$query->condition('participating.field_er_inst_participating_value', '1', '=');
+		//Participants must be >160hrs
+		$query->condition('160hours.field_er_160hours_value', '1', '=');
 		
 		$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
 		$query->addField('position_type', 'field_er_position_type_value', 'position_type');
