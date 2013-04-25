@@ -64,21 +64,23 @@ class er_collaborations extends er_page{
 				}else{
 					//dsm($results, "$type - $category");
 					foreach ($results as $result){
-						$nid = $result->nid;
+						$nid = $result->node_field_data_field_er_collab_ref_nid;
 						//this is necessary because it would show the institutions once for each person on the collab, which isn't correct.
 						if (!isset($data[$category][$type]["Institutions"][$nid])){
 							//dsm($result);
 							$data[$category][$type]["Institutions"][$nid] = array(
-								"title"=>$result->node_title,
-								"inst_title"=>$result->node_field_data_field_er_inst_ref_title,
+								"title"=>$result->node_field_data_field_er_collab_ref_title ,
+								"inst_title"=>$result->node_field_data_field_er_collab_inst_ref_title,
 								"inst_type"=>$this->tryget($result, 'field_field_er_inst_type', 'undefined'),
 								"inst_category"=>$this->tryget($result, 'field_field_er_inst_category', 'undefined'),
 								"inst_nid"=>$result->node_field_data_field_er_inst_ref_nid,
+								"nid"=>$nid,
 							);
 						}
+						d($result, '$result');
 						$data[$category][$type]["Collaborators"][] = array(
-							"title"=>$result->node_title,
-							"inst_title"=>$result->node_field_data_field_er_inst_ref_title,
+							"title"=>$result->node_field_data_field_er_collab_ref_title,
+							"inst_title"=>$result->node_field_data_field_er_collab_inst_ref_title,
 							"names"=>$this->tryget($result, 'field_field_er_collab_names', 'None'),
 							"nid"=>$nid,
 						);
@@ -122,9 +124,9 @@ class er_collaborations extends er_page{
 								$ret .= "<li>";
 								if ($count_type == 'Collaborators'){
 									$ret .= "<strong>".$v['names']."</strong><br>"
-												 ."Institution: ".$v['inst_title']."<br>";
+												 ."Institution: ".l($v['inst_title'], 'node/'.$v['inst_nid'])."<br>";
 								}else{
-									$ret .= "<strong>".$v['inst_title']."</strong><br>";
+									$ret .= "<strong>".l($v['inst_title'], 'node/'.$v['inst_nid'])."</strong><br>";
 										//."Type: ".$v['inst_type']."<br>"
 										//."Category: ".$v['inst_category']."<br>"
 								}
