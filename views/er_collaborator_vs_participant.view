@@ -1,0 +1,78 @@
+<p>$view = new view;<br>
+  $view->name = 'er_collaborator_vs_participant';<br>
+  $view->description = '';<br>
+  $view->tag = 'default';<br>
+  $view->base_table = 'users';<br>
+  $view->human_name = 'er_collaborator_vs_participant';<br>
+  $view->core = 7;<br>
+  $view->api_version = '3.0';<br>
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */</p>
+<p>/* Display: Master */<br>
+  $handler = $view->new_display('default', 'Master', 'default');<br>
+  $handler->display->display_options['title'] = 'Collaborator/Participant';<br>
+  $handler->display->display_options['access']['type'] = 'perm';<br>
+  $handler->display->display_options['access']['perm'] = 'access user profiles';<br>
+  $handler->display->display_options['cache']['type'] = 'none';<br>
+  $handler->display->display_options['query']['type'] = 'views_query';<br>
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;<br>
+  $handler->display->display_options['exposed_form']['type'] = 'basic';<br>
+  $handler->display->display_options['pager']['type'] = 'full';<br>
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';<br>
+  $handler->display->display_options['style_plugin'] = 'default';<br>
+  $handler->display->display_options['row_plugin'] = 'fields';<br>
+  /* Field: User: Name */<br>
+  $handler->display->display_options['fields']['name']['id'] = 'name';<br>
+  $handler->display->display_options['fields']['name']['table'] = 'users';<br>
+  $handler->display->display_options['fields']['name']['field'] = 'name';<br>
+  $handler->display->display_options['fields']['name']['label'] = '';<br>
+  $handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['absolute'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['strip_tags'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['trim'] = 0;<br>
+  $handler->display->display_options['fields']['name']['alter']['html'] = 0;<br>
+  $handler->display->display_options['fields']['name']['hide_empty'] = 0;<br>
+  $handler->display->display_options['fields']['name']['empty_zero'] = 0;<br>
+  $handler->display->display_options['fields']['name']['link_to_user'] = 1;<br>
+  $handler->display->display_options['fields']['name']['overwrite_anonymous'] = 0;<br>
+  /* Sort criterion: User: Created date */<br>
+  $handler->display->display_options['sorts']['created']['id'] = 'created';<br>
+  $handler->display->display_options['sorts']['created']['table'] = 'users';<br>
+  $handler->display->display_options['sorts']['created']['field'] = 'created';<br>
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';<br>
+  /* Filter criterion: User: Active */<br>
+  $handler->display->display_options['filters']['status']['id'] = 'status';<br>
+  $handler->display->display_options['filters']['status']['table'] = 'users';<br>
+  $handler->display->display_options['filters']['status']['field'] = 'status';<br>
+  $handler->display->display_options['filters']['status']['value'] = '1';<br>
+  $handler->display->display_options['filters']['status']['group'] = 1;<br>
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;<br>
+  /* Filter criterion: User: &gt; 160 hours / year (field_er_160hours) */<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['id'] = 'field_er_160hours_value';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['table'] = 'field_data_field_er_160hours';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['field'] = 'field_er_160hours_value';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['value'] = array(<br>
+  0 => '0',<br>
+  1 => '1',<br>
+  );<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['exposed'] = TRUE;<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['expose']['operator_id'] = 'field_er_160hours_value_op';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['expose']['label'] = 'More than 160 hours in a year?';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['expose']['operator'] = 'field_er_160hours_value_op';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['expose']['identifier'] = 'field_er_160hours_value';<br>
+  $handler->display->display_options['filters']['field_er_160hours_value']['expose']['reduce'] = 0;</p>
+<p>/* Display: Page */<br>
+  $handler = $view->new_display('page', 'Page', 'page');<br>
+  $handler->display->display_options['path'] = 'er-collaborator-vs-participant';</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html>
