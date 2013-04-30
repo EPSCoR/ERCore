@@ -2927,7 +2927,7 @@ $data = array(
           'Post Doc' => 'Post Doc',
           'Graduate student' => 'Graduate student',
           'Undergraduate student' => 'Undergraduate student',
-          'Leadership Team' => 'Leadership Team',
+          'EPSCoR Leadership Team' => 'EPSCoR Leadership Team',
           'Evaluation' => 'Evaluation',
           'Other' => 'Other',
         ),
