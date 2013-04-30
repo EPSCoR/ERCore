@@ -1,5 +1,4 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'user' => NULL,
@@ -2696,7 +2695,7 @@ $data = array(
         'cache_enabled' => 0,
         'cache_count' => '4',
         'repeat' => '0',
-        'todate' => 'optional',
+        'todate' => '',
       ),
       'storage' => array(
         'type' => 'field_sql_storage',
@@ -2708,13 +2707,11 @@ $data = array(
             'FIELD_LOAD_CURRENT' => array(
               'field_data_field_er_participant_date' => array(
                 'value' => 'field_er_participant_date_value',
-                'value2' => 'field_er_participant_date_value2',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
               'field_revision_field_er_participant_date' => array(
                 'value' => 'field_er_participant_date_value',
-                'value2' => 'field_er_participant_date_value2',
               ),
             ),
           ),
@@ -2742,16 +2739,6 @@ $data = array(
           'not null' => FALSE,
           'sortable' => TRUE,
           'views' => TRUE,
-        ),
-        'value2' => array(
-          'type' => 'datetime',
-          'mysql_type' => 'datetime',
-          'pgsql_type' => 'timestamp without time zone',
-          'sqlite_type' => 'varchar',
-          'sqlsrv_type' => 'smalldatetime',
-          'not null' => FALSE,
-          'sortable' => TRUE,
-          'views' => FALSE,
         ),
       ),
       'bundles' => array(
@@ -2967,7 +2954,7 @@ $data = array(
       'module' => 'list',
       'active' => '1',
       'locked' => '0',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
@@ -3992,7 +3979,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
         'widget' => array(
-          'weight' => '86',
+          'weight' => '70',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4236,7 +4223,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '82',
+          'weight' => '65',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
@@ -4284,7 +4271,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Project Component',
         'widget' => array(
-          'weight' => '81',
+          'weight' => '64',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4523,7 +4510,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Brief Description of EPSCoR Involvement',
         'widget' => array(
-          'weight' => '87',
+          'weight' => '71',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -5438,7 +5425,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'How many months of effor do you plan to, or have participated in EPSCoR research during the latest reporting period?',
         'widget' => array(
-          'weight' => '88',
+          'weight' => '72',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -5516,7 +5503,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '84',
+          'weight' => '68',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5555,7 +5542,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Participant Date(s)',
         'widget' => array(
-          'weight' => '83',
+          'weight' => '67',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5575,7 +5562,7 @@ Mobility/Orthopedic Impairment',
           'default_value_code' => '',
           'default_value2' => 'same',
           'default_value_code2' => '',
-          'user_register_form' => 1,
+          'user_register_form' => 0,
         ),
         'display' => array(
           'default' => array(
@@ -5599,8 +5586,8 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 1,
-        'description' => 'Please enter the date when you (officially) began participating in EPSCoR.  Click the "show end date" box to make the Participating End Date widget appear.  If you are currently participating, do not enter an end date.',
+        'required' => 0,
+        'description' => '',
         'field_name' => 'field_er_participant_date',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -5691,7 +5678,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Position Type',
         'widget' => array(
-          'weight' => '80',
+          'weight' => '66',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5702,11 +5689,11 @@ Mobility/Orthopedic Impairment',
         ),
         'display' => array(
           'default' => array(
-            'label' => 'above',
+            'label' => 'inline',
             'type' => 'list_default',
+            'weight' => '22',
             'settings' => array(),
             'module' => 'list',
-            'weight' => 44,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -6113,7 +6100,7 @@ White|White',
       0 => array(
         'label' => 'Supervisor',
         'widget' => array(
-          'weight' => '85',
+          'weight' => '69',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -6424,7 +6411,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Certifications and Supporting Documents',
-      'weight' => '90',
+      'weight' => '74',
       'children' => array(
         0 => 'field_er_additional_doc',
         1 => 'field_er_mentoring_plan_ul',
@@ -6586,10 +6573,10 @@ White|White',
         2 => 'field_er_components',
         3 => 'field_er_description',
         4 => 'field_er_paid',
-        5 => 'field_er_supervisor',
-        6 => 'field_er_participant_date',
-        7 => 'field_er_months_of_effort',
-        8 => 'field_er_position_type',
+        5 => 'field_er_position_type',
+        6 => 'field_er_supervisor',
+        7 => 'field_er_participant_date',
+        8 => 'field_er_months_of_effort',
         9 => 'group_er_certs',
         10 => 'group_er_education',
       ),
@@ -6615,7 +6602,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Education',
-      'weight' => '89',
+      'weight' => '73',
       'children' => array(
         0 => 'field_er_advisor',
         1 => 'field_er_und_ant_grad_date',
@@ -6875,14 +6862,6 @@ White|White',
       'format_settings' => array(
         'label' => 'Certifications and Supporting Documents',
         'instance_settings' => array(
-          'classes' => '',
-          'description' => '',
-        ),
-        'formatter' => 'closed',
-      ),
-    ),
-  ),
-);ray(
           'classes' => '',
           'description' => '',
         ),
