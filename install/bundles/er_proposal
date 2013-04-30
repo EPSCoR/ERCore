@@ -251,10 +251,10 @@ $data = array(
         ),
       ),
       'foreign keys' => array(
-        'node' => array(
-          'table' => 'node',
+        'users' => array(
+          'table' => 'users',
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'uid',
           ),
         ),
       ),
@@ -569,6 +569,61 @@ $data = array(
         ),
       ),
     ),
+    'field_er_proposal_paid' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Participants are NOT receiving financial support',
+          1 => 'Participants are receiving financial support',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_proposal_paid' => array(
+                'value' => 'field_er_proposal_paid_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_proposal_paid' => array(
+                'value' => 'field_er_proposal_paid_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_name' => 'field_er_proposal_paid',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_proposal',
+        ),
+      ),
+    ),
     'field_er_proposal_pending' => array(
       'type_name' => 'er_proposal',
       'entity_types' => array(),
@@ -836,6 +891,71 @@ $data = array(
         ),
       ),
     ),
+    'field_er_support_type' => array(
+      'type_name' => 'er_proposal',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Other NSF',
+          1 => 'Other Gov',
+          2 => 'Other',
+        ),
+        'allowed_values_function' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'min' => '',
+        'max' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_support_type' => array(
+                'value' => 'field_er_support_type_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_support_type' => array(
+                'value' => 'field_er_support_type_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_support_type',
+      'type' => 'list_integer',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_proposal',
+        ),
+      ),
+    ),
     'field_er_user_entity_reference' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -961,7 +1081,7 @@ $data = array(
       0 => array(
         'label' => 'Brief Description of Proposed Work',
         'widget' => array(
-          'weight' => '14',
+          'weight' => '17',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -1020,7 +1140,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '10',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -1149,7 +1269,7 @@ $data = array(
       0 => array(
         'label' => 'Amount Requested',
         'widget' => array(
-          'weight' => '6',
+          'weight' => '8',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -1201,7 +1321,7 @@ $data = array(
       0 => array(
         'label' => 'EPSCoR PI/Co-PI',
         'widget' => array(
-          'weight' => '2',
+          'weight' => '3',
           'type' => 'entityreference_autocomplete',
           'module' => 'entityreference',
           'active' => 1,
@@ -1281,7 +1401,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => 'The label "Principal Investigator" used here is in reference to the EPSCoR researcher who is reporting the external funding, and is used internally, strictly for reporting.  This is an auto-lookup field. If the researcher\'s name is not found, that person needs to register. Do not enter the name of the official PI listed on the grant (unless the PI is an EPSCoR participant). List all other researchers named on the grant in the fields below.',
         'default_value' => NULL,
         'default_value_function' => '',
@@ -1299,7 +1419,7 @@ $data = array(
         'description' => 'Where will the primary activities of this grant take place?',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '13',
+          'weight' => '16',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -1390,7 +1510,7 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '3',
+          'weight' => '4',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -1481,7 +1601,7 @@ $data = array(
         'description' => 'Final approved award dates.',
         'widget' => array(
           'type' => 'date_popup',
-          'weight' => '9',
+          'weight' => '12',
           'module' => 'date',
           'active' => '1',
           'settings' => array(
@@ -1638,7 +1758,7 @@ $data = array(
         'description' => '',
         'widget' => array(
           'type' => 'date_popup',
-          'weight' => '8',
+          'weight' => '11',
           'module' => 'date',
           'active' => '1',
           'settings' => array(
@@ -1787,6 +1907,44 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_er_proposal_paid' => array(
+      0 => array(
+        'label' => 'Salary Support',
+        'widget' => array(
+          'weight' => '5',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '11',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => 'Are any of the EPSCoR participants listed on this grant receiving financial support?',
+        'default_value' => NULL,
+        'field_name' => 'field_er_proposal_paid',
+        'entity_type' => 'node',
+        'bundle' => 'er_proposal',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_proposal_pending' => array(
       0 => array(
         'weight' => '10',
@@ -1795,7 +1953,7 @@ $data = array(
         'description' => '',
         'widget' => array(
           'type' => 'date_popup',
-          'weight' => '11',
+          'weight' => '14',
           'module' => 'date',
           'active' => '1',
           'settings' => array(
@@ -1956,7 +2114,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '7',
+          'weight' => '10',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -2045,7 +2203,7 @@ $data = array(
         'widget_type' => 'date_popup',
         'description' => 'The date you submitted the proposal to the funding agency.',
         'widget' => array(
-          'weight' => '12',
+          'weight' => '15',
           'type' => 'date_popup',
           'module' => 'date',
           'active' => 1,
@@ -2201,7 +2359,7 @@ $data = array(
         'description' => 'NSF, The Ford Foundation, etc.',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '5',
+          'weight' => '7',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -2284,11 +2442,128 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_er_support_type' => array(
+      0 => array(
+        'weight' => '3',
+        'label' => 'Please categorize the nature of the Source of Support',
+        'widget_type' => 'optionwidgets_buttons',
+        'description' => 'Do not list your NSF EPSCoR grant here.  You are required to list ALL other sources of funding, current or pending.  We also need to collect information on grants that were not funded in order to help with tracking and success rates.',
+        'default_value' => NULL,
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'display' => array(
+          'teaser' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'full' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'rss' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_index' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'search_result' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'print' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'token' => array(
+            'label' => 'above',
+            'type' => 'number_integer',
+            'weight' => '3',
+            'settings' => array(
+              'thousand_separator' => '',
+              'decimal_separator' => '.',
+              'scale' => 0,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
+          ),
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '3',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+        ),
+        'settings' => array(
+          'min' => '',
+          'max' => '',
+          'prefix' => '',
+          'suffix' => '',
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'required' => 1,
+        'field_name' => 'field_er_support_type',
+        'entity_type' => 'node',
+        'bundle' => 'er_proposal',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_user_entity_reference' => array(
       0 => array(
         'label' => 'Other EPSCoR Researchers',
         'widget' => array(
-          'weight' => '4',
+          'weight' => '6',
           'type' => 'entityreference_autocomplete',
           'module' => 'entityreference',
           'active' => 1,
@@ -2375,7 +2650,7 @@ $data = array(
           ),
         ),
         'required' => 0,
-        'description' => '',
+        'description' => 'Use this member look up to add other EPSCoR faculty.  Do not list Post-Docs, grad students, undergrads, techs, etc...',
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_user_entity_reference',
@@ -2425,6 +2700,37 @@ $data = array(
         'entity_type' => 'node',
         'bundle' => 'er_proposal',
         'deleted' => '0',
+      ),
+    ),
+  ),
+  'fieldgroups' => array(
+    'group_pi_copi|node|er_proposal|form' => (object) array(
+      'id' => '25',
+      'identifier' => 'group_pi_copi|node|er_proposal|form',
+      'group_name' => 'group_pi_copi',
+      'entity_type' => 'node',
+      'bundle' => 'er_proposal',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Principal Investigator (PI)',
+      'weight' => '2',
+      'children' => array(
+        0 => 'field_er_other_pi',
+        1 => 'field_er_epscor_pi_co_pi',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'Principal Investigator (PI)',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'collapsible',
       ),
     ),
   ),
