@@ -1,4 +1,3 @@
-<?php
 $data = array(
   'bundles' => array(
     'er_event' => (object) array(
@@ -94,18 +93,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'blog',
-          3 => 'er_award',
-          4 => 'er_event',
+          2 => 'er_proposal',
+          3 => 'er_publication',
+          4 => 'er_award',
           5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
-          9 => 'image_gallery',
-          10 => 'node_gallery_gallery',
-          11 => 'node_gallery_image',
-          12 => 'webform',
-          13 => 'er_collaboration',
+          6 => 'er_event',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -268,120 +262,6 @@ $data = array(
         ),
       ),
     ),
-    'field_er_event_location' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'profile2_private' => FALSE,
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_event_location' => array(
-                'wkt' => 'field_er_event_location_wkt',
-                'geo_type' => 'field_er_event_location_geo_type',
-                'lat' => 'field_er_event_location_lat',
-                'lon' => 'field_er_event_location_lon',
-                'left' => 'field_er_event_location_left',
-                'top' => 'field_er_event_location_top',
-                'right' => 'field_er_event_location_right',
-                'bottom' => 'field_er_event_location_bottom',
-                'srid' => 'field_er_event_location_srid',
-                'accuracy' => 'field_er_event_location_accuracy',
-                'source' => 'field_er_event_location_source',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_event_location' => array(
-                'wkt' => 'field_er_event_location_wkt',
-                'geo_type' => 'field_er_event_location_geo_type',
-                'lat' => 'field_er_event_location_lat',
-                'lon' => 'field_er_event_location_lon',
-                'left' => 'field_er_event_location_left',
-                'top' => 'field_er_event_location_top',
-                'right' => 'field_er_event_location_right',
-                'bottom' => 'field_er_event_location_bottom',
-                'srid' => 'field_er_event_location_srid',
-                'accuracy' => 'field_er_event_location_accuracy',
-                'source' => 'field_er_event_location_source',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_er_event_location',
-      'type' => 'geofield',
-      'module' => 'geofield',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'wkt' => array(
-          'type' => 'text',
-          'size' => 'big',
-          'not null' => FALSE,
-        ),
-        'geo_type' => array(
-          'type' => 'text',
-          'size' => 'normal',
-          'not null' => FALSE,
-        ),
-        'lat' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'lon' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'left' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'top' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'right' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'bottom' => array(
-          'type' => 'float',
-          'not null' => FALSE,
-        ),
-        'srid' => array(
-          'type' => 'int',
-          'unsigned' => TRUE,
-          'not null' => FALSE,
-          'default' => 4326,
-        ),
-        'accuracy' => array(
-          'type' => 'int',
-          'not null' => FALSE,
-        ),
-        'source' => array(
-          'type' => 'text',
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_event',
-        ),
-      ),
-    ),
     'field_er_event_reminders' => array(
       'type_name' => 'er_event',
       'entity_types' => array(),
@@ -515,7 +395,7 @@ $data = array(
           'Non-technical support staff' => 'Non-technical support staff',
           'Undergraduate student' => 'Undergraduate student',
           'Technical support staff' => 'Technical support staff',
-          'EPSCoR leadership team' => 'EPSCoR leadership team',
+          'RII3 leadership team' => 'RII3 leadership team',
           'Faculty participant (or equivalent)' => 'Faculty participant (or equivalent)',
           'Graduate student' => 'Graduate student',
           'Post doc' => 'Post doc',
@@ -726,15 +606,84 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
-          8 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
+          3 => 'er_news',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_location' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_location' => array(
+                'value' => 'field_location_value',
+                'format' => 'field_location_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_location' => array(
+                'value' => 'field_location_value',
+                'format' => 'field_location_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_location',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
         ),
       ),
     ),
@@ -744,7 +693,7 @@ $data = array(
       0 => array(
         'label' => 'Abstract or Short Description',
         'widget' => array(
-          'weight' => '9',
+          'weight' => '8',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -790,7 +739,7 @@ $data = array(
       0 => array(
         'label' => 'Date',
         'widget' => array(
-          'weight' => '2',
+          'weight' => '1',
           'type' => 'date_popup',
           'module' => 'date',
           'active' => 1,
@@ -847,7 +796,7 @@ $data = array(
       0 => array(
         'label' => 'Attach Flier',
         'widget' => array(
-          'weight' => '11',
+          'weight' => '9',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -886,99 +835,6 @@ $data = array(
         'deleted' => '0',
       ),
     ),
-     'field_er_event_location' => array(
-      0 => array(
-        'weight' => '4',
-        'label' => 'URL',
-        'widget_type' => 'text_textfield',
-        'description' => '',
-        'default_value' => array(
-          0 => array(
-            'value' => '',
-            '_error_element' => 'default_value_widget][field_er_event_location][0][value',
-          ),
-        ),
-        'widget' => array(
-          'type' => 'text_textfield',
-          'weight' => '6',
-          'module' => 'text',
-          'active' => '1',
-          'settings' => array(
-            'rows' => 8,
-            'size' => '100',
-            'default_value_php' => NULL,
-          ),
-        ),
-        'display' => array(
-          'teaser' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'full' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'rss' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'search_index' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'search_result' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'print' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'token' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'default' => array(
-            'label' => 'inline',
-            'type' => 'text_default',
-            'weight' => '4',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-        ),
-        'settings' => array(
-          'text_processing' => '0',
-          'user_register_form' => FALSE,
-          'required_by_role' => array(),
-        ),
-        'required' => FALSE,
-        'field_name' => 'field_er_event_location',
-        'entity_type' => 'node',
-        'bundle' => 'er_event',
-        'deleted' => '0',
-      ),
-    ),
     'field_er_event_reminders' => array(
       0 => array(
         'weight' => '5',
@@ -991,7 +847,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '7',
+          'weight' => '6',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1110,7 +966,7 @@ $data = array(
         'description' => 'Please specify what type of calendar event this is.',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '4',
+          'weight' => '3',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -1190,7 +1046,7 @@ $data = array(
       0 => array(
         'label' => 'Send notifications of this event to',
         'widget' => array(
-          'weight' => '8',
+          'weight' => '7',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1240,7 +1096,7 @@ $data = array(
         ),
         'widget' => array(
           'type' => 'text_textfield',
-          'weight' => '6',
+          'weight' => '4',
           'module' => 'text',
           'active' => '1',
           'settings' => array(
@@ -1323,7 +1179,7 @@ $data = array(
       0 => array(
         'label' => 'EPSCoR Organizer(s)',
         'widget' => array(
-          'weight' => '3',
+          'weight' => '2',
           'type' => 'entityreference_autocomplete',
           'module' => 'entityreference',
           'active' => 1,
@@ -1419,6 +1275,46 @@ $data = array(
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_user_entity_reference',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
+    'field_location' => array(
+      0 => array(
+        'label' => 'Location',
+        'widget' => array(
+          'weight' => '10',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 26,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_location',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
