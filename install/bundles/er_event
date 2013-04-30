@@ -387,71 +387,6 @@ $data = array(
         ),
       ),
     ),
-    'field_er_push_notifications' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'allowed_values' => array(
-          'Non-technical support staff' => 'Non-technical support staff',
-          'Undergraduate student' => 'Undergraduate student',
-          'Technical support staff' => 'Technical support staff',
-          'RII3 leadership team' => 'RII3 leadership team',
-          'Faculty participant (or equivalent)' => 'Faculty participant (or equivalent)',
-          'Graduate student' => 'Graduate student',
-          'Post doc' => 'Post doc',
-        ),
-        'allowed_values_function' => '',
-        'allowed_values_php' => '',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_push_notifications' => array(
-                'value' => 'field_er_push_notifications_value',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_push_notifications' => array(
-                'value' => 'field_er_push_notifications_value',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_er_push_notifications',
-      'type' => 'list_text',
-      'module' => 'list',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'varchar',
-          'length' => 255,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_event',
-        ),
-      ),
-    ),
     'field_er_url' => array(
       'type_name' => 'er_presentation',
       'entity_types' => array(),
@@ -1037,46 +972,6 @@ $data = array(
         ),
         'required' => 1,
         'field_name' => 'field_er_event_type',
-        'entity_type' => 'node',
-        'bundle' => 'er_event',
-        'deleted' => '0',
-      ),
-    ),
-    'field_er_push_notifications' => array(
-      0 => array(
-        'label' => 'Send notifications of this event to',
-        'widget' => array(
-          'weight' => '7',
-          'type' => 'options_buttons',
-          'module' => 'options',
-          'active' => 1,
-          'settings' => array(),
-        ),
-        'settings' => array(
-          'user_register_form' => FALSE,
-          'required_by_role' => array(),
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'inline',
-            'type' => 'list_default',
-            'weight' => '21',
-            'settings' => array(),
-            'module' => 'list',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 0,
-        'description' => '',
-        'default_value_php' => '',
-        'default_value_function' => '',
-        'default_value' => NULL,
-        'field_name' => 'field_er_push_notifications',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
