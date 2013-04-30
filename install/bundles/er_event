@@ -104,6 +104,72 @@ $data = array(
         ),
       ),
     ),
+    'field_building_room_number_' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_building_room_number_' => array(
+                'value' => 'field_building_room_number__value',
+                'format' => 'field_building_room_number__format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_building_room_number_' => array(
+                'value' => 'field_building_room_number__value',
+                'format' => 'field_building_room_number__format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_name' => 'field_building_room_number_',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
+        ),
+      ),
+    ),
     'field_er_cal_event_date' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -671,6 +737,45 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_building_room_number_' => array(
+      0 => array(
+        'label' => 'Building (Room Number)',
+        'widget' => array(
+          'type' => 'text_textfield',
+          'weight' => '11',
+          'settings' => array(
+            'size' => 60,
+          ),
+          'module' => 'text',
+        ),
+        'settings' => array(
+          'text_processing' => 0,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 27,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => FALSE,
+        'description' => '',
+        'field_name' => 'field_building_room_number_',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+        'default_value' => NULL,
+      ),
+    ),
     'field_er_cal_event_date' => array(
       0 => array(
         'label' => 'Date',
@@ -1178,7 +1283,7 @@ $data = array(
     ),
     'field_location' => array(
       0 => array(
-        'label' => 'Location',
+        'label' => 'Address',
         'widget' => array(
           'weight' => '10',
           'type' => 'text_textfield',
