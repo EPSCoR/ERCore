@@ -2730,7 +2730,7 @@ $data = array(
           'classes' => '',
           'description' => '',
         ),
-        'formatter' => 'collapsible',
+        'formatter' => 'open',
       ),
     ),
   ),
