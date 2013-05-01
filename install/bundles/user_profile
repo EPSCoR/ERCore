@@ -247,29 +247,12 @@ $data = array(
         ),
       ),
     ),
-    'field_er_citizenship' => array(
-      'type_name' => 'er_user_profile',
+    'field_er_advisor' => array(
+      'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
-        'allowed_values' => array(
-          0 => 'U.S. Citizen',
-          1 => 'Permanent Resident',
-          2 => 'Other non-U.S. Citizen',
-        ),
-        'allowed_values_function' => '',
-        'profile2_private' => 0,
-        'user_role_field' => array(
-          5 => '5',
-          4 => '4',
-          6 => 0,
-          3 => 0,
-          1 => 0,
-          2 => 0,
-        ),
-        'allowed_values_php' => '',
-        'text_processing' => '0',
+        'max_length' => '255',
       ),
-      'translatable' => '0',
       'storage' => array(
         'type' => 'field_sql_storage',
         'settings' => array(),
@@ -278,36 +261,50 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_citizenship' => array(
-                'value' => 'field_er_citizenship_value',
+              'field_data_field_er_advisor' => array(
+                'value' => 'field_er_advisor_value',
+                'format' => 'field_er_advisor_format',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_citizenship' => array(
-                'value' => 'field_er_citizenship_value',
+              'field_revision_field_er_advisor' => array(
+                'value' => 'field_er_advisor_value',
+                'format' => 'field_er_advisor_format',
               ),
             ),
           ),
         ),
       ),
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
       'indexes' => array(
-        'value' => array(
-          0 => 'value',
+        'format' => array(
+          0 => 'format',
         ),
       ),
       'field_permissions' => array(
-        'type' => '2',
+        'type' => '0',
       ),
-      'field_name' => 'field_er_citizenship',
-      'type' => 'list_text',
-      'module' => 'list',
+      'field_name' => 'field_er_advisor',
+      'type' => 'text',
+      'module' => 'text',
       'active' => '1',
       'locked' => '0',
       'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
           'type' => 'varchar',
           'length' => 255,
           'not null' => FALSE,
@@ -538,12 +535,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_news',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_news',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -684,6 +681,85 @@ $data = array(
           'not null' => FALSE,
           'sortable' => TRUE,
           'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_data_url' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'attributes' => array(
+          'target' => 'default',
+          'class' => '',
+          'rel' => '',
+        ),
+        'url' => 0,
+        'title' => 'optional',
+        'title_value' => '',
+        'title_maxlength' => 128,
+        'enable_tokens' => 1,
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_data_url' => array(
+                'url' => 'field_er_data_url_url',
+                'title' => 'field_er_data_url_title',
+                'attributes' => 'field_er_data_url_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_data_url' => array(
+                'url' => 'field_er_data_url_url',
+                'title' => 'field_er_data_url_title',
+                'attributes' => 'field_er_data_url_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_data_url',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
         ),
       ),
       'bundles' => array(
@@ -851,12 +927,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_patent',
-          1 => 'er_other_product',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_other_product',
+          1 => 'er_patent',
         ),
       ),
     ),
@@ -944,8 +1020,8 @@ $data = array(
       'settings' => array(
         'granularity' => array(
           'month' => 'month',
-          'day' => 'day',
           'year' => 'year',
+          'day' => 0,
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -1013,8 +1089,8 @@ $data = array(
       'settings' => array(
         'granularity' => array(
           'month' => 'month',
-          'day' => 'day',
           'year' => 'year',
+          'day' => 0,
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -1510,12 +1586,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1581,11 +1657,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -1662,12 +1738,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1743,11 +1819,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -1834,12 +1910,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1920,11 +1996,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2009,11 +2085,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2105,8 +2181,8 @@ $data = array(
       'settings' => array(
         'granularity' => array(
           'month' => 'month',
-          'day' => 'day',
           'year' => 'year',
+          'day' => 0,
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -2183,8 +2259,8 @@ $data = array(
       'settings' => array(
         'granularity' => array(
           'month' => 'month',
-          'day' => 'day',
           'year' => 'year',
+          'day' => 0,
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -2424,6 +2500,143 @@ $data = array(
         ),
       ),
     ),
+    'field_er_mentoring_sign_off' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'year' => 'year',
+          'day' => 0,
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_mentoring_sign_off' => array(
+                'value' => 'field_er_mentoring_sign_off_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_mentoring_sign_off' => array(
+                'value' => 'field_er_mentoring_sign_off_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_mentoring_sign_off',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_months_of_effort' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          1 => '1',
+          2 => '2',
+          3 => '3',
+          4 => '4',
+          5 => '5',
+          6 => '6',
+          7 => '7',
+          8 => '8',
+          9 => '9',
+          10 => '10',
+          11 => '11',
+          12 => '12',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_months_of_effort' => array(
+                'value' => 'field_er_months_of_effort_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_months_of_effort' => array(
+                'value' => 'field_er_months_of_effort_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_months_of_effort',
+      'type' => 'list_integer',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
     'field_er_nsf_grant_signatory' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -2565,8 +2778,8 @@ $data = array(
       'settings' => array(
         'granularity' => array(
           'month' => 'month',
-          'day' => 'day',
           'year' => 'year',
+          'day' => 0,
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -2576,7 +2789,7 @@ $data = array(
         'cache_enabled' => 0,
         'cache_count' => '4',
         'repeat' => '0',
-        'todate' => 'optional',
+        'todate' => '',
         'profile2_private' => 0,
         'user_role_field' => array(
           66784200 => 0,
@@ -2597,13 +2810,11 @@ $data = array(
             'FIELD_LOAD_CURRENT' => array(
               'field_data_field_er_participant_date' => array(
                 'value' => 'field_er_participant_date_value',
-                'value2' => 'field_er_participant_date_value2',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
               'field_revision_field_er_participant_date' => array(
                 'value' => 'field_er_participant_date_value',
-                'value2' => 'field_er_participant_date_value2',
               ),
             ),
           ),
@@ -2619,7 +2830,7 @@ $data = array(
       'module' => 'date',
       'active' => '1',
       'locked' => '0',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
@@ -2631,16 +2842,6 @@ $data = array(
           'not null' => FALSE,
           'sortable' => TRUE,
           'views' => TRUE,
-        ),
-        'value2' => array(
-          'type' => 'datetime',
-          'mysql_type' => 'datetime',
-          'pgsql_type' => 'timestamp without time zone',
-          'sqlite_type' => 'varchar',
-          'sqlsrv_type' => 'smalldatetime',
-          'not null' => FALSE,
-          'sortable' => TRUE,
-          'views' => FALSE,
         ),
       ),
       'bundles' => array(
@@ -3897,16 +4098,16 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
   'instances' => array(
     'field_er_160hours' => array(
       0 => array(
-        'label' => '> 160 hours / year',
+        'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
         'widget' => array(
-          'weight' => '61',
+          'weight' => '70',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
           'settings' => array(),
         ),
         'settings' => array(
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -3923,8 +4124,8 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
             'weight' => 0,
           ),
         ),
-        'required' => 0,
-        'description' => '',
+        'required' => 1,
+        'description' => '160 hours is equivelant to 4 weeks at 40 hours, 8 weeks at 20 hours, or one person-month.',
         'default_value_php' => '',
         'default_value_function' => '',
         'default_value' => NULL,
@@ -4017,26 +4218,29 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         'deleted' => '0',
       ),
     ),
-    'field_er_citizenship' => array(
+    'field_er_advisor' => array(
       0 => array(
-        'label' => 'Citizenship',
+        'label' => 'Advisor',
         'widget' => array(
-          'weight' => '46',
-          'type' => 'options_buttons',
-          'module' => 'options',
+          'weight' => '79',
+          'type' => 'text_textfield',
+          'module' => 'text',
           'active' => 1,
-          'settings' => array(),
+          'settings' => array(
+            'size' => '60',
+          ),
         ),
         'settings' => array(
+          'text_processing' => '0',
           'user_register_form' => 0,
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
-            'type' => 'list_default',
-            'weight' => '19',
+            'label' => 'above',
+            'type' => 'text_default',
             'settings' => array(),
-            'module' => 'list',
+            'module' => 'text',
+            'weight' => 37,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -4047,10 +4251,8 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
         'required' => 0,
         'description' => '',
-        'default_value_php' => '',
-        'default_value_function' => '',
         'default_value' => NULL,
-        'field_name' => 'field_er_citizenship',
+        'field_name' => 'field_er_advisor',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -4058,7 +4260,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
     ),
     'field_er_collecting_data_bool' => array(
       0 => array(
-        'label' => 'I will be collecting data',
+        'label' => 'I plan to be collecting data through my research',
         'widget' => array(
           'weight' => '17',
           'type' => 'options_onoff',
@@ -4101,9 +4303,9 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
     ),
     'field_er_committees' => array(
       0 => array(
-        'label' => 'Advisory Boards',
+        'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '55',
+          'weight' => '65',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
@@ -4122,7 +4324,7 @@ Statewide Committee (SWC)',
         ),
         'settings' => array(
           'text_processing' => '0',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -4139,7 +4341,7 @@ Statewide Committee (SWC)',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => 1,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_committees',
@@ -4152,7 +4354,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Project Component',
         'widget' => array(
-          'weight' => '54',
+          'weight' => '64',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4164,7 +4366,7 @@ Statewide Committee (SWC)',
               'status' => 0,
             ),
           ),
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -4183,8 +4385,8 @@ Statewide Committee (SWC)',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
-        'description' => '',
+        'required' => 1,
+        'description' => 'Please select whcih project component(s) you will participate in.',
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_components',
@@ -4293,6 +4495,60 @@ Statewide Committee (SWC)',
         'deleted' => '0',
       ),
     ),
+    'field_er_data_url' => array(
+      0 => array(
+        'label' => 'Please enter the URL of the site where your metadata will be held',
+        'widget' => array(
+          'weight' => '22',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'validate_url' => 1,
+          'url' => 0,
+          'title' => 'none',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'enable_tokens' => 1,
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => '_blank',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'rel_remove' => 'default',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'link_default',
+            'settings' => array(),
+            'module' => 'link',
+            'weight' => 36,
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_data_url',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_department' => array(
       0 => array(
         'label' => 'Department',
@@ -4337,7 +4593,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Brief Description of EPSCoR Involvement',
         'widget' => array(
-          'weight' => '62',
+          'weight' => '71',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -4429,35 +4685,33 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_doc_act_grad_date' => array(
       0 => array(
-        'label' => 'Actual Doctorate Graduation Date',
+        'label' => 'Actual Doctoral Completion Date',
         'widget' => array(
-          'weight' => '17',
           'type' => 'date_select',
-          'module' => 'date',
-          'active' => 1,
+          'weight' => '78',
           'settings' => array(
             'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
-            'year_range' => '-3:+3',
-            'increment' => '15',
-            'label_position' => 'above',
+            'increment' => 15,
             'text_parts' => array(),
-            'repeat_collapsed' => 0,
+            'year_range' => '-3:+3',
+            'label_position' => 'above',
             'display_all_day' => 0,
+            'repeat_collapsed' => 0,
           ),
+          'module' => 'date',
         ),
         'settings' => array(
           'default_value' => 'now',
           'default_value_code' => '',
           'default_value2' => 'same',
           'default_value_code2' => '',
-          'user_register_form' => 0,
+          'user_register_form' => FALSE,
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
+            'label' => 'above',
             'type' => 'date_default',
-            'weight' => '20',
             'settings' => array(
               'format_type' => 'long',
               'multiple_number' => '',
@@ -4467,6 +4721,7 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
+            'weight' => 43,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -4475,7 +4730,7 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => FALSE,
         'description' => '',
         'field_name' => 'field_er_doc_act_grad_date',
         'entity_type' => 'user',
@@ -4485,9 +4740,9 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_doc_ant_grad_date' => array(
       0 => array(
-        'label' => 'Anticipated Doctorate Graduation Date',
+        'label' => 'Anticipate Doctorate Completion Date',
         'widget' => array(
-          'weight' => '16',
+          'weight' => '77',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4498,8 +4753,8 @@ Mobility/Orthopedic Impairment',
             'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),
-            'repeat_collapsed' => 0,
             'display_all_day' => 0,
+            'repeat_collapsed' => 0,
           ),
         ),
         'settings' => array(
@@ -4511,9 +4766,8 @@ Mobility/Orthopedic Impairment',
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
+            'label' => 'above',
             'type' => 'date_default',
-            'weight' => '19',
             'settings' => array(
               'format_type' => 'long',
               'multiple_number' => '',
@@ -4523,6 +4777,7 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
+            'weight' => 42,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -4878,7 +5133,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_inst_description' => array(
       0 => array(
-        'label' => 'Brief Description of the Institution',
+        'label' => 'Please describe role and contribution to the project',
         'widget' => array(
           'weight' => '9',
           'type' => 'text_textarea',
@@ -4890,7 +5145,7 @@ Mobility/Orthopedic Impairment',
         ),
         'settings' => array(
           'text_processing' => '0',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -4907,8 +5162,8 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
-        'description' => '',
+        'required' => 1,
+        'description' => 'Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.',
         'default_value' => NULL,
         'field_name' => 'field_er_inst_description',
         'entity_type' => 'user',
@@ -5096,9 +5351,9 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_mas_act_grad_date' => array(
       0 => array(
-        'label' => 'Actual Master\'s Graduation Date',
+        'label' => 'Actual Masters Graduation Date',
         'widget' => array(
-          'weight' => '15',
+          'weight' => '76',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5109,8 +5364,8 @@ Mobility/Orthopedic Impairment',
             'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),
-            'repeat_collapsed' => 0,
             'display_all_day' => 0,
+            'repeat_collapsed' => 0,
           ),
         ),
         'settings' => array(
@@ -5122,9 +5377,8 @@ Mobility/Orthopedic Impairment',
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
+            'label' => 'above',
             'type' => 'date_default',
-            'weight' => '18',
             'settings' => array(
               'format_type' => 'long',
               'multiple_number' => '',
@@ -5134,6 +5388,7 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
+            'weight' => 41,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -5144,7 +5399,6 @@ Mobility/Orthopedic Impairment',
         ),
         'required' => 0,
         'description' => '',
-        'default_value' => NULL,
         'field_name' => 'field_er_mas_act_grad_date',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -5153,9 +5407,9 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_mas_ant_grad_date' => array(
       0 => array(
-        'label' => 'Anticipated Master\'s Graduation Date',
+        'label' => 'Anticipate Masters Graduation Date',
         'widget' => array(
-          'weight' => '14',
+          'weight' => '75',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5166,8 +5420,8 @@ Mobility/Orthopedic Impairment',
             'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),
-            'repeat_collapsed' => 0,
             'display_all_day' => 0,
+            'repeat_collapsed' => 0,
           ),
         ),
         'settings' => array(
@@ -5179,9 +5433,8 @@ Mobility/Orthopedic Impairment',
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
+            'label' => 'above',
             'type' => 'date_default',
-            'weight' => '17',
             'settings' => array(
               'format_type' => 'long',
               'multiple_number' => '',
@@ -5191,6 +5444,7 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
+            'weight' => 40,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -5201,7 +5455,6 @@ Mobility/Orthopedic Impairment',
         ),
         'required' => 0,
         'description' => '',
-        'default_value' => NULL,
         'field_name' => 'field_er_mas_ant_grad_date',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -5267,7 +5520,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_mentoring_plan_ul' => array(
       0 => array(
-        'label' => 'Mentoring Plan Upload',
+        'label' => 'Please upload your mentoring plan',
         'widget' => array(
           'weight' => '35',
           'type' => 'file_generic',
@@ -5303,6 +5556,99 @@ Mobility/Orthopedic Impairment',
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_mentoring_plan_ul',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_mentoring_sign_off' => array(
+      0 => array(
+        'label' => 'Mentoring Plan Sign Off Date',
+        'widget' => array(
+          'weight' => '34',
+          'type' => 'date_text',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => 15,
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'display_all_day' => 0,
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+            'weight' => 35,
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_mentoring_sign_off',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_months_of_effort' => array(
+      0 => array(
+        'label' => 'How many months of effor do you plan to, or have participated in EPSCoR research during the latest reporting period?',
+        'widget' => array(
+          'weight' => '72',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 1,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 34,
+          ),
+          'ical' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_months_of_effort',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -5353,14 +5699,14 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '59',
+          'weight' => '68',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
           'settings' => array(),
         ),
         'settings' => array(
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -5377,7 +5723,7 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => 1,
         'description' => '',
         'default_value_php' => '',
         'default_value_function' => '',
@@ -5390,35 +5736,34 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_participant_date' => array(
       0 => array(
-        'label' => 'Participant Date',
+        'label' => 'Participant Date(s)',
         'widget' => array(
-          'weight' => '58',
+          'weight' => '67',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
           'settings' => array(
-            'input_format' => 'M j Y - g:i:sa',
+            'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
-            'year_range' => '-5:+5',
-            'increment' => '30',
+            'year_range' => '-3:+3',
+            'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),
-            'repeat_collapsed' => 0,
             'display_all_day' => 0,
+            'repeat_collapsed' => 0,
           ),
         ),
         'settings' => array(
-          'default_value' => 'blank',
+          'default_value' => 'now',
           'default_value_code' => '',
-          'default_value2' => 'blank',
+          'default_value2' => 'same',
           'default_value_code2' => '',
           'user_register_form' => 0,
         ),
         'display' => array(
           'default' => array(
-            'label' => 'inline',
+            'label' => 'above',
             'type' => 'date_default',
-            'weight' => '24',
             'settings' => array(
               'format_type' => 'long',
               'multiple_number' => '',
@@ -5428,6 +5773,7 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
+            'weight' => 32,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -5437,8 +5783,7 @@ Mobility/Orthopedic Impairment',
           ),
         ),
         'required' => 0,
-        'description' => 'Enter date of anticipated EPSCOR activities/involvement. If still involved, leave "end date" blank.',
-        'default_value' => NULL,
+        'description' => '',
         'field_name' => 'field_er_participant_date',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -6187,7 +6532,7 @@ White|White',
   ),
   'fieldgroups' => array(
     'group_er_data|user|user|form' => (object) array(
-      'id' => '8',
+      'id' => '2',
       'identifier' => 'group_er_data|user|user|form',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6218,7 +6563,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|form' => (object) array(
-      'id' => '9',
+      'id' => '3',
       'identifier' => 'group_er_inst|user|user|form',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6252,7 +6597,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|form' => (object) array(
-      'id' => '10',
+      'id' => '4',
       'identifier' => 'group_er_certs|user|user|form',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
@@ -6287,7 +6632,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|form' => (object) array(
-      'id' => '11',
+      'id' => '5',
       'identifier' => 'group_er_profile|user|user|form',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6316,7 +6661,7 @@ White|White',
       ),
     ),
     'group_er_account|user|user|form' => (object) array(
-      'id' => '12',
+      'id' => '6',
       'identifier' => 'group_er_account|user|user|form',
       'group_name' => 'group_er_account',
       'entity_type' => 'user',
@@ -6345,7 +6690,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|form' => (object) array(
-      'id' => '13',
+      'id' => '7',
       'identifier' => 'group_er_contact|user|user|form',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6376,7 +6721,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|form' => (object) array(
-      'id' => '14',
+      'id' => '8',
       'identifier' => 'group_er_demographics|user|user|form',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6386,7 +6731,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Demographics',
+      'label' => 'Deomographics',
       'weight' => '66',
       'children' => array(
         0 => 'field_er_citizenship',
@@ -6407,7 +6752,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|form' => (object) array(
-      'id' => '15',
+      'id' => '9',
       'identifier' => 'group_er_involvement|user|user|form',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6443,7 +6788,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|form' => (object) array(
-      'id' => '16',
+      'id' => '10',
       'identifier' => 'group_er_education|user|user|form',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6474,7 +6819,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|default' => (object) array(
-      'id' => '17',
+      'id' => '11',
       'identifier' => 'group_er_profile|user|user|default',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6502,7 +6847,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|default' => (object) array(
-      'id' => '18',
+      'id' => '12',
       'identifier' => 'group_er_inst|user|user|default',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6533,7 +6878,7 @@ White|White',
       ),
     ),
     'group_er_data|user|user|default' => (object) array(
-      'id' => '19',
+      'id' => '13',
       'identifier' => 'group_er_data|user|user|default',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6561,7 +6906,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|default' => (object) array(
-      'id' => '20',
+      'id' => '14',
       'identifier' => 'group_er_contact|user|user|default',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6591,7 +6936,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|default' => (object) array(
-      'id' => '21',
+      'id' => '15',
       'identifier' => 'group_er_demographics|user|user|default',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6601,7 +6946,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Demographics',
+      'label' => 'Deomographics',
       'weight' => '35',
       'children' => array(
         0 => 'field_er_citizenship',
@@ -6621,7 +6966,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|default' => (object) array(
-      'id' => '22',
+      'id' => '16',
       'identifier' => 'group_er_involvement|user|user|default',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6656,7 +7001,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|default' => (object) array(
-      'id' => '23',
+      'id' => '17',
       'identifier' => 'group_er_education|user|user|default',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6686,7 +7031,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|default' => (object) array(
-      'id' => '24',
+      'id' => '18',
       'identifier' => 'group_er_certs|user|user|default',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',

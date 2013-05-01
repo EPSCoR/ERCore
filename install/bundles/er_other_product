@@ -171,12 +171,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_other_product',
           1 => 'er_patent',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -240,8 +240,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_other_product',
-          1 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_other_product',
         ),
       ),
     ),
@@ -435,8 +435,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_other_product',
-          1 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_other_product',
         ),
       ),
     ),
@@ -512,15 +512,51 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
-          8 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
+          3 => 'er_news',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
+        ),
+      ),
+    ),
+    'field_what_has_the_research_prod' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'markup' => array(
+          'value' => '<h2>What has the research produced?</h2>
+<em>Please provide a description of your research product.</em>',
+          'format' => 'full_html',
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_what_has_the_research_prod',
+      'type' => 'markup',
+      'module' => 'markup',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_other_product',
         ),
       ),
     ),
@@ -530,7 +566,7 @@ $data = array(
       0 => array(
         'label' => 'Non-EPSCoR Participant Research Product Creators',
         'widget' => array(
-          'weight' => '2',
+          'weight' => '4',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -571,10 +607,10 @@ $data = array(
         'weight' => '2',
         'label' => 'Description',
         'widget_type' => 'text_textarea',
-        'description' => 'Please provide a bried description of your products. 3-4 sentances maximum.',
+        'description' => 'Please provide a brief description of your products. 3-4 sentences maximum.',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '7',
+          'weight' => '9',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -665,7 +701,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '6',
+          'weight' => '8',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -780,7 +816,7 @@ $data = array(
         'widget_type' => 'date_popup',
         'description' => '',
         'widget' => array(
-          'weight' => '4',
+          'weight' => '6',
           'type' => 'date_popup',
           'module' => 'date',
           'active' => 1,
@@ -931,7 +967,7 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '3',
+          'weight' => '5',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1009,12 +1045,12 @@ $data = array(
     'field_er_rii_support' => array(
       0 => array(
         'weight' => '0',
-        'label' => 'Rii Support',
+        'label' => 'EPSCoR Support',
         'widget_type' => 'optionwidgets_select',
         'description' => '',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '5',
+          'weight' => '7',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -1093,7 +1129,7 @@ $data = array(
       0 => array(
         'label' => 'EPSCoR Participant Research Product Creator(s)',
         'widget' => array(
-          'weight' => '1',
+          'weight' => '3',
           'type' => 'entityreference_autocomplete',
           'module' => 'entityreference',
           'active' => 1,
@@ -1189,6 +1225,42 @@ $data = array(
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_user_entity_reference',
+        'entity_type' => 'node',
+        'bundle' => 'er_other_product',
+        'deleted' => '0',
+      ),
+    ),
+    'field_what_has_the_research_prod' => array(
+      0 => array(
+        'label' => 'What has the research produced?',
+        'widget' => array(
+          'weight' => 0,
+          'type' => 'markup',
+          'module' => 'markup',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'markup_default',
+            'settings' => array(),
+            'module' => 'markup',
+            'weight' => 6,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_what_has_the_research_prod',
         'entity_type' => 'node',
         'bundle' => 'er_other_product',
         'deleted' => '0',
