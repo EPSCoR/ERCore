@@ -53,8 +53,55 @@ function er_theme($existing, $type, $theme, $path){
 			'function' => 'theme_er_related_content',
 			'file' => 'includes/related_content.inc',
 		),
+		
+		'field__field_er_user_entity_reference'=>array(
+			'variables' => array(),
+			'function' => 'theme_field_er_user_entity_reference',
+		),
 	);
 	return $theme;
+}
+
+/*
+ * @purpose This function re-themes the field_er_user_entity_reference entity reference field.
+ * 		It splits up the users referenced by whether they are participants or collaborators.
+ * @author Andrew Wessels
+ */
+function theme_field_er_user_entity_reference($variables){
+	$grouped_items = array('participant' => array(), 'collaborator'=>array());
+	foreach ($variables['element']['#items'] as $delta => $item){
+		$participating = check_user_participating($item['entity']);
+		$grouped_items[$participating][] = $variables['items'][$delta];
+	}
+	
+	$label = explode('|', $variables['label']);
+	if (count($label) < 2)
+		$label[] = 'Collaborators'; //if no alternative label was given, use this.
+	
+	$output = '';
+	foreach ($grouped_items as $type => $items){
+		$this_output = '';
+		// Render the label, if it's not hidden.
+		if (!$variables['label_hidden']) {
+			$this_output .=
+				'<div class="field-label"' . $variables['title_attributes'] . '>' .
+					($type == 'participant'?$label[0]:$label[1]) .
+				': </div>';
+		}
+	 
+		// Render the items.
+		$this_output .= '<div class="field-items"' . $variables['content_attributes'] . '>';
+		foreach ($items as $delta => $item) {
+			$classes = 'field-item ' . ($delta % 2 ? 'odd' : 'even');
+			$this_output .= '<div class="' . $classes . '"' . $variables['item_attributes'][$delta] . '>' . drupal_render($item) . '</div>';
+		}
+		$this_output .= '</div>';
+	 
+		// Render the top-level DIV.
+		$output .= '<div class="' . $variables['classes'] . '"' . $variables['attributes'] . '>' . $this_output . '</div>';
+	}
+ 
+  return $output;
 }
 
 /**

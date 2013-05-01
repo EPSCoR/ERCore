@@ -159,6 +159,8 @@ function er_node_validate($node){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'validate');
 			break;
+    case 'er_collaboration';
+      er_collaboration_validation($node);
 	}
 }
 
@@ -206,8 +208,59 @@ function er_field_attach_presave($entity_type, $entity){
   }
 }
 
+
+function er_collaboration_validation(&$node){
+  //d($node, '$node');
+  $lang = $node->language;
+  if (isset($node->field_er_user_entity_reference) && count($node->field_er_user_entity_reference[$lang]))
+  foreach ($node->field_er_user_entity_reference[$lang] as $k=>$values){
+    if (isset($values['target_id']) && $values['target_id'] != ""){
+      $user = user_load($values['target_id']);
+      $participating = check_user_participating($user);
+      //d($user, $participating);
+      //d($participating, '$participating');
+      if ($participating == 'collaborator'){
+        $u = entity_metadata_wrapper('user', $user);
+        $name = $u->field_er_realname->value();
+        //TODO: Add a link to the appropriate documentation pages.
+        form_set_error('field_er_user_entity_reference', "The user \"$name\" cannot be added as an EPSCoR researcher! His/her account does not meet the necessary criteria, and must therefore be added as a collaborator in step 2 after submitting this form.");
+      }
+    }
+  }
+}
+
+function check_user_participating(&$uid, $range = array()){
+  /*
+    Check for participating institution
+    >160 hrs/yr
+    TODO: (optiona) check participating date ranges
+  */
+  if (is_object($uid))//user object was passed in...
+    $user = $uid;
+  else
+    $user = user_load($uid);
+  $participating = false;
+  $one_sixty = false;
+  //d($user, '$user');
+  $u = entity_metadata_wrapper('user', $user);
+  $u->field_er_inst_ref->value();
+  $inst_nodes = $u->field_er_inst_ref->value();
+  if (count($inst_nodes)){
+    $inst = array_pop($inst_nodes);
+    $i = entity_metadata_wrapper('node', $inst);
+    $participating = $i->field_er_inst_participating->value()==1?true:false;
+  }
+  $one_sixty = $u->field_er_160hours->value()==1?true:false;
+  //d($participating, '$participating');
+  //d($one_sixty, '$one_sixty');
+  $verdict = 'collaborator';
+  if ($participating && $one_sixty)
+    $verdict = 'participant';
+  return $verdict;
+}
+
+
 //EE = External Engagements
-//
 function _manage_ee_nodes($node, $op){
 	//static $types = array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth');
 	//static $catLabels = array("Academic Research Institutions", "Primary Undergraduate Institutions", "Minority Serving Institutions", "K-12 Institutions", "Other");

@@ -77,7 +77,6 @@ class er_collaborations extends er_page{
 								"nid"=>$nid,
 							);
 						}
-						d($result, '$result');
 						$data[$category][$type]["Collaborators"][] = array(
 							"title"=>$result->node_field_data_field_er_collab_ref_title,
 							"inst_title"=>$result->node_field_data_field_er_collab_inst_ref_title,

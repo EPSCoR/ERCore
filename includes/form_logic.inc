@@ -71,13 +71,13 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 
 // Collaboration
 function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id){
-	  // d($form, 'er_form_er_collaboration_node_form_alter');
-	  _set_states_for_inst($form);	  
-	  // $form['#submit'][] = '_create_inst';
-	  // Using array_unshift makes sure this goes at the very beginning
-	  //	Which is useful because we're unsetting items
-	  array_unshift($form['#submit'], '_create_inst');
-	  $form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
+	// d($form, 'er_form_er_collaboration_node_form_alter');
+	_set_states_for_inst($form);	  
+	// $form['#submit'][] = '_create_inst';
+	// Using array_unshift makes sure this goes at the very beginning
+	//	Which is useful because we're unsetting items
+	array_unshift($form['#submit'], '_create_inst');
+	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
 	
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
