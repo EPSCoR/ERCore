@@ -9,7 +9,7 @@ $data = array(
       'description' => 'Use this form to report on other research products such as Data or Databases, Physical Collection, Audio or Video products, Software, Educational aids, Instruments or Equipment or Other Inventions.',
       'help' => '',
       'has_title' => '1',
-      'title_label' => 'Title or Name of Product',
+      'title_label' => 'Title',
       'custom' => '1',
       'modified' => '1',
       'locked' => '0',
@@ -529,7 +529,8 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'markup' => array(
-          'value' => '<h2>What has the research produced?</h2>',
+          'value' => '<h2>What has the research produced?</h2>
+<em>Please provide a description of your research product.</em>',
           'format' => 'full_html',
         ),
       ),
@@ -1233,7 +1234,7 @@ $data = array(
       0 => array(
         'label' => 'What has the research produced?',
         'widget' => array(
-          'weight' => '0',
+          'weight' => 0,
           'type' => 'markup',
           'module' => 'markup',
           'active' => 0,
