@@ -508,3 +508,41 @@ function er_create_download_link($label = "", $arg = "", $options = array()){
 	if (!$label) $label = "Download this page";
 	return l('<i class="icon-download-alt"></i>'.t($label), ER_ROOT_NAME."/$arg/download", $options);
 }
+
+function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
+	//User must be active
+	$query->condition('users.status', '1', '=');
+	
+	//Join in the institution data:
+	$query->innerJoin('field_data_field_er_inst_ref', 'inst_ref', 'users.uid = inst_ref.entity_id AND inst_ref.bundle = \'user\'');
+	$query->innerJoin('node', 'inst', 'inst.nid = inst_ref.field_er_inst_ref_target_id');
+	
+	//Institution must be "participating":
+	$query->innerJoin('field_data_field_er_inst_participating', 'participating', 'inst.nid = participating.entity_id');
+	$query->condition('participating.field_er_inst_participating_value', '1', '=');//yes, this is a participating institution
+	
+	//User must be >160hrs/yr
+	$query->innerJoin('field_data_field_er_160hours', 'one_sixty', 'users.uid = one_sixty.entity_id');
+	$query->condition('one_sixty.field_er_160hours_value', '1', '=');//Yes, user is more than 160hrs/yr
+	
+	//d($query, 'select');
+	//d((string)$query, '$query');
+}
+
+
+function er_query_epscor_active_participant_alter(QueryAlterableInterface $query) {
+	$query->innerJoin('field_data_field_er_participant_date', 'participant_date', 'users.uid = participant_date.entity_id');
+	if ($range = er_get_reporting_range()){
+		$dates = array(date('Y-m-d H:i:s', $range[0]), date('Y-m-d H:i:s', $range[1]));
+	}else{
+		$now = date('Y-m-d H:i:s');
+		$dates = array($now, $now);
+	}
+	$query->condition('participant_date.field_er_participant_date_value', $dates[1], '<');
+	$or = db_or();
+		$or->isNull('participant_date.field_er_participant_date_value2');
+		$or->condition('participant_date.field_er_participant_date_value2', $dates[0], '>');
+	$query->condition($or);
+	//d($query, 'select');
+	//d((string)$query, '$query');
+}

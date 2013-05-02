@@ -7,16 +7,8 @@ require_once(ER_MODULE_DIR.'/er_page.inc');
  * This is the error message: PHP Fatal error:  Cannot access empty property in /import/webservices/tier34/EPSCOR/html/ERcore/modules/field/field.attach.inc on line 325, referer: https://epscor.arsc.edu/ERcore/admin/structure/views/view/er_report_salary_support/edit/count
  */
 class er_salary_support extends er_page{
-	private $institutions, $support_types;
-	
 	public function __construct() {
 		parent::__construct();
-		//$this->excel_file = "Participants-template.xls";
-		//$this->institutions = array_values($this->get_allowed_values("field_er_institution"));
-		//$this->support_types = array_values($this->get_allowed_values("field_er_support_type"));
-		
-		//$this->institutions = list_allowed_values(field_info_field("field_er_institution"));
-		//$this->support_types = list_allowed_values(field_info_field("field_er_support_type"));
   }
 	
 	public function title(){
@@ -27,79 +19,71 @@ class er_salary_support extends er_page{
 	 * @param $count: boolean value indicating whether we are to display the actual content or just return the entity count.
 	 * @param $distinct: boolean value indicating whether we should count distinct users or allow duplicates.
 	 */
-	public function generate_inst_query($count, $distinct = false){
-		$query = db_select('node', 'node');
-		//$query = db_select('field_data_field_er_inst_ref', 'inst');
-		$query->innerJoin('field_data_field_er_inst_ref', 'inst', 'node.nid = inst.field_er_inst_ref_target_id');
-		$query->innerJoin('field_data_field_er_inst_participating', 'participating', 'node.nid = participating.entity_id');
-		$query->leftJoin('field_data_field_er_inst_abbreviation', 'abbr', 'inst.field_er_inst_ref_target_id = abbr.entity_id');
-		$query->leftJoin('field_data_field_er_fname', 'fname', 'inst.entity_id = fname.entity_id');
-		$query->leftJoin('field_data_field_er_lname', 'lname', 'inst.entity_id = lname.entity_id');
-		$query->leftJoin('field_data_field_er_department', 'department', 'inst.entity_id = department.entity_id');
-		$query->condition('inst.bundle', 'user', '=');//must be attached to a user.
-		$query->condition('participating.field_er_inst_participating_value', '1', '=');//yes, this is a participating institution
-		$query->addField('inst', 'entity_id', 'uid');
-		$query->addField('abbr', 'field_er_inst_abbreviation_value', 'abbr');
-		$query->addField('node', 'nid');
-		$query->addField('node', 'title', 'inst_name');
+	public function generate_user_query($count, $distinct = false){
+		//see er.module for the definition of these tags:
+		//$efq = new EntityFieldQuery();
+		//$efq->entityCondition('entity_type', 'user')
+		//	->addTag('epscor_participant')
+		//	->addTag('epscor_active_participant')
+		//$results = $efq->execute();
+		//$users = entity_load('user', array_keys($results['user']));
+		
+		
+		$query = db_select('users', 'users');
+		//this uses the EntityFieldQuery tag definitions:
+		er_query_epscor_participant_alter($query);//Make sure it's only participants
+		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range		
+		//Only faculty:
+		$query->innerJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id AND position_type.bundle = \'user\'');
+		$query->condition('position_type.field_er_position_type_value', 'Faculty participants (or equivalent)', '=');
+		
+		//return the relevant data:
+		$query->leftJoin('field_data_field_er_inst_abbreviation', 'ints_abbr', 'inst.nid = ints_abbr.entity_id');
+		$query->leftJoin('field_data_field_er_fname', 'fname', 'users.uid = fname.entity_id');
+		$query->leftJoin('field_data_field_er_lname', 'lname', 'users.uid = lname.entity_id');
+		$query->leftJoin('field_data_field_er_department', 'department', 'users.uid = department.entity_id');
+		$query->addField('inst', 'nid', 'inst_nid');
+		$query->addField('inst', 'title', 'inst_name');
+		$query->addField('ints_abbr', 'field_er_inst_abbreviation_value', 'ints_abbr');
 		$query->addField('fname', 'field_er_fname_value', 'fname');
 		$query->addField('lname', 'field_er_lname_value', 'lname');
 		$query->addField('department', 'field_er_department_value', 'department');
+		//$query->addField('position_type', 'field_er_position_type_value', 'position_type');
 		$query->orderBy('inst_name', 'ASC');
 		$query->orderBy('department', 'ASC');
 		$query->orderBy('lname', 'ASC');
-		return $query;
-	}
-	
-	/*
-	 * @param $count: boolean value indicating whether we are to display the actual content or just return the entity count.
-	 * @param $distinct: boolean value indicating whether we should count distinct users or allow duplicates.
-	 */
-	public function generate_user_query($count, $distinct = false){
-		$query = db_select('users', 'users');
-		
-		////Join with attached institutions
-		//$query->innerJoin('field_data_field_er_inst_ref', 'institution', 'users.uid = institution.entity_id');
-		////Join in field: Is this institution a "participating" institution?
-		//$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
-		////Join in position type
-		//$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
-		//
-		////only give me valid position types (not Other, or Evaluation)
-		//$query->condition('position_type.field_er_position_type_value', $this->categories, 'IN');
-		////Institution must be "Participating"
-		//$query->condition('participating.field_er_inst_participating_value', '1', '=');
-		//
-		//$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
-		//$query->addField('position_type', 'field_er_position_type_value', 'position_type');
-		//
 		$query = $this->find_users($query, $distinct);
-		////d((string)$query);
+		//d((string)$query, 'user');
 		return $query;
 	}
 	
 	public function data($count = true){
-		$query = $this->generate_inst_query($count);
+		$query = $this->generate_user_query($count);
 		$results = $query->execute();
 		$data = array();
 		foreach ($results as $result){
 			//d($result, '$result');
-			$data['users'][$result->nid][$result->uid] = array('fname'=>$result->fname, 'lname'=>$result->lname, 'department'=>$result->department);
+			$data['users'][$result->inst_nid][$result->uid] = array('fname'=>$result->fname, 'lname'=>$result->lname, 'department'=>$result->department);
 			if (!isset($data['inst'][$result->nid]))
-				$data['inst'][$result->nid] = array('name'=>$result->inst_name, 'abbr'=>$result->abbr);
+				$data['inst'][$result->inst_nid] = array('name'=>$result->inst_name, 'abbr'=>$result->inst_abbr?$result->inst_abbr:$result->inst_name, 'nid'=>$result->inst_nid);
 		}
 		return $data;
 	}
 	
+	//not really necessary...
+	public function attach_fields($entity_type, $bundle, $entities, $fields){
+		foreach ($fields as $field){
+			$info = field_info_instance($entity_type, $field, $bundle);
+			field_attach_load($entity_type, $entities, FIELD_LOAD_CURRENT, array('field_id' => $info['field_id']));
+		}
+	}
+	
 	public function html(){
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-		//d($this->institutions, 'institutions');
-		//d($this->support_types, 'support_types');
-		d($this->data(), 'count');
+		d($this->data(), 'count');		
 		$data = $this->data(false);
 		d($data, 'data');
 		$output = $this->download_link();
-		//er_get_realname($uid);
 		if (is_array($data['users']))
 		foreach ($data['users'] as $inst_nid=>$users){
 			$inst_name = $inst_nid?$data['inst'][$inst_nid]['name']:'Blank Institution';
@@ -110,24 +94,6 @@ class er_salary_support extends er_page{
 				$output .= "<h3>".l($name, 'user/'.$user['uid']).$department."</h3>";
 			}
 		}
-		//foreach ($data['paid'] as $inst_nid=>$paid){
-		//	$inst_name = $inst_nid?$data['inst'][$inst_nid]['inst_full']:'Blank Institution';
-		//	$output .= "<h2>".$inst_name."</h2>";
-		//	foreach ($paid as $uid=>$types){
-		//		$user = $data['users'][$uid];
-		//		$output .= "<h3>".l($user['name'], 'user/'.$uid)."</h3>";
-		//		$output .= "<ol>";
-		//		foreach ($types as $user_node){
-		//			$output .= "<li>";
-		//			$output .= "Effort: ".$user_node['effort']."<br>";
-		//			$output .= "Funding: ".$user_node['funding']."<br>";
-		//			$output .= "Type: ".$user_node['type']."<br>";
-		//			$output .= l("Edit paid node", 'node/'.$user_node['nid'].'/edit');
-		//			$output .= "</li>";
-		//		}
-		//		$output .= "</ol>";
-		//	}
-		//}
 		return $output;
 	}
 	
@@ -168,10 +134,6 @@ class er_salary_support extends er_page{
 		$E = ord('E');
 		$I = ord('I');
 		
-		//
-		//$add = $data['count']-2;
-		//if ($add > 0)
-		//	$worksheet->insertNewRowBefore($base_row + 1, $add);
 		$default = array(
 			"Other NSF"=>array("effort"=>0,"funding"=>0),
 			"Other Gov"=>array("effort"=>0,"funding"=>0),
@@ -204,69 +166,6 @@ class er_salary_support extends er_page{
 			}
 		}
 	}
-	
-	////Old version which fills everything.
-	//public function write_excel(&$objPHPExcel, $sheet = 0){
-	//	$data = $this->data();
-	//	$worksheet = $objPHPExcel->setActiveSheetIndex($sheet);
-	//	$base_row = 7;
-	//	$row = $base_row;
-	//	
-	//	//these are used in placing values in the correct column
-	//	$E = ord('E');
-	//	$I = ord('I');
-	//	
-	//	//
-	//	//$add = $data['count']-2;
-	//	//if ($add > 0)
-	//	//	$worksheet->insertNewRowBefore($base_row + 1, $add);
-	//	$default = array(
-	//		"Other NSF"=>array("effort"=>0,"funding"=>0),
-	//		"Other Gov"=>array("effort"=>0,"funding"=>0),
-	//		"Other"=>array("effort"=>0,"funding"=>0),
-	//	);
-	//	$add_rows = 0;
-	//	foreach ($data['paid'] as $p){
-	//		$add_rows += 1 + count($p);
-	//	}
-	//	if ($add_rows > 2)
-	//		$worksheet->insertNewRowBefore($base_row+1, $add_rows-2);
-	//	
-	//	$totals = $default;//this is the final tally of everything...
-	//	foreach ($data['paid'] as $inst_nid=>$paid){
-	//		$inst_name = $inst_nid?$data['inst'][$inst_nid]['inst_full']:'Blank Institution';
-	//		$inst_abbr = $inst_nid && $data['inst'][$inst_nid]['inst_abbr']?$data['inst'][$inst_nid]['inst_abbr']:$inst_name;
-	//		$type_total = $default;//this is the tally for this particular institution
-	//		foreach ($paid as $uid=>$types){
-	//			$user = $data['users'][$uid];
-	//			$values = array_merge($default, $types);
-	//			$worksheet->setCellValue('A'.$row, $inst_abbr);
-	//			$worksheet->setCellValue('B'.$row, $user['department']);
-	//			$worksheet->setCellValue('C'.$row, $user['name']);
-	//			
-	//			foreach (array("Other NSF","Other Gov","Other") as $t=>$type){
-	//				$type_total[$type]["effort"] += $values[$type]["effort"];
-	//				$worksheet->setCellValue(chr($E+$t).$row, $values[$type]["effort"]);
-	//				$type_total[$type]["funding"] += $values[$type]["funding"];
-	//				$worksheet->setCellValue(chr($I+$t).$row, $values[$type]["funding"]);
-	//			}
-	//			$row++;
-	//		}
-	//		$this->write_total_formatting($worksheet, $row);
-	//		$worksheet->setCellValue('A'.$row, "Total for $inst_name");
-	//		foreach (array("Other NSF","Other Gov","Other") as $t=>$type){
-	//			$totals[$type]["effort"] += $type_total[$type]["effort"];
-	//			$worksheet->setCellValue(chr($E+$t).$row, $type_total[$type]["effort"]);
-	//			$totals[$type]["funding"] += $type_total[$type]["funding"];
-	//			$worksheet->setCellValue(chr($I+$t).$row, $type_total[$type]["funding"]);
-	//		}
-	//		$row++;
-	//	}
-	//	foreach (array("Other NSF","Other Gov","Other") as $t=>$type){
-	//		$worksheet->setCellValue(chr($E+$t).$row, $totals[$type]["effort"]);
-	//		$worksheet->setCellValue(chr($I+$t).$row, $totals[$type]["funding"]);
-	//	}
-	//}
 
 	public function excel_file(){
 		$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/static/files/Salary-Support-template.xls");
