@@ -1,27 +1,7 @@
 <?php
 function er_feedback_form($form, &$form_state){
   //Your new best friend: http://api.drupal.org/api/drupal/developer!topics!forms_api_reference.html/7
-  $form['location'] = array(
-  	'#type' => 'textfield',
-	'#title' => 'Location',
-	'#description' => 'Enter the url of the problem',
-	'#required' => TRUE
-  );
-  $form['description'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Feedback'),
-    '#description' => 'Describe the problem',
-	'#required' => TRUE
-  );
-  $form['screenshot'] = array(
-  	'#type' => 'file',
-	'#title' => 'Screenshot',
-	'#description' => 'Upload a screenshot of the page/problem/error message (Optional)'
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
+
   return $form; 
 }
 
