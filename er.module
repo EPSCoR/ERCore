@@ -509,6 +509,16 @@ function er_create_download_link($label = "", $arg = "", $options = array()){
 	return l('<i class="icon-download-alt"></i>'.t($label), ER_ROOT_NAME."/$arg/download", $options);
 }
 
+//This works with EntityFieldQuery.
+//Usage:
+//	$efq = new EntityFieldQuery();
+//	$efq->addTag('epscor_participant');
+//Purpose:
+//	This tag checks to make sure that the returned user's are all considdered participants.
+//Criteria:
+//	User must be active
+//	User is attached to a "participating" institution
+//	User contributes more than 160hrs/yr
 function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
 	//User must be active
 	$query->condition('users.status', '1', '=');
@@ -529,7 +539,13 @@ function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
 	//d((string)$query, '$query');
 }
 
-
+//This works with EntityFieldQuery.
+//Usage:
+//	$efq = new EntityFieldQuery();
+//	$efq->addTag('epscor_active_participant');
+//Purpose:
+//	It compares the user's participating date range with the date range that has been set on the summary table.
+//	If no date range has been selected, it checks if the person is currently participating (right now).
 function er_query_epscor_active_participant_alter(QueryAlterableInterface $query) {
 	$query->innerJoin('field_data_field_er_participant_date', 'participant_date', 'users.uid = participant_date.entity_id');
 	if ($range = er_get_reporting_range()){
