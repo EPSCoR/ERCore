@@ -373,40 +373,44 @@ function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
+	
 	// undergrad selection
 	$und = array(
-		':input[name="field_er_involvement[und][select]"]' => array('value' => 'Undergraduate Student'),
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Undergraduate student'),
 	  );
-	$form['field_er_und_ant_grad_date']['#states'] = array(
+	$form['field_er_ant_undergrad_ca1']['#states'] = array(
 	  'visible' => $und, 
 	  'required' => $und,
 	);
-	$form['field_er_und_act_grad_date']['#states'] = array(
+	$form['field_er_ant_undergrad_ca1']['#states'] = array(
 	  'visible' => $und,
 	);
-	
-	// masters selection
-	$mas = array(
-		':input[name="field_er_involvement[und][select]"]' => array('value' => 'Graduate Student (Fellow, Assistant, Etc.)'),
+	$form['field_er_supervisor']['#states'] = array(
+		'visible' => $und,
 	);
-	$form['field_er_mas_ant_grad_date']['#states'] = array(
+	
+	// masters selections
+	$mas = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Graduate student'),
+	);
+	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
 	  'visible' => $mas,
 	  'required' => $mas,
 	);
-	$form['field_er_mas_act_grad_date']['#states'] = array(
+	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
 	  'visible' => $mas,
 	);
 	
 	// doctorate selection
 	$doc = array(
-		':input[name="field_er_involvement[und][select]"]' => array('value' => 'Post Doc (Fellow, Assistant, Etc.)'),
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Post Doc'),
 	);
-	$form['field_er_doc_ant_grad_date']['#states'] = array(
+	$form['field_er_ant_doct_completion_ca1']['#states'] = array(
 	  'visible' => $doc,
 	  'required' => $doc,
 	);
-	$form['field_er_doc_act_grad_date']['#states'] = $form['field_er_mentoring_plan']['#states'] = $form['field_er_mentoring_plan_ul']['#states'] 
-	= array(
+	$form['field_er_ant_doct_completion_ca1']['#states'] = $form['field_er_mentoring_plan_ul']['#states'] = 
+	$form['field_er_mentoring_plan_ul']['#states'] = array(
 	  'visible' => $doc,
 	);
 	
@@ -414,7 +418,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$certs = array(
 		'input:[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-	$form['field_er_rcr_online']['#states'] = $form['field_er_rcr_online_ul']['#states'] = $form['field_er_rcr_inperson']['#states']
+	$form['field_er_rcr_online_ca1']['#states'] = $form['field_er_rcr_online_ul']['#states'] = $form['field_er_rcr_inperson_ca1']['#states']
 	= $form['field_er_rcr_inperson_ul']['#states'] 
 	= array(
 		'required' => $certs,
