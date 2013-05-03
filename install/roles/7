@@ -4,11 +4,20 @@ $role = array(
   'name' => 'guest',
   'permissions' => array(
     'access comments',
-    'access content',
     'access er content',
-    'create field_er_disabilities',
+    'access user profiles',
+    'edit own field_er_disabilities',
+    'edit own field_er_phone_personal',
+    'edit own main profile',
+    'post comments',
     'search content',
     'use advanced search',
     'use text format filtered_html',
+    'view any administrative_staff profile',
+    'view any administrator profile',
+    'view any student profile',
+    'view own field_er_disabilities',
+    'view own main profile',
+    'view own student profile',
   )
 );
