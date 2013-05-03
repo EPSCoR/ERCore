@@ -1,6 +1,6 @@
 <?php
 $role = array(
-  'rid' => '137756511',
+  'rid' => '20000',
   'name' => 'faculty',
   'permissions' => array(
     'access administration menu',
