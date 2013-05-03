@@ -1,0 +1,14 @@
+<?php
+$role = array(
+  'rid' => '7',
+  'name' => 'guest',
+  'permissions' => array(
+    'access comments',
+    'access content',
+    'access er content',
+    'create field_er_disabilities',
+    'search content',
+    'use advanced search',
+    'use text format filtered_html',
+  )
+);
