@@ -1,6 +1,6 @@
 <?php
-$role = array( 
-  'rid' => '7',
+$role = array(
+  'rid' => '496118617',
   'name' => 'guest',
   'permissions' => array(
     'access comments',
