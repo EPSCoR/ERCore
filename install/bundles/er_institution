@@ -9,7 +9,7 @@ $data = array(
       'description' => '',
       'help' => '',
       'has_title' => '1',
-      'title_label' => 'Title',
+      'title_label' => 'Institution Name',
       'custom' => '1',
       'modified' => '1',
       'locked' => '0',
@@ -94,18 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'blog',
-          3 => 'er_award',
-          4 => 'er_event',
+          2 => 'er_proposal',
+          3 => 'er_publication',
+          4 => 'er_award',
           5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
-          9 => 'image_gallery',
-          10 => 'node_gallery_gallery',
-          11 => 'node_gallery_image',
-          12 => 'webform',
-          13 => 'er_collaboration',
+          6 => 'er_event',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -182,12 +177,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_institution',
           1 => 'er_collaboration',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -329,12 +324,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_institution',
           1 => 'er_collaboration',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -421,12 +416,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_institution',
           1 => 'er_collaboration',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -546,84 +541,6 @@ $data = array(
       'deleted' => '0',
       'columns' => array(
         'value' => array(
-          'type' => 'varchar',
-          'length' => 255,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_institution',
-        ),
-      ),
-    ),
-    'field_institution_link' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'max_length' => '255',
-        'profile2_private' => 0,
-        'user_role_field' => array(
-          5 => 0,
-          4 => 0,
-          6 => 0,
-          3 => 0,
-          1 => 0,
-          2 => 0,
-        ),
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_institution_link' => array(
-                'value' => 'field_institution_link_value',
-                'format' => 'field_institution_link_format',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_institution_link' => array(
-                'value' => 'field_institution_link_value',
-                'format' => 'field_institution_link_format',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(
-        'format' => array(
-          'table' => 'filter_format',
-          'columns' => array(
-            'format' => 'format',
-          ),
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_institution_link',
-      'type' => 'text',
-      'module' => 'text',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'varchar',
-          'length' => '255',
-          'not null' => FALSE,
-        ),
-        'format' => array(
           'type' => 'varchar',
           'length' => 255,
           'not null' => FALSE,
@@ -854,7 +771,7 @@ $data = array(
     ),
     'field_er_inst_link' => array(
       0 => array(
-        'label' => 'Institution Link(previous)',
+        'label' => 'Institution Link',
         'widget' => array(
           'weight' => '6',
           'type' => 'link_field',
@@ -878,22 +795,17 @@ $data = array(
             'configurable_title' => 0,
             'title' => '',
           ),
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
+          'rel_remove' => 'default',
           'enable_tokens' => 1,
           'user_register_form' => FALSE,
         ),
         'display' => array(
           'default' => array(
             'label' => 'above',
-            'type' => 'hidden',
-            'weight' => '6',
+            'type' => 'link_default',
+            'weight' => '5',
             'settings' => array(),
+            'module' => 'link',
           ),
           'teaser' => array(
             'label' => 'above',
@@ -1034,53 +946,6 @@ $data = array(
         ),
         'required' => 1,
         'field_name' => 'field_er_inst_type',
-        'entity_type' => 'node',
-        'bundle' => 'er_institution',
-        'deleted' => '0',
-      ),
-    ),
-    'field_institution_link' => array(
-      0 => array(
-        'label' => 'Institution Link',
-        'widget' => array(
-          'weight' => '7',
-          'type' => 'text_textfield',
-          'module' => 'text',
-          'active' => 1,
-          'settings' => array(
-            'size' => '60',
-          ),
-        ),
-        'settings' => array(
-          'text_processing' => '0',
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
-          'user_register_form' => FALSE,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '5',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 0,
-        'description' => '',
-        'default_value' => NULL,
-        'field_name' => 'field_institution_link',
         'entity_type' => 'node',
         'bundle' => 'er_institution',
         'deleted' => '0',
