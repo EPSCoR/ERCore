@@ -1,6 +1,6 @@
 <?php
 $role = array(
-  'rid' => '166149871',
+  'rid' => '10000',
   'name' => 'administrative staff',
   'permissions' => array(
     'access administration menu',
