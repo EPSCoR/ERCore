@@ -1,5 +1,5 @@
 <?php
-$role = array(
+$role = array( 
   'rid' => '7',
   'name' => 'guest',
   'permissions' => array(
