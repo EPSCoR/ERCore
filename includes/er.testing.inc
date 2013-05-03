@@ -162,13 +162,14 @@ function er_testing() {
 	//Fields and fieldgroups
 	$field_status = er_test_fields();
 	foreach ($field_status as $bundle=>$results){
+		$missing = array();
 		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
-			$missing[] = count($results['fields'])?"fields: ".implode($results['fields']):'';//collect the names of the missing fields
-			$missing[] = count($results['groups'])?"groups: ".implode($results['groups']):'';//collect the names of the missing fieldgroups
+			if (count($results['fields'])) $missing[] = "fields: ".implode(", ", $results['fields']);//collect the names of the missing fields
+			if (count($results['groups'])) $missing[] = "groups: ".implode(", ", $results['groups']);//collect the names of the missing fieldgroups
 			$requirements[] = array(
 				'severity' => REQUIREMENT_ERROR,
 				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
-				'description' => "Missing ".implode($missing),
+				'description' => "Missing ".implode("<br>", $missing),
 				'value' => create_reset_link('bundles', $bundle, 'this bundle'),
 			);
 		}else{

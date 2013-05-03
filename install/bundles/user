@@ -949,12 +949,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_news',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_news',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1341,12 +1341,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_other_product',
           1 => 'er_patent',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -1828,12 +1828,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1899,11 +1899,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -1980,12 +1980,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2061,11 +2061,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -2152,12 +2152,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2238,11 +2238,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -2327,11 +2327,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -6429,7 +6429,7 @@ White|White',
   ),
   'fieldgroups' => array(
     'group_er_data|user|user|form' => (object) array(
-      'id' => '2',
+      'id' => '9',
       'identifier' => 'group_er_data|user|user|form',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6461,7 +6461,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|form' => (object) array(
-      'id' => '3',
+      'id' => '10',
       'identifier' => 'group_er_inst|user|user|form',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6495,7 +6495,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|form' => (object) array(
-      'id' => '4',
+      'id' => '11',
       'identifier' => 'group_er_certs|user|user|form',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
@@ -6532,7 +6532,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|form' => (object) array(
-      'id' => '5',
+      'id' => '12',
       'identifier' => 'group_er_profile|user|user|form',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6561,7 +6561,7 @@ White|White',
       ),
     ),
     'group_er_account|user|user|form' => (object) array(
-      'id' => '6',
+      'id' => '13',
       'identifier' => 'group_er_account|user|user|form',
       'group_name' => 'group_er_account',
       'entity_type' => 'user',
@@ -6590,7 +6590,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|form' => (object) array(
-      'id' => '7',
+      'id' => '14',
       'identifier' => 'group_er_contact|user|user|form',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6621,7 +6621,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|form' => (object) array(
-      'id' => '8',
+      'id' => '15',
       'identifier' => 'group_er_demographics|user|user|form',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6652,7 +6652,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|form' => (object) array(
-      'id' => '9',
+      'id' => '16',
       'identifier' => 'group_er_involvement|user|user|form',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6690,7 +6690,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|form' => (object) array(
-      'id' => '10',
+      'id' => '17',
       'identifier' => 'group_er_education|user|user|form',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6722,7 +6722,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|default' => (object) array(
-      'id' => '11',
+      'id' => '18',
       'identifier' => 'group_er_profile|user|user|default',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6750,7 +6750,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|default' => (object) array(
-      'id' => '12',
+      'id' => '19',
       'identifier' => 'group_er_inst|user|user|default',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6781,7 +6781,7 @@ White|White',
       ),
     ),
     'group_er_data|user|user|default' => (object) array(
-      'id' => '13',
+      'id' => '20',
       'identifier' => 'group_er_data|user|user|default',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6809,7 +6809,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|default' => (object) array(
-      'id' => '14',
+      'id' => '21',
       'identifier' => 'group_er_contact|user|user|default',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6839,7 +6839,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|default' => (object) array(
-      'id' => '15',
+      'id' => '22',
       'identifier' => 'group_er_demographics|user|user|default',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6869,7 +6869,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|default' => (object) array(
-      'id' => '16',
+      'id' => '23',
       'identifier' => 'group_er_involvement|user|user|default',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6904,7 +6904,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|default' => (object) array(
-      'id' => '17',
+      'id' => '24',
       'identifier' => 'group_er_education|user|user|default',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6934,7 +6934,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|default' => (object) array(
-      'id' => '18',
+      'id' => '25',
       'identifier' => 'group_er_certs|user|user|default',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
