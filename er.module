@@ -572,6 +572,36 @@ function er_query_epscor_active_participant_alter(QueryAlterableInterface $query
 	//d((string)$query, '$query');
 }
 
+function check_user_participating(&$uid, $range = array()){
+  /*
+    Check for participating institution
+    >160 hrs/yr
+    TODO: (optiona) check participating date ranges
+  */
+  if (is_object($uid))//user object was passed in...
+    $user = $uid;
+  else
+    $user = user_load($uid);
+  $participating = false;
+  $one_sixty = false;
+  //d($user, '$user');
+  $u = entity_metadata_wrapper('user', $user);
+  $u->field_er_inst_ref->value();
+  $inst_nodes = $u->field_er_inst_ref->value();
+  if (count($inst_nodes)){
+    $inst = array_pop($inst_nodes);
+    $i = entity_metadata_wrapper('node', $inst);
+    $participating = $i->field_er_inst_participating->value()==1?true:false;
+  }
+  $one_sixty = $u->field_er_160hours->value()==1?true:false;
+  //d($participating, '$participating');
+  //d($one_sixty, '$one_sixty');
+  $verdict = 'collaborator';
+  if ($participating && $one_sixty)
+    $verdict = 'participant';
+  return $verdict;
+}
+
 //Export a role to code
 function er_export_role($rid, $export = true){
 	if (intval($rid) > 0){
