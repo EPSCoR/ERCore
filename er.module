@@ -266,6 +266,15 @@ function er_menu() {
 		'file' => 'includes/er.feedback.inc',
 		'type' => MENU_NORMAL_ITEM,
 	);
+	
+	$items['admin/people/permissions/roles/export/%'] = array(
+		'title' => 'Export role',
+		'description' => 'Export a role with it\'s permissions.',
+		'page callback' => 'er_export_role',
+		'page arguments' => array(5),
+		'access arguments' => array(ER_ADMIN_PERMISSION),
+		'type' => MENU_NORMAL_ITEM,
+	);
 	return $items;
 }
 
@@ -561,4 +570,34 @@ function er_query_epscor_active_participant_alter(QueryAlterableInterface $query
 	$query->condition($or);
 	//d($query, 'select');
 	//d((string)$query, '$query');
+}
+
+//Export a role to code
+function er_export_role($rid, $export = true){
+	if (intval($rid) > 0){
+		$return = array();
+		$return['rid'] = $rid;
+		$result =	db_select('role', 'r')
+			->fields('r', array('name'))
+			->condition('rid', $rid, '=')
+			->execute()
+			->fetchAssoc();
+		$return['name'] = $result['name'];
+		
+		$results =	db_select('role_permission', 'r')
+			->fields('r', array('permission'))
+			->condition('rid', $rid, '=')
+			->execute();
+		while($result = $results->fetchAssoc())
+			$return['permissions'][] = $result['permission'];
+		if ($export)
+			return array(
+					'#type'=>'textarea',
+					'#value'=>"<?php\n\$role = " . var_export($return, TRUE) . ';',
+					'#rows'=>'15',
+			);
+		return $return;
+	}else{
+		return 'Error: Bad role ID.';
+	}
 }

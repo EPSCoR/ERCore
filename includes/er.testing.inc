@@ -121,7 +121,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Role: $name role is extraneous",
 			'description' => 'This user role is unknown to this version of the EPSCoR Reporting module, and may be removed if desired.',
-			'value' => l('<i class="icon-trash"></i> Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/people/permissions/roles/delete/'.$rid, $link_options) . ', ' . l('<i class="icon-file"></i> Export', 'admin/people/permissions/roles/export/'.$rid, $link_options),
 		);
 	}
 	foreach ($role_status['found'] as $rid=>$role){
@@ -129,7 +129,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_OK,
 			'title' => "Role: $name",
-			'value' => ($rid>2?l('<i class="icon-ok"></i> Found', 'admin/people/permissions/roles/edit/'.$rid, array('html'=>true)):'<i class="icon-ok"></i> Found') . ', ' . create_reset_link('roles', $rid) . ', ' . l('<i class="icon-pencil"></i> View Permissions', 'admin/people/permissions/'.$rid, array('html'=>true)),
+			'value' => ($rid>2?l('<i class="icon-ok"></i> Found', 'admin/people/permissions/roles/edit/'.$rid, array('html'=>true)):'<i class="icon-ok"></i> Found') . ', ' . create_reset_link('roles', $rid) . ', ' . l('<i class="icon-pencil"></i> View Permissions', 'admin/people/permissions/'.$rid, array('html'=>true)) . ', ' . l('<i class="icon-file"></i> Export', 'admin/people/permissions/roles/export/'.$rid, $link_options),
 		);
 	}
 
