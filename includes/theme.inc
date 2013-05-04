@@ -82,7 +82,7 @@ function theme_field_er_user_entity_reference($variables){
 	foreach ($grouped_items as $type => $items){
 		$this_output = '';
 		// Render the label, if it's not hidden.
-		if (!$variables['label_hidden']) {
+		if (!$variables['label_hidden'] && count($items)) {
 			$this_output .=
 				'<div class="field-label"' . $variables['title_attributes'] . '>' .
 					($type == 'participant'?$label[0]:$label[1]) .

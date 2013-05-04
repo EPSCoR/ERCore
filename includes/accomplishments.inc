@@ -26,7 +26,7 @@ function er_summary_table($variables){
 			$data = array();
 			$view_name = "er_summary_$type";//$type.'_summary_view';
 			if ($view = views_get_view($view_name)){
-				$view->set_display('count');				
+				$view->set_display('count');
 				$view->execute();
 				//dsm($view);
 				$data[] = er_format_label($type, $view);//$ct_info[$type]->name;
@@ -38,8 +38,8 @@ function er_summary_table($variables){
 					$view = views_get_view($view_name);
 					$view->set_display('count');
 					//dsm(date('Y-m-d', $v[0]) . ' through '. date('Y-m-d', $v[1]));
-					$view->exposed_input['start_date']['value'] = date('Y-m-d', $v[0]);
-					$view->exposed_input['end_date']['value'] = date('Y-m-d', $v[1]);
+					$view->exposed_input['start_date']['value']['date'] = date('Y-m-d', $v[0]);
+					$view->exposed_input['end_date']['value']['date'] = date('Y-m-d', $v[1]);
 					//$view->set_items_per_page(1);
 					$view->execute();
 					if (isset($view->result[0]->nid))
@@ -194,6 +194,7 @@ function er_date_range_form($form_state) {
     '#title' => t('Start Date'),
     '#date_format' => $date_format,
     '#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
+		//'#value' => array('date'=>date('Y-m-d', isset($range[0])?$range[0]:time())),
     '#default_value' => date('Y-m-d', isset($range[0])?$range[0]:time()),
     '#date_year_range' => $date_year_range,
 		'#date_label_position' => 'none',
@@ -203,6 +204,7 @@ function er_date_range_form($form_state) {
     '#type' => 'date_popup',
     '#title' => t('End Date'),
     '#date_format' => $date_format,
+		//'#value' => array('date'=>date('Y-m-d', isset($range[1])?$range[1]:mktime(0, 0, 0, date('n')+1))),
     '#default_value' => date('Y-m-d', isset($range[1])?$range[1]:mktime(0, 0, 0, date('n')+1)),
     '#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
     '#date_year_range' => $date_year_range,
