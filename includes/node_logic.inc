@@ -161,8 +161,13 @@ function er_node_delete($node){
 function er_field_attach_presave($entity_type, $entity){
   if ($entity_type == 'user'){
     $field = 'field_er_participant_date'; //this is the name of the date field on the user profile
-  }else if ($entity_type == 'node' && isset($entity->type) && ($entity->type == 'er_project' || $entity->type == 'er_proposal')){
-    $field = 'field_'.$entity->type.'_date'; //this is the name of the date field in a node
+  }else if ($entity_type == 'node' && isset($entity->type)){
+    switch ($entity->type){
+      case 'er_collaboration':
+        $field = 'field_er_collaboration_dates';break;
+      case 'er_proposal':
+        $field = 'field_er_proposal_date';break;
+    }
   }
   if (isset($field) && count($entity->{$field})){
     $lang = field_language($entity_type, $entity, $field);
