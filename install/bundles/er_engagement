@@ -598,7 +598,14 @@ $data = array(
           ),
         ),
       ),
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
       'indexes' => array(
         'target_id' => array(
           0 => 'target_id',
@@ -2340,6 +2347,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_oth_urm',
       'type' => 'number_integer',
       'module' => 'number',
@@ -8550,7 +8560,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
         'weight' => '71',
         'label' => 'Under-represented Minority',
         'widget_type' => 'number',
-        'description' => 'Underrepresented minorities include <strong>ONLY</strong> Alaska Natives, Native Americans, Blacks or African American, Hispanics, Native Hawaiians and other Pacific Islanders, and Persons with Disabilities.								
+        'description' => 'Underrepresented minorities include <strong>ONLY</strong> Alaska Natives, Native Americans, African Americans, Hispanics, Native Hawaiians and other Pacific Islanders, and Persons with Disabilities.								
 ',
         'default_value' => array(
           0 => array(
@@ -8668,7 +8678,6 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_oth_urm',
