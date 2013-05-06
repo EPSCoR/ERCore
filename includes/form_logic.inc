@@ -559,10 +559,10 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 	  
-//Advisor field only available to Post-Docs
+//Advisor field only available to Students
 		$form['field_er_advisor']['#states'] = array(
-		'visible' => array($post_doc),
-		'required' => array($post_doc),
+		'visible' => array($post_doc, $undergrad, $grad_student),
+		'required' => array($post_doc, $undergrad, $grad_student),
 	);
 	
 //Mentoring plan fields only available to Post-Docs
