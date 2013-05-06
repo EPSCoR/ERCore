@@ -343,7 +343,6 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	  'required'=> array($journal, $book, $proceedings, $magazine, $newspaper),
 	);
 	
-	
 	// d($form, 'form exiting er_form_er_publication_node_form_alter');
 }
 
@@ -367,7 +366,6 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
 function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
-	
 }
 
 // User Profile
