@@ -1,30 +1,25 @@
 <?php
 $flags = array();
 // Exported flag: "Receive Data Collection Notifications".
-$flags['er_receive_data_notifications'] = array (
+$flags['er_receive_data_notifications'] = array(
   'content_type' => 'user',
   'title' => 'Receive Data Collection Notifications',
-  'global' => '1',
-  'types' => 
-  array (
-  ),
-  'flag_short' => 'Check this box if you want to receive a notification when an EPSCoR participant checks their \'I will be collecting data\' checkbox',
-  'flag_long' => 'This feature let's administrators know when a (new) participant expects to collect data.',
+  'global' => 1,
+  'types' => array(),
+  'flag_short' => 'Check this box if you want to receive a notification when an EPSCoR participant checks \'I will be collecting data\' checkbo',
+  'flag_long' => 'This feature let\'s administrators know when a (new) participant expects to collect data. ',
   'flag_message' => '',
   'unflag_short' => 'Do not receive data collection notifications',
   'unflag_long' => '',
   'unflag_message' => '',
   'unflag_denied_text' => '',
   'link_type' => 'toggle',
-  'roles' => 
-  array (
-    'flag' => 
-    array (
-      0 => '3',
+  'roles' => array(
+    'flag' => array(
+      0 => 3,
     ),
-    'unflag' => 
-    array (
-      0 => '3',
+    'unflag' => array(
+      0 => 3,
     ),
   ),
   'weight' => 0,
