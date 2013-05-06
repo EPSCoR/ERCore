@@ -20,7 +20,6 @@ $handler->display->display_options['access']['role'] = array(
 );
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
-$handler->display->display_options['query']['options']['distinct'] = TRUE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
 $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '15';
@@ -211,12 +210,6 @@ $handler->display->display_options['sorts']['title']['table'] = 'node';
 $handler->display->display_options['sorts']['title']['field'] = 'title';
 $handler->display->display_options['sorts']['title']['exposed'] = TRUE;
 $handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
-/* Sort criterion: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
-$handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
-$handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
-$handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
-$handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['field_er_user_entity_reference_target_id']['expose']['label'] = 'Researcher';
 $handler->display->display_options['path'] = 'presentations';
 
 /* Display: Attachment */

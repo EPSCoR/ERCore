@@ -949,12 +949,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_news',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_news',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1341,12 +1341,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_other_product',
           1 => 'er_patent',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -1828,12 +1828,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1899,11 +1899,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -1980,12 +1980,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2061,11 +2061,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2152,12 +2152,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_institution',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2238,11 +2238,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2327,11 +2327,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'node' => array(
-          0 => 'er_collaboration',
-        ),
         'user' => array(
           0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -4051,13 +4051,80 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
       ),
     ),
+    'field_provide_a_list_of_all_fund' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_provide_a_list_of_all_fund' => array(
+                'value' => 'field_provide_a_list_of_all_fund_value',
+                'format' => 'field_provide_a_list_of_all_fund_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_provide_a_list_of_all_fund' => array(
+                'value' => 'field_provide_a_list_of_all_fund_value',
+                'format' => 'field_provide_a_list_of_all_fund_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_provide_a_list_of_all_fund',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
   ),
   'instances' => array(
     'field_er_160hours' => array(
       0 => array(
         'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
         'widget' => array(
-          'weight' => '76',
+          'weight' => '77',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4556,7 +4623,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '73',
+          'weight' => '72',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
@@ -4605,7 +4672,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Project Component',
         'widget' => array(
-          'weight' => '72',
+          'weight' => '71',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5127,7 +5194,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Institution Abbreviation',
         'widget' => array(
-          'weight' => '26',
+          'weight' => '25',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -5209,7 +5276,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Institution Country',
         'widget' => array(
-          'weight' => '28',
+          'weight' => '27',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -5249,7 +5316,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Please describe role and contribution to the project',
         'widget' => array(
-          'weight' => '29',
+          'weight' => '28',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -5289,7 +5356,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Institution Link',
         'widget' => array(
-          'weight' => '27',
+          'weight' => '26',
           'type' => 'link_field',
           'module' => 'link',
           'active' => 0,
@@ -5615,7 +5682,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'How many months of effort do you plan to, or have participated in EPSCoR research during the latest reporting period?',
         'widget' => array(
-          'weight' => '78',
+          'weight' => '75',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -5724,7 +5791,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '75',
+          'weight' => '74',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5763,7 +5830,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Participating Date(s)',
         'widget' => array(
-          'weight' => '74',
+          'weight' => '73',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6267,7 +6334,7 @@ White|White',
       0 => array(
         'label' => 'Supervisor',
         'widget' => array(
-          'weight' => '69',
+          'weight' => '68',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -6390,7 +6457,7 @@ White|White',
       0 => array(
         'label' => 'Nearest Person Month Worked',
         'widget' => array(
-          'weight' => '77',
+          'weight' => '78',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6426,10 +6493,44 @@ White|White',
         'deleted' => '0',
       ),
     ),
+    'field_provide_a_list_of_all_fund' => array(
+      0 => array(
+        'label' => 'Provide a list of all funding sources that supported your participation in EPSCoR',
+        'widget' => array(
+          'weight' => '76',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 60,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_provide_a_list_of_all_fund',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
   ),
   'fieldgroups' => array(
     'group_er_data|user|user|form' => (object) array(
-      'id' => '9',
+      'id' => '2',
       'identifier' => 'group_er_data|user|user|form',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6461,7 +6562,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|form' => (object) array(
-      'id' => '10',
+      'id' => '3',
       'identifier' => 'group_er_inst|user|user|form',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6495,7 +6596,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|form' => (object) array(
-      'id' => '11',
+      'id' => '4',
       'identifier' => 'group_er_certs|user|user|form',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
@@ -6506,7 +6607,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Certifications and Supporting Documents',
-      'weight' => '71',
+      'weight' => '70',
       'children' => array(
         0 => 'field_er_additional_doc',
         1 => 'field_er_mentoring_plan_ul',
@@ -6520,19 +6621,23 @@ White|White',
         9 => 'field_er_rcr_online_ca1',
         10 => 'field_er_ment_plan_post_docs_ca1',
       ),
-      'format_type' => 'tab',
+      'format_type' => 'div',
       'format_settings' => array(
         'label' => 'Certifications and Supporting Documents',
         'instance_settings' => array(
-          'required_fields' => 0,
+          'required_fields' => 1,
           'classes' => '',
           'description' => '',
+          'show_label' => '0',
+          'label_element' => 'h3',
+          'effect' => 'none',
+          'speed' => 'fast',
         ),
-        'formatter' => 'closed',
+        'formatter' => 'open',
       ),
     ),
     'group_er_profile|user|user|form' => (object) array(
-      'id' => '12',
+      'id' => '5',
       'identifier' => 'group_er_profile|user|user|form',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6561,7 +6666,7 @@ White|White',
       ),
     ),
     'group_er_account|user|user|form' => (object) array(
-      'id' => '13',
+      'id' => '6',
       'identifier' => 'group_er_account|user|user|form',
       'group_name' => 'group_er_account',
       'entity_type' => 'user',
@@ -6590,7 +6695,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|form' => (object) array(
-      'id' => '14',
+      'id' => '7',
       'identifier' => 'group_er_contact|user|user|form',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6621,7 +6726,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|form' => (object) array(
-      'id' => '15',
+      'id' => '8',
       'identifier' => 'group_er_demographics|user|user|form',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6652,7 +6757,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|form' => (object) array(
-      'id' => '16',
+      'id' => '9',
       'identifier' => 'group_er_involvement|user|user|form',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6673,9 +6778,9 @@ White|White',
         5 => 'field_er_participant_date',
         6 => 'field_er_supervisor',
         7 => 'field_er_months_of_effort',
-        8 => 'field_position_type_ca1',
-        9 => 'field_nearest_person_month_worke',
-        10 => 'field_er_most_sen_proj_role_ca1',
+        8 => 'field_nearest_person_month_worke',
+        9 => 'field_er_most_sen_proj_role_ca1',
+        10 => 'field_provide_a_list_of_all_fund',
         11 => 'group_er_certs',
         12 => 'group_er_education',
       ),
@@ -6690,7 +6795,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|form' => (object) array(
-      'id' => '17',
+      'id' => '10',
       'identifier' => 'group_er_education|user|user|form',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6701,7 +6806,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Education',
-      'weight' => '70',
+      'weight' => '69',
       'children' => array(
         0 => 'field_er_advisor',
         1 => 'field_er_act_undergrad_grad_ca1',
@@ -6711,18 +6816,23 @@ White|White',
         5 => 'field_er_act_doctl_complet_ca1',
         6 => 'field_er_ant_undergrad_ca1',
       ),
-      'format_type' => 'tab',
+      'format_type' => 'div',
       'format_settings' => array(
-        'formatter' => 'closed',
+        'label' => 'Education',
         'instance_settings' => array(
-          'description' => '',
-          'classes' => '',
           'required_fields' => 1,
+          'classes' => '',
+          'description' => '',
+          'show_label' => '0',
+          'label_element' => 'h3',
+          'effect' => 'none',
+          'speed' => 'fast',
         ),
+        'formatter' => 'open',
       ),
     ),
     'group_er_profile|user|user|default' => (object) array(
-      'id' => '18',
+      'id' => '11',
       'identifier' => 'group_er_profile|user|user|default',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6750,7 +6860,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|default' => (object) array(
-      'id' => '19',
+      'id' => '12',
       'identifier' => 'group_er_inst|user|user|default',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6781,7 +6891,7 @@ White|White',
       ),
     ),
     'group_er_data|user|user|default' => (object) array(
-      'id' => '20',
+      'id' => '13',
       'identifier' => 'group_er_data|user|user|default',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6809,7 +6919,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|default' => (object) array(
-      'id' => '21',
+      'id' => '14',
       'identifier' => 'group_er_contact|user|user|default',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -6839,7 +6949,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|default' => (object) array(
-      'id' => '22',
+      'id' => '15',
       'identifier' => 'group_er_demographics|user|user|default',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -6869,7 +6979,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|default' => (object) array(
-      'id' => '23',
+      'id' => '16',
       'identifier' => 'group_er_involvement|user|user|default',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -6904,7 +7014,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|default' => (object) array(
-      'id' => '24',
+      'id' => '17',
       'identifier' => 'group_er_education|user|user|default',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -6934,7 +7044,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|default' => (object) array(
-      'id' => '25',
+      'id' => '18',
       'identifier' => 'group_er_certs|user|user|default',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',

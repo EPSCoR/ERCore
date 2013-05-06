@@ -343,7 +343,6 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	  'required'=> array($journal, $book, $proceedings, $magazine, $newspaper),
 	);
 	
-	
 	// d($form, 'form exiting er_form_er_publication_node_form_alter');
 }
 
@@ -367,62 +366,111 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
 function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
-	
 }
 
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
 	
-	// undergrad selection
-	$und = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Undergraduate student'),
+// Faculty Participant (or Equivalent)
+	$faculty_part = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Faculty participant (or equivalent)'),
 	  );
+	
+// Technical support staff
+	$tech_support_staff = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Technical support staff'),
+	  );
+
+// Non-Technical support staff
+	$non_tech_support_staff = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Non-technical support staff'),
+	  );
+	  
+// EPSCoR Leadership Team
+	$epscor_leadership_team = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'EPSCoR Leadership Team'),
+	  );
+	  
+// Other Staff
+	$other_epscor_staff = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Other'),
+	  );
+
+// Evaluation Staff
+	$evaluation_staff = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Evaluation'),
+	  );	
+	    	
+// Undergraduate selection
+	$undergrad = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Undergraduate student'),
+	  );
+	//anticipated undergraduate completion
 	$form['field_er_ant_undergrad_ca1']['#states'] = array(
-	  'visible' => $und, 
-	  'required' => $und,
-	);
-	$form['field_er_ant_undergrad_ca1']['#states'] = array(
-	  'visible' => $und,
-	);
-	$form['field_er_supervisor']['#states'] = array(
-		'visible' => $und,
+	  'visible' => $undergrad, 
+	  'required' => $undergrad,
 	);
 	
-	// masters selections
-	$mas = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Graduate student'),
+// Graduate Student
+	$grad_student = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		'value' => 'Graduate student'),
 	);
 	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
-	  'visible' => $mas,
-	  'required' => $mas,
+	  'visible' => $grad_student,
+	  'required' => $grad_student,
 	);
+	//anticipated masters completion
 	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
-	  'visible' => $mas,
+	  'visible' => $grad_student,
 	);
-	
-	// doctorate selection
-	$doc = array(
+		
+// Post Doctorate selection
+	$post_doc = array(
 		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Post Doc'),
 	);
+	//anticipated doctorate completion
 	$form['field_er_ant_doct_completion_ca1']['#states'] = array(
-	  'visible' => $doc,
-	  'required' => $doc,
-	);
-	$form['field_er_ant_doct_completion_ca1']['#states'] = $form['field_er_mentoring_plan_ul']['#states'] = 
-	$form['field_er_mentoring_plan_ul']['#states'] = array(
-	  'visible' => $doc,
+	  	'visible' => $post_doc,$grad_student,
+	  	'required' => $post_doc,$grad_student,
 	);
 	
+	////// Actual Undergrad, masters, post-doc completion fields /////
+
+	//actual undergraduate completion
+	$form['field_er_act_undergrad_grad_ca1']['#states'] = array(
+	  'visible' => array($undergrad, $grad_student, $post_doc),
+	);	
+	//actual masters completion
+	$form['field_er_act_mast_grad_ca1']['#states'] = array(
+	 'visible' => array($grad_student,$post_doc),
+	);
+	//actual doctorate completion
+	$form['field_er_act_doctl_complet_ca1']['#states'] = array(
+	 	'visible' => $post_doc,
+	);
+	
+	$form['field_er_ant_doct_completion_ca1']['#states'] = $form['field_er_mentoring_plan_ul']['#states'] = 
+	$form['field_er_mentoring_plan_ul']['#states'] = array(
+	  'visible' => $post_doc,
+	);
+
 	// RCR Certification fields as required
 	$certs = array(
 		'input:[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-	$form['field_er_rcr_online_ca1']['#states'] = $form['field_er_rcr_online_ul']['#states'] = $form['field_er_rcr_inperson_ca1']['#states']
-	= $form['field_er_rcr_inperson_ul']['#states'] 
-	= array(
-		'required' => $certs,
-	); 
+	$form['field_er_rcr_online_ca1']['#states'] = 
+	$form['field_er_rcr_online_ul']['#states'] = 
+	$form['field_er_rcr_inperson_ca1']['#states'] = 
+	$form['field_er_rcr_inperson_ul']['#states'] = array('required' => $certs,); 
 	
 	// Data collection, show all the fields if they click the checkbox that "I will be collecting data"
 	$collection = array(
@@ -452,6 +500,111 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
 	
 	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
+	
+//Supervisors Field only available to Graduates, Undergraduates
+		$form['field_er_supervisor']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+//Education fieldset only available to Graduates, Undergraduates
+		$form['group_er_education']['#states']['visible'] = array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => 
+		array('value' => $grad_student, $undergrad, $post_doc),
+		);
+	
+//Certifications fieldsets only available to Graduates, Undergraduates	
+
+	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	$form['field_er_rcr_completion_bool']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+
+	$form['field_er_rcr_in_person_ca1']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	$form['field_er_rcr_inperson_ul']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	$form['field_er_rcr_online_ca1']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	$form['field_er_rcr_online_ul']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+
+	$form['field_er_additional_doc']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+
+	
+	$form['field_er_nsf_grant_signatory']['#states']= array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	  
+//Advisor field only available to Students
+		$form['field_er_advisor']['#states'] = array(
+		'visible' => array($post_doc, $undergrad, $grad_student),
+		'required' => array($post_doc, $undergrad, $grad_student),
+	);
+	
+//Mentoring plan fields only available to Post-Docs
+		$form['field_er_mentoring_sign_off']['#states'] = array(
+		'visible' => array($post_doc),
+		'required' => array($post_doc),
+	);	
+	
+	$form['field_er_ment_plan_post_docs_ca1']['#states'] = array(
+		'visible' => array($post_doc),
+		'required' => array($post_doc),
+	);	
+	
+	$form['field_er_mentoring_plan_ul']['#states'] = array(
+		'visible' => array($post_doc),
+		'required' => array($post_doc),
+	);
+
+//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field
+		$form['field_er_months_of_effort']['#states'] = array(
+		'visible' => array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Faculty participant (or equivalent)'),
+		':input[name="field_er_paid[und]"]' => array('value' => '1'),
+		),
+	);
+	
+//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+		$form['field_provide_a_list_of_all_fund']['#states'] = array(
+		'visible' => array(
+		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Faculty participant (or equivalent)'),
+		':input[name="field_er_paid[und]"]' => array('value' => '0'),
+		),
+	);
+	
+//If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
+		$form['field_nearest_person_month_worke']['#states'] = array(
+		'visible' => array(
+		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
+		),
+	);	
+		
+	
 }
 
 /*
@@ -541,10 +694,10 @@ function _create_inst(&$form, &$form_state){
 function er_field_group_build_pre_render_alter(&$element){
 	// d($element, 'element');
 	// This IF block was used for the User Profile
-	if (isset($element['group_er_certifications']) && isset($element['group_er_data_collection'])){
-		$element['group_er_certifications']['#states'] = array(
+	if (isset($element['group_er_certs']) && isset($element['group_er_data'])){
+		$element['group_er_certs']['#states'] = array(
 	    	'visible' => array(
-	      	':input[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
+	      	':input[name="field_er_rcr_completion_bool[und]"]' => array('value' => TRUE),
 	    	)
 	    );	
 		$element['group_er_data_collection']['#states'] = array(
@@ -646,6 +799,11 @@ function get_real_name($add_uid = false) {
 	}
 }
 
+function usertest_form_alter(&$form, &$form_state, $form_id) { 
+	drupal_set_message('THE FORM ID IS:'.$form_id);
+ } 
+
+
 /**
  * Auto Generate a node title for selcted form types
  *
@@ -679,4 +837,9 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 	}
 	// d($form['title']['#default_value'], 'node-title exiting form_autogen_title');
 	// d($form, 'form exiting form_autogen_title');
+	
+	
+	
+
+	
 }
