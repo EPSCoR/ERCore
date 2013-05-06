@@ -9,7 +9,7 @@ $flags['er_receive_data_notifications'] = array (
   array (
   ),
   'flag_short' => 'Check this box if you want to receive a notification when an EPSCoR participant checks their \'I will be collecting data\' checkbox',
-  'flag_long' => 'This feature let\'s administrators know when a (new) participant expects to collect data.',
+  'flag_long' => 'This feature let's administrators know when a (new) participant expects to collect data.  You then can follow up to get this person in touch with your data manager.  This feature also has a administrative view that lists the names of the data collectors and whether or not you have put them in touch with data managers.',
   'flag_message' => '',
   'unflag_short' => 'Do not receive data collection notifications',
   'unflag_long' => '',
