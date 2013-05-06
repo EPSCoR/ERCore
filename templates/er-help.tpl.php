@@ -72,7 +72,11 @@
           The system relies on an external library called <?php echo l('PHPExcel', 'http://phpexcel.codeplex.com/')?> to export various excel sheets.
           The Library must be downloaded, then uploaded to this server.<br>
           <br>
-          The files should be downloaded and then uploaded to the server directory <code>/sites/all/libraries/PHPExcel/</code>. 
+          The PHPExcel kit should first be downloaded and decompressed.
+          The contents of the <code>/Classes/</code> kit directory should
+          then be uploaded to the server directory
+          <code>/sites/all/libraries/PHPExcel/</code>, creating the
+          <code>/libraries/PHPExcel/</code> directory if necessary.
           Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/PHPExcel.php</code>
           and the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/PHPExcel/IOFactory.php</code><br>
           <br>
