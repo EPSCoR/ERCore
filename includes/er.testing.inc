@@ -59,7 +59,7 @@ function er_testing() {
 			'severity' => REQUIREMENT_WARNING,
 			'title' => "Taxonomy: $name is extraneous",
 			'description' => 'This taxonomy is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/taxonomy/manage/'.$name.'/delete', $link_options),
+			'value' => l('<i class="icon-trash"></i> Delete', 'admin/structure/taxonomy/'.$name.'/edit', $link_options),
 		);
 	}
 	foreach ($taxonomy_status['found'] as $name=>$taxonomy_value){
