@@ -472,8 +472,8 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'allowed_values' => array(
-          0 => '',
-          1 => '',
+          0 => 'No',
+          1 => 'Yes',
         ),
         'allowed_values_function' => '',
       ),
@@ -739,13 +739,13 @@ $data = array(
       'bundles' => array(
         'node' => array(
           0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
+          1 => 'er_collaboration',
+          2 => 'er_event',
+          3 => 'er_news',
+          4 => 'er_other_product',
+          5 => 'er_patent',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
           8 => 'er_publication',
         ),
       ),
@@ -830,7 +830,7 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'text_default',
-            'weight' => '7',
+            'weight' => '0',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -932,7 +932,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '6',
+            'weight' => '5',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1025,7 +1025,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'link_default',
-            'weight' => '0',
+            'weight' => '2',
             'settings' => array(),
             'module' => 'link',
           ),
@@ -1086,7 +1086,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '5',
+            'weight' => '6',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1235,7 +1235,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '2',
+            'weight' => '8',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1280,9 +1280,9 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'list_default',
+            'weight' => '7',
             'settings' => array(),
             'module' => 'list',
-            'weight' => 9,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -1324,7 +1324,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'entityreference_label',
-            'weight' => '3',
+            'weight' => '9',
             'settings' => array(
               'link' => 1,
             ),
@@ -1339,11 +1339,11 @@ $data = array(
         ),
         'required' => FALSE,
         'description' => '',
+        'default_value' => NULL,
         'field_name' => 'field_er_patent_licensee',
         'entity_type' => 'node',
         'bundle' => 'er_patent',
         'deleted' => '0',
-        'default_value' => NULL,
       ),
     ),
     'field_er_provisional_date' => array(
@@ -1484,7 +1484,7 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'entityreference_label',
-            'weight' => '8',
+            'weight' => '1',
             'settings' => array(
               'link' => 1,
             ),
