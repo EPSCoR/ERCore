@@ -447,41 +447,62 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 
 	//actual undergraduate completion
 	$form['field_er_act_undergrad_grad_ca1']['#states'] = array(
-	  'visible' => array($undergrad, $grad_student, $post_doc),
+	  	'visible' => array($undergrad, $grad_student, $post_doc),
 	);	
 	//actual masters completion
 	$form['field_er_act_mast_grad_ca1']['#states'] = array(
-	 'visible' => array($grad_student,$post_doc),
+	 	'visible' => array($grad_student,$post_doc),
 	);
 	//actual doctorate completion
 	$form['field_er_act_doctl_complet_ca1']['#states'] = array(
 	 	'visible' => $post_doc,
 	);
-	
-	$form['field_er_ant_doct_completion_ca1']['#states'] = $form['field_er_mentoring_plan_ul']['#states'] = 
+	$form['field_er_ant_doct_completion_ca1']['#states'] = 
+	$form['field_er_mentoring_plan_ul']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
-	  'visible' => $post_doc,
+	  	'visible' => $post_doc,
 	);
+	
+	//Certifications fieldsets only available to Graduates, Undergraduates	
 
-	// RCR Certification fields as required
-	$certs = array(
+	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		'required' => array($undergrad, $grad_student),
+	);
+	
+	$form['field_er_rcr_completion_bool']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),
+		//'required' => array($undergrad, $grad_student),
+	);
+	
+	// RCR Certification fields only if "I have completed RCR certifications" ic checked
+	$completed_rcr = array(
 		'input:[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-	$form['field_er_rcr_online_ca1']['#states'] = 
-	$form['field_er_rcr_online_ul']['#states'] = 
-	$form['field_er_rcr_inperson_ca1']['#states'] = 
-	$form['field_er_rcr_inperson_ul']['#states'] = array('required' => $certs,); 
+		$form['field_er_rcr_online_ca1']['#states'] = 
+		$form['field_er_rcr_in_person_ca1']['#states'] =
+		$form['field_er_additional_doc']['#states'] =
+		$form['field_er_rcr_online_ul']['#states'] = 
+		$form['field_er_rcr_inperson_ca1']['#states'] = 
+		$form['field_er_nsf_grant_signatory']['#states'] = 
+		$form['field_er_rcr_inperson_ul']['#states'] 
+		= array(
+			'visible' => $completed_rcr, $grad_student, $undergrad,
+			'required' => $completed_rcr, $grad_student, $undergrad,
+	);
 	
-	// Data collection, show all the fields if they click the checkbox that "I will be collecting data"
+	// Data collection Tab -- 
+	// show all the fields if they click the checkbox that "I will be collecting data"
 	$collection = array(
 		':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
 	  ); 
-	$form['field_er_nsf_grant_signatory']['#states'] = $form['field_er_data_frequency']['#states'] 
-	= $form['field_er_data_submit_date']['#states']	  
-	= array(
+	$form['field_er_data_frequency']['#states'] 
+	= $form['field_er_data_submit_date']['#states']	= array(
 	  'visible' => $collection,
 	);
-	$form['field_er_type_of_data']['#states'] = array('required' => $collection, 'visible' => $collection);
+	$form['field_er_type_of_data']['#states'] = array(
+	'required' => $collection, 
+	'visible' => $collection);
 	
 	// change labels on participant date range
 	$form['field_er_participant_date']['#after_build'] = array('er_date_label');  //field name of the date
@@ -511,54 +532,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		$form['group_er_education']['#states']['visible'] = array(
 		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => 
 		array('value' => $grad_student, $undergrad, $post_doc),
-		);
-	
-//Certifications fieldsets only available to Graduates, Undergraduates	
-
-	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-	$form['field_er_rcr_completion_bool']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-
-	$form['field_er_rcr_in_person_ca1']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-	$form['field_er_rcr_inperson_ul']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-	$form['field_er_rcr_online_ca1']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-	$form['field_er_rcr_online_ul']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-
-	$form['field_er_additional_doc']['#states'] = array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-
-	
-	$form['field_er_nsf_grant_signatory']['#states']= array(
-		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
-	);
-	
-	  
+		);	  
 //Advisor field only available to Students
 		$form['field_er_advisor']['#states'] = array(
 		'visible' => array($post_doc, $undergrad, $grad_student),
@@ -566,45 +540,46 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 //Mentoring plan fields only available to Post-Docs
-		$form['field_er_mentoring_sign_off']['#states'] = array(
+		$form['field_er_mentoring_sign_off']['#states'] = 
+		$form['field_er_ment_plan_post_docs_ca1']['#states'] = 
+		$form['field_er_mentoring_plan_ul']['#states'] =
+		array(
 		'visible' => array($post_doc),
 		'required' => array($post_doc),
 	);	
 	
-	$form['field_er_ment_plan_post_docs_ca1']['#states'] = array(
-		'visible' => array($post_doc),
-		'required' => array($post_doc),
-	);	
-	
-	$form['field_er_mentoring_plan_ul']['#states'] = array(
-		'visible' => array($post_doc),
-		'required' => array($post_doc),
-	);
+
 
 //If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field
+		$paid_by_epscor = array(
+		 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
+		);
+		
 		$form['field_er_months_of_effort']['#states'] = array(
-		'visible' => array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Faculty participant (or equivalent)'),
-		':input[name="field_er_paid[und]"]' => array('value' => '1'),
-		),
+		'visible' => $faculty_part, $paid_by_epscor,		
 	);
 	
+	
 //If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+		$not_paid_by_epscor = array(
+		 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
+		);
+		
 		$form['field_provide_a_list_of_all_fund']['#states'] = array(
-		'visible' => array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Faculty participant (or equivalent)'),
-		':input[name="field_er_paid[und]"]' => array('value' => '0'),
-		),
+		'visible' => $faculty_part, $not_paid_by_epscor,		
+		'required' => $faculty_part, $not_paid_by_epscor,
+		
 	);
 	
 //If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
-		$form['field_nearest_person_month_worke']['#states'] = array(
-		'visible' => array(
+		$participant_more_than_sixty = array(
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
-		),
-	);	
+		);
 		
-	
+		$form['field_er_select_the_near_ca1']['#states'] = array(
+		'visible' => $participant_more_than_sixty,
+		'required' => $participant_more_than_sixty,
+	);		
 }
 
 /*
