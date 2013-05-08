@@ -496,10 +496,14 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$collection = array(
 		':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
 	  ); 
-	$form['field_er_data_frequency']['#states'] 
-	= $form['field_er_data_submit_date']['#states']	= array(
+
+	$form['field_er_data_frequency']['#states'] = 
+	$form['field_er_data_url']['#states'] = 
+	$form['field_er_data_submit_date']['#states'] = array(
 	  'visible' => $collection,
 	);
+	
+	//required fields
 	$form['field_er_type_of_data']['#states'] = array(
 	'required' => $collection, 
 	'visible' => $collection);
