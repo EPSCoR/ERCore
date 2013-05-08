@@ -3777,6 +3777,74 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
       ),
     ),
+    'field_er_select_the_near_ca1' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          1 => '1',
+          2 => '2',
+          3 => '3',
+          4 => '4',
+          5 => '5',
+          6 => '6',
+          7 => '7',
+          8 => '8',
+          9 => '9',
+          10 => '10',
+          11 => '11',
+          12 => '12',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_select_the_near_ca1' => array(
+                'value' => 'field_er_select_the_near_ca1_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_select_the_near_ca1' => array(
+                'value' => 'field_er_select_the_near_ca1_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_select_the_near_ca1',
+      'type' => 'list_integer',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
     'field_er_supervisor' => array(
       'type_name' => 'er_user_profile',
       'entity_types' => array(),
@@ -4003,54 +4071,6 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
       ),
     ),
-    'field_nearest_person_month_worke' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_nearest_person_month_worke' => array(
-                'value' => 'field_nearest_person_month_worke_value',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_nearest_person_month_worke' => array(
-                'value' => 'field_nearest_person_month_worke_value',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_nearest_person_month_worke',
-      'type' => 'number_integer',
-      'module' => 'number',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'int',
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
-      ),
-    ),
     'field_provide_a_list_of_all_fund' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -4124,7 +4144,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
         'widget' => array(
-          'weight' => '77',
+          'weight' => '79',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4310,7 +4330,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please upload your RCR certificate.',
         'widget' => array(
-          'weight' => '71',
+          'weight' => '73',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -4623,21 +4643,22 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '72',
+          'weight' => '74',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
           'settings' => array(
             'available_options' => 'Community Advisory Committee (CAC)
 Monitoring Assessment Panel (MAP)
-Statewide Committee (SWC)',
+Statewide Committee (SWC)
+None',
             'available_options_php' => '',
             'other' => 'Other',
             'other_title' => '',
             'other_unknown_defaults' => 'other',
+            'other_size' => '60',
             'sort_options' => 1,
             'markup_available_options_php' => '&lt;none&gt;',
-            'other_size' => 60,
           ),
         ),
         'settings' => array(
@@ -4661,7 +4682,7 @@ Statewide Committee (SWC)',
         ),
         'required' => 1,
         'description' => '',
-        'default_value' => NULL,
+        'default_value' => array(),
         'field_name' => 'field_er_committees',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -4670,9 +4691,9 @@ Statewide Committee (SWC)',
     ),
     'field_er_components' => array(
       0 => array(
-        'label' => 'Project Component',
+        'label' => 'Please select which project component(s) you will participate in',
         'widget' => array(
-          'weight' => '71',
+          'weight' => '73',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4704,7 +4725,7 @@ Statewide Committee (SWC)',
           ),
         ),
         'required' => 1,
-        'description' => 'Please select which project component(s) you will participate in.',
+        'description' => '',
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_components',
@@ -4911,7 +4932,7 @@ Statewide Committee (SWC)',
       0 => array(
         'label' => 'Please describe role and contribution to the project.',
         'widget' => array(
-          'weight' => '79',
+          'weight' => '82',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -5164,7 +5185,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Have you completed the RCR Training?',
         'widget' => array(
-          'weight' => '65',
+          'weight' => '70',
           'type' => 'markup',
           'module' => 'markup',
           'active' => 0,
@@ -5534,7 +5555,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Mentoring Plan (Post-Docs only)',
         'widget' => array(
-          'weight' => '74',
+          'weight' => '75',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5583,7 +5604,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Please upload your mentoring plan',
         'widget' => array(
-          'weight' => '75',
+          'weight' => '76',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -5626,7 +5647,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Mentoring Plan Sign Off Date',
         'widget' => array(
-          'weight' => '72',
+          'weight' => '74',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5682,7 +5703,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'How many months of effort do you plan to, or have participated in EPSCoR research during the latest reporting period?',
         'widget' => array(
-          'weight' => '75',
+          'weight' => '77',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -5706,7 +5727,7 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
         'default_value' => NULL,
         'field_name' => 'field_er_months_of_effort',
@@ -5750,7 +5771,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'NSF Grant Signatory',
         'widget' => array(
-          'weight' => '76',
+          'weight' => '77',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5791,7 +5812,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '74',
+          'weight' => '76',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5830,7 +5851,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Participating Date(s)',
         'widget' => array(
-          'weight' => '73',
+          'weight' => '75',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6071,7 +6092,7 @@ White|White',
       0 => array(
         'label' => 'I have completed the RCR training',
         'widget' => array(
-          'weight' => '66',
+          'weight' => '71',
           'type' => 'options_onoff',
           'module' => 'options',
           'active' => 1,
@@ -6114,7 +6135,7 @@ White|White',
       0 => array(
         'label' => 'RCR In-person',
         'widget' => array(
-          'weight' => '67',
+          'weight' => '69',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6163,7 +6184,7 @@ White|White',
       0 => array(
         'label' => 'RCR In-person Upload',
         'widget' => array(
-          'weight' => '68',
+          'weight' => '70',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -6206,7 +6227,7 @@ White|White',
       0 => array(
         'label' => 'RCR Online',
         'widget' => array(
-          'weight' => '69',
+          'weight' => '71',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6255,7 +6276,7 @@ White|White',
       0 => array(
         'label' => 'RCR Online Upload',
         'widget' => array(
-          'weight' => '70',
+          'weight' => '72',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -6330,6 +6351,37 @@ White|White',
         'deleted' => '0',
       ),
     ),
+    'field_er_select_the_near_ca1' => array(
+      0 => array(
+        'label' => 'Please select the nearest person month of effort in EPSCoR',
+        'widget' => array(
+          'weight' => '81',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 61,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_select_the_near_ca1',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_supervisor' => array(
       0 => array(
         'label' => 'Supervisor',
@@ -6374,7 +6426,7 @@ White|White',
       0 => array(
         'label' => 'Description of Data',
         'widget' => array(
-          'weight' => '36',
+          'weight' => '37',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -6453,51 +6505,11 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field_nearest_person_month_worke' => array(
-      0 => array(
-        'label' => 'Nearest Person Month Worked',
-        'widget' => array(
-          'weight' => '78',
-          'type' => 'number',
-          'module' => 'number',
-          'active' => 0,
-          'settings' => array(),
-        ),
-        'settings' => array(
-          'min' => '1',
-          'max' => '12',
-          'prefix' => '',
-          'suffix' => '',
-          'user_register_form' => 0,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'number_integer',
-            'settings' => array(
-              'thousand_separator' => ' ',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
-            'weight' => 45,
-          ),
-        ),
-        'required' => 0,
-        'description' => 'How many months (rounded to the nearest whole number) of effort do you plan to, or have participated in EPSCoR research during the latest reporting period?',
-        'default_value' => NULL,
-        'field_name' => 'field_nearest_person_month_worke',
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => '0',
-      ),
-    ),
     'field_provide_a_list_of_all_fund' => array(
       0 => array(
         'label' => 'Provide a list of all funding sources that supported your participation in EPSCoR',
         'widget' => array(
-          'weight' => '76',
+          'weight' => '78',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -6607,19 +6619,17 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Certifications and Supporting Documents',
-      'weight' => '70',
+      'weight' => '72',
       'children' => array(
         0 => 'field_er_additional_doc',
         1 => 'field_er_mentoring_plan_ul',
         2 => 'field_er_nsf_grant_signatory',
-        3 => 'field_er_rcr_completion_bool',
-        4 => 'field_er_rcr_inperson_ul',
-        5 => 'field_er_rcr_online_ul',
-        6 => 'field_er_mentoring_sign_off',
-        7 => 'field_er_have_you_comp_the_rcr',
-        8 => 'field_er_rcr_in_person_ca1',
-        9 => 'field_er_rcr_online_ca1',
-        10 => 'field_er_ment_plan_post_docs_ca1',
+        3 => 'field_er_rcr_inperson_ul',
+        4 => 'field_er_rcr_online_ul',
+        5 => 'field_er_mentoring_sign_off',
+        6 => 'field_er_rcr_in_person_ca1',
+        7 => 'field_er_rcr_online_ca1',
+        8 => 'field_er_ment_plan_post_docs_ca1',
       ),
       'format_type' => 'div',
       'format_settings' => array(
@@ -6776,13 +6786,15 @@ White|White',
         3 => 'field_er_description',
         4 => 'field_er_paid',
         5 => 'field_er_participant_date',
-        6 => 'field_er_supervisor',
-        7 => 'field_er_months_of_effort',
-        8 => 'field_nearest_person_month_worke',
-        9 => 'field_er_most_sen_proj_role_ca1',
-        10 => 'field_provide_a_list_of_all_fund',
-        11 => 'group_er_certs',
-        12 => 'group_er_education',
+        6 => 'field_er_rcr_completion_bool',
+        7 => 'field_er_supervisor',
+        8 => 'field_er_months_of_effort',
+        9 => 'field_er_have_you_comp_the_rcr',
+        10 => 'field_er_most_sen_proj_role_ca1',
+        11 => 'field_provide_a_list_of_all_fund',
+        12 => 'field_er_select_the_near_ca1',
+        13 => 'group_er_certs',
+        14 => 'group_er_education',
       ),
       'format_type' => 'tab',
       'format_settings' => array(
