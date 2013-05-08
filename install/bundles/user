@@ -5701,7 +5701,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_months_of_effort' => array(
       0 => array(
-        'label' => 'How many months of effort do you plan to, or have participated in EPSCoR research during the latest reporting period?',
+        'label' => 'How many months of direct funding do you receive?',
         'widget' => array(
           'weight' => '77',
           'type' => 'options_select',
@@ -5728,7 +5728,7 @@ Mobility/Orthopedic Impairment',
           ),
         ),
         'required' => 0,
-        'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
+        'description' => 'Round up or down to the nearest month of funding you are expected to receive.',
         'default_value' => NULL,
         'field_name' => 'field_er_months_of_effort',
         'entity_type' => 'user',

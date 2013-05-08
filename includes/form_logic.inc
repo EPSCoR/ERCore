@@ -550,27 +550,33 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 
 
-//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field
+// Set up Paid by EPSCoR Variables
 		$paid_by_epscor = array(
 		 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
 		);
 		
-		$form['field_er_months_of_effort']['#states'] = array(
-		'visible' => $faculty_part, $paid_by_epscor,		
-	);
-	
-	
-//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
 		$not_paid_by_epscor = array(
 		 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
 		);
 		
-		$form['field_provide_a_list_of_all_fund']['#states'] = array(
-		'visible' => $faculty_part, $not_paid_by_epscor,		
-		'required' => $faculty_part, $not_paid_by_epscor,
-		
+//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
+// used 'invisible' here to rule out all Roles other than Faculty AND not Paid by EPSCoR
+		$form['field_er_months_of_effort']['#states'] = array(
+		'invisible' => array(
+		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
+		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $not_paid_by_epscor),
 	);
 	
+	
+//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+// used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
+		$form['field_provide_a_list_of_all_fund']['#states'] = array(
+		'invisible' => array(
+		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
+		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $paid_by_epscor),
+	);
+	
+		
 //If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
 		$participant_more_than_sixty = array(
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
