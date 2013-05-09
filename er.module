@@ -133,7 +133,7 @@ function er_menu() {
 	);
 	
 	//EPSCoR Content Menu
-	$items['admin/content'] = array(
+	$items['admin/epscor/content'] = array(
 		'menu_name' => 'management',
 		'title' => 'EPSCoR Content',
 		'description' => 'EPSCoR Content',
