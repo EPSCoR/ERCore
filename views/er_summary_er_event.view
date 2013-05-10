@@ -112,6 +112,17 @@ $handler->display->display_options['filters']['field_er_cal_event_date_value']['
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['path'] = 'calendar';
+
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['path'] = 'admin/epscor/content/calendar';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Calendar Events';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
+
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
 $handler->display->display_options['display_comment'] = 'This display is special. It is by the summary table code. It is set up in a specific way which lends itself to being called by our custom code. It generates a count representing the number of nodes matching a certain criteria such as a specified date range.';
