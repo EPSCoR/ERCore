@@ -800,6 +800,13 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 	
 	$form['title']['#type'] = 'hidden';
 	$form['title']['#required'] = FALSE;
+	
+	$calendarNodeID = $form['field_er_cal_entity_reference']['und']['0']['target_id']; 
+	$calendarNode = node_load($calendarNodeID);
+	$calendarTitle = $calendarNode->title;
+	// d($calendarNodeID, 'node id of field_er_cal_entity_reference');
+	// d($calendarNode, 'node load of field_er_cal_entity_reference);
+	// d($calendarTitle, 'title in field_er_cal_entity_reference');
 
 	// Construct a unique title for node creation
 	switch ($form_id)
@@ -807,9 +814,13 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 		case 'er_collaborators_node_form';
 			$form['title']['#default_value'] = "Collaborators {$form['created']['#value']}";
 			break;
+		
 		case 'er_engagement_node_form';
-			$form['title']['#default_value'] = "Engagement {$form['created']['#value']}";
-			break;
+			//$print = '<pre>' . print_r($form, TRUE) . '</pre>';
+			// drupal_set_message($print);
+			//$form['title']['#default_value'] = 'New EE Title - '.$form['field_er_cal_entity_reference']['und']['0']['target_id']['#default_value'];
+			$form['title']['#default_value'] = 'New EE Title -'.$calendarTitle;
+			break;	
 		case 'er_effort_node_form';
 			$form['title']['#default_value'] = "Effort {$form['created']['#value']}";
 			break;
@@ -822,8 +833,7 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 	}
 	// d($form['title']['#default_value'], 'node-title exiting form_autogen_title');
 	// d($form, 'form exiting form_autogen_title');
-	
-	
+
 	
 
 	
