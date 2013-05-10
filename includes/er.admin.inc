@@ -31,7 +31,7 @@ function er_settings() {
   
   $form['status'] = array(
     '#type' => 'item',
-    '#title'=> 'ER-Core Status',
+    '#title'=> 'ER-Core Status:',
     '#markup' => t('Access the <b>!link</b> to diagnose problems, update your installation, or reset something if it\'s broken.', array('!link'=>l('ER-Core status page', 'admin/config/epscor/er/status')))
   );
 	$form['help_description'] = array(
@@ -44,9 +44,22 @@ function er_settings() {
   //dsm(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']));
   $form['er_start_date'] = array(
     '#type' => 'date',
-    '#title' => t('Start Date of EPSCoR Grant'),
+    '#title' => t('Start Date of EPSCoR Grant:'),
     '#default_value' => $start_date?$start_date:array('month'=>'9', 'day'=>'15', 'year'=>'2009'),//date('Y-m-d', $start_date?$start_date:mktime(0, 0, 0, 9, 15, 2009)),
-    '#description' => t('This date will be used as the start of the grant. This effects the date ranges shown on the accomplishments table.')
+    '#description' => t('This date will be used as the start of the grant. This effects the date ranges shown on the accomplishments table.'),
+		'#required' => true,
+  );
+	
+	$reporting_month = variable_get('er_reporting_month');
+	//see: date/date_api/date_api_elements.inc
+  $form['er_reporting_month'] = array(
+    '#type' => 'date_select',
+		'#date_format' => 'm',
+		//'#date_type' => DATE_ISO,
+    '#title' => t('Reporting Period starting month:'),
+    '#default_value' => $reporting_month?'0000-'.$reporting_month:null,
+    '#description' => t('When does your reporting period begin?'),
+		'#required' => true,
   );
   
 	$form['er_summary_types'] = array(
