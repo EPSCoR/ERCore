@@ -172,6 +172,10 @@ function er_form_er_paid_node_form_alter(&$form, &$form_state, $form_id){
 // External Engagements
 function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
+	if (!$form['field_er_cal_entity_reference']['und']['#default_value'])//If the calendar event isn't filled in, don't even show the form.
+		$form['#access'] = false;
+	$form['field_er_cal_entity_reference']['und']['#disabled'] = true;
+	
 	// d($form, 'er_form_er_engagement_node_form_alter');
 	//This hook hides the total fields on the external engagements form. The fields are hidden because they will be automatically filled during the node save. See node_logic.inc
 	$cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");

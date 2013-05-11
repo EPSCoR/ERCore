@@ -132,7 +132,7 @@ function er_node_presave($node){
 }
 
 function er_validate($entity){
-	d($node, 'validate');
+	//d($node, 'validate');
 }
 
 function er_node_validate($node){
@@ -219,7 +219,11 @@ function _manage_ee_nodes($node, $op){
 	//$lang = field_language('node', $node);
 	$lang = 'und';
 	if ($op == 'presave'){
-		//d($node, $op);
+    //Change the title to be that of the calendar event:
+    $event_nid = $node->field_er_cal_entity_reference[$lang][0]['target_id'];
+    $event_node = node_load($event_nid);
+    $node->title = $event_node->title . ' - External Enagements';
+    
 		if (count($node->field_er_ee_file['und'])){
 			$has_old = isset($node->original->field_er_ee_file['und']) && count($node->original->field_er_ee_file['und']);
 			if (!$has_old || ($has_old && $node->original->field_er_ee_file['und'][0]['fid'] != $node->field_er_ee_file['und'][0]['fid'])){
