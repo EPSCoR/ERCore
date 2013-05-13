@@ -42,15 +42,14 @@ function er_summary_table($variables){
 					$view->exposed_input['end_date']['value']['date'] = date('Y-m-d', $v[1]);
 					//$view->set_items_per_page(1);
 					$view->execute();
-					if (isset($view->result[0]->nid))
-						$data[] = $view->result[0]->nid;//this is the node count 
-					else
-						$data[] = $view->result[0]->uid;//need this for the participants row...
+					$count = isset($view->result[0]->nid)?$view->result[0]->nid:$view->result[0]->uid;//count nodes or users
+					$data[] = $count>0?$count:0;
 				}
 			}else{
 				drupal_set_message(t('View not found: @name', array('@name'=>$view_name)), 'error');
 			}
 			$ret['#rows'][] = $data;
+			//d($data, '$data');
 		}
 	}else{
 		$link = l('click here', '/admin/config/epscor/er');
