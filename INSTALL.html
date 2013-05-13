@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2013-05-13"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>ERcore Installation Guide</title>
+</head>
+<body>
+<div id="globalWrapper">
+<h1 class="title">
+ERcore Installation Guide
+</h1>
+<h2 class="Date">
+[May 13, 2013]
+</h2>
+<div class="Unindented">
+This document describes how to install ERcore V1.1 on a target system. The first section provides system requirements and a high level overview of the installation process. Subsequent sections provide more detail and include troubleshooting suggestions and common site customizations. The intended audience for this document are system administrators and ERcore developers.
+</div>
+<div class="fulltoc">
+<div class="tocheader">
+Table of Contents
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Section-1">Section 1: System requirements and installation overview</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-1.1">Subsection 1.1: Server Requirements</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-1.2">Subsection 1.2: A word about PostgreSQL</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-1.3">Subsection 1.3: PHP.INI parameters</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-1.4">Subsection 1.4: Drupal module and callable library requirements</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-1.5">Subsection 1.5: Installation summary</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-2">Section 2: Installation kits &amp; their location</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-2.1">Subsection 2.1: Recommended releases</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-2.2">Subsection 2.2: Non-standard versions</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-3">Section 3: Target location</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-4">Section 4: Step 1: Backup target site</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-5">Section 5: Step 2: Check PHP.INI parameters</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-6">Section 6: Step 3: Installing prerequisites</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.1">Subsection 6.1: PHPExcel Library download</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.2">Subsection 6.2: PHPExcel Library installation</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.3">Subsection 6.3: Drupal module download</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-7">Section 7: Step 4: Installing ERcore files</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.1">Subsection 7.1: Downloading and decompressing ERcore kit</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.2">Subsection 7.2: Removing ERcore from previous install</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.3">Subsection 7.3: Installing ERcore files on target</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-8">Section 8: Step 5: Enable ERcore in Drupal</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-9">Section 9: Step 6: Check installation status and troubleshoot</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.1">Subsection 9.1: Basic installation status</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.2">Subsection 9.2: ERcore installation reset</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.3">Subsection 9.3: Apache error log</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.4">Subsection 9.4: Clearing caches</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.5">Subsection 9.5: Double asterisk problem</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-9.6">Subsection 9.6: MySQL server error</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-10">Section 10: Step 7: Final ERcore configuration</a>
+</div>
+</div>
+
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> System requirements and installation overview
+</h1>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-1.1">1.1</a> Server Requirements
+</h2>
+<div class="Unindented">
+ERcore is known to work with the following specific versions of Drupal 7 server components:
+</div>
+<ul>
+<li>
+Drupal: 7.14 through 7.22
+</li>
+<li>
+MySQL: 5.1.66-0+squeeze1, 5.1.58-1ubuntu1
+</li>
+<li>
+PHP: 5.3.3-7+squeeze15, 5.3.6-13ubuntu3.8
+</li>
+<li>
+Apache: 2.2.16 (Debian), 2.2.20 (Ubuntu)
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-1.2">1.2</a> A word about PostgreSQL
+</h2>
+<div class="Unindented">
+Drupal is described as supporting both MySQL and PostgreSQL as the underlying database storage engine. However, there appears to be a lag in supporting fixes to PostgreSQL problems in Drupal Core. This is just a word of warning for those who plan to use PostgreSQL instead of MySQL. More information about this issue can be found at:
+</div>
+<ul>
+<li>
+<a class="URL" href="http://drupal.org/node/1524250">http://drupal.org/node/1524250</a>
+</li>
+<li>
+<a class="URL" href="http://groups.drupal.org/node/207358">http://groups.drupal.org/node/207358</a>
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-1.3">1.3</a> PHP.INI parameters
+</h2>
+<div class="Unindented">
+Several PHP system parameters defined in <tt>php.ini</tt> can cause problems on the Apache target server when set too small. The following are suggested minimum values for two of these:
+</div>
+<ul>
+<li>
+<tt>max_execution_time</tt> — set to 240
+</li>
+<li>
+<tt>memory_limit</tt> — set to 256M.
+</li>
+
+</ul>
+<div class="Unindented">
+These should be set in <tt>/apache2/php.ini</tt> prior to ERcore installation. If the <tt>drush</tt> utility is used, they should be set in <tt>/cli/php.ini</tt> as well.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-1.4">1.4</a> Drupal module and callable library requirements
+</h2>
+<div class="Unindented">
+<a class="Label" name="sub: DrupalModules"> </a>The following callable libraries are used by ERcore:
+</div>
+<ul>
+<li>
+PHPExcel, v1.7.8
+</li>
+
+</ul>
+<div class="Unindented">
+The latest version of the following Drupal modules are used by ERcore:
+</div>
+<ul>
+<li>
+bundle_copy
+</li>
+<li>
+computed_field
+</li>
+<li>
+ctools
+</li>
+<li>
+date
+</li>
+<li>
+date_api
+</li>
+<li>
+date_popup
+</li>
+<li>
+date_repeat_field
+</li>
+<li>
+date_views
+</li>
+<li>
+entity
+</li>
+<li>
+entity_token
+</li>
+<li>
+entityreference
+</li>
+<li>
+entityreference_prepopulate
+</li>
+<li>
+field_group
+</li>
+<li>
+field_permissions
+</li>
+<li>
+flag
+</li>
+<li>
+libraries
+</li>
+<li>
+link
+</li>
+<li>
+markup
+</li>
+<li>
+nodeaccess_userreference
+</li>
+<li>
+page_manager
+</li>
+<li>
+php
+</li>
+<li>
+proj4js
+</li>
+<li>
+rules
+</li>
+<li>
+rules_admin
+</li>
+<li>
+rules_scheduler
+</li>
+<li>
+select_or_other
+</li>
+<li>
+views
+</li>
+<li>
+views_content
+</li>
+<li>
+views_data_export
+</li>
+<li>
+views_php
+</li>
+<li>
+views_ui
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-1.5">1.5</a> Installation summary
+</h2>
+<div class="Unindented">
+ERcore is a Drupal <a class="URL" href="http://drupal.org/node/1011196">sandbox project</a> and therefore requires a more complicated installation procedure than a Drupal full project. The following steps must be performed to install ERcore.
+</div>
+<ol>
+<li>
+<u>Install PHPExcel library.</u><br/>
+<br/>
+Download and decompress version 1.7.8 of the <a class="URL" href="http://phpexcel.codeplex.com/">PHPExcel library</a>. On the target site, create a directory named <tt>/PHPExcel/</tt> in <tt>DOCUMENT_ROOT/sites/all/libraries/</tt>. Copy the contents of the <tt>/Classes/</tt> directory from the PHPExcel download to the <tt>/PHPExcel/</tt> directory on the target.
+</li>
+<li>
+<u>Download prerequisite modules.</u><br/>
+<br/>
+Download latest version of Drupal modules listed in Section <a class="Reference" href="#sub: DrupalModules">1.4↑</a> using either the Drupal module interface or the drush utility download command.
+</li>
+<li>
+<u>Install ERcore files.</u><br/>
+<br/>
+Plick the desired ERcore version on the <a class="URL" href="http://drupalcode.org/sandbox/shixish/1837936.git/tags">tags page</a> of the ERcore git repository. Click <i>snapshot</i> to download the ERcore files in <tt>tar.gz</tt> format. On the target site, create a directory named <tt>/er/</tt> in <tt>DOCUMENT_ROOT/sites/all/modules/</tt>. If the directory already exists, delete its contents. Decompress the ERcore snapshot and copy its contents to the <tt>/er/</tt> target directory.
+</li>
+<li>
+<u>Install ERcore module.</u><br/>
+<br/>
+In Drupal, enable the <i>EPSCoR Reporting</i> module in the EPSCOR section of the <i>Modules</i> page. A progress bar is displayed during the installation process, followed by an installation status page. Note that installation may take several minutes.
+</li>
+
+</ol>
+<div class="Unindented">
+The remainder of this document describes installation in more detail and includes include troubleshooting suggestions and common site customizations.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Installation kits &amp; their location
+</h1>
+<div class="Unindented">
+<a class="Label" name="sec:InstallationKits"> </a>An ERcore kit, as defined in this document, is simply a compressed <tt>/er/</tt> directory tree in <tt>tar.gz</tt> file format and which was downloaded from the ERcore <i>git repository</i>. The git software uses the term <i>snapshot</i> to refer to a compressed directory tree, so an ERcore kit and a snapshot from the ERcore git repository are essentially the same thing.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-2.1">2.1</a> Recommended releases
+</h2>
+<div class="Unindented">
+ERcore recommended releases can be found and downloaded with the following steps:
+</div>
+<ol>
+<li>
+Navigate to the ERcore git repository url at<ul>
+<li>
+<a class="URL" href="http://drupal.org/sandbox/shixish/1837936">http://drupal.org/sandbox/shixish/1837936</a>
+</li>
+
+</ul>
+
+</li>
+<li>
+Click <i>Repository viewer</i> under the <i>Development </i>header arriving at the <i>Git Summary</i> page. (It is not necessary to login to view the repository.)
+</li>
+<li>
+The section named <i>tags</i> at the bottom of the page lists the recommended releases for ERcore. Currently there are releases for ERcore versions <tt>7.x-1.0,</tt> <tt>7.x-1.01</tt>, and 7.x-1.1.
+</li>
+<li>
+Click the hotlink for the desired version of ERcore, taking you to the <i>commit</i> page for that tag.
+</li>
+<li>
+Click <i>snapshot</i> to download the compressed directory tree (installation kit) for that version of ERcore in <tt>tar.gz</tt> format.
+</li>
+
+</ol>
+<div class="Unindented">
+It should be noted that the filename of this compressed file is <i>computer generated</i> and has no memorable relationship to the ERcore version number. An example snapshot filename is <tt>1837936-bae76ad.tar.gz</tt>. You are encouraged to rename this file to something more memorable like <tt>erkit-v7.x-1.1.tar.gz</tt>. Note also that the top-level directory name within this compressed file also computer generated (e.g., <tt>1837936-bae76ad</tt>) and not <tt>/er/</tt> as one might expect.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-2.2">2.2</a> Non-standard versions
+</h2>
+<div class="Unindented">
+In some cases it is necessary to install a non-standard version of ERcore on a target system, one that does not have a <i>tag</i> associated with it. Since the git repository for ERcore maintains snapshots for every committed change to the source code, any of these snapshots can be installed on a target system. The desired snapshots can be found with the following steps:
+</div>
+<ol>
+<li>
+Perform steps 1--2 above, arriving at the <i>Git Summary</i> page.
+</li>
+<li>
+The section named <i>heads</i> at the bottom of the page lists pointers to git source code <i>branches</i>. Currently there are 2 source code branches for ERcore: <tt>7.x-1.x</tt> and <tt>7.x-1.</tt>x-dev.
+</li>
+<li>
+Click the hotlink for the desired branch head of ERcore, taking you to the <i>shortlog</i> page listing all commits for that branch
+</li>
+<li>
+Identify which commit you wish to install on the target system and click <i>snapshot</i> to the right of that entry. This will download a compressed directory tree for that version of ERcore in tar.gz format.
+</li>
+<li>
+Alternatively, clicking <i>commit</i> to the right of the entry will take you to a informational page about the commit which also includes a timestamp. This page also allows you to download a compressed directory tree by clicking <i>snapshot</i>.
+</li>
+
+</ol>
+<div class="Unindented">
+As with any snapshot from git, the downloaded filename is generated. You are encouraged to rename this file to something more memorable like <tt>er-v7.x-1.x-2013-03-15-2051.tar.gz</tt>.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-3">3</a> Target location
+</h1>
+<div class="Unindented">
+<a class="Label" name="sec:TargetLocation"> </a>In the description below, the mnemonics <tt>&lt;target-modules&gt;</tt> and <tt>&lt;target-libraries&gt;</tt> are used to represent the full path of the <tt>/modules/</tt> and <tt>/libraries/</tt> directories where ERcore and required libraries should be installed. These paths can be determined as follows:
+</div>
+<pre class="LyX-Code">
+&lt;target-modules&gt;   ::= DOCUMENT_ROOT/sites/all/modules/
+&lt;target-libraries&gt; ::= DOCUMENT_ROOT/sites/all/libraries/
+</pre>
+<div class="Unindented">
+Where <tt>DOCUMENT_ROOT</tt> is defined by the target site Drupal web server. The correct value for <tt>DOCUMENT_ROOT</tt> can be determined from Drupal as follows:
+</div>
+<ul>
+<li>
+navigate to the PHP Status page via <i>Reports</i> ▷ <i>Status report</i> ▷ <i>PHP (more information)</i> (or http://&lt;your-site&gt;/admin/reports/status/php)
+</li>
+<li>
+search for <tt>DOCUMENT_ROOT</tt> in the <i>Apache Environment</i> section on this page to determine the symbol’s value. A typical value for Turnkey appliances is <tt>/var/www/drupal7/</tt>.
+</li>
+
+</ul>
+<h1 class="Section">
+<a class="toc" name="toc-Section-4">4</a> Step 1: Backup target site
+</h1>
+<div class="Unindented">
+Prior to installing ERcore, it is strongly advised that you make a backup of key files on your target system. These include MySQL database, the <tt>/modules/</tt> directory tree, the <tt>php.ini</tt> files, and any other important files. If something goes wrong with the installation of ERcore, you can restore your server with this backup. Use your favorite utility to perform this backup.
+</div>
+<div class="Indented">
+Ideally, the backup should be performed when no one is using Drupal. One way to accomplish this is with the following Apache commands to stop and restart the server:
+</div>
+<pre class="LyX-Code">
+apachectl -k stop
+   ...do backup here...
+apachectl -k restart
+</pre>
+<h1 class="Section">
+<a class="toc" name="toc-Section-5">5</a> Step 2: Check PHP.INI parameters
+</h1>
+<div class="Unindented">
+Several PHP system parameters defined in <tt>php.ini</tt> can cause problems on the Apache target server when set too small. The following are suggested minimum values for two of these:
+</div>
+<ul>
+<li>
+<tt>max_execution_time</tt> — set to 240
+</li>
+<li>
+<tt>memory_limit</tt> — set to 256M.
+</li>
+
+</ul>
+<div class="Unindented">
+The current values of these parameters can be determined from Drupal as follows:
+</div>
+<ul>
+<li>
+navigate to the PHP Status page via <i>Reports </i> ▷ <i> Status report </i> ▷ <i> PHP (more information)</i> (or /admin/reports/status/php)
+</li>
+<li>
+search for the above symbols on this page to determine their current values on the server
+</li>
+<li>
+search for <tt>php.ini</tt> on this page to determine the location of the <tt>php.ini</tt> file if the parameters need modification. A typical location for this file is <tt>/etc/php5/apache2/php.ini</tt>
+</li>
+
+</ul>
+<div class="Unindented">
+These two parameters should also be adjusted for command-line utilities on the target system (for the drush utility used in this installation procedure). This is accomplished by editing the <tt>php.ini</tt> file in <tt>/cli/</tt> directory parallel to the <tt>/apache2/</tt> directory.
+</div>
+<div class="Indented">
+Another PHP parameter that has proven useful on occasion is <tt>display_errors</tt>. If users of your site encounter a blank page without any error message (lovingly known as a White Page Of Death - WPOD), setting <tt>display_errors = On</tt> can sometimes help determine determine what the problem is.
+</div>
+<div class="Indented">
+If any changes are made to <tt>php.ini</tt>, the Apache server must be restarted to activate the changes. The following shell command does this:
+</div>
+<pre class="LyX-Code">
+apachectl -k restart
+</pre>
+<h1 class="Section">
+<a class="toc" name="toc-Section-6">6</a> Step 3: Installing prerequisites
+</h1>
+<div class="Unindented">
+The ERcore package relies on approximately 20 underlying Drupal modules, each of which must be downloaded prior to installing ERcore. While this can be accomplished using the Drupal web-based interface, it is considerably faster to use the <i>drush command-line utility</i> to perform these downloads. In addition to the Drupal modules, an API library for Excel spreadsheets must also downloaded to the target system. This section describes how to install these prerequisites on the target system.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.1">6.1</a> PHPExcel Library download
+</h2>
+<div class="Unindented">
+This step can be done in numerous ways, depending on your Unix experience, preferences, and needs. This subsection however assumes you are using FileZilla (or a similar graphical file management tool) on a Windows machine. You will need a local temporary directory to decompress the PHPExcel kit into and you will need FileZilla windows to access this local temporary directory and the target system.
+</div>
+<div class="Indented">
+Perform the following steps to download the library kit to your local system and decompress it:
+</div>
+<ol>
+<li>
+Access <a class="URL" href="http://phpexcel.codeplex.com/">http://phpexcel.codeplex.com/</a> in a web browser.
+</li>
+<li>
+In the <i>Downloads</i> section, click the hot link after <i>Current release</i>: (currently PHPExcel 1.7.8)
+</li>
+<li>
+Click hot link under <i>Recommended download</i>
+</li>
+<li>
+Click <i>save file</i> to the local Windows machine, noting location
+</li>
+<li>
+Using Windows Explorer, select the local copy of this kit. Right-Click the file and select <i>Extract All...</i> to decompress the zip file to a local directory.
+</li>
+
+</ol>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.2">6.2</a> PHPExcel Library installation
+</h2>
+<div class="Unindented">
+In the description below, the mnemonic <tt>&lt;target-libraries&gt;</tt> is used to represent the full path of the <tt>/libraries/</tt> directory where PHPExcel should be installed. This path can be determined as follows:
+</div>
+<pre class="LyX-Code">
+&lt;target-libraries&gt; ::= DOCUMENT_ROOT/sites/all/libraries/
+</pre>
+<div class="Unindented">
+Section <a class="Reference" href="#sec:TargetLocation">3↑</a> describes the definition of <tt>DOCUMENT_ROOT</tt> on the target system. Note that the <tt>/libraries/</tt> directory is &ldquo;parallel to&rdquo; the <tt>/modules/</tt> directory. Perform the following steps to install the PHPExcel library files to the target system from the kit downloaded in the previous subsection:
+</div>
+<ol>
+<li>
+Use FileZilla to login to the target site.
+</li>
+<li>
+In the FileZilla &ldquo;remote site&rdquo; pane, navigate to the <tt>&lt;target-libraries&gt;</tt> directory on the target system.
+</li>
+<li>
+Create the directory <tt>&lt;target-libraries&gt;/PHPExcel/</tt> if it does not yet exist. This is the location where the PHPExcel library files will exist on the target system.
+</li>
+<li>
+In the FileZilla &ldquo;local site&rdquo; pane, navigate to the <tt>/Classes/</tt> folder of the decompressed PHPExcel kit that was created above. There should be two files in this directory: <tt>PHPExcel</tt> (a directory) and <tt>PHPExcel.php</tt>
+</li>
+<li>
+Copy the contents of the <tt>/Classes/</tt> directory from local site into the <tt>/PHPExcel/</tt> directory on the target system.
+</li>
+
+</ol>
+<div class="Unindented">
+When finished, check that the following files exist at the target site:
+</div>
+<pre class="LyX-Code">
+DOCUMENT_ROOT/sites/all/libraries/PHPExcel/PHPExcel.php
+DOCUMENT_ROOT/sites/all/libraries/PHPExcel/PHPExcel/IOFactory.php
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.3">6.3</a> Drupal module download
+</h2>
+<div class="Unindented">
+The <i>drush command-line utility</i> is used to update Drupal and to download required prerequisite modules prior to installing ERcore. The following commands assume a standard Turnkey Drupal 7 appliance installation. If the target system directory tree is not structured as described above, change the cd command-line to meet your needs. See Section <a class="Reference" href="#sec:TargetLocation">3↑</a> to determine the directory tree structure of your target system. See Section <a class="Reference" href="#sub: DrupalModules">1.4↑</a> for the list of required Drupal modules.
+</div>
+<div class="Indented">
+Perform these commands on the target system.
+</div>
+<pre class="LyX-Code">
+cd DOCUMENT_ROOT
+drush up
+cd DOCUMENT_ROOT/sites/all/modules
+drush dl bundle_copy computed_field ctools date date_api date_popup
+drush dl date_repeat_field date_views entity entity_token
+drush dl entityreference entityreference_prepopulate field_group
+drush dl field_permissions flag libraries link markup
+drush dl nodeaccess_userreference page_manager php proj4js rules
+drush dl rules_admin rules_scheduler select_or_other views
+drush dl views_content views_data_export views_php views_ui
+</pre>
+<div class="Unindented">
+If any of the above modules are already installed on your system, a warning message will be displayed.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-7">7</a> Step 4: Installing ERcore files
+</h1>
+<div class="Unindented">
+This step can be done in numerous ways, depending on your Unix experience, preferences, and needs. However, this section assumes you are running FileZilla (or a similar graphical file management tool) on a Windows machine. You will need a local temporary directory to decompress the ERcore kit into and you will need FileZilla windows to access the target system <tt>&lt;target-modules&gt;</tt> directory. This section also assumes you have the 7-ZIP utility (or a similar decompression product) on the Windows system.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.1">7.1</a> Downloading and decompressing ERcore kit
+</h2>
+<div class="Unindented">
+Perform the following steps to download the ERcore kit to your local Windows system and decompress it:
+</div>
+<ul>
+<li>
+Select the appropriate git snapshot from the ERcore repository, as described in Section <a class="Reference" href="#sec:InstallationKits">2↑</a>.
+</li>
+<li>
+Download the ERcore kit ( the <tt>/er/</tt> compressed directory tree) into a local temporary directory
+</li>
+<li>
+Use the 7-ZIP utility to decompress the directory tree.
+</li>
+<li>
+Note that the top-level directory has a generated name similar to <tt>/1837936-bae76ad/</tt> instead of <tt>/er/</tt>. A directory named <tt>/modules/</tt> and a file named <tt>er.module</tt> should exist in this directory.
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.2">7.2</a> Removing ERcore from previous install
+</h2>
+<div class="Unindented">
+<b>Note well</b>: The steps in this subsection have not been tested much and should be considered <i>work-in-progress</i>. If ERcore was previously installed on your system and you choose to use the steps in this subsection, make sure to carefully backup your file system. Many of the steps below are irreversible.
+</div>
+<div class="Indented">
+If ERcore is already installed on the target system, the following steps should be performed to remove the previous version from the system:
+</div>
+<ul>
+<li>
+login to the target website as administrator
+</li>
+<li>
+click <i>Modules</i> on the Drupal home page
+</li>
+<li>
+scroll down to the EPSCOR section on this page
+</li>
+<li>
+uncheck <i>EPSCoR Reporting</i>
+</li>
+<li>
+click <i>Save configuration</i> at the bottom of the page.
+</li>
+
+</ul>
+<div class="Unindented">
+If you wish to completely remove ERcore and all ERcore content from the database, perform the following additional steps:
+</div>
+<ul>
+<li>
+click <i>Modules</i> on the Drupal home page
+</li>
+<li>
+click the the <i>Uninstall</i> tab at the top of the <i>Modules</i> page.
+</li>
+<li>
+check <i>EPSCoR Reporting</i>
+</li>
+<li>
+click <i>Uninstall</i> at the bottom of the page and click <i>Uninstall</i> again to the confirmation page. This step will delete all ERcore data from the Drupal database.
+</li>
+
+</ul>
+<div class="Unindented">
+Next, perform the following steps to remove the /er/ files from target system:
+</div>
+<ul>
+<li>
+Use FileZilla to login to the target site.
+</li>
+<li>
+In the FileZilla &ldquo;remote site&rdquo; pane, navigate to the <tt>&lt;target-modules&gt;</tt> directory on the target system.
+</li>
+<li>
+Use FileZilla to delete the contents of the /er/ directory.
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.3">7.3</a> Installing ERcore files on target
+</h2>
+<div class="Unindented">
+Perform the following steps to install the ERcore files on the target system:
+</div>
+<ul>
+<li>
+Use FileZilla to login to the target site.
+</li>
+<li>
+In the FileZilla &ldquo;remote site&rdquo; pane, navigate to the <tt>&lt;target-modules&gt;</tt> directory on the target system.
+</li>
+<li>
+Create the directory <tt>&lt;target-modules&gt;/er/</tt> if it does not yet exist. This is the location where ERcore directory tree will exist on the target system.
+</li>
+<li>
+In the FileZilla &ldquo;local site&rdquo; pane, navigate to the top-level directory of the decompressed ERcore kit that was created above. There should be a number of sub-directories and files here including the files <tt>/module/</tt> and <tt>er.module</tt>.
+</li>
+<li>
+Copy the contents of this top-level directory from local site into the <tt>&lt;target-modules&gt;/er/</tt> directory on the target system.
+</li>
+
+</ul>
+<div class="Unindented">
+When finished, check that the following files exist at the target site:
+</div>
+<pre class="LyX-Code">
+DOCUMENT_ROOT/sites/all/modules/er/modules/
+DOCUMENT_ROOT/sites/all/modules/er/er.module
+</pre>
+<h1 class="Section">
+<a class="toc" name="toc-Section-8">8</a> Step 5: Enable ERcore in Drupal
+</h1>
+<div class="Unindented">
+<a class="Label" name="sec:EnableERcore"> </a>At this point, the ERcore files and all prerequisites should be properly placed on the target. Here we install the ERcore modules within the Drupal framework. Do the following:
+</div>
+<ul>
+<li>
+login to the target website as administrator
+</li>
+<li>
+click <i>Modules</i> on the Drupal home page
+</li>
+<li>
+scroll down to the EPSCOR section on this page
+</li>
+<li>
+check <i>EPSCoR Reporting</i>
+</li>
+<li>
+click <i>Save configuration</i> at the bottom of the page.
+</li>
+<li>
+click <i>Continue</i> to the question about if to enable other modules. This step will probably take several minutes.
+</li>
+<li>
+if you get a question about &ldquo;rebuild permissions&rdquo; click <i>Rebuild</i>.
+</li>
+
+</ul>
+<div class="Unindented">
+After several minutes, a status page should appear indicating if installation completed, partially completed, or failed. If installation seems to have completed partially, perform the following steps before trying more elaborate troubleshooting:
+</div>
+<ul>
+<li>
+In the EPSCOR section of the Modules page, be sure that <i>EPSCoR Reporting</i> is checked. If not, check it and click <i>Save configuration</i> again.
+</li>
+<li>
+If this doesn’t work, try unchecking the flag, clicking <i>Save configuration</i>, followed by re-checking the flag and saving again.
+</li>
+<li>
+In some situations &ldquo;privilege violation&rdquo; errors from the underlying file system are reported. If this occurs, you may need to modify the file attributes of all files copied to the target such that directories have &ldquo;<tt>rx</tt>&rdquo; protections for all users and regular files have &ldquo;<tt>r</tt>&rdquo; protection for all users. If this is too difficult with FileZilla, log into the target system and execute the following shell commands:
+</li>
+
+</ul>
+<pre class="LyX-Code">
+cd &lt;target-modules&gt;
+find er -type d -exec chmod o+rx {} \;
+find er -type f -exec chmod o+r {} \;
+</pre>
+<h1 class="Section">
+<a class="toc" name="toc-Section-9">9</a> Step 6: Check installation status and troubleshoot
+</h1>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.1">9.1</a> Basic installation status
+</h2>
+<div class="Unindented">
+At this point, ERcore should be installed properly. Check the following to be sure:
+</div>
+<ul>
+<li>
+Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
+</li>
+<li>
+Make sure there are no errors shown on this page. See Section <a class="Reference" href="#sub:ErcoreReset">9.2↓</a> if errors are found on this page.<br/>
+
+</li>
+<li>
+click <i>Modules</i>
+</li>
+<li>
+scroll down to the EPSCOR section
+</li>
+<li>
+make sure <i>EPSCoR Reporting</i> is checked<br/>
+
+</li>
+<li>
+click <i>Reports</i> ▷ <i>Recent log messages</i> (or http://&lt;your-site&gt;/admin/reports/dblog)
+</li>
+<li>
+this shows recent error log messages. look for anything unusual.
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.2">9.2</a> ERcore installation reset
+</h2>
+<div class="Unindented">
+<a class="Label" name="sub:ErcoreReset"> </a>In cases where installation has partially failed or some other internal error has been detected, the <i>EPSCoR Reporting Status Report</i> page can be used to reset individual ERcore components:
+</div>
+<ul>
+<li>
+Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
+</li>
+<li>
+The status of all ERcore components are listed on this page. If there are no errors or warnings, ERcore is installed correctly.
+</li>
+<li>
+If an error is shown for an individual component, click <i>reset</i> to reinitialize that component to ERcore installation-time settings.
+</li>
+
+</ul>
+<div class="Unindented">
+If errors are displayed for several similar components, they may be reset as a group as follows:
+</div>
+<ul>
+<li>
+Click <i>BULK RESET</i> on the the <i>EPSCoR Reporting Status Report</i> page to display the available groups for reset: <i>taxonomy</i>, <i>roles</i>, <i>bundles</i>, <i>flags</i>, and <i>rules</i>.
+</li>
+<li>
+Click the desired entry to reset all ERcore components in that group.
+</li>
+
+</ul>
+<div class="Unindented">
+Continue resetting individual components or groups until there are no more errors on the <i>EPSCoR Reporting Status Report</i> page. Performing a Bulk Rest for all ERcore components is essentially the same as reinstalling ERcore.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.3">9.3</a> Apache error log
+</h2>
+<div class="Unindented">
+If you want to be thorough, you can check the Apache error log:
+</div>
+<ul>
+<li>
+click <i>Reports</i> ▷ <i>Status report</i> (or http://&lt;your-site&gt;/admin/reports/status)
+</li>
+<li>
+click <i>PHP (more information)</i> (or http://&lt;your-site&gt;/admin/reports/status/php)
+</li>
+<li>
+search for <tt>APACHE_LOG_DIR</tt>
+</li>
+<li>
+this will be the directory where Apache error logs are kept
+</li>
+<li>
+examine the log files in this directory for abnormal events
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.4">9.4</a> Clearing caches
+</h2>
+<div class="Unindented">
+Some problems with Drupal are fixed simply by logging out or flushing caches. This helps to insure that both client and server have identical data. Try any or all of the following:
+</div>
+<ul>
+<li>
+logout and log back in to Drupal
+</li>
+<li>
+close browser window on the client machine and start a new session
+</li>
+<li>
+navigate to: Configuration  ▷  Development  ▷  Performance  ▷  Clear all caches
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.5">9.5</a> Double asterisk problem
+</h2>
+<div class="Unindented">
+On some installation, there is a &ldquo;double asterisk&rdquo; problem. Check your system for this anomaly as follows:
+</div>
+<ul>
+<li>
+click <i>Content ▷ Add Content ▷ Collaboration</i>
+</li>
+<li>
+scroll down to <i>Collaborating Institution/Organization</i>
+</li>
+
+</ul>
+<div class="Unindented">
+If there are two red asterisks instead of one, then the following patch can be applied:
+</div>
+<ul>
+<li>
+locate a file named <tt>DOCUMENT_ROOT/misc/states.js</tt> (see Section <a class="Reference" href="#sec:TargetLocation">3↑</a> about <tt>DOCUMENT_ROOT</tt>).
+</li>
+<li>
+[TBA: enter instructions for editing states.js here.]
+</li>
+
+</ul>
+<div class="Unindented">
+More information about the &ldquo;double asterisk&rdquo; problem, including a patch, can be found at:
+</div>
+<ul>
+<li>
+<a class="URL" href="http://drupal.org/node/1592688">http://drupal.org/node/1592688</a>
+</li>
+
+</ul>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-9.6">9.6</a> MySQL server error
+</h2>
+<div class="Unindented">
+Some developers reported receiving PDO errors like "General error: 2006 MySQL server has gone away" which prohibited installation of ERcore. The problem was fixed by adjusting the <tt>max_allowed_packet</tt> size from <tt>1M</tt> to <tt>100M</tt> in the MySQL setup file, <tt>my.ini</tt>. More information about this problem can be found at:
+</div>
+<ul>
+<li>
+<a class="URL" href="http://drupal.org/node/1542432">http://drupal.org/node/1542432</a>
+</li>
+
+</ul>
+<h1 class="Section">
+<a class="toc" name="toc-Section-10">10</a> Step 7: Final ERcore configuration
+</h1>
+<div class="Unindented">
+To perform final configuration and customization, start by reading the EPSCoR reporting &ldquo;Installation Guide&rdquo;, accessed as follows:
+</div>
+<ul>
+<li>
+click <i>Modules</i>.
+</li>
+<li>
+Scroll down to the EPSCoR section.
+</li>
+<li>
+click <i>Help</i> to the right of EPSCoR Reporting.
+</li>
+
+</ul>
+<div class="Unindented">
+The menu options available can be tweaked as follows:
+</div>
+<ul>
+<li>
+click <i>Modules</i>.
+</li>
+<li>
+scroll down to the Core section.
+</li>
+<li>
+uncheck the <i>Overlay</i> module.
+</li>
+<li>
+uncheck the <i>Toolbar</i> module.
+</li>
+<li>
+scroll down to the Administration section.
+</li>
+<li>
+check the <i>Administration menu Toolbar style</i> module.
+</li>
+<li>
+click <i>Save configuration</i> at the bottom of the page.
+</li>
+<li>
+logout and login again to see these changes.
+</li>
+
+</ul>
+<div class="Unindented">
+You may also want to modify settings at Configuration  ▷  Administration  ▷  Administration menu:
+</div>
+<ul>
+<li>
+check <i>Adjust top margin</i>
+</li>
+<li>
+check <i>Keep menu at top of page</i>
+</li>
+<li>
+check <i>Cache menu in client-side browser</i>
+</li>
+<li>
+click <i>Save configuration</i>
+</li>
+
+</ul>
+<div class="Unindented">
+To set basic site information, do the following:
+</div>
+<ul>
+<li>
+click <i>Configuration </i> ▷ <i>System</i> ▷ <i>Site information</i>
+</li>
+<li>
+enter value for site name (e.g.. &ldquo;NH EPSCoR Reporting&rdquo;)
+</li>
+<li>
+optionally, enter value for site slogan (e.g. &ldquo;Scratch site testing version of NH EPSCoR Reporting&rdquo;)
+</li>
+<li>
+verify system administration email address
+</li>
+<li>
+specify the location of a front page if desired
+</li>
+<li>
+click <i>Save configuration</i>
+</li>
+
+</ul>
+<div class="Unindented">
+If you want to add a front page, the following example should get you started:
+</div>
+<ul>
+<li>
+click <i>Add content</i> ▷ <i>Basic page</i>
+</li>
+<li>
+enter a title (e.g., &ldquo;Welcome to EPSCoR Reporting&rdquo;)
+</li>
+<li>
+enter a body for the page (e.g., the following html text):
+</li>
+
+</ul>
+<pre class="LyX-Code">
+&lt;p&gt;Five EPSCoR jurisdictions (Alaska, Hawaii, New Hampshire,
+New Mexico, and Utah) self-organized to create a working
+group designed to explore the creation of a common, web-based
+data input/reporting output portal that would be suitable for
+adoption across all EPSCoR jurisdictions and projects.
+Following a series of conference calls and a voluntary
+workshop at the New Mexico EPSCoR office with programmers,
+PA’s, and PI’s, the coalition has determined that the Drupal
+open source content management platform provides a powerful
+tool for managing data inputs and reporting outputs via our
+existing EPSCoR websites.&lt;/p&gt;
+&lt;br/&gt;
+&lt;img src="http://www.nmepscor.org/sites/all/images/5-juris-logos.jpg"
+align="middle" alt="Five EPSCoR Jurisdictions"&gt;
+</pre>
+<ul>
+<li>
+for the above example, select <i>Text format: Full HTML</i>
+</li>
+<li>
+under <i>Publishing Options</i>: check <i>Published</i> and <i>Promoted to front page</i>
+</li>
+<li>
+click <i>Save</i>
+</li>
+
+</ul>
+<div class="Unindented">
+Another configuration page is at:
+</div>
+<ul>
+<li>
+click <i>EPSCoR</i> ▷ <i>ERcore Module Settings</i>
+</li>
+
+</ul>
+
+<hr class="footer"/>
+<div class="footer" id="generated-by">
+Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2013-05-13T11:33:08.968000</span>
+</div>
+</div>
+</body>
+</html>
