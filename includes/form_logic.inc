@@ -821,7 +821,8 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 			$form['title']['#default_value'] = "Collaborators {$form['created']['#value']}";
 			break;
 		case 'er_engagement_node_form';
-			$form['title']['#default_value'] = $calendarTitle; 					 
+			$form['title']['#default_value'] = $calendarTitle;
+		 					 
 			break;	
 		case 'er_effort_node_form';
 			$form['title']['#default_value'] = "Effort {$form['created']['#value']}";
