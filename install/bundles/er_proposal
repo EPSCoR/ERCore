@@ -1045,7 +1045,7 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'markup' => array(
-          'value' => '<font size="+1">Please report on all your Current, Pending, and Denied Support grant efforts in your pipeline starting from your initial participating start date.  Do not list this EPSCoR grant, but include all proposals, regardless of funding source or success (include all proposals you have submitted).  Identify all personnel listed on the grant, differentiated only by those who are EPSCoR participants and not.  Use this form once for each grant effort.  ONE (grant) entry is needed per grant regardless of how many EPSCoR researchers are listed on the grant.</font>',
+          'value' => '<font size="+1">Please report on all your Current, Pending, and Denied Support grant efforts in your pipeline starting from your initial participating start date.  Do not list this EPSCoR grant, but include all proposals, regardless of funding source or success (include all proposals you have submitted, including denied proposals).  Identify the PI and Co-PI, then list the other EPSCoR faculty or faculty equivalent.  Do not list Post-Docs, Grad Students, Undergrads, Techs, etc.. Use this form once for each grant effort.  ONE (grant) entry is needed per grant regardless of how many EPSCoR researchers are listed on the grant.</font>',
           'format' => 'full_html',
         ),
       ),
