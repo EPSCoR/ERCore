@@ -97,12 +97,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
         'node' => array(
           0 => 'er_other_product',
           1 => 'er_patent',
-        ),
-        'user' => array(
-          0 => 'user',
         ),
       ),
     ),
@@ -322,9 +322,9 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_patent',
-          1 => 'er_presentation',
-          2 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_patent',
+          2 => 'er_presentation',
         ),
       ),
     ),
@@ -472,8 +472,8 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'allowed_values' => array(
-          0 => 'No',
-          1 => 'Yes',
+          0 => '',
+          1 => '',
         ),
         'allowed_values_function' => '',
       ),
@@ -738,15 +738,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_collaboration',
-          2 => 'er_event',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
           3 => 'er_news',
-          4 => 'er_other_product',
-          5 => 'er_patent',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -757,22 +757,15 @@ $data = array(
         'weight' => '4',
         'label' => 'Description',
         'widget_type' => 'text_textarea',
-        'description' => 'Please provide a bried description of your products. 3-4 sentances maximum.',
-        'default_value' => array(
-          0 => array(
-            'value' => '',
-            '_error_element' => 'default_value_widget][field_er_description][0][value',
-          ),
-        ),
+        'description' => 'Please provide a brief description of your products. 3-4 sentences maximum.',
+        'default_value' => NULL,
         'widget' => array(
-          'type' => 'text_textarea',
           'weight' => '1',
+          'type' => 'text_textarea',
           'module' => 'text',
-          'active' => '1',
+          'active' => 1,
           'settings' => array(
             'rows' => '10',
-            'size' => 60,
-            'default_value_php' => NULL,
           ),
         ),
         'display' => array(
@@ -830,7 +823,7 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'text_default',
-            'weight' => '0',
+            'weight' => '7',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -839,7 +832,7 @@ $data = array(
           'text_processing' => '0',
           'user_register_form' => FALSE,
         ),
-        'required' => FALSE,
+        'required' => 0,
         'field_name' => 'field_er_description',
         'entity_type' => 'node',
         'bundle' => 'er_patent',
@@ -932,7 +925,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '5',
+            'weight' => '6',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1025,7 +1018,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'link_default',
-            'weight' => '2',
+            'weight' => '0',
             'settings' => array(),
             'module' => 'link',
           ),
@@ -1086,7 +1079,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '6',
+            'weight' => '5',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1235,7 +1228,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'date_default',
-            'weight' => '8',
+            'weight' => '2',
             'settings' => array(
               'format_type' => 'short',
               'fromto' => 'both',
@@ -1280,9 +1273,9 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'list_default',
-            'weight' => '7',
             'settings' => array(),
             'module' => 'list',
+            'weight' => 9,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -1324,7 +1317,7 @@ $data = array(
           'default' => array(
             'label' => 'inline',
             'type' => 'entityreference_label',
-            'weight' => '9',
+            'weight' => '3',
             'settings' => array(
               'link' => 1,
             ),
@@ -1484,7 +1477,7 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'entityreference_label',
-            'weight' => '1',
+            'weight' => '8',
             'settings' => array(
               'link' => 1,
             ),
