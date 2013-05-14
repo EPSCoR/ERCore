@@ -484,18 +484,20 @@ function er_get_reporting_ranges($everything = false){
 		//this code takes the start date provided in er.module file, and creates an array of date ranges.
 		//it is assumed that the reporting periods start with whatever month the grant was awarded on.
 		$start_date = variable_get('er_start_date');
+		$reporting_month = intval(variable_get('er_reporting_month'));
+		//d($reporting_month, '$reporting_month');
 		//dsm(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']));
 		$cur_month = date('n');
-		$start_month = $start_date['month'];
-		$adjusted_date = mktime(0, 0, 0, $cur_month-$start_month+7);//+half a year into the future (6) +1 offset
+		//$start_month = $start_date['month'];
+		$adjusted_date = mktime(0, 0, 0, $cur_month-$reporting_month+7);//+half a year into the future (6) +1 offset
 		//$adjusted_date = mktime(0, 0, 0, $cur_month+6);
 		$cur_year = date('Y', $adjusted_date);
 		$start_year = $start_date['year'];
 		for ($y = $cur_year; $y>=$start_year;$y--){
 			if ($y == $start_year)
-				$ranges[] = Array(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']), mktime(0, 0, 0, $start_month, 0, $y+1));
+				$ranges[] = array(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']), mktime(0, 0, 0, $reporting_month, 0, $y+1));
 			else
-				$ranges[] = Array(mktime(0, 0, 0, $start_month, 1, $y), mktime(0, 0, 0, $start_month, 0, $y+1));
+				$ranges[] = array(mktime(0, 0, 0, $reporting_month, 1, $y), mktime(0, 0, 0, $reporting_month, 0, $y+1));
 			//self::$ranges[] = Array(($y-1)."-09-00", $y."-08-31");
 		}
 	}
