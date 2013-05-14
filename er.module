@@ -286,7 +286,88 @@ function er_menu() {
 		'access arguments' => array(ER_ADMIN_PERMISSION),
 		'type' => MENU_NORMAL_ITEM,
 	);
+	
+	$items['user/%/status'] = array(
+		'title' => 'Status',
+		'description' => 'Gives a summary of meta-information about the user.',
+		'page callback' => 'er_user_participating_status',
+		'page arguments' => array(1),
+		'access arguments' => array('administer users'),//give only to admins
+		'type' => MENU_LOCAL_TASK,
+	);
 	return $items;
+}
+
+
+/*
+ * This hook determines which pages will use the administrative theme.
+ */
+function er_admin_paths() {
+  return array(
+    'user/*/status' => TRUE,
+  );
+}
+
+/*
+ * Menu callback for 'user/%/status'
+ * Adds a tab to the user profile, visible only to admins, it displays info about whether the user is a participant or collaborator.
+ */
+function er_user_participating_status($uid){
+	//These should have already been defined, but supposidly not.
+	define('REQUIREMENT_INFO', -1);
+	define('REQUIREMENT_OK', 0);
+	define('REQUIREMENT_WARNING', 1);
+	define('REQUIREMENT_ERROR', 2);
+	
+	//TODO: add info about "active" participant or not using the participant date ranges.
+	
+	$user = user_load($uid);
+  $parti_inst = false;
+  $one_sixty = false;
+  //d($user, '$user');
+  $u = entity_metadata_wrapper('user', $user);
+  $u->field_er_inst_ref->value();
+  $inst_nodes = $u->field_er_inst_ref->value();
+  if (count($inst_nodes)){
+    $inst = array_pop($inst_nodes);
+    $i = entity_metadata_wrapper('node', $inst);
+    $parti_inst = $i->field_er_inst_participating->value()==1?true:false;
+  }
+  $one_sixty = $u->field_er_160hours->value()==1?true:false;
+  //d($participating, '$participating');
+  //d($one_sixty, '$one_sixty');
+	$participant = $parti_inst && $one_sixty;
+
+	$requirements = array();
+	$requirements[] = array(
+		'severity' => REQUIREMENT_INFO,
+		'title' => 'username',
+		'value' => $u->name->value(),
+	);
+	$requirements[] = array(
+		'severity' => $one_sixty?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => '> 160 hrs/year',
+		'value' => $one_sixty?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => $parti_inst?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => 'Participating Institution',
+		'value' => $parti_inst?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => $participant?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => 'Participant or Collaborator?',
+		'value' => $participant?"Participant":"Collaborator",
+	);
+	$form['info'] = array(
+		'#markup' => '<p>This view is helpful in determining the status of this user (participant or collaborator).</p>',
+	);
+	//Display the table
+	$form['participant_status'] = array(
+		"#theme"=>"er_status_report",
+		'#requirements'=>$requirements,
+	);
+	return $form;
 }
 
 //This hook replaces the original node/add page with one that separates the different types of content.
