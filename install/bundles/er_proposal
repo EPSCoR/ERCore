@@ -1045,7 +1045,7 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'markup' => array(
-          'value' => '<font size="+1">Please report on all your Current, Pending, and Denied Support grant efforts in your pipeline starting from your initial participating start date.  Do not list this EPSCoR grant, but include all proposals, regardless of funding source or success (include all proposals you have submitted).  Identify all personnel listed on the grant, differentiated only by those who are EPSCoR participants and not.  Use this form once for each grant effort.  ONE (grant) entry is needed per grant regardless of how many EPSCoR researchers are listed on the grant.</font>',
+          'value' => '<font size="+1">Please report on all your Current, Pending, and Denied Support grant efforts in your pipeline starting from your initial participating start date.  Do not list this EPSCoR grant, but include all proposals, regardless of funding source or success (include all proposals you have submitted, including denied proposals).  Identify the PI and Co-PI, then list the other EPSCoR faculty or faculty equivalent.  Do not list Post-Docs, Grad Students, Undergrads, Techs, etc.. Use this form once for each grant effort.  ONE (grant) entry is needed per grant regardless of how many EPSCoR researchers are listed on the grant.</font>',
           'format' => 'full_html',
         ),
       ),
@@ -1402,7 +1402,7 @@ $data = array(
           ),
         ),
         'required' => 0,
-        'description' => 'The label "Principal Investigator" used here is in reference to the EPSCoR researcher who is reporting the external funding, and is used internally, strictly for reporting.  This is an auto-lookup field. If the researcher\'s name is not found, that person needs to register. Do not enter the name of the official PI listed on the grant (unless the PI is an EPSCoR participant). List all other researchers named on the grant in the fields below.',
+        'description' => 'Type in the name of the EPSCoR researcher who is the PI or Co-PI and let the system find the name.  When it does, select it to put it in the field.  If the name does not arise, try typing in the other (first or last) name. If the system does not find the name, the researcher does not have an EPSCoR account.',
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_epscor_pi_co_pi',
@@ -1507,7 +1507,7 @@ $data = array(
         'weight' => '5',
         'label' => 'Non-EPSCoR PI/Co-PI',
         'widget_type' => 'text_textfield',
-        'description' => '',
+        'description' => 'This is a simple text field and does not search for names within the database.  Type in the first and last name of the non-EPSCoR researcher who is the PI or Co-PI.',
         'default_value' => NULL,
         'widget' => array(
           'weight' => '4',
@@ -2715,7 +2715,6 @@ $data = array(
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Principal Investigator (PI)',
       'weight' => '2',
       'children' => array(
