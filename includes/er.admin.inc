@@ -58,7 +58,7 @@ function er_settings() {
 		//'#date_type' => DATE_ISO,
     '#title' => t('Reporting Period starting month:'),
     '#default_value' => $reporting_month?'0000-'.$reporting_month:null,
-    '#description' => t('When does your reporting period begin?'),
+    '#description' => t('When does your reporting period begin? This is probably the same month as the start date of the grant.'),
 		'#required' => true,
   );
   
