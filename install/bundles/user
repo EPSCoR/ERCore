@@ -5468,7 +5468,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_inst_ref' => array(
       0 => array(
-        'label' => 'Participating Institution',
+        'label' => 'Participating Institutions',
         'widget' => array(
           'weight' => '22',
           'type' => 'options_buttons',
