@@ -98,8 +98,8 @@ $data = array(
           0 => 'user',
         ),
         'node' => array(
-          0 => 'er_collaboration',
-          1 => 'er_news',
+          0 => 'er_news',
+          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -353,6 +353,9 @@ $data = array(
           0 => 'format',
         ),
       ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_news_text',
       'type' => 'text_with_summary',
       'module' => 'text',
@@ -455,15 +458,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
-          8 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
+          3 => 'er_news',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -657,7 +660,7 @@ $data = array(
     ),
     'field_er_news_text' => array(
       0 => array(
-        'label' => 'Slide text',
+        'label' => 'Description',
         'widget' => array(
           'weight' => '4',
           'type' => 'text_textarea_with_summary',
