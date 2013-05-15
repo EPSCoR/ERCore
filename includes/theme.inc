@@ -50,7 +50,7 @@ function er_theme($existing, $type, $theme, $path){
 			'file' => 'includes/related_content.inc',
 		),
 		
-		'field__field_er_user_entity_reference'=>array(
+		'field__field_er_user_entity_reference__er_collaboration'=>array(//note: remove __er_collaboration if you want it to apply to all content types.
 			'variables' => array(),
 			'function' => 'theme_field_er_user_entity_reference',
 		),
@@ -74,23 +74,27 @@ function er_field_formatter_info() {
  * Implements hook_field_formatter_view().
  */
 function er_field_formatter_view($entity_type, $entity, $field, $instance, $lang_code, $items, $display) {
+	$elements = array();
 	$format = 'F j, Y';
-  $elements = array();
-  foreach ($items as $delta => $item) {
-		$date_settings = array(
-			'timezone'=>$item['timezone'],
-			'timezone_db'=>$item['timezone_db'],
-			'date_type'=>$item['date_type'],
-		);
-		$date1 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
-		if (!is_null($item['value2']))
-			$date2 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
-		else
-			$date2 = array('#markup'=>'Present');
-    $elements[$delta] = array(
-      '#markup' => render($date1) . " - " . render($date2),
-    );
-  }
+	switch ($display['type']) {
+		case 'date_custom':
+			foreach ($items as $delta => $item) {
+				$date_settings = array(
+					'timezone'=>$item['timezone'],
+					'timezone_db'=>$item['timezone_db'],
+					'date_type'=>$item['date_type'],
+				);
+				$date1 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
+				if (!is_null($item['value2']))
+					$date2 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
+				else
+					$date2 = array('#markup'=>'Present');
+				$elements[$delta] = array(
+					'#markup' => render($date1) . " - " . render($date2),
+				);
+			}
+			break;
+	}
   return $elements;
 }
 
@@ -103,7 +107,8 @@ function theme_field_er_user_entity_reference($variables){
 	$grouped_items = array('participant' => array(), 'collaborator'=>array());
 	foreach ($variables['element']['#items'] as $delta => $item){
 		$participating = check_user_participating($item['entity']);
-		$grouped_items[$participating][] = $variables['items'][$delta];
+		$label = $participating?'participant':'collaborator';
+		$grouped_items[$label][] = $variables['items'][$delta];
 	}
 	
 	$label = explode('|', $variables['label']);

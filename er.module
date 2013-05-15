@@ -292,7 +292,7 @@ function er_menu() {
 		'description' => 'Gives a summary of meta-information about the user.',
 		'page callback' => 'er_user_participating_status',
 		'page arguments' => array(1),
-		'access arguments' => array('administer users'),//give only to admins
+		'access arguments' => array('access user profiles'),
 		'type' => MENU_LOCAL_TASK,
 	);
 	return $items;
@@ -310,7 +310,8 @@ function er_admin_paths() {
 
 /*
  * Menu callback for 'user/%/status'
- * Adds a tab to the user profile, visible only to admins, it displays info about whether the user is a participant or collaborator.
+ * This adds a tab to the user profile.
+ * It displays info about whether the user is a participant or collaborator.
  */
 function er_user_participating_status($uid){
 	//These should have already been defined, but supposidly not.
@@ -690,10 +691,7 @@ function check_user_participating(&$uid, $range = array()){
   $one_sixty = $u->field_er_160hours->value()==1?true:false;
   //d($participating, '$participating');
   //d($one_sixty, '$one_sixty');
-  $verdict = 'collaborator';
-  if ($participating && $one_sixty)
-    $verdict = 'participant';
-  return $verdict;
+  return $participating && $one_sixty;
 }
 
 //Export a role to code

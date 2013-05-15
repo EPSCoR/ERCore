@@ -140,17 +140,23 @@ function er_node_validate($node){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'validate');
 			break;
-    case 'er_collaboration';
-      er_collaboration_validation($node);
 	}
 }
 
 function er_node_insert($node){
-  
+	switch ($node->type){
+		case 'er_collaboration':
+			_manage_er_collaborations($node, 'insert');
+			break;
+	}
 }
 
 function er_node_update($node){
-  
+  switch ($node->type){
+		case 'er_collaboration':
+			_manage_er_collaborations($node, 'update');
+			break;
+	}
 }
 
 function er_node_delete($node){
@@ -178,29 +184,24 @@ function er_field_attach_presave($entity_type, $entity){
   }
 }
 
-
-function er_collaboration_validation(&$node){
-  //d($node, '$node');
+function _manage_er_collaborations(&$node, $op){
   $lang = $node->language;
   if (isset($node->field_er_user_entity_reference) && count($node->field_er_user_entity_reference[$lang]))
   foreach ($node->field_er_user_entity_reference[$lang] as $k=>$values){
     if (isset($values['target_id']) && $values['target_id'] != ""){
       $user = user_load($values['target_id']);
       $participating = check_user_participating($user);
-      //d($user, $participating);
-      //d($participating, '$participating');
-      if ($participating == 'collaborator'){
+      if (!$participating){
         $u = entity_metadata_wrapper('user', $user);
         $name = $u->field_er_realname->value();
-        //TODO: Add a link to the appropriate documentation pages.
-        form_set_error('field_er_user_entity_reference', "The user \"$name\" cannot be added as an EPSCoR researcher! His/her account does not meet the necessary criteria, and must therefore be added as a collaborator in step 2 after submitting this form.");
+        drupal_set_message(l($name, 'user/'.$user->uid.'/status') . ' is currently considdered a collaborator. <br><strong>Please make sure to add this person\'s name to the list of collaborators on the right side panel.</strong>', 'warning');
       }
     }
   }
 }
 
 //EE = External Engagements
-function _manage_ee_nodes($node, $op){
+function _manage_ee_nodes(&$node, $op){
 	//static $types = array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth');
 	//static $catLabels = array("Academic Research Institutions", "Primary Undergraduate Institutions", "Minority Serving Institutions", "K-12 Institutions", "Other");
 	static $types = array(
