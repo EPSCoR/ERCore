@@ -4651,7 +4651,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
             'available_options' => 'Community Advisory Committee (CAC)
 Monitoring Assessment Panel (MAP)
 Statewide Committee (SWC)
-None',
+',
             'available_options_php' => '',
             'other' => 'Other',
             'other_title' => '',
@@ -4680,9 +4680,9 @@ None',
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
-        'default_value' => array(),
+        'default_value' => NULL,
         'field_name' => 'field_er_committees',
         'entity_type' => 'user',
         'bundle' => 'user',
@@ -5468,7 +5468,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_inst_ref' => array(
       0 => array(
-        'label' => 'Participating Institution',
+        'label' => 'Participating Institutions',
         'widget' => array(
           'weight' => '22',
           'type' => 'options_buttons',
