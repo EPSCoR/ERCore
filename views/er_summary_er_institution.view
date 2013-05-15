@@ -1,5 +1,5 @@
 <?php
-$view = new view();
+$view = new view;
 $view->name = 'er_summary_er_institution';
 $view->description = '';
 $view->tag = 'default';
@@ -12,7 +12,6 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Institutions';
-$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
   166149871 => '166149871',
@@ -65,13 +64,11 @@ $handler->display->display_options['filters']['type']['group'] = 1;
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['pager'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '50';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['pager']['options']['id'] = '0';
-$handler->display->display_options['pager']['options']['quantity'] = '9';
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'table';
 $handler->display->display_options['style_options']['columns'] = array(
@@ -155,7 +152,6 @@ $handler->display->display_options['menu']['context'] = 0;
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
 $handler->display->display_options['display_comment'] = 'This display is special. It is by the summary table code. It is set up in a specific way which lends itself to being called by our custom code. It generates a count representing the number of nodes matching a certain criteria such as a specified date range.';
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
 $handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'none';
@@ -182,7 +178,6 @@ $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
 /* Display: Data export */
 $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'none';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
@@ -238,10 +233,90 @@ $handler->display->display_options['path'] = 'institutions/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',
   'page' => 'page',
+  'page_1' => 'page_1',
+  'page_2' => 'page_2',
 );
 
 /* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_1');
+$handler = $view->new_display('page', 'Page', 'page_2');
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '50';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'title' => 'title',
+  'field_er_inst_category' => 'field_er_inst_category',
+  'field_er_inst_abbreviation' => 'field_er_inst_abbreviation',
+  'field_er_inst_type' => 'field_er_inst_type',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'title' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_inst_category' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_inst_abbreviation' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_inst_type' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Type */
+$handler->display->display_options['fields']['field_er_inst_type']['id'] = 'field_er_inst_type';
+$handler->display->display_options['fields']['field_er_inst_type']['table'] = 'field_data_field_er_inst_type';
+$handler->display->display_options['fields']['field_er_inst_type']['field'] = 'field_er_inst_type';
+$handler->display->display_options['fields']['field_er_inst_type']['empty'] = '<strong>DRAFT</strong>';
+/* Field: Content: Category */
+$handler->display->display_options['fields']['field_er_inst_category']['id'] = 'field_er_inst_category';
+$handler->display->display_options['fields']['field_er_inst_category']['table'] = 'field_data_field_er_inst_category';
+$handler->display->display_options['fields']['field_er_inst_category']['field'] = 'field_er_inst_category';
+/* Field: Field: Institution Abbreviation */
+$handler->display->display_options['fields']['field_er_inst_abbreviation']['id'] = 'field_er_inst_abbreviation';
+$handler->display->display_options['fields']['field_er_inst_abbreviation']['table'] = 'field_data_field_er_inst_abbreviation';
+$handler->display->display_options['fields']['field_er_inst_abbreviation']['field'] = 'field_er_inst_abbreviation';
+$handler->display->display_options['fields']['field_er_inst_abbreviation']['element_type'] = 'span';
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Type (field_er_inst_type) */
+$handler->display->display_options['sorts']['field_er_inst_type_value']['id'] = 'field_er_inst_type_value';
+$handler->display->display_options['sorts']['field_er_inst_type_value']['table'] = 'field_data_field_er_inst_type';
+$handler->display->display_options['sorts']['field_er_inst_type_value']['field'] = 'field_er_inst_type_value';
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
 $handler->display->display_options['path'] = 'admin/epscor/content/institutions';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Institutions';
