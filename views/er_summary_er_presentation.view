@@ -1,5 +1,5 @@
 <?php
-$view = new view();
+$view = new view;
 $view->name = 'er_summary_er_presentation';
 $view->description = '';
 $view->tag = 'default';
@@ -12,7 +12,6 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Presentations';
-$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
   166149871 => '166149871',
@@ -20,12 +19,12 @@ $handler->display->display_options['access']['role'] = array(
 );
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
 $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '15';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['pager']['options']['id'] = '0';
-$handler->display->display_options['pager']['options']['quantity'] = '9';
 $handler->display->display_options['style_plugin'] = 'table';
 $handler->display->display_options['style_options']['columns'] = array(
   'field_er_type_of_presentation' => 'field_er_type_of_presentation',
@@ -81,7 +80,7 @@ $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Participant Research Product Creator(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -177,18 +176,9 @@ $handler->display->display_options['filters']['field_er_type_of_presentation_val
 $handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['label'] = 'Type';
 $handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['operator'] = 'field_er_type_of_presentation_value_op';
 $handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['identifier'] = 'field_er_type_of_presentation_value';
-$handler->display->display_options['filters']['field_er_type_of_presentation_value']['expose']['remember_roles'] = array(
-  2 => '2',
-  66784200 => 0,
-  137756511 => 0,
-  166149871 => 0,
-  3 => 0,
-  1 => 0,
-);
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['sorts'] = FALSE;
 /* Sort criterion: Content: Upload File (field_er_upload_file:display) */
 $handler->display->display_options['sorts']['field_er_upload_file_display']['id'] = 'field_er_upload_file_display';
@@ -215,7 +205,6 @@ $handler->display->display_options['path'] = 'presentations';
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
 $handler->display->display_options['display_comment'] = 'This display is special. It is by the summary table code. It is set up in a specific way which lends itself to being called by our custom code. It generates a count representing the number of nodes matching a certain criteria such as a specified date range.';
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
 $handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'none';
@@ -242,7 +231,6 @@ $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
 /* Display: Data export */
 $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'none';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
@@ -262,7 +250,7 @@ $handler->display->display_options['fields']['nid']['table'] = 'node';
 $handler->display->display_options['fields']['nid']['field'] = 'nid';
 $handler->display->display_options['fields']['nid']['label'] = 'Node ID';
 $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Participant Research Product Creator(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -288,7 +276,7 @@ $handler->display->display_options['fields']['field_er_other_authors']['id'] = '
 $handler->display->display_options['fields']['field_er_other_authors']['table'] = 'field_data_field_er_other_authors';
 $handler->display->display_options['fields']['field_er_other_authors']['field'] = 'field_er_other_authors';
 $handler->display->display_options['fields']['field_er_other_authors']['element_label_colon'] = FALSE;
-/* Field: Content: Internet Link */
+/* Field: Content: Link */
 $handler->display->display_options['fields']['field_er_link']['id'] = 'field_er_link';
 $handler->display->display_options['fields']['field_er_link']['table'] = 'field_data_field_er_link';
 $handler->display->display_options['fields']['field_er_link']['field'] = 'field_er_link';
@@ -301,12 +289,35 @@ $handler->display->display_options['fields']['field_er_event']['field'] = 'field
 $handler->display->display_options['fields']['field_er_event']['element_label_colon'] = FALSE;
 $handler->display->display_options['path'] = 'presentations/download';
 $handler->display->display_options['displays'] = array(
+  'default' => 'default',
   'page' => 'page',
-  'default' => 0,
+  'page_1' => 'page_1',
+  'page_2' => 'page_2',
 );
 
 /* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_1');
+$handler = $view->new_display('page', 'Page', 'page_2');
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Upload File (field_er_upload_file:display) */
+$handler->display->display_options['sorts']['field_er_upload_file_display']['id'] = 'field_er_upload_file_display';
+$handler->display->display_options['sorts']['field_er_upload_file_display']['table'] = 'field_data_field_er_upload_file';
+$handler->display->display_options['sorts']['field_er_upload_file_display']['field'] = 'field_er_upload_file_display';
+$handler->display->display_options['sorts']['field_er_upload_file_display']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['field_er_upload_file_display']['expose']['label'] = 'Uploaded File';
+/* Sort criterion: Content: Post date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'node';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+$handler->display->display_options['sorts']['created']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
+$handler->display->display_options['sorts']['created']['granularity'] = 'minute';
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
+$handler->display->display_options['sorts']['title']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
 $handler->display->display_options['path'] = 'admin/epscor/content/presentations';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Presentations';

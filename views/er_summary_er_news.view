@@ -1,5 +1,5 @@
 <?php
-$view = new view();
+$view = new view;
 $view->name = 'er_summary_er_news';
 $view->description = '';
 $view->tag = 'default';
@@ -12,7 +12,6 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Highlights';
-$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
   166149871 => '166149871',
@@ -26,7 +25,6 @@ $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '15';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['pager']['options']['id'] = '0';
-$handler->display->display_options['pager']['options']['quantity'] = '9';
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['row_plugin'] = 'fields';
 /* Field: Content: Title */
@@ -36,7 +34,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: Presenter(s) */
+/* Field: Content: EPSCoR Participant Research Product Creator(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -102,13 +100,11 @@ $handler->display->display_options['filters']['field_er_news_date_value_1']['for
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['path'] = 'highlights';
 
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
 $handler->display->display_options['display_comment'] = 'This display is special. It is by the summary table code. It is set up in a specific way which lends itself to being called by our custom code. It generates a count representing the number of nodes matching a certain criteria such as a specified date range.';
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
 $handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'none';
@@ -135,15 +131,20 @@ $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
 /* Display: Data export */
 $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'some';
 $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
 $handler->display->display_options['style_options']['provide_file'] = 1;
 $handler->display->display_options['style_options']['parent_sort'] = 0;
 $handler->display->display_options['path'] = 'highlights/download';
+$handler->display->display_options['displays'] = array(
+  'default' => 'default',
+  'page' => 'page',
+  'page_1' => 'page_1',
+  'page_2' => 'page_2',
+);
 
 /* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_1');
+$handler = $view->new_display('page', 'Page', 'page_2');
 $handler->display->display_options['path'] = 'admin/epscor/content/highlights';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Highlights';

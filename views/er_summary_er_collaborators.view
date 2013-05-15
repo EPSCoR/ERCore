@@ -1,5 +1,5 @@
 <?php
-$view = new view();
+$view = new view;
 $view->name = 'er_summary_er_collaborators';
 $view->description = '';
 $view->tag = 'default';
@@ -12,11 +12,10 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'External Collaborators';
-$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'perm';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
-$handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
 $handler->display->display_options['pager']['type'] = 'full';
 $handler->display->display_options['pager']['options']['items_per_page'] = '15';
@@ -46,7 +45,7 @@ $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: Presenter(s) */
+/* Field: Content: EPSCoR Participant Research Product Creator(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -99,14 +98,6 @@ $handler->display->display_options['filters']['field_er_collaboration_dates_valu
 $handler->display->display_options['filters']['field_er_collaboration_dates_value2']['expose']['label'] = 'Start date';
 $handler->display->display_options['filters']['field_er_collaboration_dates_value2']['expose']['operator'] = 'field_er_collaboration_dates_value2_op';
 $handler->display->display_options['filters']['field_er_collaboration_dates_value2']['expose']['identifier'] = 'start_date';
-$handler->display->display_options['filters']['field_er_collaboration_dates_value2']['expose']['remember_roles'] = array(
-  2 => '2',
-  66784200 => 0,
-  137756511 => 0,
-  166149871 => 0,
-  3 => 0,
-  1 => 0,
-);
 $handler->display->display_options['filters']['field_er_collaboration_dates_value2']['form_type'] = 'date_popup';
 /* Filter criterion: Content: Dates -  start date (field_er_collaboration_dates) */
 $handler->display->display_options['filters']['field_er_collaboration_dates_value']['id'] = 'field_er_collaboration_dates_value';
@@ -120,19 +111,10 @@ $handler->display->display_options['filters']['field_er_collaboration_dates_valu
 $handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['label'] = 'End date';
 $handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator'] = 'field_er_collaboration_dates_value_op';
 $handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['identifier'] = 'end_date';
-$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['remember_roles'] = array(
-  2 => '2',
-  66784200 => 0,
-  137756511 => 0,
-  166149871 => 0,
-  3 => 0,
-  1 => 0,
-);
 $handler->display->display_options['filters']['field_er_collaboration_dates_value']['form_type'] = 'date_popup';
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['style_options']['type'] = 'ol';
@@ -176,7 +158,7 @@ $handler->display->display_options['fields']['field_er_collab_department_unit'][
 $handler->display->display_options['fields']['field_er_collab_department_unit']['alter']['text'] = ' ([field_er_collab_department_unit])';
 $handler->display->display_options['fields']['field_er_collab_department_unit']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_collab_department_unit']['hide_empty'] = TRUE;
-/* Field: Content: Non-EPSCoR Participant Research Product Creators */
+/* Field: Content: Non-EPSCoR Participant Research Collaborators */
 $handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
@@ -189,7 +171,6 @@ $handler->display->display_options['path'] = 'collaborators';
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
 $handler->display->display_options['display_comment'] = 'This display is special. It is by the summary table code. It is set up in a specific way which lends itself to being called by our custom code. It generates a count representing the number of nodes matching a certain criteria such as a specified date range.';
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
 $handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'none';
@@ -216,7 +197,6 @@ $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
 /* Display: Data export */
 $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-$handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'none';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
@@ -243,7 +223,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: Presenter(s) */
+/* Field: Content: EPSCoR Participant Research Product Creator(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -282,13 +262,66 @@ $handler->display->display_options['path'] = 'collaborations/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',
   'page' => 'page',
+  'page_1' => 'page_1',
+  'page_2' => 'page_2',
 );
 
 /* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_1');
+$handler = $view->new_display('page', 'Page', 'page_2');
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_collab_ref' => 'field_er_collab_ref',
+  'field_er_collab_inst_ref' => 'field_er_collab_inst_ref',
+  'field_er_collab_department_unit' => 'field_er_collab_department_unit',
+);
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Collaboration */
+$handler->display->display_options['fields']['field_er_collab_ref']['id'] = 'field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['table'] = 'field_data_field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['field'] = 'field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_ref']['alter']['text'] = '- [field_er_collab_ref]';
+$handler->display->display_options['fields']['field_er_collab_ref']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_ref']['settings'] = array(
+  'link' => 1,
+);
+/* Field: Content: Institution */
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['id'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['table'] = 'field_data_field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['field'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['alter']['text'] = '- [field_er_collab_inst_ref]';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['settings'] = array(
+  'link' => 1,
+);
+/* Field: Content: Collaborating Institution Department/Unit */
+$handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['field'] = 'field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_department_unit']['alter']['text'] = ' ([field_er_collab_department_unit])';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_department_unit']['hide_empty'] = TRUE;
+/* Field: Content: Non-EPSCoR Participant Research Collaborators */
+$handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
+$handler->display->display_options['fields']['field_er_collab_names']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_names']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_names']['delta_offset'] = '0';
+$handler->display->display_options['fields']['field_er_collab_names']['multi_type'] = 'ul';
 $handler->display->display_options['path'] = 'admin/epscor/content/collaborators';
 $handler->display->display_options['menu']['type'] = 'normal';
-$handler->display->display_options['menu']['title'] = 'External Collaborators';
+$handler->display->display_options['menu']['title'] = 'Collaborators';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
