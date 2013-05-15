@@ -528,7 +528,9 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// array_push($form['#validate'], '_create_inst');
 	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
 	
+	
 	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
+	$form['field_er_inst_ref']['und']['#default_value'] = array_pop($form['field_er_inst_ref']['und']['#default_value']); //fixes the selection
 	
 //Supervisors Field only available to Graduates, Undergraduates
 		$form['field_er_supervisor']['#states'] = array(
