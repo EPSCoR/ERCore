@@ -50,9 +50,10 @@ function er_init(){
 	//drupal_add_js(ER_MODULE_DIR.'/static/js/jquery-1.8.0.min.js'); //brings in the new version...
 	//drupal_add_js('var jQueryNew = jQuery.noConflict(), jQuery = jQueryOriginal;', 'inline'); //sets up jQueryNew, and restores the jQuery variable to the old version.
 	drupal_add_js(array('er'=>array('start_date'=>mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']))), 'setting'); //tells javascript about the start date of the grant.
-	drupal_add_js(ER_MODULE_DIR.'/static/js/custom.js'); 
+	drupal_add_js(ER_MODULE_DIR.'/static/js/custom.js');
+	drupal_add_js(ER_MODULE_DIR.'/static/js/bootstrap.js'); 
 	drupal_add_css(ER_MODULE_DIR.'/static/css/er.css'); //adds some module specific themeing...
-	drupal_add_css(ER_MODULE_DIR.'/static/css/sprites.css'); //adds in cool little icons
+	drupal_add_css(ER_MODULE_DIR.'/static/css/bootstrap.css'); //adds in cool little icons
   
 	//dsm(memory_get_usage(true));
   // print 'Memory usage: ' . (memory_get_usage(true)/1048576) . 'MB (this is a debug message, see er.module:47)';

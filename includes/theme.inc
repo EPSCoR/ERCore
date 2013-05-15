@@ -104,7 +104,7 @@ function er_field_formatter_view($entity_type, $entity, $field, $instance, $lang
  * @author Andrew Wessels
  */
 function theme_field_er_user_entity_reference($variables){
-	$grouped_items = array('participant' => array(), 'collaborator'=>array());
+	$grouped_items = array('participant' => array());//, 'collaborator'=>array() //Don't show the collaborators section if the node doesn't include any.
 	foreach ($variables['element']['#items'] as $delta => $item){
 		$participating = check_user_participating($item['entity']);
 		$label = $participating?'participant':'collaborator';
@@ -115,6 +115,8 @@ function theme_field_er_user_entity_reference($variables){
 	if (count($label) < 2)
 		$label[] = 'Collaborators'; //if no alternative label was given, use this.
 	
+	$help_tooltip = ' <i class="icon-question-sign help-tooltip" data-original-title="Collaborators need to be listed in the right side panel as well" data-placement="right"></i>';
+	
 	$output = '';
 	foreach ($grouped_items as $type => $items){
 		$this_output = '';
@@ -122,7 +124,7 @@ function theme_field_er_user_entity_reference($variables){
 		if (!$variables['label_hidden'] && count($items)) {
 			$this_output .=
 				'<div class="field-label"' . $variables['title_attributes'] . '>' .
-					($type == 'participant'?$label[0]:$label[1]) .
+					($type == 'participant'?$label[0]:$label[1].$help_tooltip) .
 				': </div>';
 		}
 	 
@@ -137,7 +139,6 @@ function theme_field_er_user_entity_reference($variables){
 		// Render the top-level DIV.
 		$output .= '<div class="' . $variables['classes'] . '"' . $variables['attributes'] . '>' . $this_output . '</div>';
 	}
- 
   return $output;
 }
 
