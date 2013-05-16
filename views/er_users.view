@@ -424,12 +424,6 @@ $handler->display->display_options['fields']['created']['label'] = 'Created date
 $handler->display->display_options['fields']['created']['date_format'] = 'custom';
 $handler->display->display_options['fields']['created']['custom_date_format'] = 'F j, Y, g:i a';
 $handler->display->display_options['defaults']['sorts'] = FALSE;
-/* Sort criterion: User: Last Name (field_er_lname) */
-$handler->display->display_options['sorts']['field_er_lname_value']['id'] = 'field_er_lname_value';
-$handler->display->display_options['sorts']['field_er_lname_value']['table'] = 'field_data_field_er_lname';
-$handler->display->display_options['sorts']['field_er_lname_value']['field'] = 'field_er_lname_value';
-$handler->display->display_options['sorts']['field_er_lname_value']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['field_er_lname_value']['expose']['label'] = 'Last Name';
 $handler->display->display_options['defaults']['filter_groups'] = FALSE;
 $handler->display->display_options['defaults']['filters'] = FALSE;
 /* Filter criterion: User: Active */
