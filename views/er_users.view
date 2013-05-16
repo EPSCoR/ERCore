@@ -302,6 +302,7 @@ $handler->display->display_options['defaults']['title'] = FALSE;
 $handler->display->display_options['title'] = 'Participant Activity';
 $handler->display->display_options['display_description'] = 'Table of Participant Activity';
 $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+$handler->display->display_options['use_ajax'] = TRUE;
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
 $handler->display->display_options['defaults']['access'] = FALSE;
