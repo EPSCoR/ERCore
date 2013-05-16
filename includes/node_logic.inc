@@ -1,12 +1,4 @@
 <?php
-//function er_node_view_alter(&$build){
-//	dsm($build, 'hook_node_view_alter');
-//}
-
-// function er_field_display_user_alter(&$display, $context){
-	// $d($context, 'context in er_field_display_alter');
-// }
-
 // http://api.drupal.org/api/drupal/modules!field!field.module/function/template_preprocess_field/7
 function er_preprocess_field(&$variables) {
 	// d($variables, 'variables');
@@ -26,92 +18,21 @@ function er_preprocess_field(&$variables) {
 	 * */
 }
 
-// function er_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
-	// d($items, 'items in er_field_prepare_view');
-	// // var_dump($items);
-  // // Remove files specified to not be displayed.
-  // // foreach ($entities as $id => $entity) {
-    // // foreach ($items[$id] as $delta => $item) {
-      // // if (!file_field_displayed($item, $field)) {
-        // // unset($items[$id][$delta]);
-      // // }
-    // // }
-    // // // Ensure consecutive deltas.
-    // // $items[$id] = array_values($items[$id]);
-  // // }
-// }
-
-// function er_load($nodes){
-	// dsm($nodes, 'nodes in er_load');
-// }
-
-// function er_node_load($nodes, $types){
-	// d($nodes, 'called all the time');
-	// //THIS IS JUST DEBUGGING CODE, CAN BE REMOVED:
-	// //foreach ($nodes as $node){
-	// //	if ($node->type == 'er_proposal')
-	// //		er_manage_cnp_extra_nodes($node, 'view');
-	// //}
-// }
-
 function er_node_view($node, $view_mode, $langcode){
-	// d($node, 'node in er_node_view');
-	
-	// $additional_fields = 'my add';
-  // $node->content['my_additional_field'] = array(
-    // '#markup' => $additional_field, 
-    // '#weight' => 0, 
-  // );
-	
-// $strBody = $node->content['body'][0]['#markup'];
-// $node->content['body'][0]['#markup'] = 'my additional text' . $strBody;
-  // $additional_field = 'my add';
-  // $node->content['my_additional_field']['my_additional_field'] = array(
-    // '#markup' => $additional_field,
-    // '#weight' => 10,
-    // '#theme' => 'mymodule_my_additional_field',
-  // );	
-	// dsm($node, 'showing $node in er_node_view');
-	// $node->content['er_settings_reminder'] = array(
-	  // '#type' => 'markup',
-	  // '#markup' => 'Be sure to visit the ER Settings page...',
-	  // '#weight' => 0,
-	// );	
-	// dsm($view_mode, 'view mode');
-	
-	//this might be a little overkill:
-	//$flag = flag_get_flag('er_needs_review');
-	//if ($flag->is_flagged($node->nid)){
-	//	$node->title .= ' (Draft)';
-	//	//dsm($node);
-	//	drupal_set_title($node->title);
-	//}
-	
-	// switch ($node->type){
-		// case 'er_event':
-			// // what we're doing is making a link to an External Engagement
-			// // note that the 'query' will set GET variables in the URL, which is used to prepopulate 
-			// //	the Entity Reference field in er_engagement
-// 			
-		  // $node->content['links']['add_ee'] = array(
-			  // '#weight' => 100,
-			  // '#markup' => l('Add attendee dataz', 'node/add/er-engagement', array('query' => array('field_er_cal_entity_reference' => $node->nid))),
-		  // );			
-// 		  
-		// // // load the view by name (now using Panels for this)
-		// // $view = views_embed_view('show_ee_in_calendar_event', 'page', $node->nid);			
-		// // $node->content['ee_view'] = array(
-		  // // '#weight' => 99,
-		  // // '#markup' => $view,
-		// // );
-	  	// break;
-	// }
+  switch ($node->type){
+    case 'er_event':
+      er_calendar_extras_modify_view($node);
+      break;
+	}
+}
 
-	//er_manage_cnp_extra_nodes($node, 'view');
-	// return $node;
-	// load the view by name (now using Panels for this)
-	if ($node->type == 'er_event')
-		er_calendar_extras_modify_view($node);
+function er_preprocess_node(&$variables, $hook){
+  //d($variables, '$variables');
+  if ($hook == 'node' && $variables['type'] == 'er_collaboration'){
+    $flag = flag_get_flag('er_draft_status');
+    if ($flag->is_flagged($node->nid))
+      $variables['title_suffix'][] = array('#markup'=>'<span class="form-required">DRAFT STATUS</span>');
+  }
 }
 
 function er_calendar_extras_modify_view(&$node){
@@ -147,7 +68,11 @@ function er_node_insert($node){
 	switch ($node->type){
 		case 'er_collaboration':
 			_manage_er_collaborations($node, 'insert');
+      _manage_er_collaboration_status($node);
 			break;
+    case 'er_collaborators':
+      _manage_er_collaborators($node, 'insert');
+      break;
 	}
 }
 
@@ -155,12 +80,20 @@ function er_node_update($node){
   switch ($node->type){
 		case 'er_collaboration':
 			_manage_er_collaborations($node, 'update');
+      _manage_er_collaboration_status($node);
 			break;
+    case 'er_collaborators':
+      _manage_er_collaborators($node, 'update');
+      break;
 	}
 }
 
 function er_node_delete($node){
-
+  switch ($node->type){
+    case 'er_collaborators':
+      _manage_er_collaborators($node, 'delete');
+      break;
+  }
 }
 
 //see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
@@ -197,6 +130,87 @@ function _manage_er_collaborations(&$node, $op){
         drupal_set_message(l($name, 'user/'.$user->uid.'/status') . ' is currently considdered a collaborator. <br><strong>Please make sure to add this person\'s name to the list of collaborators on the right side panel.</strong>', 'warning');
       }
     }
+  }
+}
+
+function _manage_er_collaborators(&$node, $op){
+  $collab_nid = $node->field_er_collab_ref['und'][0]['target_id'];
+  $inst_nid = $node->field_er_collab_inst_ref['und'][0]['target_id'];
+  $inst_node = node_load($inst_nid);
+  $participating_inst = ($inst_node->field_er_inst_participating['und'][0]['value'] == 1);
+  switch ($op){
+    case 'insert':
+    //case 'update':
+      if (!$participating_inst)//if it's a participating institution, don't bother checking because it doesn't matter.
+        $collab = node_load($collab_nid);
+        _manage_er_collaboration_status($collab);//re-check the validation status...
+      break;
+    case 'delete':
+      if (!$participating_inst){//if you delete one of the external collaborator nodes, invalidate the collaboration.
+        $flag = flag_get_flag('er_draft_status');
+        $flag->flag("flag", $collab_nid);
+      }
+      break;
+  }
+  //
+}
+
+function _manage_er_collaboration_status(&$node){
+  //d($node);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'er_collaborators')
+    ->fieldCondition('field_er_collab_ref', 'target_id', $node->nid, '=');
+  //query for all er_collaborator nodes matching...
+  $result = $query->execute();
+  //d($result, '$result');
+  $collab_nodes = array();
+  if (isset($result['node'])) 
+    $collab_nodes = entity_load('node', array_keys($result['node']));
+  //d($collab_nodes, '$collab_nodes');
+  $inst_nids_found = array();
+  foreach ($collab_nodes as $nid=>$collab_node){
+    $inst_nids_found[] = $collab_node->field_er_collab_inst_ref['und'][0]['target_id'];
+  }
+  
+  $n = entity_metadata_wrapper('node', $node);
+  $inst_nids_referenced = $n->field_er_inst_ref->raw();
+  
+  
+  /*
+   * This will match up what was found with what was referenced.
+   * If anything is left over, it means that something is missing.
+   */
+  //d($inst_nids_found, '$inst_nids_found 1');
+  //d($inst_nids_referenced, '$inst_nids_referenced 1');
+  foreach ($inst_nids_found as $k1=>$found_nid){
+    foreach ($inst_nids_referenced as $k2=>$referenced_nid){
+      if ($found_nid == $referenced_nid){
+        unset($inst_nids_found[$k1]);
+        unset($inst_nids_referenced[$k2]);
+      }
+    }
+  }  
+  //d($inst_nids_found, '$inst_nids_found 2');
+  //d($inst_nids_referenced, '$inst_nids_referenced 2');
+  
+  $draft = false;
+  //Loop over any node ids that are referenced but don't have a corresponding collaborator node:
+  foreach ($inst_nids_referenced as $k=>$referenced_nid){
+    $inst_node = node_load($referenced_nid);
+    //if it's not a participating institution:
+    if ($inst_node->field_er_inst_participating['und'][0]['value'] != 1){
+      //d('Flag this node as draft. It needs more info.');
+      $draft = true;
+      break;
+    }
+  }
+  
+  $flag = flag_get_flag('er_draft_status');
+  if ($draft){
+    $flag->flag('flag', $node->nid);//turn on draft mode
+  }else{
+    $flag->flag('unflag', $node->nid);//publish
   }
 }
 
