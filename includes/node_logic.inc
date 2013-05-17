@@ -127,7 +127,7 @@ function _manage_er_collaborations(&$node, $op){
       if (!$participating){
         $u = entity_metadata_wrapper('user', $user);
         $name = $u->field_er_realname->value();
-        drupal_set_message(l($name, 'user/'.$user->uid.'/status') . ' is currently considdered a collaborator. <br><strong>Please make sure to add this person\'s name to the list of collaborators on the right side panel.</strong>', 'warning');
+        drupal_set_message(l($name, 'user/'.$user->uid.'/status') . ' is currently considered a collaborator. <br><strong>Please make sure to add this person\'s name to the list of collaborators on the right side panel.</strong>', 'warning');
       }
     }
   }
