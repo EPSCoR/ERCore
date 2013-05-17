@@ -78,7 +78,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'field_er_inst_category' => 'field_er_inst_category',
   'field_er_inst_participating' => 'field_er_inst_participating',
 );
-$handler->display->display_options['style_options']['default'] = 'title';
+$handler->display->display_options['style_options']['default'] = 'field_er_inst_participating';
 $handler->display->display_options['style_options']['info'] = array(
   'title' => array(
     'sortable' => 1,
@@ -103,7 +103,7 @@ $handler->display->display_options['style_options']['info'] = array(
   ),
   'field_er_inst_participating' => array(
     'sortable' => 1,
-    'default_sort_order' => 'asc',
+    'default_sort_order' => 'desc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
