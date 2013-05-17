@@ -220,7 +220,7 @@ $handler->display->display_options['displays'] = array(
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page_1');
-$handler->display->display_options['path'] = 'admin/epscor/calendar';
+$handler->display->display_options['path'] = 'admin/epscor/content/calendar';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Calendar Events';
 $handler->display->display_options['menu']['weight'] = '0';
