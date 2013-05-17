@@ -1,4 +1,4 @@
-<?php 
+<?php
 $data = array(
   'bundles' => array(
     'er_presentation' => (object) array(
