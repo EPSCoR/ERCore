@@ -611,6 +611,9 @@ $data = array(
           0 => 'target_id',
         ),
       ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_cal_entity_reference',
       'type' => 'entityreference',
       'module' => 'entityreference',
@@ -3170,7 +3173,8 @@ $data = array(
       'settings' => array(
         'markup' => array(
           'value' => '<?php
-$file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagement_Reporting_Sheet.xls\');
+$file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Reporting_Sheet.xls");
+
 ?>
 <h2>Notice: We offer two methods of filling out this form.</h2>
 <p>
@@ -10698,7 +10702,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
   ),
   'fieldgroups' => array(
     'group_er_tot|node|er_engagement|form' => (object) array(
-      'id' => '1',
+      'id' => '19',
       'identifier' => 'group_er_tot|node|er_engagement|form',
       'group_name' => 'group_er_tot',
       'entity_type' => 'node',
@@ -10730,7 +10734,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
       ),
     ),
     'group_er_oth|node|er_engagement|form' => (object) array(
-      'id' => '2',
+      'id' => '20',
       'identifier' => 'group_er_oth|node|er_engagement|form',
       'group_name' => 'group_er_oth',
       'entity_type' => 'node',
@@ -10761,7 +10765,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
       ),
     ),
     'group_er_ari|node|er_engagement|form' => (object) array(
-      'id' => '3',
+      'id' => '21',
       'identifier' => 'group_er_ari|node|er_engagement|form',
       'group_name' => 'group_er_ari',
       'entity_type' => 'node',
@@ -10797,7 +10801,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
       ),
     ),
     'group_er_pui|node|er_engagement|form' => (object) array(
-      'id' => '4',
+      'id' => '22',
       'identifier' => 'group_er_pui|node|er_engagement|form',
       'group_name' => 'group_er_pui',
       'entity_type' => 'node',
@@ -10833,7 +10837,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
       ),
     ),
     'group_er_msi|node|er_engagement|form' => (object) array(
-      'id' => '5',
+      'id' => '23',
       'identifier' => 'group_er_msi|node|er_engagement|form',
       'group_name' => 'group_er_msi',
       'entity_type' => 'node',
@@ -10869,7 +10873,7 @@ $file_url = file_create_url(\'sites/all/modules/er/static/files/External_Engagem
       ),
     ),
     'group_er_k12i|node|er_engagement|form' => (object) array(
-      'id' => '6',
+      'id' => '24',
       'identifier' => 'group_er_k12i|node|er_engagement|form',
       'group_name' => 'group_er_k12i',
       'entity_type' => 'node',
