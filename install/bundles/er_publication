@@ -94,18 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'blog',
-          3 => 'er_award',
-          4 => 'er_event',
+          2 => 'er_proposal',
+          3 => 'er_publication',
+          4 => 'er_award',
           5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
-          9 => 'image_gallery',
-          10 => 'node_gallery_gallery',
-          11 => 'node_gallery_image',
-          12 => 'webform',
-          13 => 'er_collaboration',
+          6 => 'er_event',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -738,9 +733,9 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_patent',
-          1 => 'er_presentation',
-          2 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_patent',
+          2 => 'er_presentation',
         ),
       ),
     ),
@@ -804,8 +799,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_other_product',
-          1 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_other_product',
         ),
       ),
     ),
@@ -1462,8 +1457,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_other_product',
-          1 => 'er_publication',
+          0 => 'er_publication',
+          1 => 'er_other_product',
         ),
       ),
     ),
@@ -1631,15 +1626,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_collaboration',
-          8 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
+          3 => 'er_news',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -3122,11 +3117,10 @@ $data = array(
         ),
         'settings' => array(
           'file_directory' => '',
-          'file_extensions' => 'txt',
+          'file_extensions' => 'txt pdf doc docx',
           'max_filesize' => '',
           'description_field' => 0,
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'display' => array(
           'default' => array(
@@ -3259,7 +3253,7 @@ $data = array(
   ),
   'fieldgroups' => array(
     'group_er_journal|node|er_publication|form' => (object) array(
-      'id' => '19',
+      'id' => '1',
       'identifier' => 'group_er_journal|node|er_publication|form',
       'group_name' => 'group_er_journal',
       'entity_type' => 'node',
@@ -3269,7 +3263,6 @@ $data = array(
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Publication Information',
       'weight' => '12',
       'children' => array(
