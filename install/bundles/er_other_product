@@ -24,7 +24,7 @@ $data = array(
       'type_name' => 'er_collaborator',
       'entity_types' => array(),
       'settings' => array(
-        'max_length' => 255,
+        'max_length' => '255',
         'text_processing' => '0',
         'allowed_values' => '',
         'allowed_values_php' => '',
@@ -78,7 +78,7 @@ $data = array(
       'columns' => array(
         'value' => array(
           'type' => 'varchar',
-          'length' => 255,
+          'length' => '255',
           'not null' => FALSE,
         ),
         'format' => array(
@@ -593,7 +593,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_collab_names',
