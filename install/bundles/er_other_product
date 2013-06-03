@@ -1,4 +1,5 @@
 <?php
+
 $data = array(
   'bundles' => array(
     'er_other_product' => (object) array(
@@ -250,9 +251,9 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'granularity' => array(
-          'year' => 'year',
           'month' => 'month',
-          'day' => 0,
+          'day' => 'day',
+          'year' => 'year',
           'hour' => 0,
           'minute' => 0,
           'second' => 0,
@@ -261,7 +262,7 @@ $data = array(
         'timezone_db' => '',
         'cache_enabled' => 0,
         'cache_count' => '4',
-        'repeat' => 0,
+        'repeat' => '0',
         'todate' => '',
       ),
       'translatable' => '0',
@@ -287,6 +288,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_other_product_date',
       'type' => 'datetime',
       'module' => 'date',
@@ -821,13 +825,12 @@ $data = array(
           'module' => 'date',
           'active' => 1,
           'settings' => array(
-            'input_format' => 'Y-m-d H:i:s',
+            'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
             'year_range' => '-3:+3',
             'increment' => '1',
             'label_position' => 'above',
             'text_parts' => array(),
-            'display_all_day' => 0,
             'repeat_collapsed' => 0,
           ),
         ),
