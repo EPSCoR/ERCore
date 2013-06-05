@@ -1,5 +1,5 @@
 <?php
-$view = new view;
+$view = new view();
 $view->name = 'er_summary_er_proposal';
 $view->description = '';
 $view->tag = 'default';
@@ -12,6 +12,7 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Grants and Proposals*';
+$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
   166149871 => '166149871',
@@ -93,7 +94,14 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Participant Research Product Creator(s) */
+/* Field: Content: EPSCoR PI/Co-PI */
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['id'] = 'field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['table'] = 'field_data_field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['field'] = 'field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -174,7 +182,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Participant Research Product Creator(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
