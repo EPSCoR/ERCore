@@ -86,6 +86,20 @@ $handler->display->display_options['filters']['field_er_proposal_date_value']['f
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_epscor_pi_co_pi' => 'field_er_epscor_pi_co_pi',
+  'field_er_user_entity_reference' => 'field_er_user_entity_reference',
+  'field_er_proposal_status' => 'field_er_proposal_status',
+  'field_er_proposal_date' => 'field_er_proposal_date',
+);
+$handler->display->display_options['row_options']['separator'] = '<br/>';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['fields'] = FALSE;
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -115,7 +129,6 @@ $handler->display->display_options['fields']['field_er_proposal_status']['id'] =
 $handler->display->display_options['fields']['field_er_proposal_status']['table'] = 'field_data_field_er_proposal_status';
 $handler->display->display_options['fields']['field_er_proposal_status']['field'] = 'field_er_proposal_status';
 $handler->display->display_options['fields']['field_er_proposal_status']['element_type'] = 'strong';
-$handler->display->display_options['fields']['field_er_proposal_status']['element_label_colon'] = FALSE;
 /* Field: Content: Award Dates */
 $handler->display->display_options['fields']['field_er_proposal_date']['id'] = 'field_er_proposal_date';
 $handler->display->display_options['fields']['field_er_proposal_date']['table'] = 'field_data_field_er_proposal_date';
