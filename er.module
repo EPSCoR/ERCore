@@ -704,3 +704,15 @@ function er_export_role($rid, $export = true){
 		return 'Error: Bad role ID.';
 	}
 }
+
+function add_external_engagement_link($nid = null){
+	if (!$nid){
+		$node = menu_get_object();
+		$nid = $node->nid;
+	}
+	$options = array(
+		'query' => array('field_er_cal_entity_reference' => $nid),
+		'html' => true
+	);
+	return l('<strong><i class="icon-list-alt"></i> Attach attendee data</strong>', 'node/add/er-engagement', $options);
+}
