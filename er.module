@@ -705,6 +705,14 @@ function er_export_role($rid, $export = true){
 	}
 }
 
+/*
+ * This function returns a html link to the create
+ * external engagement form, and it fills out the
+ * calendar event when you provide a node id.
+ * If no node id is provided it just grabs the node id
+ * of the current page being viewed (assumed to be a calendar event)
+ * 
+ */
 function add_external_engagement_link($nid = null){
 	if (!$nid){
 		$node = menu_get_object();
@@ -715,4 +723,30 @@ function add_external_engagement_link($nid = null){
 		'html' => true
 	);
 	return l('<strong><i class="icon-list-alt"></i> Attach attendee data</strong>', 'node/add/er-engagement', $options);
+}
+
+/*
+ * Returns a list of content types that will be used to populate the accomplishment table.
+ */
+function er_default_accomplishment_content_types(){
+	static $default_types = array(//it apparently has to be weird like this in order for it to work well with variable_get...
+		////PARTICIPANTS
+		//"er_project"=>"er_project",
+		//"er_book"=>"er_book",
+		"er_collaboration"=>"er_collaboration",
+		"er_proposal"=>"er_proposal",
+		"er_engagement"=>"er_engagement",
+		"er_institution"=>"er_institution",
+		//"er_internet"=>"er_internet",
+		"er_other_product"=>"er_other_product",
+		"er_patent"=>"er_patent",
+		//"er_poster"=>"er_poster",
+		"er_presentation"=>"er_presentation",
+		"er_publication"=>"er_publication",
+		"er_award"=>"er_award",
+		"er_event"=>"er_event",
+		"er_news"=>"er_news",
+		"participants"=>"participants",
+	);
+	return $default_types;
 }

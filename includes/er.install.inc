@@ -1,9 +1,9 @@
 <?php
 function install_all(){
 	//Set up some default values for er-core settings; these are used on the summary table.
-  variable_set('er_summary_types', array());//This is used on the summary table, see: includes/accomplishments.inc
+  variable_set('er_summary_types', er_default_accomplishment_content_types());//This is used on the summary table, see: includes/accomplishments.inc
   variable_set('er_start_date', array('month'=>'9', 'day'=>'15', 'year'=>'2009'));//This is the internal start date of the grant. see: includes/er.admin.inc
-  
+  variable_set('er_reporting_month', '09');//This is the month used to seperate reporting years. see: includes/er.admin.inc
   //run batch api, install everything.
   er_batch_reset();
 }

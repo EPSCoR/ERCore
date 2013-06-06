@@ -6,25 +6,7 @@
  */
 function er_settings() {
 	//these are the default content types that show up on the list:
-	$default_types = array(//it apparently has to be weird like this in order for it to work well with variable_get...
-		////PARTICIPANTS
-		//"er_project"=>"er_project",
-		//"er_book"=>"er_book",
-		"er_collaboration"=>"er_collaboration",
-		"er_proposal"=>"er_proposal",
-		"er_engagement"=>"er_engagement",
-		"er_institution"=>"er_institution",
-		//"er_internet"=>"er_internet",
-		"er_other_product"=>"er_other_product",
-		"er_patent"=>"er_patent",
-		//"er_poster"=>"er_poster",
-		"er_presentation"=>"er_presentation",
-		"er_publication"=>"er_publication",
-		"er_award"=>"er_award",
-		"er_event"=>"er_event",
-		"er_news"=>"er_news",
-		"participants"=>"participants",
-	);
+	$default_types = er_default_accomplishment_content_types();
 	$types = variable_get('er_summary_types');
   if (!$types) $types = array();
 	//dsm($types);

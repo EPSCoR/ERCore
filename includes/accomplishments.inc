@@ -52,8 +52,9 @@ function er_summary_table($variables){
 			//d($data, '$data');
 		}
 	}else{
-		$link = l('click here', '/admin/config/epscor/er');
-		drupal_set_message(t('An administrator needs to select which content types you want to see on the summary table!')." $link", 'error');
+		$link = l('click here', 'admin/config/epscor/er');
+		$message = "An administrator needs to select which content types you want to see on the summary table! $link";
+		drupal_set_message($message, 'error');
 	}
 	
 	if (count($ranges) == 1)
