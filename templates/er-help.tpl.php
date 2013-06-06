@@ -69,16 +69,13 @@
       <li id="phpexcel">
         <h4>Setup Excel Sheet Output</h4>
         <p>
-          The system relies on an external library called <?php echo l('PHPExcel', 'http://phpexcel.codeplex.com/')?> to export various excel sheets.
+          The system relies on an external library called <?php echo l('PHPExcel', 'http://phpexcel.codeplex.com/releases/view/107442')?> to export various excel sheets.
           The Library must be downloaded, then uploaded to this server.<br>
           <br>
-          The PHPExcel kit should first be downloaded and decompressed.
-          The contents of the <code>/Classes/</code> kit directory should
-          then be uploaded to the server directory
-          <code>/sites/all/libraries/PHPExcel/</code>, creating the
-          <code>/libraries/PHPExcel/</code> directory if necessary.
-          Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/PHPExcel.php</code>
-          and the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/PHPExcel/IOFactory.php</code><br>
+          The PHPExcel kit should first be downloaded and decompressed, and the contents should then be uploaded to the server directory
+          <code>/sites/all/libraries/PHPExcel/</code>, creating the <code>/libraries/PHPExcel/</code> directory if necessary.
+          Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel.php</code>
+          and the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel/IOFactory.php</code><br>
           <br>
           You can then navigate to the <?php echo l('ER-Core Settings page', 'admin/config/epscor/er')?> to see if the library was detected.
         </p>
