@@ -58,7 +58,8 @@ class er_collaborations extends er_page{
 					//dsm($view, "$type - $category");
 					//dsm($results);
 					if (count($results)){
-						$data[$category][$type]["Institutions"] = $results[0]->field_data_field_er_inst_ref_field_er_inst_ref_target_id;
+						//d($results, '$results');
+						$data[$category][$type]["Institutions"] = $results[0]->field_data_field_er_collab_inst_ref_field_er_collab_inst_ref;
 						$data[$category][$type]["Collaborators"] = $results[0]->field_data_field_er_collab_names_field_er_collab_names_value;
 					}
 				}else{
@@ -67,13 +68,13 @@ class er_collaborations extends er_page{
 						$nid = $result->node_field_data_field_er_collab_ref_nid;
 						//this is necessary because it would show the institutions once for each person on the collab, which isn't correct.
 						if (!isset($data[$category][$type]["Institutions"][$nid])){
-							//dsm($result);
+							//d($result, '$result');
 							$data[$category][$type]["Institutions"][$nid] = array(
 								"title"=>$result->node_field_data_field_er_collab_ref_title ,
 								"inst_title"=>$result->node_field_data_field_er_collab_inst_ref_title,
 								"inst_type"=>$this->tryget($result, 'field_field_er_inst_type', 'undefined'),
 								"inst_category"=>$this->tryget($result, 'field_field_er_inst_category', 'undefined'),
-								"inst_nid"=>$result->node_field_data_field_er_inst_ref_nid,
+								"inst_nid"=>$result->node_field_data_field_er_collab_inst_ref_nid,
 								"nid"=>$nid,
 							);
 						}

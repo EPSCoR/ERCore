@@ -29,6 +29,14 @@ $handler->display->display_options['relationships']['field_er_collab_inst_ref_ta
 $handler->display->display_options['relationships']['field_er_collab_ref_target_id']['id'] = 'field_er_collab_ref_target_id';
 $handler->display->display_options['relationships']['field_er_collab_ref_target_id']['table'] = 'field_data_field_er_collab_ref';
 $handler->display->display_options['relationships']['field_er_collab_ref_target_id']['field'] = 'field_er_collab_ref_target_id';
+/* Relationship: Flags: er_draft_status */
+$handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+$handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
+$handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+$handler->display->display_options['relationships']['flag_content_rel']['relationship'] = 'field_er_collab_ref_target_id';
+$handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+$handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'er_draft_status';
+$handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -66,7 +74,7 @@ $handler->display->display_options['fields']['nid']['field'] = 'nid';
 $handler->display->display_options['fields']['nid']['relationship'] = 'field_er_collab_inst_ref_target_id';
 $handler->display->display_options['fields']['nid']['label'] = '';
 $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-/* Field: Content: Non-EPSCoR Participant Research Collaborators */
+/* Field: Content: Non-EPSCoR Participant Research Product Creators */
 $handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
@@ -117,6 +125,12 @@ $handler->display->display_options['filters']['field_er_inst_participating_value
 $handler->display->display_options['filters']['field_er_inst_participating_value']['value'] = array(
   1 => '1',
 );
+/* Filter criterion: Flags: Flagged */
+$handler->display->display_options['filters']['flagged']['id'] = 'flagged';
+$handler->display->display_options['filters']['flagged']['table'] = 'flag_content';
+$handler->display->display_options['filters']['flagged']['field'] = 'flagged';
+$handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
+$handler->display->display_options['filters']['flagged']['value'] = '0';
 
 /* Display: Attachment */
 $handler = $view->new_display('attachment', 'Attachment', 'count');
@@ -126,7 +140,7 @@ $handler->display->display_options['group_by'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'none';
 $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['defaults']['fields'] = FALSE;
-/* Field: Content: Non-EPSCoR Participant Research Collaborators */
+/* Field: Content: Non-EPSCoR Participant Research Product Creators */
 $handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
 $handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
@@ -134,12 +148,12 @@ $handler->display->display_options['fields']['field_er_collab_names']['group_typ
 $handler->display->display_options['fields']['field_er_collab_names']['label'] = '';
 $handler->display->display_options['fields']['field_er_collab_names']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_collab_names']['separator'] = '';
-/* Field: Field: Participating Institution */
-$handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['group_type'] = 'count_distinct';
-$handler->display->display_options['fields']['field_er_inst_ref']['label'] = '';
-$handler->display->display_options['fields']['field_er_inst_ref']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_er_inst_ref']['separator'] = ', ';
+/* Field: Content: Institution */
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['id'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['table'] = 'field_data_field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['field'] = 'field_er_collab_inst_ref';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['group_type'] = 'count_distinct';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_inst_ref']['separator'] = '';
 $handler->display->display_options['inherit_exposed_filters'] = TRUE;
