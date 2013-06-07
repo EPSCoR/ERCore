@@ -1,26 +1,13 @@
 <?php
 require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_participants extends er_page{
-	private static $field_names = array(
-		'position_type'=>'field_er_most_sen_proj_role_ca1',
-		'institution'=>'field_er_inst_ref',
-		'160hours'=>'field_er_160hours',
-		'participating'=>'field_er_inst_participating',
-		'comm'=>'field_er_committees',
-		'gender'=>'field_er_gender',
-		'race'=>'field_er_race',
-		'ethnicity'=>'field_er_ethnicity',
-		'disability'=>'field_er_disabilities',
-		'date'=>'field_er_participant_date',
-	);
-
 	public function __construct() { 
 		parent::__construct();
 		$this->columns = array('Total', 'Male', 'Female', 'Black', 'Hispanic', 'Other Ethnic', 'Disabled');
 		if ($this->range){//a reporting year date range has been specified.
 			$this->columns[] = 'New Investigators';//So we can look up the new investigators, otherwise don't bother.
 		}
-		$categories = $this->get_allowed_values(self::$field_names['position_type']);
+		$categories = $this->get_allowed_values(self::$field_aliases['position_type']);
 		unset($categories['Other']);
 		$this->categories = $categories;
 	}
@@ -45,14 +32,14 @@ class er_participants extends er_page{
 		if (!array_key_exists($nid, $titles)){
 			$query = db_select('node_revision', 'nr');
 			$query->condition('nr.nid', $nid, '=');
-			$query->leftJoin('field_data_field_er_inst_abbreviation', 'abbr', 'abbr.entity_id = nr.nid');
+			$query->leftJoin('field_data_'.self::$field_aliases['inst_abbr'], 'inst_abbr', 'inst_abbr.entity_id = nr.nid');
 			$query->addField('nr', 'title');
-			$query->addField('abbr', 'field_er_inst_abbreviation_value', 'abbr');
+			$query->addField('inst_abbr', self::$field_aliases['inst_abbr'].'_value', 'inst_abbr');
 			$result = $query->execute()->fetchAssoc();
 			$titles[$nid] = $result;
 		}
-		if ($short && array_key_exists('abbr', $titles[$nid]) && $titles[$nid]['abbr'] != '')
-			return $titles[$nid]['abbr'];
+		if ($short && array_key_exists('inst_abbr', $titles[$nid]) && $titles[$nid]['inst_abbr'] != '')
+			return $titles[$nid]['inst_abbr'];
 		else
 			return $titles[$nid]['title'];
 	}
@@ -65,28 +52,28 @@ class er_participants extends er_page{
 		$query = db_select('users', 'users');
 		
 		//Join with attached institutions
-		$query->innerJoin('field_data_'.self::$field_names['institution'], 'institution', 'users.uid = institution.entity_id');
+		$query->innerJoin('field_data_'.self::$field_aliases['inst_ref'], 'inst_ref', 'users.uid = inst_ref.entity_id');
 		//Join in field: Is this institution a "participating" institution?
-		$query->leftJoin('field_data_'.self::$field_names['participating'], 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['participating'], 'participating', 'inst_ref.'.self::$field_aliases['inst_ref'].'_target_id = participating.entity_id');
 		//Join in position type
-		$query->leftJoin('field_data_'.self::$field_names['position_type'], 'position_type', 'users.uid = position_type.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id');
 		//Join in field_er_160hours field
-		$query->leftJoin('field_data_'.self::$field_names['160hours'], '160hours', 'users.uid = 160hours.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['160hours'], '160hours', 'users.uid = 160hours.entity_id');
 		
 		//only give me valid position types (not Other, or Evaluation)
-		$query->condition('position_type.'.self::$field_names['position_type'].'_value', $this->categories, 'IN');
+		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', $this->categories, 'IN');
 		//Institution must be "Participating"
-		$query->condition('participating.'.self::$field_names['participating'].'_value', '1', '=');
+		$query->condition('participating.'.self::$field_aliases['participating'].'_value', '1', '=');
 		//Participants must be >160hrs
-		$query->condition('160hours.'.self::$field_names['160hours'].'_value', '1', '=');
+		$query->condition('160hours.'.self::$field_aliases['160hours'].'_value', '1', '=');
 		
-		$query->addField('institution', self::$field_names['institution'].'_target_id', 'institution_id');
-		$query->addField('position_type', self::$field_names['position_type'].'_value', 'position_type');
+		$query->addField('inst_ref', self::$field_aliases['inst_ref'].'_target_id', 'institution_id');
+		$query->addField('position_type', self::$field_aliases['position_type'].'_value', 'position_type');
 		
 		if ($count){
 			//We do the grouping when counting, otherwise show everything individually.
-			$query->groupBy('institution.'.self::$field_names['institution'].'_target_id');
-			$query->groupBy('position_type.'.self::$field_names['position_type'].'_value');
+			$query->groupBy('inst_ref.'.self::$field_aliases['inst_ref'].'_target_id');
+			$query->groupBy('position_type.'.self::$field_aliases['position_type'].'_value');
 			//Count the user ids...
 			//$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
 			$query = $this->count_users($query, $distinct);
@@ -107,7 +94,7 @@ class er_participants extends er_page{
 	public function generate_advisory_query($count, $distinct = false){
 		$query = db_select('users', 'users');
 		
-		$query->innerJoin('field_data_'.self::$field_names['comm'], 'comm', 'users.uid = comm.entity_id');
+		$query->innerJoin('field_data_'.self::$field_aliases['committee'], 'committee', 'users.uid = committee.entity_id');
 		
 		if ($count){
 			//Count the user ids...
@@ -117,7 +104,7 @@ class er_participants extends er_page{
 			//if ($distinct)//This will remove duplicate names from the display.
 			//	$query->groupBy('users.uid');
 			//$query->addField('users', 'uid');
-			$query->addField('comm', self::$field_names['comm'].'_value', 'committee');
+			$query->addField('committee', self::$field_aliases['committee'].'_value', 'committee');
 			$query = $this->find_users($query, $distinct);
 		}
 		//d((string)$query);
@@ -178,31 +165,31 @@ class er_participants extends er_page{
 	private function apply_column_query(&$query, $col){
 		switch($col){
 			case 'Male':
-				$query->innerJoin('field_data_'.self::$field_names['gender'], 'gender', 'users.uid = gender.entity_id');
-				$query->condition('gender.'.self::$field_names['gender'].'_value', 0, '='); //0 = Male
+				$query->innerJoin('field_data_'.self::$field_aliases['gender'], 'gender', 'users.uid = gender.entity_id');
+				$query->condition('gender.'.self::$field_aliases['gender'].'_value', 0, '='); //0 = Male
 				break;
 			case 'Female':
-				$query->innerJoin('field_data_'.self::$field_names['gender'], 'gender', 'users.uid = gender.entity_id');
-				$query->condition('gender.'.self::$field_names['gender'].'_value', 1, '='); //1 = Female
+				$query->innerJoin('field_data_'.self::$field_aliases['gender'], 'gender', 'users.uid = gender.entity_id');
+				$query->condition('gender.'.self::$field_aliases['gender'].'_value', 1, '='); //1 = Female
 				break;
 			case 'Black':
-				$query->innerJoin('field_data_'.self::$field_names['race'], 'race', 'users.uid = race.entity_id');
-				$query->condition('race.'.self::$field_names['race'].'_value', "Black or African American", '=');
+				$query->innerJoin('field_data_'.self::$field_aliases['race'], 'race', 'users.uid = race.entity_id');
+				$query->condition('race.'.self::$field_aliases['race'].'_value', "Black or African American", '=');
 				break;
 			case 'Hispanic':
-				$query->innerJoin('field_data_'.self::$field_names['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
-				$query->condition('ethnicity.'.self::$field_names['ethnicity'].'_value', 1, '='); //1 == true (this person is hispanic)
+				$query->innerJoin('field_data_'.self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
+				$query->condition('ethnicity.'.self::$field_aliases['ethnicity'].'_value', 1, '='); //1 == true (this person is hispanic)
 				break;
 			case 'Other Ethnic':
-				$query->innerJoin('field_data_'.self::$field_names['race'], 'race', 'users.uid = race.entity_id');
-				$query->condition('race.'.self::$field_names['race'].'_value', array('American Indian or Alaskan Native', 'Native Hawaiian', 'Pacific Islander'), 'IN');
+				$query->innerJoin('field_data_'.self::$field_aliases['race'], 'race', 'users.uid = race.entity_id');
+				$query->condition('race.'.self::$field_aliases['race'].'_value', array('American Indian or Alaskan Native', 'Native Hawaiian', 'Pacific Islander'), 'IN');
 				break;
 			case 'Disabled':
-				$query->innerJoin('field_data_'.self::$field_names['disability'], 'disability', 'users.uid = disability.entity_id');
-				$query->condition('disability.'.self::$field_names['disability'].'_value', 'None', '!=');
+				$query->innerJoin('field_data_'.self::$field_aliases['disability'], 'disability', 'users.uid = disability.entity_id');
+				$query->condition('disability.'.self::$field_aliases['disability'].'_value', 'None', '!=');
 				break;
 			case 'New Investigators':
-				$query->innerJoin('field_data_'.self::$field_names['date'], 'date', 'users.uid = date.entity_id');
+				$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 				$range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
 				//This is for overlapping date ranges:
 				//$query->condition('date.field_er_participant_date_value', $range[1], '<=');
@@ -212,7 +199,7 @@ class er_participants extends er_page{
 				//$query->condition($db_or);
 				
 				//Start date is within my range:
-				$query->condition('date.'.self::$field_names['date'].'_value', $range, 'BETWEEN');
+				$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $range, 'BETWEEN');
 				//d((string)$query);
 				break;
 		}

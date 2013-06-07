@@ -4,6 +4,23 @@ class er_page{
 	protected $template_dir;
 	protected $range;
 	
+	protected static $field_aliases = array(
+		'position_type'=>'field_er_most_sen_proj_role_ca1',
+		'fname'=>'field_er_fname',
+		'lname'=>'field_er_lname',
+		'department'=>'field_er_department',
+		'inst_abbr'=>'field_er_inst_abbreviation',
+		'inst_ref'=>'field_er_inst_ref',
+		'160hours'=>'field_er_160hours',
+		'participating'=>'field_er_inst_participating',
+		'committee'=>'field_er_committees',
+		'gender'=>'field_er_gender',
+		'race'=>'field_er_race',
+		'ethnicity'=>'field_er_ethnicity',
+		'disability'=>'field_er_disabilities',
+		'participant_date'=>'field_er_participant_date',
+	);
+	
 	public function __construct() {
 		$this->range = er_get_reporting_range();
 		//$this->template_dir = drupal_get_path('module', 'er') . '/templates/';

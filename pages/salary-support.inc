@@ -1,11 +1,5 @@
 <?php
 require_once(ER_MODULE_DIR.'/er_page.inc');
-/*
- * Note from Andrew W. 12-10-2012:
- * This page is not working, I commented out line 28 in order to stop views from running.
- * The view is broken for some reason, and will WSOD if run.
- * This is the error message: PHP Fatal error:  Cannot access empty property in /import/webservices/tier34/EPSCOR/html/ERcore/modules/field/field.attach.inc on line 325, referer: https://epscor.arsc.edu/ERcore/admin/structure/views/view/er_report_salary_support/edit/count
- */
 class er_salary_support extends er_page{
 	public function __construct() {
 		parent::__construct();
@@ -32,22 +26,22 @@ class er_salary_support extends er_page{
 		$query = db_select('users', 'users');
 		//this uses the EntityFieldQuery tag definitions:
 		er_query_epscor_participant_alter($query);//Make sure it's only participants
-		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range		
+		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range
 		//Only faculty:
-		$query->innerJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id AND position_type.bundle = \'user\'');
-		$query->condition('position_type.field_er_position_type_value', 'Faculty participants (or equivalent)', '=');
+		$query->innerJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id AND position_type.bundle = \'user\'');
+		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', 'Faculty participants (or equivalent)', '=');
 		
 		//return the relevant data:
-		$query->leftJoin('field_data_field_er_inst_abbreviation', 'ints_abbr', 'inst.nid = ints_abbr.entity_id');
-		$query->leftJoin('field_data_field_er_fname', 'fname', 'users.uid = fname.entity_id');
-		$query->leftJoin('field_data_field_er_lname', 'lname', 'users.uid = lname.entity_id');
-		$query->leftJoin('field_data_field_er_department', 'department', 'users.uid = department.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['inst_abbr'].'', 'inst_abbr', 'inst.nid = inst_abbr.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['fname'].'', 'fname', 'users.uid = fname.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['lname'].'', 'lname', 'users.uid = lname.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['department'].'', 'department', 'users.uid = department.entity_id');
 		$query->addField('inst', 'nid', 'inst_nid');
 		$query->addField('inst', 'title', 'inst_name');
-		$query->addField('ints_abbr', 'field_er_inst_abbreviation_value', 'ints_abbr');
-		$query->addField('fname', 'field_er_fname_value', 'fname');
-		$query->addField('lname', 'field_er_lname_value', 'lname');
-		$query->addField('department', 'field_er_department_value', 'department');
+		$query->addField('inst_abbr', ''.self::$field_aliases['inst_abbr'].'_value', 'inst_abbr');
+		$query->addField('fname', ''.self::$field_aliases['fname'].'_value', 'fname');
+		$query->addField('lname', ''.self::$field_aliases['lname'].'_value', 'lname');
+		$query->addField('department', ''.self::$field_aliases['department'].'_value', 'department');
 		//$query->addField('position_type', 'field_er_position_type_value', 'position_type');
 		$query->orderBy('inst_name', 'ASC');
 		$query->orderBy('department', 'ASC');
