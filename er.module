@@ -476,6 +476,29 @@ function er_views_api() {
   return array("version" => "3.0");
 }
 
+//hook_libraries_info()
+//from libraries module
+function er_libraries_info(){
+	return array(
+		"PHPExcel"=>array(
+			"name"=>"PHPExcel",
+			"vendor url"=>"http://phpexcel.codeplex.com/",
+			"download url"=>"http://phpexcel.codeplex.com/downloads/get/688493",
+			"version arguments" => array(
+        'file' => 'changelog.txt',
+        'pattern' => "/@version\s+([0-9\.]+)/",
+        'lines' => 25,
+      ),
+      'path' => 'Classes',
+      'files' => array(
+        'php' => array(
+          'PHPExcel.php',
+        ),
+      ),
+    ),
+	);
+}
+
 //helper function which attempts to find a value inside of an object or associative array, and returns a default value if nothing was found.
 function get($obj, $thing, $default=FALSE){
 	switch (gettype($obj)){

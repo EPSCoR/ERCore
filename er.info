@@ -38,8 +38,6 @@ dependencies[] = views_content
 dependencies[] = views_data_export
 dependencies[] = views_php
 dependencies[] = views_ui
-dependencies[] = phpexcel
-
 
 ; Information added by drush on 2013-06-06
 version = "7.x-1.x-dev-dev"
