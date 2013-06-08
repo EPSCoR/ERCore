@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_proposal',
-          3 => 'er_publication',
-          4 => 'er_award',
+          2 => 'er_award',
+          3 => 'er_collaboration',
+          4 => 'er_event',
           5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
         ),
       ),
     ),
@@ -215,6 +215,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_cal_event_date',
       'type' => 'date',
       'module' => 'date',
@@ -319,6 +322,120 @@ $data = array(
         ),
         'description' => array(
           'description' => 'A description of the file.',
+          'type' => 'text',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
+        ),
+      ),
+    ),
+    'field_er_event_location' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_event_location' => array(
+                'wkt' => 'field_er_event_location_wkt',
+                'geo_type' => 'field_er_event_location_geo_type',
+                'lat' => 'field_er_event_location_lat',
+                'lon' => 'field_er_event_location_lon',
+                'left' => 'field_er_event_location_left',
+                'top' => 'field_er_event_location_top',
+                'right' => 'field_er_event_location_right',
+                'bottom' => 'field_er_event_location_bottom',
+                'srid' => 'field_er_event_location_srid',
+                'accuracy' => 'field_er_event_location_accuracy',
+                'source' => 'field_er_event_location_source',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_event_location' => array(
+                'wkt' => 'field_er_event_location_wkt',
+                'geo_type' => 'field_er_event_location_geo_type',
+                'lat' => 'field_er_event_location_lat',
+                'lon' => 'field_er_event_location_lon',
+                'left' => 'field_er_event_location_left',
+                'top' => 'field_er_event_location_top',
+                'right' => 'field_er_event_location_right',
+                'bottom' => 'field_er_event_location_bottom',
+                'srid' => 'field_er_event_location_srid',
+                'accuracy' => 'field_er_event_location_accuracy',
+                'source' => 'field_er_event_location_source',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_event_location',
+      'type' => 'geofield',
+      'module' => 'geofield',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'wkt' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'geo_type' => array(
+          'type' => 'text',
+          'size' => 'normal',
+          'not null' => FALSE,
+        ),
+        'lat' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'lon' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'left' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'top' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'right' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'bottom' => array(
+          'type' => 'float',
+          'not null' => FALSE,
+        ),
+        'srid' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => 4326,
+        ),
+        'accuracy' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+        'source' => array(
           'type' => 'text',
           'not null' => FALSE,
         ),
@@ -440,6 +557,71 @@ $data = array(
       'active' => '1',
       'locked' => '0',
       'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
+        ),
+      ),
+    ),
+    'field_er_push_notifications' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Non-technical support staff' => 'Non-technical support staff',
+          'Undergraduate student' => 'Undergraduate student',
+          'Technical support staff' => 'Technical support staff',
+          'RII3 leadership team' => 'RII3 leadership team',
+          'Faculty participant (or equivalent)' => 'Faculty participant (or equivalent)',
+          'Graduate student' => 'Graduate student',
+          'Post doc' => 'Post doc',
+        ),
+        'allowed_values_function' => '',
+        'allowed_values_php' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_push_notifications' => array(
+                'value' => 'field_er_push_notifications_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_push_notifications' => array(
+                'value' => 'field_er_push_notifications_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_push_notifications',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '-1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
@@ -608,15 +790,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_proposal',
-          1 => 'er_publication',
-          2 => 'er_other_product',
+          0 => 'er_award',
+          1 => 'er_collaboration',
+          2 => 'er_event',
           3 => 'er_news',
-          4 => 'er_award',
-          5 => 'er_event',
-          6 => 'er_patent',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          4 => 'er_other_product',
+          5 => 'er_patent',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
         ),
       ),
     ),
@@ -769,11 +951,11 @@ $data = array(
         ),
         'required' => FALSE,
         'description' => '',
+        'default_value' => NULL,
         'field_name' => 'field_building_room_number_',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
-        'default_value' => NULL,
       ),
     ),
     'field_er_cal_event_date' => array(
@@ -785,13 +967,12 @@ $data = array(
           'module' => 'date',
           'active' => 1,
           'settings' => array(
-            'input_format' => 'm/d/Y - H:i:s',
+            'input_format' => 'm/d/Y - g:i:sa',
             'input_format_custom' => '',
             'year_range' => '-3:+3',
             'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),
-            'display_all_day' => 1,
             'repeat_collapsed' => 1,
           ),
         ),
@@ -801,7 +982,6 @@ $data = array(
           'default_value2' => 'same',
           'default_value_code2' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'display' => array(
           'default' => array(
@@ -871,6 +1051,61 @@ $data = array(
         'required' => 0,
         'description' => 'Attach a pdf of your even flier',
         'field_name' => 'field_er_event_flier',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_event_location' => array(
+      0 => array(
+        'label' => 'Location',
+        'widget' => array(
+          'weight' => '12',
+          'type' => 'geofield_openlayers',
+          'module' => 'geofield',
+          'active' => 1,
+          'settings' => array(
+            'openlayers_map' => 'geofield_widget_map',
+            'data_storage' => 'collection',
+          ),
+        ),
+        'settings' => array(
+          'required_by_role' => array(
+            5 => '5',
+            4 => '4',
+            6 => '6',
+            3 => '3',
+            1 => 0,
+          ),
+          'local_solr' => array(
+            'enabled' => FALSE,
+            'lat_field' => 'lat',
+            'lng_field' => 'lng',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'geofield_openlayers',
+            'weight' => '26',
+            'settings' => array(
+              'data' => 'full',
+              'map_preset' => 'geofield_formatter_map',
+            ),
+            'module' => 'geofield',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Where is your event taking place?',
+        'default_value' => NULL,
+        'field_name' => 'field_er_event_location',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
@@ -1078,6 +1313,46 @@ $data = array(
         ),
         'required' => 1,
         'field_name' => 'field_er_event_type',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_push_notifications' => array(
+      0 => array(
+        'label' => 'Send notifications of this event to',
+        'widget' => array(
+          'weight' => '8',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+          'required_by_role' => array(),
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'inline',
+            'type' => 'list_default',
+            'weight' => '21',
+            'settings' => array(),
+            'module' => 'list',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value_php' => '',
+        'default_value_function' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_push_notifications',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
