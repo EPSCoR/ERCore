@@ -3215,7 +3215,7 @@ $data = array(
         ),
       ),
       'field_permissions' => array(
-        'type' => '2',
+        'type' => '0',
       ),
       'field_name' => 'field_er_race',
       'type' => 'text',
@@ -4988,9 +4988,9 @@ Mobility/Orthopedic Impairment',
             'other' => 'Other',
             'other_title' => '',
             'other_unknown_defaults' => 'other',
+            'other_size' => '60',
             'sort_options' => 0,
             'markup_available_options_php' => '&lt;none&gt;',
-            'other_size' => 60,
           ),
         ),
         'settings' => array(
@@ -5992,7 +5992,8 @@ Mobility/Orthopedic Impairment',
           'module' => 'select_or_other',
           'active' => 1,
           'settings' => array(
-            'available_options' => 'American Indian or Alaskan Native|American Indian or Alaskan Native
+            'available_options' => 'Prefer not to respond|Prefer not to respond
+American Indian or Alaskan Native|American Indian or Alaskan Native
 Asian|Asian
 Filipino|Filipino
 Black or African American|Black or African American
@@ -6003,9 +6004,9 @@ White|White',
             'other' => 'Other',
             'other_title' => '',
             'other_unknown_defaults' => 'other',
+            'other_size' => '60',
             'sort_options' => 0,
             'markup_available_options_php' => '&lt;none&gt;',
-            'other_size' => 60,
           ),
         ),
         'settings' => array(
