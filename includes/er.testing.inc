@@ -198,23 +198,46 @@ function er_testing() {
 	//Fields and fieldgroups
 	$field_status = _test_fields();
 	foreach ($field_status as $bundle=>$results){
-		$missing = array();
-		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
-			if (count($results['fields'])) $missing[] = "fields: ".implode(", ", $results['fields']);//collect the names of the missing fields
-			if (count($results['groups'])) $missing[] = "groups: ".implode(", ", $results['groups']);//collect the names of the missing fieldgroups
-			$requirements[] = array(
-				'severity' => REQUIREMENT_ERROR,
-				'title' => "Bundle: ".$results['name']." ($bundle) incomplete!",
-				'description' => "Missing ".implode("<br>", $missing),
-				'value' => create_reset_link('bundles', $bundle, 'this bundle'),
-			);
-		}else{
-			$requirements[] = array(
-				'severity' => REQUIREMENT_OK,
-				'title' => "Bundle: ".$results['name']." ($bundle)",
-				'value' => l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)) . ', ' . create_reset_link('bundles', $bundle),
-			);
+		$title = "Bundle: ".$results['name']." ($bundle)";
+		$has_missing = false;
+		$has_extra = false;
+		$description = null;
+		if (count($results['extra_fields']) || count($results['extra_groups'])){//if missing fields or groups were returned
+			$has_extra = true;
+			if (count($results['extra_fields'])){
+				$description .= "Extra fields: ".implode(", ", array_keys($results['extra_fields'])).'<br>';
+			}
+			if (count($results['extra_groups'])){
+				$description .= "Extra field groups: ".implode(", ", array_keys($results['extra_groups'])).'<br>';
+			}
+			$description .= "<i>Extra fields may be removed without breaking ER Core's functionality. You may need to transfer data out of an old field into a new field. Please consult the changelog if available.</i><br>";
 		}
+		if (count($results['missing_fields']) || count($results['missing_groups'])){//if missing fields or groups were returned
+			$has_missing = true;
+			if (count($results['missing_fields'])){
+				$description .= '<strong>Missing fields:</strong> '.implode(", ", array_keys($results['missing_fields'])).'<br>';
+			}
+			if (count($results['missing_groups'])){
+				$description .= '<strong>Missing field groups:</strong> '.implode(", ", array_keys($results['missing_groups'])).'<br>';
+			}
+			$description .= "<i>New fields may have been added to ER Core, in which case it is suggested that you manually reset this bundle.</i><br>";
+		}
+		
+		$severity = REQUIREMENT_OK;
+		$value = l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)).', '.create_reset_link('bundles', $bundle, 'this bundle');
+		if ($has_missing){
+			$severity = REQUIREMENT_ERROR;
+			$value = create_reset_link('bundles', $bundle, 'this bundle');
+		}else if($has_extra){
+			$severity = REQUIREMENT_WARNING;
+		}
+		
+		$requirements[] = array(
+			'severity' => $severity,
+			'title' => $title,
+			'description' => $description,
+			'value' => $value,
+		);
 	}
 	
 	//d($field_status, '$field_status');
@@ -305,34 +328,37 @@ function _test_fields(){
 			$bundle_label = isset($bundle_info->name)?$bundle_info->name:'User Profile';
 			$entity_type = $bundle_type=='user'?'user':'node';
 			
-			$groups = field_group_info_groups($entity_type, $bundle_type, 'form', TRUE);//get the list of groups in this bundle.
-			//d($data, '$data');
-			
-			//Note: I think we could use field_info_instances("node",$source_node_type) to determine if a CT has extra fields.
-			
-			$missing_fields = array();
+			$installed_fields = field_info_instances($entity_type, $bundle_type);
 			if (isset($data['fields'])){ //Make sure there are fields
-				foreach ($data['fields'] as $field){ //Check each field
-					// see if the field exists
-					$field_info = field_info_field($field['field_name']);
-					if (is_null($field_info)){
-						$missing_fields[] = $field['field_name'];
+				foreach ($data['fields'] as $field_name=>$field){ //Check each field
+					if (isset($installed_fields[$field_name])){//the field exists
+						unset($installed_fields[$field_name]);
+						unset($data['fields'][$field_name]);
 					}
 				}
 			}
 			
-			$missing_groups = array();
+			$installed_groups = field_group_info_groups($entity_type, $bundle_type, 'form', TRUE);//get the list of groups in this bundle.
 			if (isset($data['fieldgroups'])){ //if this bundle has fieldgroups...
-				foreach ($data['fieldgroups'] as $group){ //Check each fieldgroup
-					if (!isset($groups[$group->group_name])){
-						$missing_groups[] = $group->group_name;
+				foreach ($data['fieldgroups'] as $group_id=>$group){ //Check each fieldgroup
+					$group_name = $group->group_name;
+					
+					//Do this ninja move to change the key to be the group name and not the weirdo group id.
+					$data['fieldgroups'][$group_name] = $data['fieldgroups'][$group_id];
+					unset($data['fieldgroups'][$group_id]);
+					
+					if (isset($installed_groups[$group_name])){//the field exists
+						unset($installed_groups[$group_name]);
+						unset($data['fieldgroups'][$group_name]);
 					}
 				}
 			}
 			
 			$return[$bundle_type] = array(
-				'fields' => $missing_fields,
-				'goups' => $missing_groups,
+				'missing_fields' => $data['fields'],
+				'extra_fields' => $installed_fields,
+				'missing_groups' => $data['fieldgroups'],
+				'extra_groups' => $installed_groups,
 				'name' => $bundle_label
 			);
 			
