@@ -339,25 +339,25 @@ function _test_fields(){
 			}
 			
 			$installed_groups = field_group_info_groups($entity_type, $bundle_type, 'form', TRUE);//get the list of groups in this bundle.
-			if (isset($data['fieldgroups'])){ //if this bundle has fieldgroups...
-				foreach ($data['fieldgroups'] as $group_id=>$group){ //Check each fieldgroup
-					$group_name = $group->group_name;
-					
-					//Do this ninja move to change the key to be the group name and not the weirdo group id.
-					$data['fieldgroups'][$group_name] = $data['fieldgroups'][$group_id];
-					unset($data['fieldgroups'][$group_id]);
-					
-					if (isset($installed_groups[$group_name])){//the field exists
-						unset($installed_groups[$group_name]);
-						unset($data['fieldgroups'][$group_name]);
-					}
+			
+			//This will remove duplicates and change the key to be the group_name and not the weirdo composite id that it gets packaged with...
+			$fieldgroups = array();
+			if (isset($data['fieldgroups'])) //if this bundle has fieldgroups...
+				foreach ($data['fieldgroups'] as $group_id=>$group){
+					$fieldgroups[$group->group_name] = $group;
+				}
+			
+			foreach ($fieldgroups as $group_name=>$group){ //Check each fieldgroup
+				if (isset($installed_groups[$group_name])){//the field exists
+					unset($installed_groups[$group_name]);
+					unset($fieldgroups[$group_name]);
 				}
 			}
 			
 			$return[$bundle_type] = array(
 				'missing_fields' => $data['fields'],
 				'extra_fields' => $installed_fields,
-				'missing_groups' => $data['fieldgroups'],
+				'missing_groups' => $fieldgroups,
 				'extra_groups' => $installed_groups,
 				'name' => $bundle_label
 			);
