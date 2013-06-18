@@ -117,22 +117,41 @@ function er_field_attach_presave($entity_type, $entity){
   }
 }
 
+/*
+ * This function gets run whenever a collaboration node gets saved (insert or update)
+ * It checks the user entity-reference field to see if there are any collaborators listed,
+ *  and if so, it displays a warning instructing them to make sure that the name
+ *  appaears in the right sidepanel (for collaborator reporting)
+ */
 function _manage_er_collaborations(&$node, $op){
   $lang = $node->language;
-  if (isset($node->field_er_user_entity_reference) && count($node->field_er_user_entity_reference[$lang]))
-  foreach ($node->field_er_user_entity_reference[$lang] as $k=>$values){
-    if (isset($values['target_id']) && $values['target_id'] != ""){
-      $user = user_load($values['target_id']);
-      $participating = check_user_participating($user);
-      if (!$participating){
-        $u = entity_metadata_wrapper('user', $user);
-        $name = $u->field_er_realname->value();
-        drupal_set_message(l($name, 'user/'.$user->uid.'/status') . ' is currently considered a collaborator. <br><strong>Please make sure to add this person\'s name to the list of collaborators on the right side panel.</strong>', 'warning');
-      }
-    }
-  }
+	$warnings = array();
+  if (isset($node->field_er_user_entity_reference) && count($node->field_er_user_entity_reference[$lang])){//the field is available
+		foreach ($node->field_er_user_entity_reference[$lang] as $k=>$values){
+			if (isset($values['target_id']) && $values['target_id'] != ""){
+				$user = user_load($values['target_id']);
+				$participating = check_user_participating($user);
+				if (!$participating){
+					$u = entity_metadata_wrapper('user', $user);
+					$warnings[$user->uid] = $u->field_er_realname->value();
+				}
+			}
+		}
+	}else{//error - sanity check
+		drupal_set_message('Unable to find the users associated with this collaboration node! Please contact an administrator about this error!', 'error');
+	}
+	if (count($warnings)){//Display a general warning
+		drupal_set_message("<strong>Note:</strong> Anyone who contributes less than 160 hours of effort per year, and/or their primary institution is not internal to EPSCoR, is considered a <strong>collaborator</strong> by NSF. Collaborators are only counted if their name appears in the list in the right side-panel.", 'warning');
+	}
+	foreach ($warnings as $uid=>$name){//Display a warning for each collaborator found
+		drupal_set_message(l($name, "user/$uid") . ' is currently considered a '.l('collaborator', "user/$uid/status").'. <br><strong>Please make sure to add this person\'s name to the list of collaborators in the right side panel.</strong>', 'warning');
+	}
 }
 
+/*
+ * This function fires whenever an er_collaborator node gets inserted or updated
+ * The function runs _manage_er_collaboration_status on the collaboration node it's attached to.
+ */
 function _manage_er_collaborators(&$node, $op){
   $collab_nid = $node->field_er_collab_ref['und'][0]['target_id'];
   $inst_nid = $node->field_er_collab_inst_ref['und'][0]['target_id'];
@@ -140,10 +159,11 @@ function _manage_er_collaborators(&$node, $op){
   $participating_inst = ($inst_node->field_er_inst_participating['und'][0]['value'] == 1);
   switch ($op){
     case 'insert':
-    //case 'update':
-      if (!$participating_inst)//if it's a participating institution, don't bother checking because it doesn't matter.
+    case 'update':
+      if (!$participating_inst){//if it's a participating institution, don't bother checking because it doesn't matter.
         $collab = node_load($collab_nid);
-        _manage_er_collaboration_status($collab);//re-check the validation status...
+        _manage_er_collaboration_status($collab);//re-check the draft status...
+			}
       break;
     case 'delete':
       if (!$participating_inst){//if you delete one of the external collaborator nodes, invalidate the collaboration.
@@ -155,6 +175,11 @@ function _manage_er_collaborators(&$node, $op){
   //
 }
 
+/*
+ * This function gets run whenever a er_collaboration OR er_collaborator node is saved (insert or update)
+ * The function checks to make sure that there are collaborators attached to any external institutions
+ *  attached to the collaboration node. If not, it sets the collaboration to be in "draft status" mode (using flags).
+ */
 function _manage_er_collaboration_status(&$node){
   //d($node);
   $query = new EntityFieldQuery();
