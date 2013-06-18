@@ -43,9 +43,45 @@ function er_testing() {
 			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
 		);
 	}
-
+	
+	//Check that there is at least one institution in the system
+	$num_institutions = _test_institutions();
+	$new_institution_link = l('<i class="icon-plus-sign"></i> Add an Institution', 'node/add/er-institution', array('html'=>true));
+	if ($num_institutions){// must be greater than 0
+		$requirements[] = array(
+			'title' => 'More than one Institution in the system',
+			'severity' => REQUIREMENT_OK,
+			'value' => 'Requirement has been met',
+		);
+	}else{
+		$requirements[] = array(
+			'title' => 'More than one Institution in the system',
+			'severity' => REQUIREMENT_ERROR,
+			'value' => 'No Institutions found!',
+			'description' => 'ER Core requires you to add at least one Institution to the system.<br>' . $new_institution_link,
+		);
+	}
+	
+	//Check that there is at least one institution in the system
+	$num_components = _test_components();
+	$new_component_link = l('<i class="icon-plus-sign"></i> Add a Research Component', 'admin/structure/taxonomy/er_components/add', array('html'=>true));
+	if ($num_components){// must be greater than 0
+		$requirements[] = array(
+			'title' => 'More than one Research Component in the system',
+			'severity' => REQUIREMENT_OK,
+			'value' => 'Requirement has been met',
+		);
+	}else{
+		$requirements[] = array(
+			'title' => 'More than one Research Component in the system',
+			'severity' => REQUIREMENT_ERROR,
+			'value' => 'No Research Components found!',
+			'description' => 'ER Core requires you to add at least one research component to the system.<br>' . $new_component_link,
+		);
+	}
+	
 	//Taxonomy
-	$taxonomy_status = er_test_taxonomy();
+	$taxonomy_status = _test_taxonomy();
 	//d($taxonomy_status, '$taxonomy_status');
 	foreach ($taxonomy_status['missing'] as $name=>$taxonomy_value){
 		$requirements[] = array(
@@ -71,7 +107,7 @@ function er_testing() {
 	}
 	
 	//Flags
-	$flags_status = er_test_flags();
+	$flags_status = _test_flags();
 	//d($flags_status, '$flags_status');
 	foreach ($flags_status['missing'] as $name=>$flags_value){
 		$requirements[] = array(
@@ -97,7 +133,7 @@ function er_testing() {
 	}
 	
 	//Roles
-	$role_status = er_test_role_perms();
+	$role_status = _test_role_perms();
 	//d($role_status, '$role_status');
 	foreach ($role_status['hijack'] as $rid=>$role){
 		$name = $role->name;
@@ -134,7 +170,7 @@ function er_testing() {
 	}
 
 	//Rules
-	$rules_status = er_test_rules();
+	$rules_status = _test_rules();
 	//d($rules_status, '$rules_status');
 	foreach ($rules_status['missing'] as $name=>$value){
 		$requirements[] = array(
@@ -160,7 +196,7 @@ function er_testing() {
 	}
 
 	//Fields and fieldgroups
-	$field_status = er_test_fields();
+	$field_status = _test_fields();
 	foreach ($field_status as $bundle=>$results){
 		$missing = array();
 		if (count($results['fields']) || count($results['groups'])){//if missing fields or groups were returned
@@ -201,6 +237,23 @@ function er_testing() {
 			'#html' => true,
 		);
 	}
+	
+	//Devel
+	if (function_exists('dpm')){
+		$requirements[] = array(
+			'title' => 'Development Tools',
+			'severity' => REQUIREMENT_OK,
+			'value' => 'Devel is enabled'
+		);
+	}else{
+		$requirements[] = array(
+			'title' => 'Development Tools',
+			'severity' => REQUIREMENT_WARNING,
+			'value' => 'Devel module not found',
+			'description' => 'This module should be enabled in a development environment, but should not be necessary for a live site.',
+		);
+	}
+	
 	//Display the table
 	$form['status'] = array(
 		"#theme"=>"er_status_report",
@@ -213,10 +266,29 @@ function create_reset_link($type, $name, $label = ''){
 	return l('<i class="icon-refresh"></i> Reset'.($label?" $label":""), "admin/config/epscor/er/reset/$type/$name", array('html'=>true));
 }
 
+function _test_institutions(){
+	$query = new EntityFieldQuery();
+  $count = $query
+		->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'er_institution')
+		->count()->execute();
+	return $count;
+}
+
+function _test_components(){
+	$taxa = taxonomy_vocabulary_machine_name_load('er_components');//need this to get the vid of the vocabulary
+	$query = new EntityFieldQuery();
+  $count = $query
+		->entityCondition('entity_type', 'taxonomy_term')
+    ->entityCondition('vid', $taxa->vid)
+		->count()->execute();
+	return $count;
+}
+
 /**
  * Check the status of fields and fieldgroups
  */
-function er_test_fields(){
+function _test_fields(){
 	$bundle_path = ER_INSTALL_DIR . '/bundles';
 	$dir = new DirectoryIterator($bundle_path);
 	$bundle_list = array();
@@ -284,7 +356,7 @@ function er_test_fields(){
  *			flag name => flag_node object of any flag that does not belong to er-core but starts with "er_"
  *			...
  */
-function er_test_flags(){
+function _test_flags(){
 	$drupal_path = ER_INSTALL_DIR . '/flags';
 	$dir = new DirectoryIterator($drupal_path);
 	$internal_flags = flag_get_flags();
@@ -325,7 +397,7 @@ function er_test_flags(){
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Chris Allen
  */
-function er_test_rules(){	
+function _test_rules(){	
 	$drupal_path = ER_INSTALL_DIR . '/rules';
 	$dir = new DirectoryIterator($drupal_path);
 	$return = array('found'=>array(), 'missing'=>array());
@@ -362,7 +434,7 @@ function er_test_rules(){
  * This function tests to see if all of the Rules are up to date with what's in the Rules install directory.
  * @author Jeannine Haney
  */
-function er_test_taxonomy(){
+function _test_taxonomy(){
 	$drupal_path = ER_INSTALL_DIR . '/taxonomy';
 	$dir = new DirectoryIterator($drupal_path);
 	 
@@ -397,7 +469,7 @@ function er_test_taxonomy(){
 }
 
 
-function er_test_role_perms(){
+function _test_role_perms(){
 	$drupal_path = ER_INSTALL_DIR . '/roles';
 	$dir = new DirectoryIterator($drupal_path);
 	//$user_roles = user_roles();
