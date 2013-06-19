@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_proposal',
-          3 => 'er_publication',
-          4 => 'er_award',
+          2 => 'er_award',
+          3 => 'er_collaboration',
+          4 => 'er_event',
           5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
         ),
       ),
     ),
@@ -569,61 +569,6 @@ $data = array(
         ),
       ),
     ),
-    'field_er_proposal_paid' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'allowed_values' => array(
-          0 => 'Participants are NOT receiving financial support',
-          1 => 'Participants are receiving financial support',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_proposal_paid' => array(
-                'value' => 'field_er_proposal_paid_value',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_proposal_paid' => array(
-                'value' => 'field_er_proposal_paid_value',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'field_name' => 'field_er_proposal_paid',
-      'type' => 'list_boolean',
-      'module' => 'list',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'int',
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_proposal',
-        ),
-      ),
-    ),
     'field_er_proposal_pending' => array(
       'type_name' => 'er_proposal',
       'entity_types' => array(),
@@ -1028,15 +973,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_proposal',
-          1 => 'er_publication',
-          2 => 'er_other_product',
+          0 => 'er_award',
+          1 => 'er_collaboration',
+          2 => 'er_event',
           3 => 'er_news',
-          4 => 'er_award',
-          5 => 'er_event',
-          6 => 'er_patent',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          4 => 'er_other_product',
+          5 => 'er_patent',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
         ),
       ),
     ),
@@ -1907,44 +1852,6 @@ $data = array(
         'deleted' => '0',
       ),
     ),
-    'field_er_proposal_paid' => array(
-      0 => array(
-        'label' => 'Salary Support',
-        'widget' => array(
-          'weight' => '5',
-          'type' => 'options_buttons',
-          'module' => 'options',
-          'active' => 1,
-          'settings' => array(),
-        ),
-        'settings' => array(
-          'user_register_form' => FALSE,
-          'required_by_role' => array(),
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'inline',
-            'type' => 'list_default',
-            'weight' => '11',
-            'settings' => array(),
-            'module' => 'list',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 1,
-        'description' => 'Are any of the EPSCoR participants listed on this grant receiving financial support?',
-        'default_value' => NULL,
-        'field_name' => 'field_er_proposal_paid',
-        'entity_type' => 'node',
-        'bundle' => 'er_proposal',
-        'deleted' => '0',
-      ),
-    ),
     'field_er_proposal_pending' => array(
       0 => array(
         'weight' => '10',
@@ -2705,7 +2612,7 @@ $data = array(
   ),
   'fieldgroups' => array(
     'group_pi_copi|node|er_proposal|form' => (object) array(
-      'id' => '25',
+      'id' => '42',
       'identifier' => 'group_pi_copi|node|er_proposal|form',
       'group_name' => 'group_pi_copi',
       'entity_type' => 'node',
