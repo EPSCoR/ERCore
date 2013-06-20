@@ -3167,6 +3167,44 @@ $data = array(
         ),
       ),
     ),
+    'field_er_upload_option' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'markup' => array(
+          'value' => '<p>
+Download the<a href="<?php echo $file_url;?>"> External Engagement Reporting Sheet</a> and fill out the data at your event.   
+Once the sheet is completed you may then upload the excel sheet below, and the system will do the rest
+</p>',
+          'format' => 'full_html',
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_upload_option',
+      'type' => 'markup',
+      'module' => 'markup',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_engagement',
+        ),
+      ),
+    ),
     'field_external_engagements_instr' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -3177,14 +3215,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
 
 ?>
 <h2>Notice: We offer two methods of filling out this form.</h2>
-<p>
-  <a href="<?php echo $file_url;?>">Download the External Engagement Reporting Sheet. </a>
-  Take this sheet to your event and fill it out. Upload the excel sheet above, and the system will do the rest.
-</p>
-- OR -
-<p>
-  Manually fill out the fields below.
-</p>',
+',
           'format' => 'php_code',
         ),
         'profile2_private' => FALSE,
@@ -3360,7 +3391,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3491,7 +3522,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '11',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3622,7 +3653,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3753,7 +3784,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4277,7 +4308,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4408,7 +4439,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4586,9 +4617,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
     ),
     'field_er_ee_file' => array(
       0 => array(
-        'label' => 'Please upload the Event flyer or announcement, etc.',
+        'label' => 'Upload the Excel Sheet',
         'widget' => array(
-          'weight' => '2',
+          'weight' => '5',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -4601,13 +4632,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'file_extensions' => 'xls',
           'max_filesize' => '',
           'description_field' => 0,
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
           'user_register_form' => FALSE,
         ),
         'display' => array(
@@ -4772,7 +4796,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '18',
+          'weight' => '20',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4903,7 +4927,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5034,7 +5058,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5165,7 +5189,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '19',
+          'weight' => '21',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5296,7 +5320,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '20',
+          'weight' => '24',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5427,7 +5451,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '23',
+          'weight' => '22',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5558,7 +5582,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '22',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5689,7 +5713,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '21',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5820,7 +5844,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '24',
+          'weight' => '25',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5951,7 +5975,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '25',
+          'weight' => '26',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6082,7 +6106,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6213,7 +6237,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6475,7 +6499,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6606,7 +6630,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '23',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6737,7 +6761,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6868,7 +6892,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6999,7 +7023,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '11',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7261,7 +7285,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '19',
+          'weight' => '20',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7392,7 +7416,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7523,7 +7547,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7785,7 +7809,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7916,7 +7940,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8047,7 +8071,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '10',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8178,7 +8202,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '8',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8309,7 +8333,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '7',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8440,7 +8464,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '20',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8572,7 +8596,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '21',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8702,7 +8726,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8833,7 +8857,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8964,7 +8988,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9095,7 +9119,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9226,7 +9250,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '18',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9357,7 +9381,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9750,7 +9774,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9881,7 +9905,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -10655,6 +10679,42 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'deleted' => '0',
       ),
     ),
+    'field_er_upload_option' => array(
+      0 => array(
+        'label' => 'Upload method',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'markup',
+          'module' => 'markup',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'markup_default',
+            'settings' => array(),
+            'module' => 'markup',
+            'weight' => 83,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_upload_option',
+        'entity_type' => 'node',
+        'bundle' => 'er_engagement',
+        'deleted' => '0',
+      ),
+    ),
     'field_external_engagements_instr' => array(
       0 => array(
         'label' => 'External Engagements Instructions',
@@ -10702,18 +10762,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
   ),
   'fieldgroups' => array(
     'group_er_tot|node|er_engagement|form' => (object) array(
-      'id' => '1',
+      'id' => '19',
       'identifier' => 'group_er_tot|node|er_engagement|form',
       'group_name' => 'group_er_tot',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Total',
-      'weight' => '4',
+      'weight' => '6',
       'children' => array(
         0 => 'field_er_estimated',
         1 => 'field_er_tot_female',
@@ -10734,18 +10794,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_oth|node|er_engagement|form' => (object) array(
-      'id' => '2',
+      'id' => '20',
       'identifier' => 'group_er_oth|node|er_engagement|form',
       'group_name' => 'group_er_oth',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Other',
-      'weight' => '5',
+      'weight' => '8',
       'children' => array(
         0 => 'field_er_oth_female',
         1 => 'field_er_oth_male',
@@ -10765,18 +10825,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_ari|node|er_engagement|form' => (object) array(
-      'id' => '3',
+      'id' => '21',
       'identifier' => 'group_er_ari|node|er_engagement|form',
       'group_name' => 'group_er_ari',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Academic Research Institutions',
-      'weight' => '6',
+      'weight' => '9',
       'children' => array(
         0 => 'field_er_ari_fac_female',
         1 => 'field_er_ari_fac_male',
@@ -10801,18 +10861,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_pui|node|er_engagement|form' => (object) array(
-      'id' => '4',
+      'id' => '22',
       'identifier' => 'group_er_pui|node|er_engagement|form',
       'group_name' => 'group_er_pui',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Primary Undergraduate Institutions',
-      'weight' => '7',
+      'weight' => '10',
       'children' => array(
         0 => 'field_er_pui_fac_female',
         1 => 'field_er_pui_fac_male',
@@ -10837,18 +10897,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_msi|node|er_engagement|form' => (object) array(
-      'id' => '5',
+      'id' => '23',
       'identifier' => 'group_er_msi|node|er_engagement|form',
       'group_name' => 'group_er_msi',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Minority Serving Institutions',
-      'weight' => '8',
+      'weight' => '11',
       'children' => array(
         0 => 'field_er_msi_fac_female',
         1 => 'field_er_msi_fac_male',
@@ -10873,18 +10933,18 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_k12i|node|er_engagement|form' => (object) array(
-      'id' => '6',
+      'id' => '24',
       'identifier' => 'group_er_k12i|node|er_engagement|form',
       'group_name' => 'group_er_k12i',
       'entity_type' => 'node',
       'bundle' => 'er_engagement',
       'mode' => 'form',
-      'parent_name' => '',
+      'parent_name' => 'group_er_ee_manual_option',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'K-12 Institutions',
-      'weight' => '9',
+      'weight' => '12',
       'children' => array(
         0 => 'field_er_k12i_stud_female',
         1 => 'field_er_k12i_stud_male',
@@ -10905,6 +10965,68 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'format_type' => 'fieldset',
       'format_settings' => array(
         'label' => 'K-12 Institutions',
+        'instance_settings' => array(
+          'required_fields' => 1,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'collapsed',
+      ),
+    ),
+    'group_er_ee_manual_option|node|er_engagement|form' => (object) array(
+      'id' => '27',
+      'identifier' => 'group_er_ee_manual_option|node|er_engagement|form',
+      'group_name' => 'group_er_ee_manual_option',
+      'entity_type' => 'node',
+      'bundle' => 'er_engagement',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'I want to enter attendee figures manually',
+      'weight' => '6',
+      'children' => array(
+        0 => 'group_er_tot',
+        1 => 'group_er_oth',
+        2 => 'group_er_ari',
+        3 => 'group_er_pui',
+        4 => 'group_er_msi',
+        5 => 'group_er_k12i',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'I want to enter attendee figures manually',
+        'instance_settings' => array(
+          'required_fields' => 1,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'collapsed',
+      ),
+    ),
+    'group_er_ee_upload_option|node|er_engagement|form' => (object) array(
+      'id' => '28',
+      'identifier' => 'group_er_ee_upload_option|node|er_engagement|form',
+      'group_name' => 'group_er_ee_upload_option',
+      'entity_type' => 'node',
+      'bundle' => 'er_engagement',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'I want to upload a completed Excel sheet',
+      'weight' => '5',
+      'children' => array(
+        0 => 'field_er_ee_file',
+        1 => 'field_er_upload_option',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'I want to upload a completed Excel sheet',
         'instance_settings' => array(
           'required_fields' => 1,
           'classes' => '',
