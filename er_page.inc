@@ -19,6 +19,10 @@ class er_page{
 		'ethnicity'=>'field_er_ethnicity',
 		'disability'=>'field_er_disabilities',
 		'participant_date'=>'field_er_particip_date_ca1',
+		'hired_date'=>'field_er_hired_date',
+		'mas_act_grad_date'=>'field_er_mas_act_grad_date',
+		'doc_act_grad_date'=>'field_er_doc_act_grad_date',
+		'und_act_grad_date'=>'field_er_und_act_grad_date',
 	);
 	
 	public function __construct() {
