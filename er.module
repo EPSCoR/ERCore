@@ -655,17 +655,18 @@ function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
 //	It compares the user's participating date range with the date range that has been set on the summary table.
 //	If no date range has been selected, it checks if the person is currently participating (right now).
 function er_query_epscor_active_participant_alter(QueryAlterableInterface $query) {
-	$query->innerJoin('field_data_field_er_participant_date', 'participant_date', 'users.uid = participant_date.entity_id');
+	$participant_date_field = 'field_er_particip_date_ca1';
+	$query->innerJoin('field_data_'.$participant_date_field, 'participant_date', 'users.uid = participant_date.entity_id');
 	if ($range = er_get_reporting_range()){
 		$dates = array(date('Y-m-d H:i:s', $range[0]), date('Y-m-d H:i:s', $range[1]));
 	}else{
 		$now = date('Y-m-d H:i:s');
 		$dates = array($now, $now);
 	}
-	$query->condition('participant_date.field_er_participant_date_value', $dates[1], '<');
+	$query->condition('participant_date.'.$participant_date_field.'_value', $dates[1], '<');
 	$or = db_or();
-		$or->isNull('participant_date.field_er_participant_date_value2');
-		$or->condition('participant_date.field_er_participant_date_value2', $dates[0], '>');
+		$or->isNull('participant_date.'.$participant_date_field.'_value2');
+		$or->condition('participant_date.'.$participant_date_field.'_value2', $dates[0], '>');
 	$query->condition($or);
 	//d($query, 'select');
 	//d((string)$query, '$query');

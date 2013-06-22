@@ -18,7 +18,7 @@ class er_page{
 		'race'=>'field_er_race',
 		'ethnicity'=>'field_er_ethnicity',
 		'disability'=>'field_er_disabilities',
-		'participant_date'=>'field_er_participant_date',
+		'participant_date'=>'field_er_particip_date_ca1',
 	);
 	
 	public function __construct() {
