@@ -32,16 +32,16 @@ class er_salary_support extends er_page{
 		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', 'Faculty participants (or equivalent)', '=');
 		
 		//return the relevant data:
-		$query->leftJoin('field_data_'.self::$field_aliases['inst_abbr'].'', 'inst_abbr', 'inst.nid = inst_abbr.entity_id');
-		$query->leftJoin('field_data_'.self::$field_aliases['fname'].'', 'fname', 'users.uid = fname.entity_id');
-		$query->leftJoin('field_data_'.self::$field_aliases['lname'].'', 'lname', 'users.uid = lname.entity_id');
-		$query->leftJoin('field_data_'.self::$field_aliases['department'].'', 'department', 'users.uid = department.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['inst_abbr'], 'inst_abbr', 'inst.nid = inst_abbr.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['fname'], 'fname', 'users.uid = fname.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['lname'], 'lname', 'users.uid = lname.entity_id');
+		$query->leftJoin('field_data_'.self::$field_aliases['department'], 'department', 'users.uid = department.entity_id');
 		$query->addField('inst', 'nid', 'inst_nid');
 		$query->addField('inst', 'title', 'inst_name');
-		$query->addField('inst_abbr', ''.self::$field_aliases['inst_abbr'].'_value', 'inst_abbr');
-		$query->addField('fname', ''.self::$field_aliases['fname'].'_value', 'fname');
-		$query->addField('lname', ''.self::$field_aliases['lname'].'_value', 'lname');
-		$query->addField('department', ''.self::$field_aliases['department'].'_value', 'department');
+		$query->addField('inst_abbr', self::$field_aliases['inst_abbr'].'_value', 'inst_abbr');
+		$query->addField('fname', self::$field_aliases['fname'].'_value', 'fname');
+		$query->addField('lname', self::$field_aliases['lname'].'_value', 'lname');
+		$query->addField('department', self::$field_aliases['department'].'_value', 'department');
 		//$query->addField('position_type', 'field_er_position_type_value', 'position_type');
 		$query->orderBy('inst_name', 'ASC');
 		$query->orderBy('department', 'ASC');

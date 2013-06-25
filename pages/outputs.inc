@@ -104,29 +104,29 @@ class er_outputs extends er_page{
 	//User queries:
   
 	private function generate_fac_hired_query(&$query, $period){
-		$date_field = 'field_er_hired_date';
+		$date_field = self::$field_aliases['hired_date'];
 		$query->innerJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
 		$this->applyDateRange($query, $date_field, $period);
 		
 		//Person must be faculty:
-		$query->innerJoin("field_data_field_er_position_type", 'type', 'users.uid = type.entity_id');
-		$query->condition("type.field_er_position_type_value", "Faculty participants (or equivalent)", '=');
+		$query->innerJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Faculty participants (or equivalent)", '=');
 	}
 	
 	private function generate_post_docs_query(&$query, $period){
-		$date_field = 'field_er_participant_date';
+		$date_field = self::$field_aliases['participant_date'];
 		$query->leftJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
 		$this->applyDateRange($query, $date_field, $period);
 		
-		$query->innerJoin("field_data_field_er_position_type", 'type', 'users.uid = type.entity_id');
-		$query->condition("type.field_er_position_type_value", "Post docs", '=');
+		$query->innerJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Post docs", '=');
 	}
 	
 	private function generate_grad_students_query(&$query, $period){
 		//TODO:
 		//NEED TO WORK IN DOCTORATE GRADUATIONS SOMEHOW.
-		$date_field1 = 'field_er_mas_act_grad_date';
-		$date_field2 = 'field_er_doc_act_grad_date';
+		$date_field1 = self::$field_aliases['mas_act_grad_date'];
+		$date_field2 = self::$field_aliases['doc_act_grad_date'];
 		$query->leftJoin("field_data_{$date_field1}", 'date1', 'users.uid = date1.entity_id');
 		$query->leftJoin("field_data_{$date_field2}", 'date2', 'users.uid = date2.entity_id');
 		//$this->applyDateRange($query, $date_field, $period);
@@ -144,7 +144,7 @@ class er_outputs extends er_page{
 	}
 	
 	private function generate_undergrad_query(&$query, $period){
-		$date_field = 'field_er_und_act_grad_date';
+		$date_field = self::$field_aliases['und_act_grad_date'];
 		$query->innerJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
 		$this->applyDateRange($query, $date_field, $period);
 	}
@@ -152,31 +152,31 @@ class er_outputs extends er_page{
 	//Attribute functions:
 	
 	private function generate_male_query(&$query){
-		$query->innerJoin("field_data_field_er_gender", 'gender', 'users.uid = gender.entity_id');
-		$query->condition("gender.field_er_gender_value", 0, '=');
+		$query->innerJoin("field_data_".self::$field_aliases['gender'], 'gender', 'users.uid = gender.entity_id');
+		$query->condition("gender.".self::$field_aliases['gender']."_value", 0, '=');
 	}
 	
 	private function generate_female_query(&$query){
-		$query->innerJoin("field_data_field_er_gender", 'gender', 'users.uid = gender.entity_id');
-		$query->condition("gender.field_er_gender_value", 1, '=');
+		$query->innerJoin("field_data_".self::$field_aliases['gender'], 'gender', 'users.uid = gender.entity_id');
+		$query->condition("gender.".self::$field_aliases['gender']."_value", 1, '=');
 	}
 	
 	private function generate_urm_query(&$query){
 		//This list could be appended:
 		//Note: Perhaps we should have some simpler means of customizing this list. Perhaps we can define a custom hook or put a form element in the ER-core settings page.
 		static $minorities = array("American Indian or Alaskan Native", "Black or African American", "Native Hawaiian", "Pacific Islander", "Filipino");
-		$query->innerJoin("field_data_field_er_race", 'race', 'users.uid = race.entity_id');
-		$query->innerJoin("field_data_field_er_ethnicity", 'ethnicity', 'users.uid = ethnicity.entity_id');
+		$query->innerJoin("field_data_".self::$field_aliases['race'], 'race', 'users.uid = race.entity_id');
+		$query->innerJoin("field_data_".self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
 		$query->condition(db_or()
-			->condition("race.field_er_race_value", $minorities, 'IN')
-			->condition("ethnicity.field_er_ethnicity_value", 1, '=')//1 == person is hispanic
+			->condition("race.".self::$field_aliases['race']."_value", $minorities, 'IN')
+			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 1, '=')//1 == person is hispanic
 		);
 	}
 	
 	private function generate_disabled_query(&$query){
-		$query->innerJoin("field_data_field_er_disabilities", 'disabilities', 'users.uid = disabilities.entity_id');
-		$query->isNotNull("disabilities.field_er_disabilities_value");
-		$query->condition("disabilities.field_er_disabilities_value", 'None', '!=');
+		$query->innerJoin("field_data_".self::$field_aliases['race'], 'disabilities', 'users.uid = disabilities.entity_id');
+		$query->isNotNull("disabilities.".self::$field_aliases['race']."_value");
+		$query->condition("disabilities.".self::$field_aliases['race']."_value", 'None', '!=');
 		//$query->addField("disabilities", "field_er_disabilities_value");
 	}
 	

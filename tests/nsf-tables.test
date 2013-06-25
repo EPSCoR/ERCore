@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Tests for er.module.
+ */
+
+abstract class ERTestNSFTables extends DrupalWebTestCase {
+  protected $arg = '';
+  
+  //use this to fill out the getInfo function
+  protected static function generateInfo($title){
+    return array(
+      'name' => "NSF Table: ".$title,
+      'description' => "Check for errors in the ".$title." NSF Table.",
+      'group' => 'ER Core',
+    );
+  }
+  
+  function setUp() {
+    require_once ER_MODULE_DIR.'/er_page.inc';
+    //drupal_load('module', 'er');
+    //parent::setUp();
+    
+    //Use the live database - this skips all the usual setup:
+    $this->setup = TRUE;
+  }
+  
+  //We don't have to teardown because we are not building up...
+  function tearDown() { }
+  
+  public function testTable(){
+    $class_name = 'er_' . str_replace( "-" , "_" , $this->arg);
+    $this->assertTrue(
+      module_load_include('inc', 'er', "pages/".$this->arg),
+      "Lazy load the $class_name class from file"
+    );
+    $class = new $class_name();
+    $data = $class->data();
+    //file_put_contents('/tmp/log', json_encode($data));
+    $this->assertTrue(is_array($data), "Run the {$class_name}->data() function, testing the queries.");
+  }
+}
+
+class ERTestSalarySupport extends ERTestNSFTables {
+  protected $arg = 'salary-support';
+  
+  public static function getInfo() {
+    return self::generateInfo('Salary Support');
+  }
+}
+
+class ERTestParticipants extends ERTestNSFTables {
+  protected $arg = 'participants';
+  
+  public static function getInfo() {
+    return self::generateInfo('Participants');
+  }
+}
+
+class ERTestExternalEngagements extends ERTestNSFTables {
+  protected $arg = 'external-engagement';
+  
+  public static function getInfo() {
+    return self::generateInfo('External Engagements');
+  }
+}
+
+class ERTestOutputs extends ERTestNSFTables {
+  protected $arg = 'outputs';
+  
+  public static function getInfo() {
+    return self::generateInfo('Outputs');
+  }
+}
+
+class ERTestCollaborations extends ERTestNSFTables {
+  protected $arg = 'collaborations';
+  
+  public static function getInfo() {
+    return self::generateInfo('Collaborations');
+  }
+}
