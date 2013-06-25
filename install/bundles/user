@@ -1,10 +1,90 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'user' => NULL,
   ),
   'fields' => array(
+    'field__er_particip_date_ca1' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'year' => 'year',
+          'day' => 0,
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => 'optional',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field__er_particip_date_ca1' => array(
+                'value' => 'field__er_particip_date_ca1_value',
+                'value2' => 'field__er_particip_date_ca1_value2',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field__er_particip_date_ca1' => array(
+                'value' => 'field__er_particip_date_ca1_value',
+                'value2' => 'field__er_particip_date_ca1_value2',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field__er_particip_date_ca1',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+        'value2' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
     'field_er_160hours' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -1750,6 +1830,75 @@ $data = array(
       'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_hired_date' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'granularity' => array(
+          'month' => 'month',
+          'year' => 'year',
+          'day' => 0,
+          'hour' => 0,
+          'minute' => 0,
+          'second' => 0,
+        ),
+        'tz_handling' => 'none',
+        'timezone_db' => '',
+        'cache_enabled' => 0,
+        'cache_count' => '4',
+        'repeat' => '0',
+        'todate' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_hired_date' => array(
+                'value' => 'field_er_hired_date_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_hired_date' => array(
+                'value' => 'field_er_hired_date_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_hired_date',
+      'type' => 'datetime',
+      'module' => 'date',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'datetime',
+          'mysql_type' => 'datetime',
+          'pgsql_type' => 'timestamp without time zone',
+          'sqlite_type' => 'varchar',
+          'sqlsrv_type' => 'smalldatetime',
+          'not null' => FALSE,
+          'sortable' => TRUE,
+          'views' => TRUE,
+        ),
+      ),
       'bundles' => array(
         'user' => array(
           0 => 'user',
@@ -3994,87 +4143,6 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
       ),
     ),
-    'field__er_particip_date_ca1' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'granularity' => array(
-          'month' => 'month',
-          'year' => 'year',
-          'day' => 0,
-          'hour' => 0,
-          'minute' => 0,
-          'second' => 0,
-        ),
-        'tz_handling' => 'none',
-        'timezone_db' => '',
-        'cache_enabled' => 0,
-        'cache_count' => '4',
-        'repeat' => '0',
-        'todate' => 'optional',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field__er_particip_date_ca1' => array(
-                'value' => 'field__er_particip_date_ca1_value',
-                'value2' => 'field__er_particip_date_ca1_value2',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field__er_particip_date_ca1' => array(
-                'value' => 'field__er_particip_date_ca1_value',
-                'value2' => 'field__er_particip_date_ca1_value2',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field__er_particip_date_ca1',
-      'type' => 'datetime',
-      'module' => 'date',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'datetime',
-          'mysql_type' => 'datetime',
-          'pgsql_type' => 'timestamp without time zone',
-          'sqlite_type' => 'varchar',
-          'sqlsrv_type' => 'smalldatetime',
-          'not null' => FALSE,
-          'sortable' => TRUE,
-          'views' => TRUE,
-        ),
-        'value2' => array(
-          'type' => 'datetime',
-          'mysql_type' => 'datetime',
-          'pgsql_type' => 'timestamp without time zone',
-          'sqlite_type' => 'varchar',
-          'sqlsrv_type' => 'smalldatetime',
-          'not null' => FALSE,
-          'sortable' => TRUE,
-          'views' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
-      ),
-    ),
     'field_provide_a_list_of_all_fund' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -4144,6 +4212,55 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
     ),
   ),
   'instances' => array(
+    'field__er_particip_date_ca1' => array(
+      0 => array(
+        'label' => 'Participating Date(s)',
+        'widget' => array(
+          'weight' => '75',
+          'type' => 'date_select',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'Y-m-d H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+            'weight' => 62,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Please enter the date when you (officially) began participating in EPSCoR.  Click the "show end date" box to make the Participating End Date widget appear.  If you are currently participating, do not enter an end date.',
+        'field_name' => 'field__er_particip_date_ca1',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_160hours' => array(
       0 => array(
         'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
@@ -4604,7 +4721,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'I plan to be collecting data through my research',
         'widget' => array(
-          'weight' => '35',
+          'weight' => '71',
           'type' => 'options_onoff',
           'module' => 'options',
           'active' => 1,
@@ -4742,7 +4859,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Data Frequency',
         'widget' => array(
-          'weight' => '38',
+          'weight' => '73',
           'type' => 'options_onoff',
           'module' => 'options',
           'active' => 1,
@@ -4785,7 +4902,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Data Repository Submission',
         'widget' => array(
-          'weight' => '39',
+          'weight' => '74',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4842,7 +4959,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Please enter the URL of the site where your metadata will be held',
         'widget' => array(
-          'weight' => '41',
+          'weight' => '76',
           'type' => 'link_field',
           'module' => 'link',
           'active' => 0,
@@ -5148,7 +5265,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Has this user been put in touch with the Data Manager?',
         'widget' => array(
-          'weight' => '40',
+          'weight' => '75',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5210,6 +5327,55 @@ Mobility/Orthopedic Impairment',
         'required' => 0,
         'description' => '',
         'field_name' => 'field_er_have_you_comp_the_rcr',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_hired_date' => array(
+      0 => array(
+        'label' => 'Hired Date',
+        'widget' => array(
+          'weight' => '77',
+          'type' => 'date_popup',
+          'module' => 'date',
+          'active' => 1,
+          'settings' => array(
+            'input_format' => 'm/d/Y - H:i:s',
+            'input_format_custom' => '',
+            'year_range' => '-3:+3',
+            'increment' => '15',
+            'label_position' => 'above',
+            'text_parts' => array(),
+            'repeat_collapsed' => 0,
+          ),
+        ),
+        'settings' => array(
+          'default_value' => 'now',
+          'default_value_code' => '',
+          'default_value2' => 'same',
+          'default_value_code2' => '',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'date_default',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
+            'weight' => 64,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'field_name' => 'field_er_hired_date',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -5816,7 +5982,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '77',
+          'weight' => '76',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -6376,7 +6542,7 @@ White|White',
       0 => array(
         'label' => 'Description of Data',
         'widget' => array(
-          'weight' => '37',
+          'weight' => '72',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -6455,55 +6621,6 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field__er_particip_date_ca1' => array(
-      0 => array(
-        'label' => 'Participating Date(s)',
-        'widget' => array(
-          'weight' => '76',
-          'type' => 'date_select',
-          'module' => 'date',
-          'active' => 1,
-          'settings' => array(
-            'input_format' => 'Y-m-d H:i:s',
-            'input_format_custom' => '',
-            'year_range' => '-3:+3',
-            'increment' => '15',
-            'label_position' => 'above',
-            'text_parts' => array(),
-            'repeat_collapsed' => 0,
-          ),
-        ),
-        'settings' => array(
-          'default_value' => 'now',
-          'default_value_code' => '',
-          'default_value2' => 'same',
-          'default_value_code2' => '',
-          'user_register_form' => 0,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'date_default',
-            'settings' => array(
-              'format_type' => 'long',
-              'multiple_number' => '',
-              'multiple_from' => '',
-              'multiple_to' => '',
-              'fromto' => 'both',
-              'show_repeat_rule' => 'show',
-            ),
-            'module' => 'date',
-            'weight' => 62,
-          ),
-        ),
-        'required' => 0,
-        'description' => 'Please enter the date when you (officially) began participating in EPSCoR.  Click the "show end date" box to make the Participating End Date widget appear.  If you are currently participating, do not enter an end date.',
-        'field_name' => 'field__er_particip_date_ca1',
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => '0',
-      ),
-    ),
     'field_provide_a_list_of_all_fund' => array(
       0 => array(
         'label' => 'Provide a list of all funding sources that supported your participation in EPSCoR',
@@ -6552,7 +6669,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Data Collection',
-      'weight' => '70',
+      'weight' => '69',
       'children' => array(
         0 => 'field_er_collecting_data_bool',
         1 => 'field_er_data_frequency',
@@ -6784,14 +6901,14 @@ White|White',
         2 => 'field_er_components',
         3 => 'field_er_description',
         4 => 'field_er_paid',
-        5 => 'field_er_participant_date',
-        6 => 'field_er_rcr_completion_bool',
-        7 => 'field_er_supervisor',
-        8 => 'field_er_months_of_effort',
-        9 => 'field_er_have_you_comp_the_rcr',
-        10 => 'field_er_most_sen_proj_role_ca1',
-        11 => 'field_provide_a_list_of_all_fund',
-        12 => 'field_er_select_the_near_ca1',
+        5 => 'field_er_rcr_completion_bool',
+        6 => 'field_er_supervisor',
+        7 => 'field_er_months_of_effort',
+        8 => 'field_er_have_you_comp_the_rcr',
+        9 => 'field_er_most_sen_proj_role_ca1',
+        10 => 'field_provide_a_list_of_all_fund',
+        11 => 'field_er_select_the_near_ca1',
+        12 => 'field_er_hired_date',
         13 => 'field__er_particip_date_ca1',
         14 => 'group_er_certs',
         15 => 'group_er_education',
