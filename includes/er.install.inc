@@ -163,7 +163,7 @@ function er_get_role_by_name($name){
 //This function will hijack the role by setting the role's RID to the RID that is expected by our system.
 function er_batch_hijack_roles($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now hijacking role: @name', array('@name' => $name));
+	$context['message'] = t('Now reserving role: @name', array('@name' => $name));
 	if (file_exists($file_path)){
 		include($file_path);//$role variable becomes available
 		$db_role = er_get_role_by_name($role['name']);

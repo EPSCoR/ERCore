@@ -140,7 +140,7 @@ function er_testing() {
 		$requirements[] = array(
 			'severity' => REQUIREMENT_ERROR,
 			'title' => "Role: $name",
-			'description' => "The system found a role by the name of \"$name\" that is in conflict with ER-Core. <br>You can choose to rename the role, or you may hijack the role for use in ER-Core's system. Hijacking the role will <u>not</u> automatically reset it's permissions.",
+			'description' => "The system found a role by the name of \"$name\" that is in conflict with ER-Core. <br>You can choose to rename the role, or you may hijack the role for use in ER-Core's system. Reserving the role will <u>not</u> automatically reset it's permissions.",
 			'value' => l('<i class="icon-refresh"></i> Hijack role'.($label?" $label":""), "admin/config/epscor/er/reset/hijack_roles/$rid", array('html'=>true)),
 		);
 	}	
