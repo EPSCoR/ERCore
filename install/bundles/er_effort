@@ -262,8 +262,7 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_paid',
-          1 => 'er_effort',
+          0 => 'er_effort',
         ),
       ),
     ),
@@ -280,17 +279,10 @@ $data = array(
           'settings' => array(),
         ),
         'settings' => array(
-          'min' => '',
-          'max' => '',
+          'min' => '0',
+          'max' => '12',
           'prefix' => '',
-          'suffix' => '',
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
+          'suffix' => 'months',
           'user_register_form' => FALSE,
         ),
         'display' => array(
@@ -333,17 +325,10 @@ $data = array(
           'settings' => array(),
         ),
         'settings' => array(
-          'min' => '',
-          'max' => '',
+          'min' => '0',
+          'max' => '12',
           'prefix' => '',
-          'suffix' => '',
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
+          'suffix' => 'months',
           'user_register_form' => FALSE,
         ),
         'display' => array(
@@ -386,17 +371,10 @@ $data = array(
           'settings' => array(),
         ),
         'settings' => array(
-          'min' => '',
-          'max' => '',
+          'min' => '0',
+          'max' => '12',
           'prefix' => '',
-          'suffix' => '',
-          'required_by_role' => array(
-            5 => 0,
-            4 => 0,
-            6 => 0,
-            3 => 0,
-            1 => 0,
-          ),
+          'suffix' => 'months',
           'user_register_form' => FALSE,
         ),
         'display' => array(
