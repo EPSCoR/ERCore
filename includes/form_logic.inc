@@ -65,8 +65,59 @@ function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	$form['field_er_collab_ref']['#disabled'] = TRUE;
-	$form['field_er_collab_inst_ref']['#disabled'] = TRUE;
-	//d($form, 'er_form_er_collaborators_node_form_alter');
+	$form['autofill_collab_submit'] = array(
+		'#value' => 'Auto-fill fields below',
+		'#type' => 'submit',
+		'#limit_validation_errors' => array(array('field_user_lookup')),
+		'#submit' => array('autopopulate_collab_submit_callback'),
+		'#name' => 'field_er_user_entity_reference_add_new',
+		'#attributes' => array('class'=>array('field-add-more-submit')),
+	);
+	$form['autofill_collab_submit']['#weight'] = $form['field_user_lookup']['#weight'] + 0.5;
+	if (isset($form['#group_children']['field_user_lookup']))
+		$form['#group_children']['autofill_collab_submit'] = $form['#group_children']['field_user_lookup'];
+		
+	if (isset($form_state['attached_user']) && $user = user_load($form_state['attached_user'])){
+		//recursive_find_value(51516, $form_state);
+		d($user, '$user');
+		$u = entity_metadata_wrapper('user', $user);
+		$form_state['input']['field_er_collab_name']['und'] = $u->field_er_realname->value();
+		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
+		$form_state['input']['field_er_collab_user_status']['und'] = "Collaborator";//"Participant";//
+		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();//for some reason this one is different... must be because its not required.
+		unset($form_state['attached_user']);
+	}
+	
+	d($form, '$form');
+	d($form_state, '$form_state');
+}
+
+function recursive_find_value($needle, $haystack, $path = array(), $depth = 0){
+	$type = gettype($needle);
+	$needle = (string)$needle;
+	foreach ($haystack as $k=>$v){
+		if ($depth == 30)
+			return;
+		$thispath = array_merge($path, array($k));
+		if ((gettype($v) == $type && $v == $needle) || (is_numeric($v) && (string)$v == $needle)){
+			d($thispath, 'value was found!');
+		}else if(is_array($v)){
+			$depth++;
+			recursive_find_value($needle, $v, $thispath, $depth);
+		}else if(is_object($v)){
+			$depth++;
+			recursive_find_value($needle, (array)$v, $thispath, $depth);
+		}
+	}
+}
+
+function autopopulate_collab_submit_callback(&$form, &$form_state){
+	d('form submitted');
+	//d($form_state, '$form_state');
+	//d($form, '$form submit');
+	$uid = $form_state['values']['field_user_lookup']['und'][0]['target_id'];
+	$form_state['attached_user'] = $uid;
+	$form_state['rebuild'] = TRUE;
 }
 
 // Collaboration
