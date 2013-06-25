@@ -61,7 +61,7 @@ $handler->display->display_options['header']['area']['field'] = 'area';
 $handler->display->display_options['footer']['area']['id'] = 'area';
 $handler->display->display_options['footer']['area']['table'] = 'views';
 $handler->display->display_options['footer']['area']['field'] = 'area';
-$handler->display->display_options['footer']['area']['content'] = 'Effort and Funded Amount information is required for each person listed above. For those not receiving support, please enter zeros.<br>
+$handler->display->display_options['footer']['area']['content'] = 'Effort is required for each person listed above.<br>
 Note to administration:  Any values entered into this table will be calculated in Table A Salary Support regardless of the status of Draft or Completed.';
 $handler->display->display_options['footer']['area']['format'] = 'full_html';
 /* Relationship: Content: Author */
