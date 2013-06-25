@@ -3172,11 +3172,14 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'markup' => array(
-          'value' => '<p>
-Download the<a href="<?php echo $file_url;?>"> External Engagement Reporting Sheet</a> and fill out the data at your event.   
+          'value' => '<?php
+$file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Reporting_Sheet.xls");
+ ?>
+<p>
+Download the<a href="<?php echo $file_url;?>">External Engagement Reporting Sheet</a> and fill out the data at your event.   
 Once the sheet is completed you may then upload the excel sheet below, and the system will do the rest
 </p>',
-          'format' => 'full_html',
+          'format' => 'php_code',
         ),
       ),
       'storage' => array(
