@@ -119,6 +119,10 @@ function er_field_attach_presave($entity_type, $entity){
   }
 }
 
+/**
+ * This function gets run during the save phase of a er_collaborators node.
+ * The function prevents a user from adding a person as a participant while not being tagged with a participating institution.
+ */
 function _validate_collaborators(&$node){
 	//d($node, '$node');
 	$n = entity_metadata_wrapper('node', $node);
