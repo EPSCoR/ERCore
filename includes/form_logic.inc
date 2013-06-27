@@ -81,10 +81,12 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		//recursive_find_value(51516, $form_state);
 		//d($user, '$user');
 		$u = entity_metadata_wrapper('user', $user);
-		$form_state['input']['field_er_collab_name']['und'] = $u->field_er_realname->value();
+		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
+		//I haven't figured out how to make this more robust yet...
+		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
 		$form_state['input']['field_er_collab_user_status']['und'] = "Collaborator";//"Participant";//
-		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();//for some reason this one is different... must be because its not required.
+		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();
 		unset($form_state['attached_user']);
 	}
 	
