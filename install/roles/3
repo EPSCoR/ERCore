@@ -277,7 +277,6 @@ $role = array(
     'use PHP for settings',
     'use text format filtered_html',
     'use text format full_html',
-    'use text format php_code',
     'view any administrative_staff profile',
     'view any administrator profile',
     'view any faculty profile',
