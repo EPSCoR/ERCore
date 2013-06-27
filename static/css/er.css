@@ -3,29 +3,29 @@
  */
 
 div#tooltip{
-    position: absolute;
-    background: silver;
-    padding: 6px;
-    border: 1px solid black;
-    width: 200px;
-    /*height: 40px;*/
-    z-index: 999;
-    /*visibility: hidden;*/
-    display: none;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  position: absolute;
+  background: silver;
+  padding: 6px;
+  border: 1px solid black;
+  width: 200px;
+  /*height: 40px;*/
+  z-index: 999;
+  /*visibility: hidden;*/
+  display: none;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 div#tooltip .title{
-    font-weight: bold;
+  font-weight: bold;
 }
 div#tooltip .title a{
-    color: #427597;
+  color: #427597;
 }
 
 
 .er-needs-review-label{
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 /*
@@ -33,29 +33,29 @@ div#tooltip .title a{
  * this is deprecated..?
  */
 nav#er-content-links > div.item-list{
-    float: left;
-    width: 240px;
-    white-space: normal;
+  float: left;
+  width: 240px;
+  white-space: normal;
 }
 
 nav#er-content-links ul{
-    list-style-image: url('../../../themes/epscor/images/icons/16/Add.png');
+  list-style-image: url('../../../themes/epscor/images/icons/16/Add.png');
 }
 
 /* used in the new create content pages: node/add2, node/add3 */
 nav.full .item-list{
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 /*
  * This is used on the summary table to change the look of the date range form.
  */
 .fake-inline .container-inline-date{
-    display: inline;
+  display: inline;
 }
 
 .fake-inline input[type="submit"]{
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 
@@ -76,7 +76,7 @@ form#user-profile-form .form-type-textfield .description, form#user-profile-form
 }
 */
 
-/* Collaborations customizations */
-div.collaboration-sidebar{
-    float:right;
+.er-collab-inst-block-view{
+  padding: 15px;
+  float: right;
 }

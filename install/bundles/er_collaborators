@@ -94,13 +94,12 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'target_type' => 'node',
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
-          'target_bundles' => array(
-            'er_institution' => 'er_institution',
-          ),
-          'sort' => array(
-            'type' => 'none',
+          'view' => array(
+            'view_name' => 'er_participating_institutions',
+            'display_name' => 'entityreference_1',
+            'args' => array(),
           ),
           'behaviors' => array(
             'views-select-list' => array(
@@ -166,16 +165,12 @@ $data = array(
         ),
       ),
     ),
-    'field_er_collab_names' => array(
-      'type_name' => 'er_collaborator',
+    'field_er_collab_name' => array(
+      'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
-        'max_length' => 255,
-        'text_processing' => '0',
-        'allowed_values' => '',
-        'allowed_values_php' => '',
+        'max_length' => '255',
       ),
-      'translatable' => '0',
       'storage' => array(
         'type' => 'field_sql_storage',
         'settings' => array(),
@@ -184,15 +179,15 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_collab_names' => array(
-                'value' => 'field_er_collab_names_value',
-                'format' => 'field_er_collab_names_format',
+              'field_data_field_er_collab_name' => array(
+                'value' => 'field_er_collab_name_value',
+                'format' => 'field_er_collab_name_format',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_collab_names' => array(
-                'value' => 'field_er_collab_names_value',
-                'format' => 'field_er_collab_names_format',
+              'field_revision_field_er_collab_name' => array(
+                'value' => 'field_er_collab_name_value',
+                'format' => 'field_er_collab_name_format',
               ),
             ),
           ),
@@ -214,17 +209,17 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_collab_names',
+      'field_name' => 'field_er_collab_name',
       'type' => 'text',
       'module' => 'text',
       'active' => '1',
       'locked' => '0',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
           'type' => 'varchar',
-          'length' => 255,
+          'length' => '255',
           'not null' => FALSE,
         ),
         'format' => array(
@@ -235,8 +230,7 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_other_product',
-          1 => 'er_collaborators',
+          0 => 'er_collaborators',
         ),
       ),
     ),
@@ -317,13 +311,147 @@ $data = array(
         ),
       ),
     ),
+    'field_er_collab_user_status' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          'Participant' => 'Participant',
+          'Collaborator' => 'Collaborator',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_collab_user_status' => array(
+                'value' => 'field_er_collab_user_status_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_collab_user_status' => array(
+                'value' => 'field_er_collab_user_status_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_collab_user_status',
+      'type' => 'list_text',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+        ),
+      ),
+    ),
+    'field_user_lookup' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'target_type' => 'user',
+        'handler' => 'realname',
+        'handler_settings' => array(
+          'target_bundles' => array(),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_user_lookup' => array(
+                'target_id' => 'field_user_lookup_target_id',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_user_lookup' => array(
+                'target_id' => 'field_user_lookup_target_id',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'table' => 'node',
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_user_lookup',
+      'type' => 'entityreference',
+      'module' => 'entityreference',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'target_id' => array(
+          'description' => 'The id of the target entity.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+        ),
+      ),
+    ),
   ),
   'instances' => array(
     'field_er_collab_department_unit' => array(
       0 => array(
         'label' => 'Collaborating Institution Department/Unit',
         'widget' => array(
-          'weight' => '5',
+          'weight' => '8',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -363,23 +491,16 @@ $data = array(
       0 => array(
         'label' => 'Institution',
         'widget' => array(
-          'weight' => '3',
-          'type' => 'entityreference_autocomplete',
-          'module' => 'entityreference',
+          'weight' => '7',
+          'type' => 'options_buttons',
+          'module' => 'options',
           'active' => 1,
-          'settings' => array(
-            'match_operator' => 'CONTAINS',
-            'size' => '60',
-            'path' => '',
-          ),
+          'settings' => array(),
         ),
         'settings' => array(
           'behaviors' => array(
             'prepopulate' => array(
-              'status' => 1,
-              'action' => 'disable',
-              'fallback' => 'form_error',
-              'skip_perm' => '0',
+              'status' => 0,
             ),
           ),
           'user_register_form' => FALSE,
@@ -404,18 +525,18 @@ $data = array(
         'required' => 1,
         'description' => '',
         'default_value' => NULL,
-        'default_value_function' => 'entityreference_prepopulate_field_default_value',
+        'default_value_function' => '',
         'field_name' => 'field_er_collab_inst_ref',
         'entity_type' => 'node',
         'bundle' => 'er_collaborators',
         'deleted' => '0',
       ),
     ),
-    'field_er_collab_names' => array(
+    'field_er_collab_name' => array(
       0 => array(
-        'label' => 'Non-EPSCoR Participant Research Collaborators',
+        'label' => 'Name of Collaborating Individual',
         'widget' => array(
-          'weight' => '4',
+          'weight' => '5',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -433,7 +554,7 @@ $data = array(
             'type' => 'text_default',
             'settings' => array(),
             'module' => 'text',
-            'weight' => 0,
+            'weight' => 5,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -443,9 +564,9 @@ $data = array(
           ),
         ),
         'required' => 1,
-        'description' => '',
+        'description' => 'Please provide the full name of the person.',
         'default_value' => NULL,
-        'field_name' => 'field_er_collab_names',
+        'field_name' => 'field_er_collab_name',
         'entity_type' => 'node',
         'bundle' => 'er_collaborators',
         'deleted' => '0',
@@ -501,6 +622,201 @@ $data = array(
         'entity_type' => 'node',
         'bundle' => 'er_collaborators',
         'deleted' => '0',
+      ),
+    ),
+    'field_er_collab_user_status' => array(
+      0 => array(
+        'label' => 'User Status',
+        'widget' => array(
+          'weight' => '6',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 6,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 1,
+        'description' => 'An individual must contribute more than 160 hours of effort per year to EPSCoR funded work, and must belong to a participating (internal) institution in order to be considered a Participant. All others are considered Collaborators.',
+        'default_value' => array(
+          0 => array(
+            'value' => 'Collaborator',
+          ),
+        ),
+        'field_name' => 'field_er_collab_user_status',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_user_lookup' => array(
+      0 => array(
+        'label' => 'User Lookup',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'entityreference_autocomplete',
+          'module' => 'entityreference',
+          'active' => 1,
+          'settings' => array(
+            'match_operator' => 'CONTAINS',
+            'size' => '60',
+            'path' => '',
+          ),
+        ),
+        'settings' => array(
+          'behaviors' => array(
+            'prepopulate' => array(
+              'status' => 0,
+            ),
+          ),
+          'nodeaccess_userreference' => array(
+            'referenced' => array(
+              'view' => 0,
+              'update' => 0,
+              'delete' => 0,
+              'deny_view' => 0,
+              'deny_update' => 0,
+              'deny_delete' => 0,
+            ),
+            'referenced_published' => '0',
+            'create' => array(
+              'article' => 0,
+              'page' => 0,
+              'er_event' => 0,
+              'er_collaboration' => 0,
+              'er_collaborators' => 0,
+              'er_engagement' => 0,
+              'er_news' => 0,
+              'er_award' => 0,
+              'er_institution' => 0,
+              'er_other_product' => 0,
+              'er_patent' => 0,
+              'er_presentation' => 0,
+              'er_proposal' => 0,
+              'er_publication' => 0,
+              'simpletest_example' => 0,
+            ),
+            'author' => array(
+              'view' => 0,
+              'update' => 0,
+              'delete' => 0,
+            ),
+            'author_published' => '0',
+            'all' => array(
+              'view' => 0,
+            ),
+            'all_published' => '0',
+            'unused' => '0',
+            'views' => array(
+              'view' => '',
+              'view_args' => '',
+            ),
+            'priority' => '0',
+          ),
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'entityreference_label',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
+            'weight' => 7,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Look-up the name of anyone with an account in the system. If the name you wish to enter does not show up, please manually fill out the form below.',
+        'default_value' => NULL,
+        'default_value_function' => '',
+        'field_name' => 'field_user_lookup',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+  ),
+  'fieldgroups' => array(
+    'group_er_collab_manual|node|er_collaborators|form' => (object) array(
+      'id' => '26',
+      'identifier' => 'group_er_collab_manual|node|er_collaborators|form',
+      'group_name' => 'group_er_collab_manual',
+      'entity_type' => 'node',
+      'bundle' => 'er_collaborators',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Manual Entry',
+      'weight' => '3',
+      'children' => array(
+        0 => 'field_er_collab_department_unit',
+        1 => 'field_er_collab_inst_ref',
+        2 => 'field_er_collab_name',
+        3 => 'field_er_collab_user_status',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'Manual Entry',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => '',
+        ),
+        'formatter' => 'open',
+      ),
+    ),
+    'group_er_collab_lookup|node|er_collaborators|form' => (object) array(
+      'id' => '28',
+      'identifier' => 'group_er_collab_lookup|node|er_collaborators|form',
+      'group_name' => 'group_er_collab_lookup',
+      'entity_type' => 'node',
+      'bundle' => 'er_collaborators',
+      'mode' => 'form',
+      'parent_name' => '',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'User Lookup',
+      'weight' => '2',
+      'children' => array(
+        0 => 'field_user_lookup',
+      ),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'User Lookup',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => 'Use this form if the user has a login into the system. Otherwise enter the information manually below.',
+        ),
+        'formatter' => 'collapsible',
       ),
     ),
   ),
