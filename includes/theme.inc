@@ -70,6 +70,10 @@ function er_field_formatter_info() {
 		'user_status_icons' => array(
 			'label' => t('ER Core - User status icons'),
 			'field types' => array('list_text'),
+		),
+		'inst_participating_icons' => array(
+			'label' => t('ER Core - Institution status icons'),
+			'field types' => array('list_boolean'),
 		)
   );
 }
@@ -88,6 +92,14 @@ function er_field_formatter_view($entity_type, $entity, $field, $instance, $lang
 			$icon = $value=='Participant'?'icon-home':'icon-globe';
 			return array(array(
 				'#markup' => '<i class="'.$icon.' help-tooltip" data-original-title="'.$value.'" data-placement="top"></i>',
+			));
+		case 'inst_participating_icons'://This is being used in the view er_collab_inst_block to theme up the User Status field
+			$item = array_pop($items);//there should only be one value
+			$participating = $item['value'];
+			$label = ($participating?'Participating':'Collaborating').' Institution';
+			$icon = $participating?'icon-home':'icon-globe';
+			return array(array(
+				'#markup' => '<i class="'.$icon.' help-tooltip" data-original-title="'.$label.'" data-placement="top"></i>',
 			));
 	}
   //return array();

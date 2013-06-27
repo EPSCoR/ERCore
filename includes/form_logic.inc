@@ -70,8 +70,8 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		'#type' => 'submit',
 		'#limit_validation_errors' => array(array('field_user_lookup')),
 		'#submit' => array('autopopulate_collab_submit_callback'),
-		'#name' => 'field_er_user_entity_reference_add_new',
-		'#attributes' => array('class'=>array('field-add-more-submit')),
+		//'#name' => 'field_er_user_entity_reference_add_new',
+		//'#attributes' => array('class'=>array('field-add-more-submit')),
 	);
 	$form['autofill_collab_submit']['#weight'] = $form['field_user_lookup']['#weight'] + 0.5;
 	if (isset($form['#group_children']['field_user_lookup']))
@@ -83,17 +83,19 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		$u = entity_metadata_wrapper('user', $user);
 		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
 		//I haven't figured out how to make this more robust yet...
+		$participating = check_user_participating($user->uid);
+		$status = $participating?'Participant':'Collaborator';
 		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
-		$form_state['input']['field_er_collab_user_status']['und'] = "Collaborator";//"Participant";//
+		$form_state['input']['field_er_collab_user_status']['und'] = $status;
 		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();
 		unset($form_state['attached_user']);
+		drupal_set_message(t('Please verify the auto-filled values below, then click save.'), 'warning');
 	}
 	
 	//d($form, '$form');
 	//d($form_state, '$form_state');
 }
-
 
 /**
  * Weirdo function I created for debugging purposes.

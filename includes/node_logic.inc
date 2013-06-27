@@ -66,6 +66,8 @@ function er_node_validate($node){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'validate');
 			break;
+		case 'er_collaborators':
+			_validate_collaborators($node);
 	}
 }
 
@@ -115,6 +117,22 @@ function er_field_attach_presave($entity_type, $entity){
       $entity->{$field}[$lang][0]['value2'] = null;
     }
   }
+}
+
+function _validate_collaborators(&$node){
+	//d($node, '$node');
+	$n = entity_metadata_wrapper('node', $node);
+	$inst = $n->field_er_collab_inst_ref->value();
+	if ($inst){
+		$status = $n->field_er_collab_user_status ->raw();
+		$i = entity_metadata_wrapper('node', $inst);
+		$participating = $i->field_er_inst_participating->value();
+		//d($participating, '$participating');
+		if ($status == 'Participant' && !$participating){
+			$message = t("Sorry, '@title' is not currently considered a participating institution. Every participant must belong to a participating institution. This person should therefore be considered a collaborator. If you believe this is incorrect, please contact an administrator and ask them to change the institution's status.", array('@title'=>$inst->title));
+			form_set_error('field_er_collab_user_status', $message);
+		}
+	}
 }
 
 //EE = External Engagements
