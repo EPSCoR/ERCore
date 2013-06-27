@@ -71,42 +71,25 @@ function er_node_validate($node){
 
 function er_node_insert($node){
 	switch ($node->type){
-		case 'er_collaboration':
-			_manage_er_collaborations($node, 'insert');
-      		_manage_er_collaboration_status($node);
-			break;
-    case 'er_collaborators':
-      		_manage_er_collaborators($node, 'insert');
-      		break;
     case 'er_proposal':
-            er_manage_cnp_extra_nodes($node, 'insert');
-            break;			
+			er_manage_cnp_extra_nodes($node, 'insert');
+			break;			
 	}
 }
 
 function er_node_update($node){
   switch ($node->type){
-		case 'er_collaboration':
-			_manage_er_collaborations($node, 'update');
-    	    _manage_er_collaboration_status($node);
+		case 'er_proposal':
+			er_manage_cnp_extra_nodes($node, 'update');
 			break;
-    	case 'er_collaborators':
-      		_manage_er_collaborators($node, 'update');
-      		break;
-        case 'er_proposal':
-            er_manage_cnp_extra_nodes($node, 'update');
-            break;
-        case 'er_effort':
-            er_check_cnp_extra_status($node->nid, $node);
-            break;			
+		case 'er_effort':
+			er_check_cnp_extra_status($node->nid, $node);
+			break;			
 	}
 }
 
 function er_node_delete($node){
   switch ($node->type){
-    case 'er_collaborators':
-      _manage_er_collaborators($node, 'delete');
-      break;
 	case 'er_proposal':
 	  er_manage_cnp_extra_nodes($node, 'delete');
 	  break;	  
@@ -131,128 +114,6 @@ function er_field_attach_presave($entity_type, $entity){
 		if (count($entity->{$field}[$lang]) && isset($entity->{$field}[$lang][0]['show_todate']) && !$entity->{$field}[$lang][0]['show_todate']){
       $entity->{$field}[$lang][0]['value2'] = null;
     }
-  }
-}
-
-/*
- * This function gets run whenever a collaboration node gets saved (insert or update)
- * It checks the user entity-reference field to see if there are any collaborators listed,
- *  and if so, it displays a warning instructing them to make sure that the name
- *  appaears in the right sidepanel (for collaborator reporting)
- */
-function _manage_er_collaborations(&$node, $op){
-  $lang = $node->language;
-	$warnings = array();
-  if (isset($node->field_er_user_entity_reference) && count($node->field_er_user_entity_reference[$lang])){//the field is available
-		foreach ($node->field_er_user_entity_reference[$lang] as $k=>$values){
-			if (isset($values['target_id']) && $values['target_id'] != ""){
-				$user = user_load($values['target_id']);
-				$participating = check_user_participating($user);
-				if (!$participating){
-					$u = entity_metadata_wrapper('user', $user);
-					$warnings[$user->uid] = $u->field_er_realname->value();
-				}
-			}
-		}
-	}else{//error - sanity check
-		drupal_set_message('Unable to find the users associated with this collaboration node! Please contact an administrator about this error!', 'error');
-	}
-	if (count($warnings)){//Display a general warning
-		drupal_set_message("<strong>Note:</strong> Anyone who contributes less than 160 hours of effort per year, and/or their primary institution is not internal to EPSCoR, is considered a <strong>collaborator</strong> by NSF. Collaborators are only counted if their name appears in the list in the right side-panel.", 'warning');
-	}
-	foreach ($warnings as $uid=>$name){//Display a warning for each collaborator found
-		drupal_set_message(l($name, "user/$uid") . ' is currently considered a '.l('collaborator', "user/$uid/status").'. <br><strong>Please make sure to add this person\'s name to the list of collaborators in the right side panel.</strong>', 'warning');
-	}
-}
-
-/*
- * This function fires whenever an er_collaborator node gets inserted or updated
- * The function runs _manage_er_collaboration_status on the collaboration node it's attached to.
- */
-function _manage_er_collaborators(&$node, $op){
-  $collab_nid = $node->field_er_collab_ref['und'][0]['target_id'];
-  $inst_nid = $node->field_er_collab_inst_ref['und'][0]['target_id'];
-  $inst_node = node_load($inst_nid);
-  $participating_inst = ($inst_node->field_er_inst_participating['und'][0]['value'] == 1);
-  switch ($op){
-    case 'insert':
-    case 'update':
-      if (!$participating_inst){//if it's a participating institution, don't bother checking because it doesn't matter.
-        $collab = node_load($collab_nid);
-        _manage_er_collaboration_status($collab);//re-check the draft status...
-			}
-      break;
-    case 'delete':
-      if (!$participating_inst){//if you delete one of the external collaborator nodes, invalidate the collaboration.
-        $flag = flag_get_flag('er_draft_status');
-        $flag->flag("flag", $collab_nid);
-      }
-      break;
-  }
-  //
-}
-
-/*
- * This function gets run whenever a er_collaboration OR er_collaborator node is saved (insert or update)
- * The function checks to make sure that there are collaborators attached to any external institutions
- *  attached to the collaboration node. If not, it sets the collaboration to be in "draft status" mode (using flags).
- */
-function _manage_er_collaboration_status(&$node){
-  //d($node);
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'er_collaborators')
-    ->fieldCondition('field_er_collab_ref', 'target_id', $node->nid, '=');
-  //query for all er_collaborator nodes matching...
-  $result = $query->execute();
-  //d($result, '$result');
-  $collab_nodes = array();
-  if (isset($result['node'])) 
-    $collab_nodes = entity_load('node', array_keys($result['node']));
-  //d($collab_nodes, '$collab_nodes');
-  $inst_nids_found = array();
-  foreach ($collab_nodes as $nid=>$collab_node){
-    $inst_nids_found[] = $collab_node->field_er_collab_inst_ref['und'][0]['target_id'];
-  }
-  
-  $n = entity_metadata_wrapper('node', $node);
-  $inst_nids_referenced = $n->field_er_inst_ref->raw();
-  
-  
-  /*
-   * This will match up what was found with what was referenced.
-   * If anything is left over, it means that something is missing.
-   */
-  //d($inst_nids_found, '$inst_nids_found 1');
-  //d($inst_nids_referenced, '$inst_nids_referenced 1');
-  foreach ($inst_nids_found as $k1=>$found_nid){
-    foreach ($inst_nids_referenced as $k2=>$referenced_nid){
-      if ($found_nid == $referenced_nid){
-        unset($inst_nids_found[$k1]);
-        unset($inst_nids_referenced[$k2]);
-      }
-    }
-  }  
-  //d($inst_nids_found, '$inst_nids_found 2');
-  //d($inst_nids_referenced, '$inst_nids_referenced 2');
-  
-  $draft = false;
-  //Loop over any node ids that are referenced but don't have a corresponding collaborator node:
-  foreach ($inst_nids_referenced as $k=>$referenced_nid){
-    $inst_node = node_load($referenced_nid);
-    //if it's not a participating institution:
-    if ($inst_node->field_er_inst_participating['und'][0]['value'] != 1){
-      //d('Flag this node as draft. It needs more info.');
-      $draft = true;
-      break;
-    }
-  }
-  
-  $flag = flag_get_flag('er_draft_status');
-  if ($draft){
-    $flag->flag('flag', $node->nid);//turn on draft mode
-  }else{
-    $flag->flag('unflag', $node->nid);//publish
   }
 }
 

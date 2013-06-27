@@ -33,3 +33,23 @@ function er_views_query_alter(&$view, &$query){
 		}
 	}
 }
+
+
+
+
+/**
+ * This function gets called from within er_collab_inst_block view.
+ * It generates a hyperlink.
+ */
+function er_collaborations_view_link(&$view){
+	global $user;
+	$node = menu_get_object();
+	if ($node->type == "er_collaboration" && node_access("update", $node, $user) === TRUE) {
+		$collab_id = $view->argument['field_er_collab_ref_target_id']->value[0];
+		$query = array('field_er_collab_ref' => $collab_id, 'destination'=>"node/".$node->nid);
+		$label = '<i class="icon-plus-sign"></i> '.(count($view->result)?
+						'Add another collaborator':
+						'<strong>Add a name to this collaboration</strong>');
+		return l($label, 'node/add/er-collaborators', array('html'=>true, 'query' => $query) );
+	}
+}

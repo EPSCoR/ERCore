@@ -13,9 +13,7 @@
     </div>
   <?php endif; ?>
   
-  <div class="collaboration-sidebar">
-    <?php echo theme('er_collab_inst_block'); ?>
-  </div>
+  <?php echo theme('er_collab_inst_block'); ?>
   
   <div class="content"<?php print $content_attributes; ?>>
     <?php
@@ -25,6 +23,8 @@
       print render($content);
     ?>
   </div>
+  
+  <div style="clear:both;"></div>
 
   <?php print render($content['links']); ?>
 

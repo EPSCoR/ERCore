@@ -79,7 +79,7 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		
 	if (isset($form_state['attached_user']) && $user = user_load($form_state['attached_user'])){
 		//recursive_find_value(51516, $form_state);
-		d($user, '$user');
+		//d($user, '$user');
 		$u = entity_metadata_wrapper('user', $user);
 		$form_state['input']['field_er_collab_name']['und'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
@@ -88,35 +88,41 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		unset($form_state['attached_user']);
 	}
 	
-	d($form, '$form');
-	d($form_state, '$form_state');
+	//d($form, '$form');
+	//d($form_state, '$form_state');
 }
 
-function recursive_find_value($needle, $haystack, $path = array(), $depth = 0){
-	$type = gettype($needle);
-	$needle = (string)$needle;
-	foreach ($haystack as $k=>$v){
-		if ($depth == 30)
-			return;
-		$thispath = array_merge($path, array($k));
-		if ((gettype($v) == $type && $v == $needle) || (is_numeric($v) && (string)$v == $needle)){
-			d($thispath, 'value was found!');
-		}else if(is_array($v)){
-			$depth++;
-			recursive_find_value($needle, $v, $thispath, $depth);
-		}else if(is_object($v)){
-			$depth++;
-			recursive_find_value($needle, (array)$v, $thispath, $depth);
-		}
-	}
-}
+
+/**
+ * Weirdo function I created for debugging purposes.
+ * It searches a datastructure for all of the occurrences of some value.
+ * Useful if need to figure out where the a certain value is stored.
+ */
+//function recursive_find_value($needle, $haystack, $path = array(), $depth = 0){
+//	$type = gettype($needle);
+//	$needle = (string)$needle;
+//	foreach ($haystack as $k=>$v){
+//		if ($depth == 30)
+//			return;
+//		$thispath = array_merge($path, array($k));
+//		if ((gettype($v) == $type && $v == $needle) || (is_numeric($v) && (string)$v == $needle)){
+//			d($thispath, 'value was found!');
+//		}else if(is_array($v)){
+//			$depth++;
+//			recursive_find_value($needle, $v, $thispath, $depth);
+//		}else if(is_object($v)){
+//			$depth++;
+//			recursive_find_value($needle, (array)$v, $thispath, $depth);
+//		}
+//	}
+//}
 
 function autopopulate_collab_submit_callback(&$form, &$form_state){
-	d('form submitted');
+	//d('form submitted');
 	//d($form_state, '$form_state');
 	//d($form, '$form submit');
-	$uid = $form_state['values']['field_user_lookup']['und'][0]['target_id'];
-	$form_state['attached_user'] = $uid;
+	if ($uid = $form_state['values']['field_user_lookup']['und'][0]['target_id'])
+		$form_state['attached_user'] = $uid;
 	$form_state['rebuild'] = TRUE;
 }
 

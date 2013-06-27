@@ -64,9 +64,13 @@ function er_theme($existing, $type, $theme, $path){
 function er_field_formatter_info() {
   return array(
     'date_custom' => array(
-      'label' => t('Custom date format'),
+      'label' => t('ER Core - Custom date format'),
       'field types' => array('date'),
     ),
+		'user_status_icons' => array(
+			'label' => t('ER Core - User status icons'),
+			'field types' => array('list_text'),
+		)
   );
 }
 
@@ -74,28 +78,40 @@ function er_field_formatter_info() {
  * Implements hook_field_formatter_view().
  */
 function er_field_formatter_view($entity_type, $entity, $field, $instance, $lang_code, $items, $display) {
-	$elements = array();
-	$format = 'F j, Y';
+
 	switch ($display['type']) {
 		case 'date_custom':
-			foreach ($items as $delta => $item) {
-				$date_settings = array(
-					'timezone'=>$item['timezone'],
-					'timezone_db'=>$item['timezone_db'],
-					'date_type'=>$item['date_type'],
-				);
-				$date1 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
-				if (!is_null($item['value2']))
-					$date2 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
-				else
-					$date2 = array('#markup'=>'Present');
-				$elements[$delta] = array(
-					'#markup' => render($date1) . " - " . render($date2),
-				);
-			}
-			break;
+			return er_date_custom_formatter_view($entity_type, $entity, $field, $instance, $lang_code, $items, $display);
+		case 'user_status_icons'://This is being used in the view er_collab_inst_block to theme up the User Status field
+			$item = array_pop($items);//there should only be one value
+			$value = $item['value'];
+			$icon = $value=='Participant'?'icon-home':'icon-globe';
+			return array(array(
+				'#markup' => '<i class="'.$icon.' help-tooltip" data-original-title="'.$value.'" data-placement="top"></i>',
+			));
 	}
-  return $elements;
+  //return array();
+}
+
+function er_date_custom_formatter_view(&$entity_type, &$entity, &$field, &$instance, &$lang_code, &$items, &$display){
+	$elements = array();
+	$format = 'F j, Y';
+	foreach ($items as $delta => $item) {
+		$date_settings = array(
+			'timezone'=>$item['timezone'],
+			'timezone_db'=>$item['timezone_db'],
+			'date_type'=>$item['date_type'],
+		);
+		$date1 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
+		if (!is_null($item['value2']))
+			$date2 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
+		else
+			$date2 = array('#markup'=>'Present');
+		$elements[$delta] = array(
+			'#markup' => render($date1) . " - " . render($date2),
+		);
+	}
+	return $elements;
 }
 
 /*
