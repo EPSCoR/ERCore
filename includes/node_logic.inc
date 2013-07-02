@@ -62,6 +62,7 @@ function er_validate($entity){
 }
 
 function er_node_validate($node){
+	_quick_add_institution_validation($node);
 	switch ($node->type){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'validate');
@@ -135,6 +136,19 @@ function _validate_collaborators(&$node){
 		if ($status == 'Participant' && !$participating){
 			$message = t("Sorry, '@title' is not currently considered a participating institution. Every participant must belong to a participating institution. This person should therefore be considered a collaborator. If you believe this is incorrect, please contact an administrator and ask them to change the institution's status.", array('@title'=>$inst->title));
 			form_set_error('field_er_collab_user_status', $message);
+		}
+	}
+}
+
+/**
+ * Custom validation for use with the quick-add institution feature.
+ * See form_logic.inc: function _quick_add_institution
+ */
+function _quick_add_institution_validation(&$node){
+	//d($node, '$node');
+	if ($node->op == 'Add New Institution' && isset($node->quick_add_inst)){//quick add institution has been fired
+		if (count_chars($node->quick_add_inst['inst_name']) > 1){
+			form_set_error('quick_add_inst][inst_name', t('You must provide the full name of the institution that you wish to add to the system.'));
 		}
 	}
 }
