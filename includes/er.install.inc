@@ -353,10 +353,6 @@ function er_batch_api_callbacks($include_specials = true){
 			'directory'=>'taxonomy',
 			'callback'=>"er_batch_import_taxonomy",
 		),
-		"roles"=>array(
-			'directory'=>'roles',
-			'callback'=>"er_batch_import_role",
-		),
 		"bundles"=>array(
 			'directory'=>'bundles',
 			'callback'=>"er_batch_import_fields",
@@ -368,7 +364,11 @@ function er_batch_api_callbacks($include_specials = true){
 		"rules"=>array(
 			'directory'=>'rules',
 			'callback'=>"er_batch_import_rules",
-		)
+		),
+		"roles"=>array(
+			'directory'=>'roles',
+			'callback'=>"er_batch_import_role",
+		),
 	);
 	static $special_functions = array(
 		//Special functions:

@@ -65,50 +65,228 @@ function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	$form['field_er_collab_ref']['#disabled'] = TRUE;
-	$form['field_er_collab_inst_ref']['#disabled'] = TRUE;
-	//d($form, 'er_form_er_collaborators_node_form_alter');
+	$ref_field = 'field_user_lookup';
+	$form_state['autofill_ref_field'] = $ref_field;
+	$form['autofill_collab_submit'] = array(
+		'#value' => 'Auto-fill fields below',
+		'#type' => 'submit',
+		'#limit_validation_errors' => array(array($ref_field)),
+		'#submit' => array('autopopulate_collab_submit_callback'),
+		'#states' => array(//This is pretty unnecessary, but looks kinda neato.
+			'visible' => array(
+        ':input[name*="'.$ref_field.'"]' => array('!value' => ''), //note the use of wildcard (*=), this is because the field is in a fieldgroup
+			),
+		),
+	);
+	$form['autofill_collab_submit']['#weight'] = $form[$ref_field]['#weight'] + 0.5;
+	if (isset($form['#group_children'][$ref_field]))
+		$form['#group_children']['autofill_collab_submit'] = $form['#group_children'][$ref_field];
+	
+	if (isset($form_state['attached_user']) && $user = user_load($form_state['attached_user'])){
+		//recursive_find_value(51516, $form_state);
+		//d($user, '$user');
+		$u = entity_metadata_wrapper('user', $user);
+		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
+		//I haven't figured out how to make this more robust yet...
+		$participating = check_user_participating($user->uid);
+		$status = $participating?'Participant':'Collaborator';
+		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
+		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
+		$form_state['input']['field_er_collab_user_status']['und'] = $status;
+		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();
+		unset($form_state['attached_user']);
+		drupal_set_message(t('Please verify the auto-filled values below, then click save.'), 'warning');
+	}
+	//require_once(ER_INCLUDES_DIR . '/quick_add_institution.inc');//lazy load the code; less clutter in here + doesn't need to load on every page load.
+	//_quick_add_inst_form_alter($form, $form_state, 'field_er_collab_inst_ref');
+	//_quick_add_institution($form, $form_state);
+	//_set_states_for_inst($form, 'field_er_collab_inst_ref');
+	
+	_quick_add_inst($form, $form_state, 'field_er_collab_inst_ref');
+	//d($form, '$form');
+	//d($form_state, '$form_state');
 }
 
-// Collaboration
-function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id){
-	// d($form, 'er_form_er_collaboration_node_form_alter');
-	_set_states_for_inst($form);	  
-	// $form['#submit'][] = '_create_inst';
-	// Using array_unshift makes sure this goes at the very beginning
-	//	Which is useful because we're unsetting items
-	array_unshift($form['#submit'], '_create_inst');
-	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
-	
-	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+function _quick_add_inst(&$form, &$form_state, $inst_field_name = 'field_er_inst_ref'){
+	$form_state['quick_add_inst_field_name'] = $inst_field_name;
+	_set_states_for_inst($form, $inst_field_name);
+	//$form_state['quick_add_inst_field_name'] = 'field_er_collab_inst_ref';
+	$form['#validate'] = array('_load_quick_add_inst_validate');
+	array_unshift($form['#submit'], '_load_quick_add_inst_process');
+	$form[$inst_field_name]['#after_build'] = array('_remove_NA_inst');
+}
+
+function _load_quick_add_inst_validate(&$form, &$form_state){
+	require_once(ER_INCLUDES_DIR . '/quick_add_institution.inc');//lazy load the code; less clutter in here + doesn't need to load on every page load.
+	_quick_add_inst_validate($form, $form_state);
+}
+
+function _load_quick_add_inst_process(&$form, &$form_state){
+	require_once(ER_INCLUDES_DIR . '/quick_add_institution.inc');//lazy load the code; less clutter in here + doesn't need to load on every page load.
+	_quick_add_inst_process($form, $form_state);
 }
 
 //This function is used to create the "smart form" functionality necessary
 // for creating new institutions while editing another node (like a collaboration)
-function _set_states_for_inst(&$form){
-	  $addInst = array(
-			':input[name="field_er_inst_add_bool[und]"]' => array('checked' => TRUE),
-		); 
-	  $addInstUnchecked = array(
-			':input[name="field_er_inst_add_bool[und]"]' => array('checked' => FALSE),
-		); 
-	  // These fields will be visible, and required
-	  $form['field_er_inst_name']['#states'] = array(
-	      'visible' => $addInst,
-	      'required' => $addInst,
-	  );
-		//These fields will be visible but not required
-		$form['field_er_inst_country']['#states'] =
-		$form['field_er_inst_link']['#states'] =
-		$form['field_er_inst_description']['#states'] =
-	  $form['field_er_inst_abbreviation']['#states'] = array(
-	      'visible' => $addInst,
-	  );
-		//Make the institution field required/non-required based on the checkbox.
-	  $form['field_er_inst_ref']['#states']  	  
-			= array(
-	      'optional' => $addInst,
-	      'required' => $addInstUnchecked,
-	  );
+function _set_states_for_inst(&$form, $inst_field_name = 'field_er_inst_ref'){
+	$addInst = array(
+		':input[name="field_er_inst_add_bool[und]"]' => array('checked' => TRUE),
+	); 
+//  $addInstUnchecked = array(
+//		':input[name="field_er_inst_add_bool[und]"]' => array('checked' => FALSE),
+//	); 
+	// These fields will be visible, and required
+	$form['field_er_inst_name']['#states'] = array(
+		'visible' => $addInst,
+		'required' => $addInst,
+	);
+	//These fields will be visible but not required
+	$form['field_er_inst_country']['#states'] =
+	$form['field_er_inst_link']['#states'] =
+	$form['field_er_inst_description']['#states'] =
+	$form['field_er_inst_abbreviation']['#states'] = array(
+		'visible' => $addInst,
+	);
+	//Make the institution field required/non-required based on the checkbox.
+	$form[$inst_field_name]['#states'] = array(
+		//'disabled' => $addInst,
+		'optional' => $addInst,
+	);
+}
+
+function autopopulate_collab_submit_callback(&$form, &$form_state){
+	//d('form submitted');
+	//d($form_state, '$form_state');
+	//d($form, '$form submit');
+	if ($uid = $form_state['values'][$form_state['autofill_ref_field']]['und'][0]['target_id'])
+		$form_state['attached_user'] = $uid;
+	$form_state['rebuild'] = TRUE;
+}
+
+//function _quick_add_institution(&$form, &$form_state, $inst_field_name = 'field_er_collab_inst_ref'){
+//	$form_state['quick_add_inst_field_name'] = $inst_field_name;
+//	//$group_name = 'quick_add_inst';//.$inst_field_name;
+//	//$inst_form = array(
+//	//	'#type' => 'fieldset',
+//	//	'#title' => 'Institution is not listed',
+//	//	'#tree' => true,
+//	//	'#collapsible' => true,
+//	//	'#collapsed' => true,
+//	//	'#weight' => $form[$inst_field_name]['#weight'] + 0.5,
+//	//	'#description' => '<strong>IMPORTANT:</strong> You only need to fill this out if you intend to add a new institution to the system.',
+//	//);
+//	//
+//	$fakey_required = ' <span class="form-required" title="This field is required when adding a new institution.">*</span>';
+//	//$inst_form['inst_name'] = array(
+//	//	'#title' => 'Full name of institution',
+//	//	'#type'=>'textfield',
+//	//	'#value'=>'',
+//	//	//'#required' => true,
+//	//	//'#states' => array(
+//	//	//	'required' => array(
+//	//	//		':input[name^="'.$group_name.'"]' => array('expanded' => TRUE),
+//	//	//	),
+//	//	//),
+//	//);
+//	//$inst_form['inst_name']['#title'] .= $fakey_required;
+//	//$inst_form['inst_submit'] = array(
+//	//	'#value' => 'Add New Institution',
+//	//	'#type' => 'submit',
+//	//	'#limit_validation_errors' => array(array($group_name)),
+//	//	'#submit' => array('_quick_add_institution_submit_callback'),
+//	//);
+//	//
+//	//$form[$group_name] = $inst_form;
+//	////Put the new group inside of the same group as the field we are attaching to.
+//	//if (isset($form['#group_children'][$inst_field_name]))
+//	//	$form['#group_children'][$group_name] = $form['#group_children'][$inst_field_name];
+//	
+//	//add the other option to the institution field:
+//	
+//	//$condition = array(':input[name="field_er_inst_add_bool[und]"]' => array('checked' => true));
+//	//$form['field_er_inst_name']['#states'] = array(
+//	//	'required' => $condition,
+//	//	'visible' => $condition,
+//	//);
+//	//$form['field_er_inst_abbreviation']['#states'] = array(
+//	//	'visible' => $condition,
+//	//);
+//	//$form['field_er_inst_country']['#states'] = array(
+//	//	'visible' => $condition,
+//	//);
+//	//$form['field_er_inst_link']['#states'] = array(
+//	//	'visible' => $condition,
+//	//);
+//	//$form['field_er_inst_description']['#states'] = array(
+//	//	'visible' => $condition,
+//	//);
+//	
+//	//$form['field_er_inst_name']['und']['#title'] = 'hm??' . $fakey_required;
+//	//d($form['field_er_inst_name'], '$form[\'field_er_inst_name\']');
+//	$form['quick_add_inst_submit'] = array(
+//		'#value' => 'Add new Institution',
+//		'#type' => 'submit',
+//		'#limit_validation_errors' => array(
+//			array('field_er_inst_name'),
+//			array('field_er_inst_abbreviation'),
+//			array('field_er_inst_country'),
+//			array('field_er_inst_link'),
+//			array('field_er_inst_description'),
+//		),
+//		'#submit' => array('_quick_add_inst_submit'),
+//	);
+//	$form['quick_add_inst_submit']['#weight'] = $form['field_er_inst_description']['#weight'] + 0.5;
+//	if (isset($form['#group_children']['field_er_inst_description']))
+//		$form['#group_children']['quick_add_inst_submit'] = $form['#group_children']['field_er_inst_description'];
+//	d($form, '$form');
+//	
+//	
+//	//array_unshift($form['#submit'], '_quick_add_inst_submit');
+//	//$form[$inst_field_name]['#after_build'] = array('_remove_NA_inst');
+//}
+//
+//function _quick_add_inst_submit(&$form, &$form_state){
+//	require_once(ER_INCLUDES_DIR . '/quick_add_institution.inc');//lazy load the code; less clutter in here + doesn't need to load on every page load.
+//	_quick_add_inst_process($form, $form_state, $inst_field_name);
+//}
+
+//function _quick_add_institution_submit_callback(&$form, &$form_state){
+//	d($form, '$form submit');
+//	d($form_state, '$form_state submit');
+//	//$form_state['rebuild'] = TRUE;
+//	_quick_add_inst_submit($form, $form_state);
+//	
+//}
+
+/**
+ * Weirdo function I created for debugging purposes.
+ * It searches a datastructure for all of the occurrences of some value.
+ * Useful if need to figure out where the a certain value is stored.
+ */
+//function recursive_find_value($needle, $haystack, $path = array(), $depth = 0){
+//	$type = gettype($needle);
+//	$needle = (string)$needle;
+//	foreach ($haystack as $k=>$v){
+//		if ($depth == 30)
+//			return;
+//		$thispath = array_merge($path, array($k));
+//		if ((gettype($v) == $type && $v == $needle) || (is_numeric($v) && (string)$v == $needle)){
+//			d($thispath, 'value was found!');
+//		}else if(is_array($v)){
+//			$depth++;
+//			recursive_find_value($needle, $v, $thispath, $depth);
+//		}else if(is_object($v)){
+//			$depth++;
+//			recursive_find_value($needle, (array)$v, $thispath, $depth);
+//		}
+//	}
+//}
+
+// Collaboration
+function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id){
+	// d($form, 'er_form_er_collaboration_node_form_alter');
+	
+	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Current and Pending Support
@@ -515,18 +693,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// change labels on participant date range
 	$form['field_er_participant_date']['#after_build'] = array('er_date_label');  //field name of the date
 	
-	_set_states_for_inst($form);		  	  
-	// if (empty($form['#submit'])) 
-		// $form['#submit'][] = '_create_inst';
-	// else
-	
-	// Using array_unshift makes sure this goes at the very beginning
-	//	Which is useful because we're unsetting items		
-	array_unshift($form['#submit'], '_create_inst');
-	
-	// $form['#validate'][] = '_create_inst';
-	// array_push($form['#validate'], '_create_inst');
-	$form['field_er_inst_ref']['#after_build'] = array('_remove_NA_inst');
+	_quick_add_inst($form, $form_state, 'field_er_inst_ref');
 	
 	
 	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
@@ -604,8 +771,8 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 //This function is fired after form submit on certain content types.
 //It checks if it needs to create a new institution, and does so when appropriate.
 function _create_inst(&$form, &$form_state){
-	// d($form, 'form');
-	// d($form_state, 'form state');
+	 //d($form, 'form');
+	 //d($form_state, 'form state');
 	if ($form_state['values']['field_er_inst_add_bool']['und'][0]['value'] == 1 
 		&& isset($form_state['values']['field_er_inst_name']['und'][0]['value']) 
 		&& isset($form_state['values']['field_er_inst_link']['und'][0]['url'])){
