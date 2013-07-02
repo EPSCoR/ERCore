@@ -1,5 +1,5 @@
 <?php
-$view = new view;
+$view = new view();
 $view->name = 'er_summary_er_engagement';
 $view->description = '';
 $view->tag = 'default';
@@ -12,6 +12,7 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'External Engagements';
+$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
   166149871 => '166149871',
@@ -28,6 +29,7 @@ $handler->display->display_options['pager']['options']['id'] = '0';
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['row_plugin'] = 'fields';
 $handler->display->display_options['row_options']['inline'] = array(
+  'field_er_user_entity_reference' => 'field_er_user_entity_reference',
   'field_er_tot_total' => 'field_er_tot_total',
   'field_er_pui_fac_female' => 'field_er_pui_fac_female',
   'field_er_oth_male' => 'field_er_oth_male',
@@ -44,24 +46,32 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Participant Research Product Creator(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['relationship'] = 'field_er_cal_entity_reference_target_id';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Event Organizer';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
-  'link' => 0,
+  'link' => 1,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: Calendar Event Title */
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['label'] = 'Date';
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['element_type'] = 'span';
-$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
-  'link' => 0,
+/* Field: Content: Date */
+$handler->display->display_options['fields']['field_er_cal_event_date']['id'] = 'field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['field'] = 'field_er_cal_event_date';
+$handler->display->display_options['fields']['field_er_cal_event_date']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['fields']['field_er_cal_event_date']['label'] = '';
+$handler->display->display_options['fields']['field_er_cal_event_date']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_cal_event_date']['settings'] = array(
+  'format_type' => 'long',
+  'fromto' => 'both',
+  'multiple_number' => '1',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
 );
+$handler->display->display_options['fields']['field_er_cal_event_date']['delta_offset'] = '0';
 /* Field: Content: Total */
 $handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
 $handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
