@@ -1,38 +1,4 @@
 <?php
-////This method isn't working out too well...
-//function _quick_add_inst_form_alter(&$form, &$form_state, $inst_field_name = 'field_er_inst_ref'){
-//  if (isset($form_state['quick_add_inst_new_node'])){
-//    $node = $form_state['quick_add_inst_new_node'];
-//    d($node, '$node');
-//    //Add the new node to the list of institutions attached to this node.
-//    //d($form_state['values'][$inst_field_name]['und'], '$form_state[\'values\'][$inst_field_name][\'und\']');
-//    d($form_state['values'], '$form_state[\'values\']');
-//    //d($inst_field_name, '$inst_field_name');
-//    //$form_state['values'][$inst_field_name]['und'] = array(array('target_id'=>$node->nid));
-//    //d($form_state['values'][$inst_field_name]['und'], '$form_state[\'values\'][$inst_field_name][\'und\']');
-//    $form['field_er_collab_inst_ref']['und']['#default_value'] = $node->nid;
-//    $form['field_er_collab_inst_ref']['und']['#value'] = $node->nid;
-//  }
-//  
-//  $form['quick_add_inst_submit'] = array(
-//		'#value' => 'Add new Institution',
-//		'#type' => 'submit',
-//		'#limit_validation_errors' => array(
-//			array('field_er_inst_name'),
-//			array('field_er_inst_abbreviation'),
-//			array('field_er_inst_country'),
-//			array('field_er_inst_link'),
-//			array('field_er_inst_description'),
-//		),
-//		'#submit' => array('_quick_add_inst_process'),
-//	);
-//	$form['quick_add_inst_submit']['#weight'] = $form['field_er_inst_description']['#weight'] + 0.5;
-//	if (isset($form['#group_children']['field_er_inst_description']))
-//		$form['#group_children']['quick_add_inst_submit'] = $form['#group_children']['field_er_inst_description'];
-//	d($form, '$form');
-//}
-
-
 function _quick_add_inst_validate(&$form, &$form_state){
   //d('validation!');d($form, '$form');d($form_state, '$form_state');
   $inst_field_name = $form_state['quick_add_inst_field_name'];
@@ -56,8 +22,6 @@ function _quick_add_inst_process(&$form, &$form_state){
     $node = _quick_add_inst_create($prepared_data);
     $form_state['values'][$inst_field_name]['und'] = array(array('target_id'=>$node->nid));
   }
-  //$form_state['quick_add_inst_new_node'] = $node;
-  //$form_state['rebuild'] = TRUE;//this means you stay in the form rather than fully submit the node.
 }
 
 function _quick_add_inst_prepare_data(&$form, &$form_state){
