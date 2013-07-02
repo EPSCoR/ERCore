@@ -685,12 +685,10 @@ function check_user_participating(&$uid, $range = array()){
     $user = user_load($uid);
   $participating = false;
   $one_sixty = false;
-  //d($user, '$user');
   $u = entity_metadata_wrapper('user', $user);
   $u->field_er_inst_ref->value();
   $inst_nodes = $u->field_er_inst_ref->value();
-  if (count($inst_nodes)){
-    $inst = array_pop($inst_nodes);
+  if (count($inst_nodes) && $inst = array_pop($inst_nodes)){//this way you don't get an error if the user doesn't have an inst selected
     $i = entity_metadata_wrapper('node', $inst);
     $participating = $i->field_er_inst_participating->value()==1?true:false;
   }
