@@ -447,7 +447,17 @@ function er_manage_cnp_extra_nodes($cnp_node, $op){
                        $referenced_users[$ref_user['target_id']] = (object)array('uid'=>$ref_user['target_id']);
                }
        }
-       
+       // d($cnp_node, 'cnp node');
+	   // add the PI/Co-PI to the list of referenced users. We will not get into this function unless it passes validation
+	   // this is the uid we want
+	   // d($cnp_node->field_er_epscor_pi_co_pi[LANGUAGE_NONE][0]['target_id'], 'uid of the PI');
+	   $piUID = $cnp_node->field_er_epscor_pi_co_pi[LANGUAGE_NONE][0]['target_id'];
+	   // $piObj = new stdClass($piUID);
+	   $piObj = (object) array('uid' => $piUID);
+	   // $piObj->uid = $piUID;
+	   // d($piObj, 'piObj');
+	   $referenced_users[$piUID] = $piObj;
+	   
        // d($referenced_users, 'Users referenced');
        
        $types = array('er_effort');
