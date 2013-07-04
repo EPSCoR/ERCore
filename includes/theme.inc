@@ -3,7 +3,7 @@
 function er_theme($existing, $type, $theme, $path){
 	$path = ER_MODULE_DIR.'/templates';
 	$theme = array(
-		'er_help'=> array(//produces a block, and a page: node/add2
+		'er_help' => array(//produces a block, and a page: node/add2
 			'variables' => array(),
 			'render element' => 'links',
 			'template' => 'er-help',
@@ -12,22 +12,28 @@ function er_theme($existing, $type, $theme, $path){
 		//'er_formatter_node_reference_full_node' => array(
 		//	'arguments' => array('element' => NULL),
 		//),
-		'er_content_links'=> array(//produces a block, and a page: node/add2
+		'er_content_links' => array(//produces a block, and a page: node/add2
 			'variables' => array('full_view' => NULL),
 			'render element' => 'links',
 			'template' => 'er-content-links',
 			'path' => $path,
 		),
-		'er_add_core_content'=> array(//produces node/add3
+		'er_add_core_content' => array(//produces node/add3
 			'variables' => array('full_view' => NULL),
 			'render element' => 'links',
 			'template' => 'er-add-core-content',
 			'path' => $path,
 		),
-		'er_collab_inst_block'=> array(//produces node/add3
+		'er_collab_inst_block' => array(
 			'variables' => array(),
 			'render element' => 'links',
 			'template' => 'er-collab-inst-block',
+			'path' => $path,
+		),
+		'er_external_engagements_view_table' => array(//This is shown when viewing external engagement nodes
+			'variables' => array('node'=>null),
+			//'render element' => 'node',
+			'template' => 'er-external-engagements-view-table',
 			'path' => $path,
 		),
 		'er_summary_table' => array(

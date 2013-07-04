@@ -80,3 +80,22 @@ form#user-profile-form .form-type-textfield .description, form#user-profile-form
   padding: 15px;
   float: right;
 }
+
+table.er-external-engagements-view-table td.header{
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+table.er-external-engagements-view-table td.sub-header{
+  font-weight: bold;
+  font-style: italic;
+}
+
+table.er-external-engagements-view-table td.table-field_er_tot_total,
+table.er-external-engagements-view-table td.table-field_er_tot_male,
+table.er-external-engagements-view-table td.table-field_er_tot_female,
+table.er-external-engagements-view-table td.table-field_er_tot_urm{
+  font-weight: bold;
+  font-style: italic;
+}
+

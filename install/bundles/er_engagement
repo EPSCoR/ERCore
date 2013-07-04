@@ -213,6 +213,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_ari_fac_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -478,6 +481,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_ari_stu_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -722,16 +728,16 @@ $data = array(
       'type_name' => 'er_engagement',
       'entity_types' => array(),
       'settings' => array(
+        'allowed_values' => array(
+          0 => 'These values have not been estimated and are precise',
+          1 => 'These values have been estimated',
+        ),
+        'allowed_values_function' => '',
         'prefix' => '',
         'suffix' => '',
         'min' => '',
         'max' => '',
-        'allowed_values' => array(
-          0 => 'Values are not estimated',
-          1 => 'Values are estimated',
-        ),
         'allowed_values_php' => '',
-        'allowed_values_function' => '',
       ),
       'translatable' => '0',
       'storage' => array(
@@ -759,6 +765,9 @@ $data = array(
         'value' => array(
           0 => 'value',
         ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
       ),
       'field_name' => 'field_er_estimated',
       'type' => 'list_boolean',
@@ -972,6 +981,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_k12i_stud_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -1237,6 +1249,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_k12i_stut_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -1502,6 +1517,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_k12i_tec_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -1767,6 +1785,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_msi_fac_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -2032,6 +2053,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_msi_stu_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -2297,6 +2321,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_oth_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -2565,6 +2592,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_pui_fac_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -2830,6 +2860,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_pui_stu_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -3095,6 +3128,9 @@ $data = array(
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_tot_und',
       'type' => 'number_integer',
       'module' => 'number',
@@ -3356,15 +3392,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '77',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '46',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -3394,7 +3424,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3487,15 +3517,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '76',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '43',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -3525,7 +3549,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3618,15 +3642,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '75',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '38',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -3649,14 +3667,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '78',
         'label' => 'Faculty - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3749,15 +3767,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '78',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '50',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -3766,7 +3778,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_ari_fac_und',
@@ -3787,7 +3798,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '18',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -3880,15 +3891,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '79',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '53',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4011,15 +4016,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '72',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '29',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4142,15 +4141,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '71',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '22',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4273,15 +4266,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '70',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '19',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4304,14 +4291,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '73',
         'label' => 'Students - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '11',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4404,15 +4391,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '73',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '32',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4421,7 +4402,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_ari_stu_und',
@@ -4442,7 +4422,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4535,15 +4515,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '74',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '34',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4641,7 +4615,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'default' => array(
             'label' => 'above',
             'type' => 'file_default',
-            'weight' => '7',
+            'weight' => '1',
             'settings' => array(),
             'module' => 'file',
           ),
@@ -4667,15 +4641,17 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'label' => 'Values are estimated',
         'widget_type' => 'optionwidgets_onoff',
         'description' => '',
-        'default_value' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
         'widget' => array(
+          'weight' => '12',
           'type' => 'options_onoff',
-          'weight' => '5',
           'module' => 'options',
-          'active' => '1',
+          'active' => 1,
           'settings' => array(
-            'default_value' => NULL,
-            'default_value_php' => NULL,
             'display_label' => 0,
           ),
         ),
@@ -4765,9 +4741,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
             'module' => 'number',
           ),
           'default' => array(
-            'label' => 'above',
+            'label' => 'hidden',
             'type' => 'list_default',
-            'weight' => '51',
+            'weight' => '2',
             'settings' => array(),
             'module' => 'list',
           ),
@@ -4780,7 +4756,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'user_register_form' => FALSE,
           'required_by_role' => array(),
         ),
-        'required' => FALSE,
+        'required' => 0,
         'field_name' => 'field_er_estimated',
         'entity_type' => 'node',
         'bundle' => 'er_engagement',
@@ -4799,7 +4775,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '20',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -4892,15 +4868,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '74',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '35',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -4930,7 +4900,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5023,15 +4993,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '73',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '33',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5061,7 +5025,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5154,15 +5118,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '72',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '27',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5185,14 +5143,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '75',
         'label' => 'Students Reached Directly - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '21',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5285,15 +5243,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '75',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '39',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5302,7 +5254,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_k12i_stud_und',
@@ -5323,7 +5274,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '24',
+          'weight' => '20',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5416,15 +5367,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '76',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '45',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5454,7 +5399,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '22',
+          'weight' => '23',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5547,15 +5492,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '79',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '52',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5585,7 +5524,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '19',
+          'weight' => '22',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5678,15 +5617,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '78',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '51',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5716,7 +5649,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '21',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5809,15 +5742,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '77',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '47',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5840,14 +5767,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '80',
         'label' => 'Students Reached via Teach. Training - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '25',
+          'weight' => '24',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -5940,15 +5867,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '80',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '59',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -5957,7 +5878,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_k12i_stut_und',
@@ -5978,7 +5898,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '26',
+          'weight' => '25',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6071,15 +5991,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '81',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '58',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6109,7 +6023,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6202,15 +6116,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '69',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '13',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6240,7 +6148,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6333,15 +6241,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '68',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '10',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6464,15 +6366,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '67',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '9',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6495,14 +6391,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '70',
         'label' => 'Teachers - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '18',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6595,15 +6491,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '70',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '18',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6612,7 +6502,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_k12i_tec_und',
@@ -6633,7 +6522,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '23',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6726,15 +6615,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '71',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '24',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6764,7 +6647,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6857,15 +6740,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '74',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '36',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -6895,7 +6772,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -6988,15 +6865,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '73',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '31',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7026,7 +6897,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '11',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7119,15 +6990,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '72',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '26',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7150,7 +7015,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '75',
         'label' => 'Faculty - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
@@ -7250,15 +7115,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '75',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '41',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7267,7 +7126,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_msi_fac_und',
@@ -7288,7 +7146,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '20',
+          'weight' => '19',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7381,15 +7239,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '76',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '42',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7419,7 +7271,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7512,15 +7364,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '69',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '14',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7550,7 +7396,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '11',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7643,15 +7489,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '68',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '11',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7774,15 +7614,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '67',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '8',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7805,14 +7639,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '70',
         'label' => 'Students - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -7905,15 +7739,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '70',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '17',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -7922,7 +7750,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_msi_stu_und',
@@ -7943,7 +7770,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '19',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8036,15 +7863,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '71',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '23',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8167,15 +7988,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '69',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '15',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8298,15 +8113,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '68',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '12',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8429,15 +8238,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '67',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '7',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8460,7 +8263,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '70',
         'label' => 'Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
@@ -8560,15 +8363,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '70',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '16',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8577,7 +8374,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_oth_und',
@@ -8692,15 +8488,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '71',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '25',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8729,7 +8519,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '15',
+          'weight' => '16',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8822,15 +8612,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '77',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '48',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8860,7 +8644,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '14',
+          'weight' => '15',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -8953,15 +8737,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '76',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '44',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -8991,7 +8769,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '12',
+          'weight' => '14',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9084,15 +8862,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '75',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '40',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9115,14 +8887,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '78',
         'label' => 'Faculty - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '18',
+          'weight' => '17',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9215,15 +8987,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '78',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '49',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9232,7 +8998,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_pui_fac_und',
@@ -9253,7 +9018,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '19',
+          'weight' => '18',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9346,15 +9111,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '79',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '54',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9384,7 +9143,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '13',
+          'weight' => '11',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9477,15 +9236,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '72',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '28',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9608,15 +9361,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '71',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '21',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9739,15 +9486,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '70',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '20',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9770,14 +9511,14 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '73',
         'label' => 'Students - Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
           ),
         ),
         'widget' => array(
-          'weight' => '16',
+          'weight' => '12',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -9870,15 +9611,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '73',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '30',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -9887,7 +9622,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_pui_stu_und',
@@ -9908,7 +9642,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
         ),
         'widget' => array(
-          'weight' => '17',
+          'weight' => '13',
           'type' => 'number',
           'module' => 'number',
           'active' => 0,
@@ -10001,15 +9735,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '74',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '37',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10132,15 +9860,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '54',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '4',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10263,15 +9985,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '53',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '3',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10394,15 +10110,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '52',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '57',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10425,7 +10135,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
         'weight' => '55',
         'label' => 'Undeclared',
         'widget_type' => 'number',
-        'description' => '',
+        'description' => 'Undeclared means that the person\'s gender is unknown.',
         'default_value' => array(
           0 => array(
             'value' => '0',
@@ -10525,15 +10235,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '55',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '5',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10542,7 +10246,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'prefix' => '',
           'suffix' => '',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'required' => 0,
         'field_name' => 'field_er_tot_und',
@@ -10656,15 +10359,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           ),
           'default' => array(
             'label' => 'above',
-            'type' => 'number_integer',
-            'weight' => '56',
-            'settings' => array(
-              'thousand_separator' => '',
-              'decimal_separator' => '.',
-              'scale' => 0,
-              'prefix_suffix' => TRUE,
-            ),
-            'module' => 'number',
+            'type' => 'hidden',
+            'weight' => '6',
+            'settings' => array(),
           ),
         ),
         'settings' => array(
@@ -10699,9 +10396,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'default' => array(
             'label' => 'above',
             'type' => 'markup_default',
+            'weight' => '56',
             'settings' => array(),
             'module' => 'markup',
-            'weight' => 83,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -10742,9 +10439,9 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
           'default' => array(
             'label' => 'above',
             'type' => 'markup_default',
+            'weight' => '55',
             'settings' => array(),
             'module' => 'markup',
-            'weight' => 82,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -10765,7 +10462,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
   ),
   'fieldgroups' => array(
     'group_er_tot|node|er_engagement|form' => (object) array(
-      'id' => '19',
+      'id' => '1',
       'identifier' => 'group_er_tot|node|er_engagement|form',
       'group_name' => 'group_er_tot',
       'entity_type' => 'node',
@@ -10778,12 +10475,11 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'label' => 'Total',
       'weight' => '6',
       'children' => array(
-        0 => 'field_er_estimated',
-        1 => 'field_er_tot_female',
-        2 => 'field_er_tot_male',
-        3 => 'field_er_tot_total',
-        4 => 'field_er_tot_und',
-        5 => 'field_er_tot_urm',
+        0 => 'field_er_tot_female',
+        1 => 'field_er_tot_male',
+        2 => 'field_er_tot_total',
+        3 => 'field_er_tot_und',
+        4 => 'field_er_tot_urm',
       ),
       'format_type' => 'fieldset',
       'format_settings' => array(
@@ -10797,7 +10493,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_oth|node|er_engagement|form' => (object) array(
-      'id' => '20',
+      'id' => '2',
       'identifier' => 'group_er_oth|node|er_engagement|form',
       'group_name' => 'group_er_oth',
       'entity_type' => 'node',
@@ -10808,7 +10504,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Other',
-      'weight' => '8',
+      'weight' => '11',
       'children' => array(
         0 => 'field_er_oth_female',
         1 => 'field_er_oth_male',
@@ -10828,7 +10524,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_ari|node|er_engagement|form' => (object) array(
-      'id' => '21',
+      'id' => '3',
       'identifier' => 'group_er_ari|node|er_engagement|form',
       'group_name' => 'group_er_ari',
       'entity_type' => 'node',
@@ -10839,7 +10535,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Academic Research Institutions',
-      'weight' => '9',
+      'weight' => '7',
       'children' => array(
         0 => 'field_er_ari_fac_female',
         1 => 'field_er_ari_fac_male',
@@ -10864,7 +10560,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_pui|node|er_engagement|form' => (object) array(
-      'id' => '22',
+      'id' => '4',
       'identifier' => 'group_er_pui|node|er_engagement|form',
       'group_name' => 'group_er_pui',
       'entity_type' => 'node',
@@ -10875,7 +10571,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Primary Undergraduate Institutions',
-      'weight' => '10',
+      'weight' => '8',
       'children' => array(
         0 => 'field_er_pui_fac_female',
         1 => 'field_er_pui_fac_male',
@@ -10900,7 +10596,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_msi|node|er_engagement|form' => (object) array(
-      'id' => '23',
+      'id' => '5',
       'identifier' => 'group_er_msi|node|er_engagement|form',
       'group_name' => 'group_er_msi',
       'entity_type' => 'node',
@@ -10911,7 +10607,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Minority Serving Institutions',
-      'weight' => '11',
+      'weight' => '9',
       'children' => array(
         0 => 'field_er_msi_fac_female',
         1 => 'field_er_msi_fac_male',
@@ -10936,7 +10632,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_k12i|node|er_engagement|form' => (object) array(
-      'id' => '24',
+      'id' => '6',
       'identifier' => 'group_er_k12i|node|er_engagement|form',
       'group_name' => 'group_er_k12i',
       'entity_type' => 'node',
@@ -10947,7 +10643,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'K-12 Institutions',
-      'weight' => '12',
+      'weight' => '10',
       'children' => array(
         0 => 'field_er_k12i_stud_female',
         1 => 'field_er_k12i_stud_male',
@@ -10977,7 +10673,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_ee_manual_option|node|er_engagement|form' => (object) array(
-      'id' => '27',
+      'id' => '31',
       'identifier' => 'group_er_ee_manual_option|node|er_engagement|form',
       'group_name' => 'group_er_ee_manual_option',
       'entity_type' => 'node',
@@ -10987,16 +10683,16 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'I want to enter attendee figures manually',
       'weight' => '6',
       'children' => array(
-        0 => 'group_er_tot',
-        1 => 'group_er_oth',
-        2 => 'group_er_ari',
-        3 => 'group_er_pui',
-        4 => 'group_er_msi',
-        5 => 'group_er_k12i',
+        0 => 'field_er_estimated',
+        1 => 'group_er_tot',
+        2 => 'group_er_oth',
+        3 => 'group_er_ari',
+        4 => 'group_er_pui',
+        5 => 'group_er_msi',
+        6 => 'group_er_k12i',
       ),
       'format_type' => 'fieldset',
       'format_settings' => array(
@@ -11010,7 +10706,7 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       ),
     ),
     'group_er_ee_upload_option|node|er_engagement|form' => (object) array(
-      'id' => '28',
+      'id' => '32',
       'identifier' => 'group_er_ee_upload_option|node|er_engagement|form',
       'group_name' => 'group_er_ee_upload_option',
       'entity_type' => 'node',
@@ -11020,7 +10716,6 @@ $file_url = file_create_url(ER_MODULE_DIR."/static/files/External_Engagement_Rep
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'I want to upload a completed Excel sheet',
       'weight' => '5',
       'children' => array(
