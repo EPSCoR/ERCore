@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_award',
-          3 => 'er_collaboration',
-          4 => 'er_event',
+          2 => 'er_proposal',
+          3 => 'er_publication',
+          4 => 'er_award',
           5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
+          6 => 'er_event',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -298,6 +298,9 @@ $data = array(
           0 => 'fid',
         ),
       ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'field_name' => 'field_er_event_flier',
       'type' => 'file',
       'module' => 'file',
@@ -337,6 +340,8 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'profile2_private' => FALSE,
+        'srid' => '4326',
+        'backend' => 'default',
       ),
       'storage' => array(
         'type' => 'field_sql_storage',
@@ -347,7 +352,7 @@ $data = array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
               'field_data_field_er_event_location' => array(
-                'wkt' => 'field_er_event_location_wkt',
+                'geom' => 'field_er_event_location_geom',
                 'geo_type' => 'field_er_event_location_geo_type',
                 'lat' => 'field_er_event_location_lat',
                 'lon' => 'field_er_event_location_lon',
@@ -355,14 +360,12 @@ $data = array(
                 'top' => 'field_er_event_location_top',
                 'right' => 'field_er_event_location_right',
                 'bottom' => 'field_er_event_location_bottom',
-                'srid' => 'field_er_event_location_srid',
-                'accuracy' => 'field_er_event_location_accuracy',
-                'source' => 'field_er_event_location_source',
+                'geohash' => 'field_er_event_location_geohash',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
               'field_revision_field_er_event_location' => array(
-                'wkt' => 'field_er_event_location_wkt',
+                'geom' => 'field_er_event_location_geom',
                 'geo_type' => 'field_er_event_location_geo_type',
                 'lat' => 'field_er_event_location_lat',
                 'lon' => 'field_er_event_location_lon',
@@ -370,16 +373,46 @@ $data = array(
                 'top' => 'field_er_event_location_top',
                 'right' => 'field_er_event_location_right',
                 'bottom' => 'field_er_event_location_bottom',
-                'srid' => 'field_er_event_location_srid',
-                'accuracy' => 'field_er_event_location_accuracy',
-                'source' => 'field_er_event_location_source',
+                'geohash' => 'field_er_event_location_geohash',
               ),
             ),
           ),
         ),
       ),
       'foreign keys' => array(),
-      'indexes' => array(),
+      'indexes' => array(
+        'lat' => array(
+          0 => 'lat',
+        ),
+        'lon' => array(
+          0 => 'lon',
+        ),
+        'top' => array(
+          0 => 'top',
+        ),
+        'bottom' => array(
+          0 => 'bottom',
+        ),
+        'left' => array(
+          0 => 'left',
+        ),
+        'right' => array(
+          0 => 'right',
+        ),
+        'geohash' => array(
+          0 => 'geohash',
+        ),
+        'centroid' => array(
+          0 => 'lat',
+          1 => 'lon',
+        ),
+        'bbox' => array(
+          0 => 'top',
+          1 => 'bottom',
+          2 => 'left',
+          3 => 'right',
+        ),
+      ),
       'field_permissions' => array(
         'type' => '0',
       ),
@@ -391,52 +424,55 @@ $data = array(
       'cardinality' => '1',
       'deleted' => '0',
       'columns' => array(
-        'wkt' => array(
-          'type' => 'text',
+        'geom' => array(
+          'type' => 'blob',
           'size' => 'big',
           'not null' => FALSE,
         ),
         'geo_type' => array(
-          'type' => 'text',
-          'size' => 'normal',
-          'not null' => FALSE,
+          'type' => 'varchar',
+          'default' => '',
+          'length' => 64,
         ),
         'lat' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
         'lon' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
         'left' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
         'top' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
         'right' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
         'bottom' => array(
-          'type' => 'float',
+          'type' => 'numeric',
+          'precision' => 18,
+          'scale' => 12,
           'not null' => FALSE,
         ),
-        'srid' => array(
-          'type' => 'int',
-          'unsigned' => TRUE,
-          'not null' => FALSE,
-          'default' => 4326,
-        ),
-        'accuracy' => array(
-          'type' => 'int',
-          'not null' => FALSE,
-        ),
-        'source' => array(
-          'type' => 'text',
+        'geohash' => array(
+          'type' => 'varchar',
+          'length' => 16,
           'not null' => FALSE,
         ),
       ),
@@ -790,15 +826,15 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_collaboration',
-          2 => 'er_event',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
           3 => 'er_news',
-          4 => 'er_other_product',
-          5 => 'er_patent',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -1027,11 +1063,10 @@ $data = array(
         ),
         'settings' => array(
           'file_directory' => '',
-          'file_extensions' => 'txt pdf',
+          'file_extensions' => 'txt pdf xls jpg',
           'max_filesize' => '',
           'description_field' => 0,
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'display' => array(
           'default' => array(
@@ -1049,7 +1084,7 @@ $data = array(
           ),
         ),
         'required' => 0,
-        'description' => 'Attach a pdf of your even flier',
+        'description' => 'Attach a pdf of your event flier',
         'field_name' => 'field_er_event_flier',
         'entity_type' => 'node',
         'bundle' => 'er_event',
@@ -1062,7 +1097,7 @@ $data = array(
         'widget' => array(
           'weight' => '12',
           'type' => 'geofield_openlayers',
-          'module' => 'geofield',
+          'module' => 'openlayers',
           'active' => 1,
           'settings' => array(
             'openlayers_map' => 'geofield_widget_map',
