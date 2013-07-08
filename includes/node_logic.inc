@@ -27,21 +27,90 @@ function er_node_view($node, $view_mode, $langcode){
 	  	er_cnp_extras_modify_view($node);
 	  	break;
 		case 'er_engagement':
-			er_ee_add_table($node, $view_mode);
+			$node->content['table'] = array(
+				'#theme' => 'er_external_engagements_view_table',
+				'#node' => $node,
+				'#weight' => 500,
+			);
+			break;
+		case 'er_collaborators':
+			//if you get directed to a collaborators node, just redirect to the collaboration
+			$n = entity_metadata_wrapper('node', $node);
+			$collab_nid = $n->field_er_collab_ref->raw();
+			drupal_goto('node/'.$collab_nid);
 			break;
 	}
 }
 
-function er_ee_add_table(&$node, $view_mode){
-	//d($node, '$node');
-	$node->content['table'] = array(
-		'#theme' => 'er_external_engagements_view_table',
-		'#node' => $node,
-		'#weight' => 500,
+/**
+ * Implements hook_user_view_alter().
+ * The user was built; the module may modify the structured content.
+ */
+function er_user_view_alter(&$build) {
+	global $user;
+	unset($build['flags']);//hide the flags, don't need it here.
+  //This adds the tags indicating the permissions on each field:
+	if (isset($user->roles[3])){//user is admin
+		$roles = user_roles();//3 == admin, 2 == authenticated, 1 == anonymous
+		$user_defined = $roles;
+		unset($user_defined[3], $user_defined[2], $user_defined[1]);
+		$role_perms = user_role_permissions($roles);
+		//d($role_perms, '$role_perms');
+		foreach ($build as $field_name=>$field){
+			if (is_array($field) && array_key_exists('#field_name', $field)){//then this is actually a field and not just some other setting.
+				//d($field['#field_name'], '$field[\'#field_name\']');
+				$field_info = field_info_field($field['#field_name']);
+				//d($field_info, $field['#field_name']);
+				if (isset($field_info['field_permissions']) && $field_info['field_permissions']['type'] != FIELD_PERMISSIONS_PUBLIC){
+					//check permissions per role:
+					//Note: It is assumed that Admin role can see everything.
+					$class = array();
+					$view_perm = 'view '.$field['#field_name'];
+					if (array_key_exists($view_perm,  $role_perms[1]))//anonymous
+						$class["anon"] = 'pill-important';
+					if (array_key_exists($view_perm,  $role_perms[2]))//authenticated
+						$class["auth"] = 'pill-warning';
+					foreach ($user_defined as $role_id=>$label){
+						if (array_key_exists($view_perm,  $role_perms[$role_id]))//authenticated
+							$class[$label] = 'pill-info';
+					}
+				}else{//if field permissions are not set, then the field is automatically public.
+					$class = array("public"=>'');
+				}
+				$badges = '';
+				foreach ($class as $label=>$color){
+					$badges .= '<div class="pill '.$color.'" style="float:right;margin-top:2px;">'.$label.'</div>';
+				}
+				//if ($badges) $badges .= '<br>';
+				$build[$field_name]['#prefix'] = $badges . '<div style="border-bottom:1px dotted #ddd">';
+				$build[$field_name]['#suffix'] = '</div>';
+				//d(user_access('view field er disabilities'));
+				
+			}
+		}
+		//d($build, '$build');
+		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
+	}
+	$view = views_get_view('er_related_content');
+	$build['related_content2'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Related Content',
+    '#weight' => 100,
+    'table' => array(
+      '#title' => 'Related Content',
+      '#markup' => $view->render('master'),
+    )
 	);
+  //$build['related_content'] = array(
+  //  '#type' => 'fieldset',
+  //  '#title' => 'Related Content',
+  //  '#weight' => 100,
+  //  'table' => array(
+  //    '#title' => 'Related Content',
+  //    '#theme' => 'er_related_content',
+  //  )
+  //);
 }
-
-
 
 function er_preprocess_node(&$variables, $hook){
   //d($variables, '$variables');
@@ -370,77 +439,6 @@ function er_parse_ee_file(&$node){
 		watchdog('er', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
 	
   }
-}
-
-/**
- * Implements hook_user_view().
- * The user's account information is being displayed.
- */
-function er_user_view($account, $view_mode, $langcode) {
-	//d($account, '$account');
-	//d($view_mode, '$view_mode');
-	//d($langcode, '$langcode');
-  
-}
-
-/**
- * Implements hook_user_view_alter().
- * The user was built; the module may modify the structured content.
- */
-function er_user_view_alter(&$build) {
-	global $user;
-	unset($build['flags']);//hide the flags, don't need it here.
-  //This adds the tags indicating the permissions on each field:
-	if (isset($user->roles[3])){//user is admin
-		$roles = user_roles();//3 == admin, 2 == authenticated, 1 == anonymous
-		$user_defined = $roles;
-		unset($user_defined[3], $user_defined[2], $user_defined[1]);
-		$role_perms = user_role_permissions($roles);
-		//d($role_perms, '$role_perms');
-		foreach ($build as $field_name=>$field){
-			if (is_array($field) && array_key_exists('#field_name', $field)){//then this is actually a field and not just some other setting.
-				//d($field['#field_name'], '$field[\'#field_name\']');
-				$field_info = field_info_field($field['#field_name']);
-				//d($field_info, $field['#field_name']);
-				if (isset($field_info['field_permissions']) && $field_info['field_permissions']['type'] != FIELD_PERMISSIONS_PUBLIC){
-					//check permissions per role:
-					//Note: It is assumed that Admin role can see everything.
-					$class = array();
-					$view_perm = 'view '.$field['#field_name'];
-					if (array_key_exists($view_perm,  $role_perms[1]))//anonymous
-						$class["anon"] = 'pill-important';
-					if (array_key_exists($view_perm,  $role_perms[2]))//authenticated
-						$class["auth"] = 'pill-warning';
-					foreach ($user_defined as $role_id=>$label){
-						if (array_key_exists($view_perm,  $role_perms[$role_id]))//authenticated
-							$class[$label] = 'pill-info';
-					}
-				}else{//if field permissions are not set, then the field is automatically public.
-					$class = array("public"=>'');
-				}
-				$badges = '';
-				foreach ($class as $label=>$color){
-					$badges .= '<div class="pill '.$color.'" style="float:right;margin-top:2px;">'.$label.'</div>';
-				}
-				//if ($badges) $badges .= '<br>';
-				$build[$field_name]['#prefix'] = $badges . '<div style="border-bottom:1px dotted #ddd">';
-				$build[$field_name]['#suffix'] = '</div>';
-				//d(user_access('view field er disabilities'));
-				
-			}
-		}
-		//d($build, '$build');
-		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
-	}
-  $build['related_content'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Related Content',
-    '#weight' => 100,
-    'table' => array(
-      '#title' => 'Related Content',
-      '#theme' => 'er_related_content',
-    )
-  );
 }
 
 function er_manage_cnp_extra_nodes($cnp_node, $op){

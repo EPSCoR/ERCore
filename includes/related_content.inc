@@ -151,7 +151,7 @@ function er_related_content_er_event_item_theme($node, $show_links){
       $ee = array_pop($results['node']);
       $append .= '<ul><li>'.l('<i class="icon-list-alt"></i> Attendee data', 'node/'.$ee->nid, array('html'=>TRUE))."</li></ul>";
     }else{
-      $append .= "<ul><li>".add_external_engagement_link($node->nid)."</li></ul>";
+      $append .= "<ul><li>".add_external_engagement_link($node)."</li></ul>";
     }
   }
   return l($label, 'node/'.$node->nid, array('html'=>true)) . $append;
