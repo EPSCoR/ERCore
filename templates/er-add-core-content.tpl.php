@@ -6,21 +6,12 @@ $node_types = node_type_get_types(); //we can use this to get the [human readibl
 // content types that appear in "ER Core" section
 //
 $core = array(
-    'er_event', 'er_collaboration', 'er_institution',
-    'er_other_product', 'er_patent', 'er_presentation',
-    'er_proposal', 'er_publication', 'er_collaborators',
-	'er_engagement', 'er_effort', 'er_paid');
-//
-// content types that appear in "Jurisdictional" section
-//
-$juris = array('er_news', 'er_award');
-//
-// content types currently hidden:
-//     er_collaborators, er_engagement, er_effort, er_paid
-//
-// content types soon-to-be deleted:
-//     er_nsf_fastlane, er_poster, er_book, er_internet
-//
+	'er_event', 'er_collaboration', 'er_institution',
+	'er_other_product', 'er_patent', 'er_presentation',
+	'er_proposal', 'er_publication');
+
+//Hide these content types
+$hidden = array('er_collaborators', 'er_engagement', 'er_effort');
 
 $links = array(
   "Drupal Content"=>array(),
@@ -37,23 +28,18 @@ function cmp($a, $b){
 usort($nodes, "cmp");//sort the cts in alpha order.
 foreach ($nodes as $n){
     if (substr($n->type, 0, 3) != 'er_') {
-         // everything that doesn't start with 'er_' goes in first section
-        $links['Drupal Content'][] = $n->type;
-
-    }else if (in_array($n->type, $core)) {
-        // types in $core go in second section
-        // need to do this in order to get them in alpha order...
-        $links["EPSCoR Reporting Categories"][] = $n->type;
-
-    }else if (in_array($n->type, $juris)) {
-        // types in $juris go in third section
-        $links['Jurisdictional'][] = $n->type;
-
-//    }else{
-//        // for debugging, list those that are hidden
-//        $links['Currently Hidden [debugging display]'][] = $n->type;
-  }
-  //dsm($type);
+			// everything that doesn't start with 'er_' goes in first section
+			$links['Drupal Content'][] = $n->type;
+    }else{
+			if (in_array($n->type, $core)) {
+				// types in $core go in second section
+				// need to do this in order to get them in alpha order...
+				$links["EPSCoR Reporting Categories"][] = $n->type;
+			}else if (!in_array($n->type, $hidden)) {
+					// types in $juris go in third section
+					$links['Jurisdictional'][] = $n->type;
+			}
+		}
 }
 $class = $full_view?'full':'small';
 ?>

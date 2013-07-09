@@ -736,16 +736,23 @@ function er_export_role($rid, $export = true){
  * of the current page being viewed (assumed to be a calendar event)
  * 
  */
-function add_external_engagement_link($nid = null){
-	if (!$nid){
+function add_external_engagement_link(&$node = null){
+	if (!$node){
 		$node = menu_get_object();
 		$nid = $node->nid;
 	}
-	$options = array(
-		'query' => array('field_er_cal_entity_reference' => $nid),
-		'html' => true
-	);
-	return l('<strong><i class="icon-list-alt"></i> Attach attendee data</strong>', 'node/add/er-engagement', $options);
+	if ($node->type=="er_event"){
+		$n = entity_metadata_wrapper('node', $node);
+		$external = $n->field_er_event_reminders->raw();
+		if ($external){
+			$options = array(
+				'query' => array('field_er_cal_entity_reference' => $nid),
+				'html' => true
+			);
+			return l('<strong><i class="icon-list-alt"></i> Attach attendee data</strong>', 'node/add/er-engagement', $options);
+		}
+	}
+	return '';
 }
 
 /*
