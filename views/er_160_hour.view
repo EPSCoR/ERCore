@@ -1,6 +1,6 @@
 <?php
 $view = new view();
-$view->name = '160_hour';
+$view->name = '160_hou';
 $view->description = '';
 $view->tag = 'default';
 $view->base_table = 'users';
