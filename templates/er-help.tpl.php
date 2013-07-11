@@ -110,3 +110,9 @@
     </ol>
   </div>-->
 </div>
+<script>
+  (function name($) {
+    //var $help = 
+    //$("er-help").accordion();
+  })(jQuery);
+</script>
