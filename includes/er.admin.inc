@@ -19,7 +19,7 @@ function er_settings() {
 	$form['help_description'] = array(
     '#type' => 'item',
     '#title'=> 'Notice:',
-    '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('documentation', 'admin/help/er')))
+    '#markup' => t('You may want to take a look at ER-Core\'s !link!', array('!link'=>l('documentation', 'admin/help/er', array('fragment'=>'post-install'))))
   );
   
   $start_date = variable_get('er_start_date');

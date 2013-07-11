@@ -62,27 +62,47 @@ function er_init(){
 
 /**
  * Display help and module information
+ *  This hook adds documentation to various pages, and defines the main ER Core Help texts
  * @param path which path of the site we're displaying help
  * @param arg array that holds the current path as would be returned from arg() function
  * @return help text for the path
  */
 function er_help($path, $arg) {
-	//This is a different comment.
-	// this hooks into the documentation for ER Core
-	//$output = '<p>'.	t("er is a simple module to test functions and pages in Drupal");
-	//	The line above outputs in ALL admin/module pages
-	$output = '';
-  switch ($path) {
-    case 'admin/modules#name':
-      $output .= t('EPSCoR Reporting');
-      break;
-    case 'admin/modules#description':
-    case 'admin/help#er':
-      $output .= theme('er_help');
-      break;
+	//d($path, '$path');
+	//d($arg, '$arg');
+	switch ($path) {
+		case 'user/%/edit':
+			return _make_documentation_link('user');
+    case 'admin/help#er'://This path is special, note the "#" ... see the hook_help docs for info.
+      return theme('er_help');
   }
-	return $output;
-} // function er_help
+	
+	//Add a help link to every er-core form.
+	if ($arg[0] == 'node' && $arg[1] == 'add' && substr($arg[2], 0, 3) == 'er-'){
+		switch ($arg[2]) {
+			case 'er-collaboration':
+				return _make_documentation_link($arg[2]);
+			case 'er-collaborators':
+				return _make_documentation_link('er-collaboration');
+			case 'er-engagement':
+				return _make_documentation_link($arg[2]);
+			case 'er-proposal':
+				return _make_documentation_link($arg[2]);
+			case 'er-event':
+				return _make_documentation_link($arg[2]);
+			default:
+				return _make_documentation_link('other-cts');
+			case 'admin/help#er'://This path is special, note the "#" ... see the hook_help docs for info.
+				return theme('er_help');
+		}
+		if (in_array($arg[2], array('er-collaboration')))
+		return _make_documentation_link($arg[2]);
+	}
+}
+
+function _make_documentation_link($ct){
+	return '<span class="er-documentation-notification">Notice: You may want to read the ' . l('Documentation', 'admin/help/er', array('fragment'=>"$ct")) .  ' related to this form.</span>';
+}
 
 /**
  * Valid permissions for this module

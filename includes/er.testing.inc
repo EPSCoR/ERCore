@@ -40,7 +40,7 @@ function er_testing() {
 			'title' => 'PHPExcel library',
 			'severity' => REQUIREMENT_ERROR,
 			'value' => '<i class="icon-exclamation-sign"></i> Missing',
-			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'phpexcel')) . '.',
+			'description' => 'PHPExcel library has not been installed! Please refer to the '. l('documentation', 'admin/help/er', array('fragment' => 'post-install')) . '.',
 		);
 	}
 	

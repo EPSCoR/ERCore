@@ -99,3 +99,11 @@ table.er-external-engagements-view-table td.table-field_er_tot_urm{
   font-style: italic;
 }
 
+.er-documentation-notification{
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+@media print {
+ #er-help > *{display:block !important;}
+}
