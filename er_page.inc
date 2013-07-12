@@ -23,6 +23,13 @@ class er_page{
 		'mas_act_grad_date'=>'field_er_mas_act_grad_date',
 		'doc_act_grad_date'=>'field_er_doc_act_grad_date',
 		'und_act_grad_date'=>'field_er_und_act_grad_date',
+		'collab_inst_ref' => 'field_er_collab_inst_ref',
+		'collab_department_unit' => 'field_er_collab_department_unit',
+		'inst_category' => 'field_er_inst_category',
+		'inst_type' => 'field_er_inst_type',
+		'collab_user_status' => 'field_er_collab_user_status',
+		'collab_name' => 'field_er_collab_name',
+		'collab_ref' => 'field_er_collab_ref',
 	);
 	
 	public function __construct() {
