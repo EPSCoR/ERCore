@@ -219,13 +219,8 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 // Current and Pending Support - Effort
 function er_form_er_effort_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
-	// d($form, 'er_form_er_paid_node_form_alter');
-}
-
-// Current and Pending Support - Funded Effort
-function er_form_er_paid_node_form_alter(&$form, &$form_state, $form_id){
-	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
-	// d($form, 'er_form_er_paid_node_form_alter');
+	$form['field_er_proposal_entity']['#disabled'] = true; //the user should not be able to edit this.
+	//d($form, 'er_form_er_paid_node_form_alter');
 }
 
 // External Engagements
@@ -764,47 +759,16 @@ function usertest_form_alter(&$form, &$form_state, $form_id) {
 
 
 /**
- * Auto Generate a node title for selcted form types
+ * Hide the title field, and generate a generic title.
+ * hook_node_presave is then used to create a title based on the data given in the form.
  *
  * @author Brent Sadler <brent.sadler@unh.edu>
+ * Modified by Andrew W. <shixish@gmail.com> 7-15-13
+ *
+ * See: file:node_logic.inc function:er_node_presave
  */
 function _form_autogen_title(&$form, &$form_state, $form_id) {
-	// d($form_id, 'form_id entering form_autogen_title');
-	// d($form, 'form entering form_autogen_title');
-	
 	$form['title']['#type'] = 'hidden';
 	$form['title']['#required'] = FALSE;
-	
-	$referenced_cal_event = $form['field_er_cal_entity_reference']['und']['#default_value'];
-	//strip characters except digits of node ID
-	$calendarNodeID = preg_replace('[\D]', '', $referenced_cal_event );
-	//$calendarNodeID = $form['field_er_cal_entity_reference']['und']['#default_value'];
-	//$calendarNodeID = $form['field_er_cal_entity_reference']['target_id'];
-	$calendarNode = node_load($calendarNodeID);
-	$calendarTitle = $calendarNode->title;
-
-	// Construct a unique title for node creation
-	switch ($form_id)
-	{
-		case 'er_collaborators_node_form';
-			$form['title']['#default_value'] = "Collaborators {$form['created']['#value']}";
-			break;
-		case 'er_engagement_node_form';
-			$form['title']['#default_value'] = $calendarTitle;
-		 					 
-			break;	
-		case 'er_effort_node_form';
-			$form['title']['#default_value'] = "Effort {$form['created']['#value']}";
-			break;
-		case 'er_paid_node_form':
-			$form['title']['#default_value'] = "Funded effort {$form['created']['#value']}";
-			break;
-		default:
-			$form['title']['#default_value'] = "Generic title {$form['created']['#value']}";
-			break;
-	}
-	// d($form['title']['#default_value'], 'node-title exiting form_autogen_title');
-	// d($form, 'form exiting form_autogen_title');
-
-
+	$form['title']['#default_value'] = "Generic title {$form['created']['#value']}";
 }

@@ -53,7 +53,7 @@ class er_collaborations extends er_page{
     $query->innerJoin("field_data_{$collab_ref}", 'collab_ref', "collab.nid = collab_ref.entity_id");
     
     
-    $inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(inst.title, ' - ', dept.{$collab_dept}_value) ELSE inst.title END)";
+    $inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(dept.{$collab_dept}_value, ' @ ', inst.title) ELSE inst.title END)";
     $query->addField('category', "{$inst_category}_value", 'category');
     $query->addField('type', "{$inst_type}_value", 'type');
     //$query->addField('status', "{$collab_user_status}_value", 'status');
@@ -123,7 +123,7 @@ class er_collaborations extends er_page{
             $ret .= "<h3 style=\"text-align:center;\">Collaborators</h3>";
             $ret .= "<ol>";
               foreach($type_data['collaborators'] as $k=>$v){
-                $ret .= "<li>".$v['name'].' @ ' . l($v['institution'], 'node/'.$v['institution_nid']) . ' on '.l($v['collaboration_title'], 'node/'.$v['collaboration_nid'])."</li>";
+                $ret .= "<li><strong>".$v['name'].'</strong> from ' . l($v['institution'], 'node/'.$v['institution_nid']) . ' on '.l($v['collaboration_title'], 'node/'.$v['collaboration_nid'])."</li>";
               }
             $ret .= "</ol>";
           $ret .= '</div>';

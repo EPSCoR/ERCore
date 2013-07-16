@@ -39,6 +39,12 @@ function er_node_view($node, $view_mode, $langcode){
 			$collab_nid = $n->field_er_collab_ref->raw();
 			drupal_goto('node/'.$collab_nid);
 			break;
+		case 'er_effort':
+			//if you get directed to a collaborators node, just redirect to the collaboration
+			$n = entity_metadata_wrapper('node', $node);
+			$proposal_nid = $n->field_er_proposal_entity->raw();
+			drupal_goto('node/'.$proposal_nid);
+			break;
 	}
 }
 
@@ -134,6 +140,27 @@ function er_node_presave($node){
 	switch ($node->type){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'presave');
+			break;
+	}
+	_node_autogen_title($node);
+}
+
+function _node_autogen_title(&$node){
+	$n = entity_metadata_wrapper('node', $node);
+	switch ($node->type){
+		case 'er_collaborators';
+			$collab = $n->field_er_collab_ref->value();
+			$name = $n->field_er_collab_name->value();
+			$department = $n->field_er_collab_department_unit->value();
+			$inst = $n->field_er_collab_inst_ref->value();
+			$inst_with_dept = $department?"$department @ {$inst->title}":"{$inst->title}";
+			//d($collab, '$collab');
+			$node->title = "$name from $inst_with_dept on {$collab->title}";
+			break;
+		case 'er_engagement';
+			$event = $n->field_er_cal_entity_reference->value();
+			$total = $n->field_er_tot_total->value();
+			$node->title = "{$total} External Engagements: {$event->title}";
 			break;
 	}
 }
