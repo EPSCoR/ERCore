@@ -370,6 +370,497 @@ $data = array(
         ),
       ),
     ),
+    'field_er_inst_abbreviation' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_abbreviation' => array(
+                'value' => 'field_er_inst_abbreviation_value',
+                'format' => 'field_er_inst_abbreviation_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_abbreviation' => array(
+                'value' => 'field_er_inst_abbreviation_value',
+                'format' => 'field_er_inst_abbreviation_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_abbreviation',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_add_bool' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_add_bool' => array(
+                'value' => 'field_er_inst_add_bool_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_add_bool' => array(
+                'value' => 'field_er_inst_add_bool_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_add_bool',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaborators',
+        ),
+      ),
+    ),
+    'field_er_inst_country' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          6 => '6',
+          5 => 0,
+          4 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_country' => array(
+                'value' => 'field_er_inst_country_value',
+                'format' => 'field_er_inst_country_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_country' => array(
+                'value' => 'field_er_inst_country_value',
+                'format' => 'field_er_inst_country_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_country',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_description' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => FALSE,
+        'user_role_field' => array(
+          6 => '6',
+          5 => 0,
+          4 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_description' => array(
+                'value' => 'field_er_inst_description_value',
+                'format' => 'field_er_inst_description_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_description' => array(
+                'value' => 'field_er_inst_description_value',
+                'format' => 'field_er_inst_description_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_description',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaborators',
+        ),
+      ),
+    ),
+    'field_er_inst_link' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          4 => '4',
+          6 => '6',
+          5 => 0,
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'attributes' => array(
+          'target' => 'default',
+          'class' => '',
+          'rel' => '',
+        ),
+        'url' => 0,
+        'title' => 'optional',
+        'title_value' => '',
+        'title_maxlength' => 128,
+        'enable_tokens' => 1,
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_link' => array(
+                'url' => 'field_er_inst_link_url',
+                'title' => 'field_er_inst_link_title',
+                'attributes' => 'field_er_inst_link_attributes',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_link' => array(
+                'url' => 'field_er_inst_link_url',
+                'title' => 'field_er_inst_link_title',
+                'attributes' => 'field_er_inst_link_attributes',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_link',
+      'type' => 'link_field',
+      'module' => 'link',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'url' => array(
+          'type' => 'varchar',
+          'length' => 2048,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'title' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+          'sortable' => TRUE,
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_institution',
+          1 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_inst_name' => array(
+      'type_name' => 'er_institution',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'profile2_private' => 0,
+        'user_role_field' => array(
+          5 => '5',
+          4 => '4',
+          6 => '6',
+          3 => 0,
+          1 => 0,
+          2 => 0,
+        ),
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_inst_name' => array(
+                'value' => 'field_er_inst_name_value',
+                'format' => 'field_er_inst_name_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_inst_name' => array(
+                'value' => 'field_er_inst_name_value',
+                'format' => 'field_er_inst_name_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_inst_name',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+        'node' => array(
+          0 => 'er_collaborators',
+        ),
+      ),
+    ),
     'field_user_lookup' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -449,9 +940,9 @@ $data = array(
   'instances' => array(
     'field_er_collab_department_unit' => array(
       0 => array(
-        'label' => 'Collaborating Institution Department/Unit',
+        'label' => 'Institution Department/Unit',
         'widget' => array(
-          'weight' => '8',
+          'weight' => '15',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -479,7 +970,7 @@ $data = array(
           ),
         ),
         'required' => 0,
-        'description' => 'Optionally specify which department or unit these collaborators are from.',
+        'description' => 'Optionally specify which department or unit this individual is from.',
         'default_value' => NULL,
         'field_name' => 'field_er_collab_department_unit',
         'entity_type' => 'node',
@@ -489,7 +980,7 @@ $data = array(
     ),
     'field_er_collab_inst_ref' => array(
       0 => array(
-        'label' => 'Institution',
+        'label' => 'Institution/Organization',
         'widget' => array(
           'weight' => '7',
           'type' => 'options_buttons',
@@ -522,7 +1013,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
         'default_value' => NULL,
         'default_value_function' => '',
@@ -665,6 +1156,263 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_er_inst_abbreviation' => array(
+      0 => array(
+        'label' => 'Institution Abbreviation',
+        'widget' => array(
+          'weight' => '10',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 10,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'E.g. "UCLA" for University of California, Los Angeles',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_abbreviation',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_add_bool' => array(
+      0 => array(
+        'label' => 'The institution is not listed here (add a new institution)',
+        'widget' => array(
+          'weight' => '8',
+          'type' => 'options_onoff',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(
+            'display_label' => 1,
+          ),
+        ),
+        'settings' => array(
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 14,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => 0,
+          ),
+        ),
+        'field_name' => 'field_er_inst_add_bool',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_country' => array(
+      0 => array(
+        'label' => 'Institution Country',
+        'widget' => array(
+          'weight' => '11',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 11,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_country',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_description' => array(
+      0 => array(
+        'label' => 'Brief Description of the Institution',
+        'widget' => array(
+          'weight' => '13',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 13,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_description',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_link' => array(
+      0 => array(
+        'label' => 'Institution Link',
+        'widget' => array(
+          'weight' => '12',
+          'type' => 'link_field',
+          'module' => 'link',
+          'active' => 0,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'validate_url' => 1,
+          'url' => 0,
+          'title' => 'optional',
+          'title_value' => '',
+          'title_maxlength' => '128',
+          'display' => array(
+            'url_cutoff' => '80',
+          ),
+          'attributes' => array(
+            'target' => 'default',
+            'rel' => '',
+            'class' => '',
+            'configurable_title' => 0,
+            'title' => '',
+          ),
+          'rel_remove' => 'default',
+          'enable_tokens' => 1,
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'link_default',
+            'settings' => array(),
+            'module' => 'link',
+            'weight' => 12,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_link',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_inst_name' => array(
+      0 => array(
+        'label' => 'Full name of Institution',
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 9,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'E.g. "University of California, Los Angeles", "National Science Foundation", etc',
+        'default_value' => NULL,
+        'field_name' => 'field_er_inst_name',
+        'entity_type' => 'node',
+        'bundle' => 'er_collaborators',
+        'deleted' => '0',
+      ),
+    ),
     'field_user_lookup' => array(
       0 => array(
         'label' => 'User Lookup',
@@ -779,6 +1527,13 @@ $data = array(
         1 => 'field_er_collab_inst_ref',
         2 => 'field_er_collab_name',
         3 => 'field_er_collab_user_status',
+        4 => 'field_er_inst_name',
+        5 => 'field_er_inst_abbreviation',
+        6 => 'field_er_inst_country',
+        7 => 'field_er_inst_link',
+        8 => 'field_er_inst_description',
+        9 => 'field_er_inst_add_bool',
+        10 => 'group_quick_add_inst',
       ),
       'format_type' => 'fieldset',
       'format_settings' => array(
@@ -817,6 +1572,32 @@ $data = array(
           'description' => 'Use this form if the user has a login into the system. Otherwise enter the information manually below.',
         ),
         'formatter' => 'collapsible',
+      ),
+    ),
+    'group_quick_add_inst|node|er_collaborators|form' => (object) array(
+      'id' => '30',
+      'identifier' => 'group_quick_add_inst|node|er_collaborators|form',
+      'group_name' => 'group_quick_add_inst',
+      'entity_type' => 'node',
+      'bundle' => 'er_collaborators',
+      'mode' => 'form',
+      'parent_name' => 'group_er_collab_manual',
+      'table' => 'field_group',
+      'type' => 'Normal',
+      'export_type' => 1,
+      'disabled' => FALSE,
+      'label' => 'Add new Institution',
+      'weight' => '14',
+      'children' => array(),
+      'format_type' => 'fieldset',
+      'format_settings' => array(
+        'label' => 'Add new Institution',
+        'instance_settings' => array(
+          'required_fields' => 0,
+          'classes' => '',
+          'description' => 'Use this form to add a new institution to the list above.',
+        ),
+        'formatter' => 'collapsed',
       ),
     ),
   ),
