@@ -1983,7 +1983,6 @@ $data = array(
         ),
         'node' => array(
           0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2051,9 +2050,6 @@ $data = array(
       'bundles' => array(
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2135,7 +2131,6 @@ $data = array(
         ),
         'node' => array(
           0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2213,9 +2208,6 @@ $data = array(
       'bundles' => array(
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2307,7 +2299,6 @@ $data = array(
         ),
         'node' => array(
           0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -2390,9 +2381,6 @@ $data = array(
       'bundles' => array(
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -2479,9 +2467,6 @@ $data = array(
       'bundles' => array(
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_collaboration',
         ),
       ),
     ),
@@ -7573,7 +7558,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Deomographics',
+      'label' => 'Demographics',
       'weight' => '35',
       'children' => array(
         0 => 'field_er_disabilities',
@@ -7584,11 +7569,12 @@ White|White',
       ),
       'format_type' => 'tab',
       'format_settings' => array(
-        'formatter' => 'closed',
+        'label' => 'Demographics',
         'instance_settings' => array(
-          'description' => '',
           'classes' => '',
+          'description' => '',
         ),
+        'formatter' => 'closed',
       ),
     ),
     'group_er_involvement|user|user|default' => (object) array(
@@ -7705,7 +7691,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Data Collection',
       'weight' => '69',
       'children' => array(
@@ -7738,7 +7723,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Institution',
       'weight' => '68',
       'children' => array(
@@ -7773,7 +7757,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Certifications and Supporting Documents',
       'weight' => '72',
       'children' => array(
@@ -7813,7 +7796,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Profile',
       'weight' => '0',
       'children' => array(
@@ -7843,7 +7825,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Account Information',
       'weight' => '71',
       'children' => array(
@@ -7870,7 +7851,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Contact Information',
       'weight' => '65',
       'children' => array(
@@ -7902,7 +7882,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Demographics',
       'weight' => '66',
       'children' => array(
@@ -7934,7 +7913,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'EPSCoR Involvement',
       'weight' => '67',
       'children' => array(
@@ -7976,7 +7954,6 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'disabled' => FALSE,
       'label' => 'Education',
       'weight' => '69',
       'children' => array(
