@@ -175,6 +175,9 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_er_proposal_node_form_alter');
 
 	// Setting up variables that will be used
+	$submitted = array(
+		':input[name="field_er_proposal_status[und]"]' => array('value' => 'Submitted'),
+	);
 	$pending = array(
 		':input[name="field_er_proposal_status[und]"]' => array('value' => 'Pending'),
 	);
@@ -189,10 +192,15 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	);
 	  
 	// The Date fields:
+	// Submitted (asterisk not showing up for some reason)
+	$form['field_er_proposal_submit']['#states'] = array(
+	  'visible'=> array($submitted, $awarded, $expired, $pending, $denied),
+	  'required' => array($submitted, $awarded, $expired, $pending, $denied),
+	); 
 	// Pending
 	$form['field_er_proposal_pending']['#states'] = array(
-	  'visible'=> array($pending, $awarded, $denied, $expired),
-	  'required' => array($pending, $awarded, $expired),
+	  'visible'=> $pending,
+	  'required' => $pending,
 	); 
 	
 	// Award Dates
@@ -203,7 +211,7 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	// Award Amount (Textfield)
 	$form['field_er_award_amount']['#states'] = array(
 	  'visible' => array($awarded, $expired),
-	  'required' => array($awarded, $expired),
+	  'required' => array($awarded, $expired, $pending, $denied),
 	);
 	
 	// Denied Date
@@ -211,9 +219,38 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'visible' => $denied,
 	  'required' => $denied,
 	);	
+	
+	$form['#validate'][] = '_proposal_validate';
 
 	// This automatically attaches the user's name to this field...	
 	//er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+}
+
+function _proposal_validate(&$form, &$form_state){
+	d($form_state, 'fs');
+	switch ($form_state['values']['field_er_proposal_status'][LANGUAGE_NONE][0]['value']){
+		// remember that the Date Submitted is required in the CCK field, so we don't have to check for that ~mike
+		case "Pending":
+			//selected pending but havent put a pending date
+			if (empty($form_state['values']['field_er_proposal_pending'][LANGUAGE_NONE][0]['value']))
+				form_set_error('field_er_proposal_pending', t('Please select a Date of Pending Notification as the Status is Pending.'));				
+			break;
+			
+		case "Awarded":
+		case "Expired":
+			// awarded/expired but haven't put  award date, award amount
+			if (empty($form_state['values']['field_er_proposal_date'][LANGUAGE_NONE][0]['value']))				
+				form_set_error('field_er_proposal_date', t('Please select an Award date.'));
+			if (empty($form_state['values']['field_er_award_amount'][LANGUAGE_NONE][0]['value'])){
+				form_set_error('field_er_award_amount', t('Please select an Award Amount.'));
+			}
+			break;			
+			
+		case "Denied":
+			if (empty($form_state['values']['field_er_proposal_denied'][LANGUAGE_NONE][0]['value']))
+				form_set_error('field_er_proposal_denied', t('Please select a Date of Denial Notification as the Status is Denied.'));				
+			break;
+	}
 }
 
 // Current and Pending Support - Effort
