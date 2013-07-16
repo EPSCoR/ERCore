@@ -10,7 +10,6 @@ $role = array(
    'access er content',
    'access user profiles',
    'change own username',
-   'create article content',
    'create blog content',
    'create er_award content',
    'create er_book content',
