@@ -46,7 +46,6 @@ function er_node_view($node, $view_mode, $langcode){
 				//if you get directed to a collaborators node, just redirect to the collaboration
 				$n = entity_metadata_wrapper('node', $node);
 				$collab_nid = $n->field_er_collab_ref->raw();
-				d($collab_nid, '$collab_nid');
 				drupal_goto('node/'.$collab_nid);
 			}
 			break;
@@ -55,7 +54,6 @@ function er_node_view($node, $view_mode, $langcode){
 				//if you get directed to a effort node, just redirect to the proposal
 				$n = entity_metadata_wrapper('node', $node);
 				$proposal_nid = $n->field_er_proposal_entity->raw();
-				d($proposal_nid, '$proposal_nid');
 				drupal_goto('node/'.$proposal_nid);
 			}
 			break;

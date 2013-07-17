@@ -64,6 +64,8 @@ function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 // External Collaborators
 function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
+	if (_deny_direct_form_access($form)) return;
+	
 	$form['field_er_collab_ref']['#disabled'] = TRUE;
 	$ref_field = 'field_user_lookup';
 	$form_state['autofill_ref_field'] = $ref_field;
@@ -257,14 +259,16 @@ function _proposal_validate(&$form, &$form_state){
 function er_form_er_effort_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	$form['field_er_proposal_entity']['#disabled'] = true; //the user should not be able to edit this.
+	if (_deny_direct_form_access($form)) return;
 	//d($form, 'er_form_er_paid_node_form_alter');
 }
 
 // External Engagements
 function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
-	if (!$form['field_er_cal_entity_reference']['und']['#default_value'])//If the calendar event isn't filled in, don't even show the form.
-		$form['#access'] = false;
+	if (_deny_direct_form_access($form)) return;
+		
+	//['#access'] = false;
 	$form['field_er_cal_entity_reference']['und']['#disabled'] = true;
 	
 	// d($form, 'er_form_er_engagement_node_form_alter');
@@ -808,4 +812,46 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 	$form['title']['#type'] = 'hidden';
 	$form['title']['#required'] = FALSE;
 	$form['title']['#default_value'] = "Generic title {$form['created']['#value']}";
+}
+
+/*
+ *
+ * This function will blank out a form, and replace it with a brief error message.
+ * This is used to direct the user to the correct workflow in cases where fields should be automatically filled out for them.
+ *
+ */
+function _deny_direct_form_access(&$form){
+	switch($form['#bundle']){
+		case 'er_engagement':
+			$reference_field = 'field_er_cal_entity_reference';
+			$link = '<strong>'.l('Calendar Event', 'node/add/er-event').'</strong>';
+			$message = t("External Enagement content cannot be created stand-alone. You must first create a !link, then attach External Engagement content to the event. See the documentation above.", array('!link'=>$link));
+			break;
+		case 'er_collaborators':
+			$reference_field = 'field_er_collab_ref';
+			$link = '<strong>'.l('Collaboration', 'node/add/er-collaboration').'</strong>';
+			$message = t("External Collaborators content cannot be created stand-alone. You must first create a !link, then attach External Collaborators to the Collaboration. See the documentation above.", array('!link'=>$link));
+			break;
+		case 'er_effort':
+			$reference_field = 'field_er_proposal_entity';
+			$link = '<strong>'.l('Proposal', 'node/add/er-proposal').'</strong>';
+			$message = t("Proposal - Effort content cannot be created stand-alone. You must first create a !link, then the system will allow you to edit individual effort. See the documentation above.", array('!link'=>$link));
+	}
+	if (
+		$reference_field &&
+		//it could be in one of two places...
+		!$form[$reference_field]['und']['#default_value'] &&
+		!$form[$reference_field]['und'][0]['target_id']['#default_value']
+	){//If the calendar event isn't filled in, don't even show the form.
+		$form = array(
+			'#form_id' => $form['#form_id'],
+			'#build_id' => $form['#build_id'],
+			'#id' => $form['#id'],
+			'#token' => $form['#token'],
+			'#markup' => $message,
+		);
+		return true;
+	}
+	else
+		return false;
 }
