@@ -5,7 +5,7 @@
 <div>
   <p>This guide has been developed for first time users of the EPSCoR Core Reporting site (ER-Core).  This site has been developed using Drupal 7, an open-source content 
   management system. Whether you are a developer, tester, administrator or an end user, we all need to get familiar with Drupal first.  In addition, this guide also 
-  introduces important terms used by the NSF EPSCoR program and how those terms in interpreted by the system.  This relationship is important for system administrators to 
+  introduces important terms used by the NSF EPSCoR program and how those terms are interpreted by the system.  This relationship is important for system administrators to 
   understand to be able to deliver reporting data to NSF with confidence.</p>
 
   <p>In general, most of the data requested by this reporting system will be viewable by the public, but in order to enter new, edit, or download the compiled tables you 
@@ -166,7 +166,7 @@
       </li>
       <li>
         <strong>Collaborator (Drupal Committee)</strong>
-        <p>NSF does not formally define what who a collaborator is for EPSCoR. Note, in the absence of a formal NSF definition of who a 
+        <p>NSF does not formally define who a collaborator is for EPSCoR. Note, in the absence of a formal NSF definition of who a 
         collaborator is for EPSCoR, the ER-Core Drupal Committee defines a collaborator as a researcher, faculty level or equivalent, who significantly contributes 
         (intellectually, labor) to the project less than 160 hrs/yr.  A collaborator may or may not be housed in a participating institution.  </p>
       </li>
@@ -252,8 +252,7 @@
 		and look in the black menu bar for your user name.  It actually says, "Hello (user)".  Click on your name and you will be taken to your user account.</p>
 		<p> Your name is a row of tabs.  The most important of those are the View and the Edit tabs.  Clicking either will give you that functionality (click Edit to edit, and 
 		View to view your profile's content).</p>
-		<p>Below your photo (once you have uploaded one) is a block of horizontal tabs of grouped information.  I'll run through them in detail below, but for now know that 
-		in the screen capture image below, you are looking at my Contact Information (tab) as indicated by the white background.  The other tabs are Involvement, Data, Institute, Demographics and Certifications.  Clicking on those tabs will take you to see that information.  Once in a View of our choice, clicking on Edit will allow you to edit that content.</p> 
+		<p>Below your photo (once you have uploaded one) is a block of horizontal tabs of grouped information.    The other tabs are Contact, Demographics, EPSCoR Involvement,  Institution, and Data Collection.  Clicking on those tabs will take you to that information.  Once in a View of our choice, clicking on Edit will allow you to edit that content.</p> 
 		<p>Next note to the right are the gray ovals with the term "public" nested inside it.  We have developed an indicator system that allows you to see who can see what of 
 		your user profile data.  In this case, the public can see my name and general contact information.  If I were to click on the Demographics tab, the ovals would be a 
 		teal blue and include the phrase, "administrative staff", which indicates that only you (the owner) and EPSCoR administrators can see your demographic data.  The third 
@@ -263,21 +262,21 @@
 		</h2>
 		<ol>
 			<li>Click on the "Hello (username)" link at the top right of any page  (after you are logged in)</li>
-			<li>Click on the Contact Information tab if you are not already there.</li>
-			<li>Click on the Edit tab.?</li>
-			<li>The red asterisk after a field means the data is required.  You will not be able to save the form unless that field has acceptable data.</li>
-			<li>Your Username, Firs and Last, and E-mail address should be filled in, which came from when you requested your account. </li>
-			<li>The phone field (mobile and work) are optional as well as Work Address and Professional Link.</li>
+			<li>Click on the Contact Information tab if you are not already there</li>
+			<li>Click on the Edit tab</li>
+			<li>The red asterisk after a field means that the data is required.  You will not be able to save the form unless all required fields have been completed.</li>
+			<li>First and Last name are required fields as part of your user profile. </li>
+			<li>Phone fields (mobile and work), Work Address and Professional Link are optional fields.</li>
 			<li>Click Save to save your contact information.</li>
 		</ol>
 		<h3 id="">
 			Demographics
 		</h2>
-		<p>NSF requires that we try to obtain demographic data on all our participants, including those attending EPSCoR sponsored events.  Given such a requirement, it is 
+		<p>NSF requires that we try to obtain demographic data for all our participants, including those attending EPSCoR sponsored events.  Given such a requirement, it is 
 		OPTIONAL to you if you want to submit it or not.  This data will be encrypted and disassociated from your name.  Only the counts of the various entries will be submitted 
 		to NSF.</p>
 		<ol>
-			<li>Select the appropriate radio button that best describes your demographics</li>
+			<li>Select the appropriate radio buttons that best describes your demographics</li>
 			<ul>
 				<li>In the case where you have multiple disabilities, citizenships or races, select the one that best describes you.</li>
 			</ul>
@@ -309,15 +308,16 @@
 		<h3 id="">
 			<a href="#5.5">5.5</a> Participating Date
 		</h2>
-		<p>Enter the date you officially began participating in EPSCoR</p>
+		<p>Enter the date you officially began participating with EPSCoR</p>
 		<h3 id="">
 			<a href="#5.6">5.6</a> Are you paid by the EPSCoR grant
 		</h2>
 		<p>Select Yes or No. This is a required field.</p>
+        <!--This question is no longer requiered
 		<h3 id="">
 			<a href="#5.7">5.7</a> How many months of direct funding do you receive
 		</h2>
-		<p>Select a number from the drop down box and round up or down to the nearest month of funding you are expected to receive</p>
+		<p>Select a number from the drop down box and round up or down to the nearest month of funding you are expected to receive</p>-->
 		<h3 id="">
 			<a href="#5.8">5.8</a> Do you participate in EPSCoR research more than 160 hours per year
 		</h2>
@@ -331,56 +331,64 @@
 			<a href="#5.9">5.9</a> Please describe role and contribution to the project
 		</h2>
 		<p>Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.</p>
+        <!--RCR is no longer required?
 		<h3 id="">
 			<a href="#5.10">5.10</a> RCR - Responsible Conduct of Research
-		</h2>
+		</h3>
 		<p>Click the "I have completed the RCR training" check box if you have taken either in-person or on-line versions of the RCR training.</p>
 		<ul>
 			<li>RCR In-Person: Enter the month, day and year of when you took the in-person course</li>
 			<li>RCR In-Person Upload: Upload a txt, word or pdf of your certificate</li>
 			<li>RCR On-Line: Enter the date you took the RCR online training</li>
 			<li>RCR On-Line Upload: attach the txt, word or pdf of your online RCR certificate</li>
-		</ul>
+		</ul>-->
 		<h3 id="">
 			<a href="#5.11">5.11</a> Institution
 		</h2>
 		<p>Click the radio button of the institution you are affiliated with.  The house icon denotes that institution is a Participating institution with respect to your 
 		EPSCoR jurisdiction.  The world icon denotes that that institution is not a participating institution.  If your institution is not listed, click the "My institution is 
-		not listed (add a new institution) check box:</p>
+		not listed here (add a new institution) check box:</p>
 		<ul>
-			<li>Having clicked the 'add new institution check box' reveals additional fields unique to institutions</li>
+			<li>Clicking the 'add new institution check box' reveals additional fields unique to institutions</li>
 			<li>Enter the name of the new institution</li>
-			<li>Enter the abbreviation of the institution if there is one</li>
-			<li>Leave the box checked for the add new institution. Unchecking it will take you out from this "add new institution" fields</li>
+			<li>Enter the abbreviation of the institution, if there is one</li>
+			<li>Enter the Institution website link</li>
 			<li>Enter the country of the institution</li>
 			<li>Provide a brief description</li>
-			<li>Provide the URL</li>
+            
 		</ul>
-		<p>Department: Enter in the name of the department for which you are affiliated</p>
+	  <p>Department: Enter in the name of the department for which you are affiliated</p>
 		<h3 id="">
 			<a href="#5.12">5.12</a> Data Collection
 		</h2>
-		<p>Check the "I plan to be collecting data through my research" check box if you anticipate collecting data as a result of your research.  This will send notices to the 
-		EPSCoR administrator as well as the data repository manager.</p>
-		<h3 id="">
+		<p>Check the "I plan to be collecting data through my research" check box if you anticipate collecting data as a result of your research.</p>
+        <p>Has this user been put in touch with the Data Manager?: Check the appropriate button for your situation.  This will send notices to the EPSCoR administrator as well as the data repository manager.</p>
+		<p>
+		  <h3 id="">
 			<a href="#5.13">5.13</a> Account Information
 		</h2>
+		</p>
 		<ol>
-			<li>Username</li>
-			<li>Your password is left blank for security purposes.  To reset your password, click on the "Request new password" link that near your password field.</li>
-			<li>Flags: Clicking the Receive data collection notification tells the system to send you an email when a new user has registered in the system who anticipates 
-			collecting data.</li>
-			<li>Status:  This determines whether or not you can login to the system.  Leave it Active.  </li>
+		  <li>Username: The system user name is determined by the website administrator upon account creation. This is a required field </li>
+			<li>Current Password: This is your current (non-visible) password and can be reset by clicking on the "Request new password" link near your Current password field or by entering a new Password in the two fields below your E-mail address.</li>
+	
+            <li>E-mail address: This will need to be A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.  This is a required field.
+			<li>Status:  This determines whether or not you or a user can login to the system.  Leave it Active.  </li>
 			<li>Roles:  These roles are the technical Drupal roles created to designate who can see or access what.  Different from Involvement, which is the role or hat one 
 			wears with respect to their participation within EPSCoR.  The standard roles are:</li>
 			<ul>
-				<li>Authenticated user:  simply means that you have an account in Drupal</li>
-				<li>Administrator: Access to any and all Drupal capabilities</li>
-				<li>EPSCoR Administrator: A subset of Administrator, restricting access to the more technical aspects of Drupal left for the developers.</li>
+				<li>Authenticated user:  Simply means that you have an account in Drupal</li>
+				<li>SITE ADMINISTRATOR: Access to any and all Drupal capabilities</li>
+               		
+                <li>Administrator Staff: A subset of Site Administrator and EPSCoR Administrator, restricting access to the more technical aspects of Drupal and EPSCoR reporting</li>
 				<li>Faculty:  A subset of EPSCoR Administrator generally restricting the ability to edit other's content</li>
 				<li>Student:  Identical to Faculty out-of-the-box.  An important designation technically, but left up to the jurisdiction to further restrict or grant access 
 				to specific areas.</li>
+                 <li>Guest: Simply means that you have an account in Drupal	</li>	
 			</ul>
+            	<li>Flags: Clicking the Receive data collection notification tells the system to send you an email when a new user has registered in the system who anticipates 
+			collecting data.</li>
+            
 		</ol>
 		<h3 id="">
 			<a href="#5.14">5.14</a> Participant Date
@@ -399,14 +407,15 @@
 			<a href="#5.15">5.15</a> Administrative Overlay
 		</h2>
 		<p>Disregard this option if you see it.</p>
+		
 		<h3 id="">
+			<a href="#5.17">5.17</a> Upload a photo
+		</h2>
+		<p>Click on the Choose file button to browse and upload a photo.</p>
+        <h3 id="">
 			<a href="#5.16">5.16</a> Location Settings
 		</h2>
 		<p>Select your locale setting.  This will configure Drupal to show date and time to your location.</p>
-		<h3 id="">
-			<a href="#5.17">5.17</a> Upload Additional Document
-		</h2>
-		<p>Browse and attach additional certificates or documents if you need to</p>
 		<h3 id="">
 			<a href="#5.18">5.18</a> Save
 		</h2>

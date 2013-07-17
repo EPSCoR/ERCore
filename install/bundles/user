@@ -1,4 +1,5 @@
 <?php
+
 $data = array(
   'bundles' => array(
     'user' => NULL,
@@ -5561,7 +5562,7 @@ Mobility/Orthopedic Impairment',
           'settings' => array(
             'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
-            'year_range' => '-3:+3',
+            'year_range' => '-10:+3',
             'increment' => '15',
             'label_position' => 'above',
             'text_parts' => array(),

@@ -1,6 +1,6 @@
 <?php
 $view = new view();
-$view->name = 'er_external_engagements_info';
+$view->name = 'external_engagements_information';
 $view->description = '';
 $view->tag = 'default';
 $view->base_table = 'node';
@@ -93,14 +93,14 @@ $handler->display->display_options['filters']['type']['value'] = array(
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['title'] = FALSE;
-$handler->display->display_options['title'] = 'Externally Engaged Events';
+$handler->display->display_options['title'] = 'External Engagement Events';
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['header'] = FALSE;
 /* Header: Global: Text area */
 $handler->display->display_options['header']['area']['id'] = 'area';
 $handler->display->display_options['header']['area']['table'] = 'views';
 $handler->display->display_options['header']['area']['field'] = 'area';
-$handler->display->display_options['header']['area']['content'] = '<em>This page lists all External Engagements which are qualified (will the public attend this event = yes)</em>';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all Calendar Events which are qualified (will the public attend this event = yes)</h2>';
 $handler->display->display_options['header']['area']['format'] = 'full_html';
 $handler->display->display_options['defaults']['fields'] = FALSE;
 /* Field: Content: Path */
@@ -112,6 +112,7 @@ $handler->display->display_options['fields']['path']['exclude'] = TRUE;
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = 'Calendar Event Title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 /* Field: Content: Date */
@@ -127,7 +128,7 @@ $handler->display->display_options['fields']['field_er_cal_event_date']['setting
   'show_repeat_rule' => 'show',
 );
 $handler->display->display_options['fields']['field_er_cal_event_date']['delta_offset'] = '0';
-/* Field: Content: Presenter(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -137,12 +138,6 @@ $handler->display->display_options['fields']['field_er_user_entity_reference']['
   'link' => 0,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: Attach Flier */
-$handler->display->display_options['fields']['field_er_event_flier']['id'] = 'field_er_event_flier';
-$handler->display->display_options['fields']['field_er_event_flier']['table'] = 'field_data_field_er_event_flier';
-$handler->display->display_options['fields']['field_er_event_flier']['field'] = 'field_er_event_flier';
-$handler->display->display_options['fields']['field_er_event_flier']['label'] = 'Attached Flier';
-$handler->display->display_options['fields']['field_er_event_flier']['click_sort_column'] = 'fid';
 /* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -150,17 +145,6 @@ $handler->display->display_options['fields']['name']['field'] = 'name';
 $handler->display->display_options['fields']['name']['relationship'] = 'uid';
 $handler->display->display_options['fields']['name']['label'] = 'Author';
 $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-/* Field: Content: Body */
-$handler->display->display_options['fields']['body']['id'] = 'body';
-$handler->display->display_options['fields']['body']['table'] = 'field_data_body';
-$handler->display->display_options['fields']['body']['field'] = 'body';
-$handler->display->display_options['fields']['body']['label'] = 'Abstract/Description';
-$handler->display->display_options['fields']['body']['alter']['max_length'] = '220';
-$handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
-$handler->display->display_options['fields']['body']['alter']['more_link_text'] = 'more';
-$handler->display->display_options['fields']['body']['alter']['more_link_path'] = '[path] ';
-$handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
-$handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['sorts'] = FALSE;
 /* Sort criterion: Content: Title */
 $handler->display->display_options['sorts']['title']['id'] = 'title';
@@ -188,6 +172,14 @@ $handler->display->display_options['filters']['status']['expose']['remember_role
   3 => 0,
   1 => 0,
 );
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_event' => 'er_event',
+  'er_engagement' => 'er_engagement',
+);
 /* Filter criterion: Content: Will this event be attended by non-EPSCoR participants (field_er_event_reminders) */
 $handler->display->display_options['filters']['field_er_event_reminders_value']['id'] = 'field_er_event_reminders_value';
 $handler->display->display_options['filters']['field_er_event_reminders_value']['table'] = 'field_data_field_er_event_reminders';
@@ -195,7 +187,6 @@ $handler->display->display_options['filters']['field_er_event_reminders_value'][
 $handler->display->display_options['filters']['field_er_event_reminders_value']['value'] = array(
   1 => '1',
 );
-$handler->display->display_options['filters']['field_er_event_reminders_value']['reduce_duplicates'] = TRUE;
 $handler->display->display_options['path'] = 'admin/epscor/views/external-engagements-information';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'External Engagements Information';
@@ -203,3 +194,196 @@ $handler->display->display_options['menu']['description'] = 'External Engagement
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
+
+/* Display: EE with Data */
+$handler = $view->new_display('attachment', 'EE with Data', 'attachment_1');
+$handler->display->display_options['display_description'] = 'External Engagement table with data ';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all External Engagements that have data.</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = 'External Engagement';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Calendar Event Title */
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: Content: Total */
+$handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['label'] = 'Total Attendees';
+$handler->display->display_options['fields']['field_er_tot_total']['settings'] = array(
+  'thousand_separator' => ' ',
+  'prefix_suffix' => 1,
+);
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Calendar Event Title (field_er_cal_entity_reference) */
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['id'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['field'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['sorts']['field_er_cal_entity_reference_target_id']['order'] = 'DESC';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Total (field_er_tot_total) */
+$handler->display->display_options['filters']['field_er_tot_total_value']['id'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['filters']['field_er_tot_total_value']['field'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['operator'] = '!=';
+$handler->display->display_options['filters']['field_er_tot_total_value']['value']['value'] = '0';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['attachment_position'] = 'after';
+
+/* Display: EE without Data */
+$handler = $view->new_display('attachment', 'EE without Data', 'attachment_2');
+$handler->display->display_options['display_description'] = 'External Engagement without data';
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'title' => 'title',
+  'field_er_cal_entity_reference' => 'field_er_cal_entity_reference',
+  'created' => 'created',
+  'field_er_tot_total' => 'field_er_tot_total',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'title' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_cal_entity_reference' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'created' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'field_er_tot_total' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['empty_table'] = TRUE;
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>This table lists all external engagements that DO NOT have data entered.</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Calendar Event Title */
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Post date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'node';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: Content: Total */
+$handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['field'] = 'field_er_tot_total';
+$handler->display->display_options['fields']['field_er_tot_total']['settings'] = array(
+  'thousand_separator' => ' ',
+  'prefix_suffix' => 1,
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Total (field_er_tot_total) */
+$handler->display->display_options['filters']['field_er_tot_total_value']['id'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['table'] = 'field_data_field_er_tot_total';
+$handler->display->display_options['filters']['field_er_tot_total_value']['field'] = 'field_er_tot_total_value';
+$handler->display->display_options['filters']['field_er_tot_total_value']['value']['value'] = '0';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['attachment_position'] = 'after';

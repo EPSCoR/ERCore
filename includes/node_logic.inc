@@ -18,6 +18,12 @@ function er_preprocess_field(&$variables) {
 	 * */
 }
 
+/*
+ *
+ * This gets run any time a node is loaded for viewing...
+ * NOTICE!:: This hook seems to be getting called during the installation/reset
+ *  procedure which can interrupt the batch API process! Beware of using drupal_goto
+ */
 function er_node_view($node, $view_mode, $langcode){
   switch ($node->type){
     case 'er_event':
@@ -27,23 +33,29 @@ function er_node_view($node, $view_mode, $langcode){
 	  	er_cnp_extras_modify_view($node);
 	  	break;
 		case 'er_engagement':
-			$node->content['table'] = array(
-				'#theme' => 'er_external_engagements_view_table',
-				'#node' => $node,
-				'#weight' => 500,
-			);
+			if ($view_mode == 'full'){
+				$node->content['table'] = array(
+					'#theme' => 'er_external_engagements_view_table',
+					'#node' => $node,
+					'#weight' => 500,
+				);
+			}
 			break;
 		case 'er_collaborators':
-			//if you get directed to a collaborators node, just redirect to the collaboration
-			$n = entity_metadata_wrapper('node', $node);
-			$collab_nid = $n->field_er_collab_ref->raw();
-			drupal_goto('node/'.$collab_nid);
+			if ($view_mode == 'full'){
+				//if you get directed to a collaborators node, just redirect to the collaboration
+				$n = entity_metadata_wrapper('node', $node);
+				$collab_nid = $n->field_er_collab_ref->raw();
+				drupal_goto('node/'.$collab_nid);
+			}
 			break;
 		case 'er_effort':
-			//if you get directed to a collaborators node, just redirect to the collaboration
-			$n = entity_metadata_wrapper('node', $node);
-			$proposal_nid = $n->field_er_proposal_entity->raw();
-			drupal_goto('node/'.$proposal_nid);
+			if ($view_mode == 'full'){
+				//if you get directed to a effort node, just redirect to the proposal
+				$n = entity_metadata_wrapper('node', $node);
+				$proposal_nid = $n->field_er_proposal_entity->raw();
+				drupal_goto('node/'.$proposal_nid);
+			}
 			break;
 	}
 }
