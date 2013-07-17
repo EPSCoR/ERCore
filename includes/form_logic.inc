@@ -461,6 +461,31 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
 function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
+	
+	// all of this is to make the add user form quick without all the required fields having to be entered
+	$form['field_er_fname']['#weight'] = -12;
+	$form['field_er_lname']['#weight'] = -11;
+	$form['field_er_components']['#access'] = FALSE;
+	$form['field_er_paid']['#access'] = FALSE;
+	$form['field_er_160hours']['#access'] = FALSE;
+	$form['field_er_most_sen_proj_role_ca1']['#access'] = FALSE;
+	$form['account']['notify']['#default_value'] = TRUE;
+	// $form['account']['name']['#access'] = FALSE;
+	$form['account']['pass']['#required'] = FALSE;
+	$form['account']['pass']['#description'] .= ' You may leave it blank to create a random password.';
+	unset($form['#groups']);
+	unset($form['#fieldgroups']);
+	unset($form['#group_children']);
+	$form['flag']['#access'] = FALSE;
+	
+
+}
+
+function testmike(&$form){
+	d($form, 'f in testmike');
+	// d($form_state, 'fs in testmike');
+	// unset($form['#groups']['group_er_involvement']);
+	unset($form['#group_er_profile']['group_er_involvement']);
 }
 
 // User Profile
@@ -683,6 +708,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
  */
 function er_field_group_build_pre_render_alter(&$element){
 	// d($element, 'element');
+	
 	// This IF block was used for the User Profile
 	if (isset($element['group_er_certs']) && isset($element['group_er_data'])){
 		$element['group_er_certs']['#states'] = array(
@@ -697,7 +723,18 @@ function er_field_group_build_pre_render_alter(&$element){
 	    );			
 	}
 	
-	// This IF block is used for the Publications Content Type
+	// if (isset($element['group_er_profile']['group_er_inst'])){
+		// d('findthis');
+		// $element['group_er_profile']['group_er_inst']['#attributes']['class'][] = 'findthis';
+		// $element['group_er_profile']['group_er_inst']['#states'] = array(
+	    	// 'required' => array(
+	      	// ':input[name="field_er_inst_add_bool[und]"]' => array('checked' => TRUE),
+	    	// )
+	    // );			
+		// d($element['group_er_profile']['group_er_inst'], 'inst fieldgroup');
+	// }
+		
+	// This IF block is used for the Publications Content Type		
 	if (isset($element['group_er_journal'])){
 		// Make Publication Info group visible/invisible depending on the selection
 		
@@ -809,3 +846,65 @@ function _form_autogen_title(&$form, &$form_state, $form_id) {
 	$form['title']['#required'] = FALSE;
 	$form['title']['#default_value'] = "Generic title {$form['created']['#value']}";
 }
+
+function _er_quick_add($form, &$form_state) {
+  // $form['er_quick_fname'] = array(
+    // '#type' => 'textfield',  
+    // '#title' => t('First Name'),
+    // '#required' => TRUE,
+  // );
+  // $form['er_quick_lname'] = array(
+    // '#type' => 'textfield',
+    // '#title' => t('Last Name'),
+    // '#required' => TRUE,
+  // );
+  $form['er_quick_username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Username'),
+    '#required' => TRUE,
+  );
+  // $form['er_quick_email'] = array(
+  $form['edit-mail'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => TRUE,
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit',
+  );  
+	
+  return $form;
+}
+
+// the below may be useful at some point for creating quick users, not in use, though ~mike
+// function _er_quick_add_submit($form, &$form_state){
+	// d($form_state, 'fs');
+    // // drupal_set_message(t('do stuff like user_save.'));
+  // //This will generate a random password, you could set your own here
+  // $password = user_password(13);
+//  
+  // //set up the user fields
+  // $fields = array(
+    // 'name' => $form_state['values']['er_quick_username'],
+    // 'mail' => $form_state['values']['edit-mail'],
+    // 'pass' => $password,
+    // 'status' => 1,
+    // 'init' => $form_state['values']['edit-mail'],
+    // 'roles' => array(
+      // DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+    // ),
+  // );
+//  
+  // //the first parameter is left blank so a new user is created
+  // $account = user_save('', $fields);
+//  
+  // // If you want to send the welcome email, use the following code
+//  
+  // // Manually set the password so it appears in the e-mail.
+  // $account->password = $fields['pass'];
+//  
+  // // Send the e-mail through the user module.
+  // drupal_mail('user', 'register_no_approval_required', $fields['mail'], NULL, array('account' => $account, 'user:name' => 'manual'), variable_get('site_mail', 'noreply@er.core'));
+// }
