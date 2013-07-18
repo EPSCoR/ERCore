@@ -192,6 +192,16 @@ function er_menu() {
 		'page arguments' => array('node/add/er-institution'),
     'access arguments' => array(ER_ADMIN_PERMISSION),
   );
+  // the below may be helpful at some point. basically just made FAPI for a quick add user
+	// $items['admin/epscor/actions/new-user'] = array(
+    // 'menu_name' => 'management',
+    // 'title' => 'Create New User',
+	// 'type' => MENU_NORMAL_ITEM,
+	// 'page callback' => 'drupal_get_form',
+	// 'page arguments' => array('_er_quick_add'),
+	// 'access callback' => TRUE,
+    // 'access arguments' => array(ER_ADMIN_PERMISSION),
+  // );
 	$items['admin/epscor/actions/new-user'] = array(
     'menu_name' => 'management',
     'title' => 'Create New User',
@@ -561,6 +571,10 @@ function get($obj, $thing, $default=FALSE){
 }
 
 function er_username_alter(&$name, $account) {
+	// we do not want the email sent out to new users to have the "real name", so we return if we're creating a new acct
+	if (arg(0) == 'admin' && arg(1) == 'people' && arg(2) == 'create')
+		return;
+	
   if (empty($account->uid)) {
     // Don't alter anonymous users or objects that do not have any user ID.
     return;
