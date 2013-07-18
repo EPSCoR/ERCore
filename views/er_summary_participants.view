@@ -1,5 +1,6 @@
 <?php
-$view = new view;
+
+$view = new view();
 $view->name = 'er_summary_participants';
 $view->description = '';
 $view->tag = 'default';
@@ -12,9 +13,10 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 /* Display: Master */
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Participants';
+$handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
-  166149871 => '166149871',
+  10000 => '10000',
   3 => '3',
 );
 $handler->display->display_options['cache']['type'] = 'none';

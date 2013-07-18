@@ -1,4 +1,5 @@
 <?php
+
 $view = new view();
 $view->name = 'er_summary_er_institution';
 $view->description = '';
@@ -15,7 +16,7 @@ $handler->display->display_options['title'] = 'Institutions';
 $handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'role';
 $handler->display->display_options['access']['role'] = array(
-  166149871 => '166149871',
+  10000 => '10000',
   3 => '3',
 );
 $handler->display->display_options['cache']['type'] = 'none';
