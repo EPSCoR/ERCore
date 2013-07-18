@@ -1,4 +1,5 @@
 <?php
+
 $data = array(
   'bundles' => array(
     'er_proposal' => (object) array(
@@ -94,14 +95,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_award',
-          3 => 'er_collaboration',
-          4 => 'er_event',
+          2 => 'er_proposal',
+          3 => 'er_publication',
+          4 => 'er_award',
           5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
-          9 => 'simpletest_example',
+          6 => 'er_event',
+          7 => 'er_presentation',
+          8 => 'er_collaboration',
         ),
       ),
     ),
@@ -358,6 +358,7 @@ $data = array(
       'bundles' => array(
         'node' => array(
           0 => 'er_proposal',
+          1 => 'er_event',
         ),
       ),
     ),
@@ -1029,14 +1030,14 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_publication',
+          2 => 'er_other_product',
+          3 => 'er_news',
+          4 => 'er_award',
+          5 => 'er_event',
+          6 => 'er_patent',
+          7 => 'er_presentation',
         ),
       ),
     ),
@@ -1309,7 +1310,7 @@ $data = array(
           ),
         ),
         'required' => 1,
-        'description' => '',
+        'description' => '<b>Notice: Commas are not accepted. Please enter only numbers and decimals. </b>',
         'default_value' => NULL,
         'field_name' => 'field_er_award_requested_dec',
         'entity_type' => 'node',
@@ -2705,7 +2706,7 @@ $data = array(
   ),
   'fieldgroups' => array(
     'group_pi_copi|node|er_proposal|form' => (object) array(
-      'id' => '7',
+      'id' => '25',
       'identifier' => 'group_pi_copi|node|er_proposal|form',
       'group_name' => 'group_pi_copi',
       'entity_type' => 'node',
