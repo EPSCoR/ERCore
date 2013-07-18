@@ -94,79 +94,14 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_event',
-          3 => 'er_presentation',
-          4 => 'er_award',
-          5 => 'er_proposal',
-          6 => 'er_collaboration',
-          7 => 'er_institution',
+          2 => 'er_award',
+          3 => 'er_collaboration',
+          4 => 'er_event',
+          5 => 'er_institution',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
           8 => 'er_publication',
-        ),
-      ),
-    ),
-    'field_building_room_number_' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'max_length' => '255',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_building_room_number_' => array(
-                'value' => 'field_building_room_number__value',
-                'format' => 'field_building_room_number__format',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_building_room_number_' => array(
-                'value' => 'field_building_room_number__value',
-                'format' => 'field_building_room_number__format',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(
-        'format' => array(
-          'table' => 'filter_format',
-          'columns' => array(
-            'format' => 'format',
-          ),
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'field_name' => 'field_building_room_number_',
-      'type' => 'text',
-      'module' => 'text',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'varchar',
-          'length' => '255',
-          'not null' => FALSE,
-        ),
-        'format' => array(
-          'type' => 'varchar',
-          'length' => 255,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_event',
+          9 => 'simpletest_example',
         ),
       ),
     ),
@@ -335,153 +270,6 @@ $data = array(
         ),
       ),
     ),
-    'field_er_event_location' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'profile2_private' => FALSE,
-        'srid' => '4326',
-        'backend' => 'default',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_event_location' => array(
-                'geom' => 'field_er_event_location_geom',
-                'geo_type' => 'field_er_event_location_geo_type',
-                'lat' => 'field_er_event_location_lat',
-                'lon' => 'field_er_event_location_lon',
-                'left' => 'field_er_event_location_left',
-                'top' => 'field_er_event_location_top',
-                'right' => 'field_er_event_location_right',
-                'bottom' => 'field_er_event_location_bottom',
-                'geohash' => 'field_er_event_location_geohash',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_event_location' => array(
-                'geom' => 'field_er_event_location_geom',
-                'geo_type' => 'field_er_event_location_geo_type',
-                'lat' => 'field_er_event_location_lat',
-                'lon' => 'field_er_event_location_lon',
-                'left' => 'field_er_event_location_left',
-                'top' => 'field_er_event_location_top',
-                'right' => 'field_er_event_location_right',
-                'bottom' => 'field_er_event_location_bottom',
-                'geohash' => 'field_er_event_location_geohash',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'lat' => array(
-          0 => 'lat',
-        ),
-        'lon' => array(
-          0 => 'lon',
-        ),
-        'top' => array(
-          0 => 'top',
-        ),
-        'bottom' => array(
-          0 => 'bottom',
-        ),
-        'left' => array(
-          0 => 'left',
-        ),
-        'right' => array(
-          0 => 'right',
-        ),
-        'geohash' => array(
-          0 => 'geohash',
-        ),
-        'centroid' => array(
-          0 => 'lat',
-          1 => 'lon',
-        ),
-        'bbox' => array(
-          0 => 'top',
-          1 => 'bottom',
-          2 => 'left',
-          3 => 'right',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_er_event_location',
-      'type' => 'geofield',
-      'module' => 'geofield',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'geom' => array(
-          'type' => 'blob',
-          'size' => 'big',
-          'not null' => FALSE,
-        ),
-        'geo_type' => array(
-          'type' => 'varchar',
-          'default' => '',
-          'length' => 64,
-        ),
-        'lat' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'lon' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'left' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'top' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'right' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'bottom' => array(
-          'type' => 'numeric',
-          'precision' => 18,
-          'scale' => 12,
-          'not null' => FALSE,
-        ),
-        'geohash' => array(
-          'type' => 'varchar',
-          'length' => 16,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_event',
-        ),
-      ),
-    ),
     'field_er_event_reminders' => array(
       'type_name' => 'er_event',
       'entity_types' => array(),
@@ -607,6 +395,80 @@ $data = array(
         ),
       ),
     ),
+    'field_er_location' => array(
+      'type_name' => 'er_proposal',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+        'text_processing' => '0',
+        'allowed_values' => '',
+        'allowed_values_php' => '',
+      ),
+      'translatable' => '0',
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_location' => array(
+                'value' => 'field_er_location_value',
+                'format' => 'field_er_location_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_location' => array(
+                'value' => 'field_er_location_value',
+                'format' => 'field_er_location_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_location',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_proposal',
+          1 => 'er_event',
+        ),
+      ),
+    ),
     'field_er_push_notifications' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -615,7 +477,7 @@ $data = array(
           'Non-technical support staff' => 'Non-technical support staff',
           'Undergraduate student' => 'Undergraduate student',
           'Technical support staff' => 'Technical support staff',
-          'EPSCoR leadership team' => 'EPSCoR leadership team',
+          'RII3 leadership team' => 'RII3 leadership team',
           'Faculty participant (or equivalent)' => 'Faculty participant (or equivalent)',
           'Graduate student' => 'Graduate student',
           'Post doc' => 'Post doc',
@@ -661,6 +523,75 @@ $data = array(
       'deleted' => '0',
       'columns' => array(
         'value' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
+        ),
+      ),
+    ),
+    'field_er_room_num' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_room_num' => array(
+                'value' => 'field_er_room_num_value',
+                'format' => 'field_er_room_num_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_room_num' => array(
+                'value' => 'field_er_room_num_value',
+                'format' => 'field_er_room_num_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_room_num',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
           'type' => 'varchar',
           'length' => 255,
           'not null' => FALSE,
@@ -826,83 +757,14 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_event',
-          1 => 'er_presentation',
+          0 => 'er_award',
+          1 => 'er_event',
           2 => 'er_news',
-          3 => 'er_award',
+          3 => 'er_other_product',
           4 => 'er_patent',
-          5 => 'er_other_product',
+          5 => 'er_presentation',
           6 => 'er_proposal',
           7 => 'er_publication',
-        ),
-      ),
-    ),
-    'field_location' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'max_length' => '255',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_location' => array(
-                'value' => 'field_location_value',
-                'format' => 'field_location_format',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_location' => array(
-                'value' => 'field_location_value',
-                'format' => 'field_location_format',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(
-        'format' => array(
-          'table' => 'filter_format',
-          'columns' => array(
-            'format' => 'format',
-          ),
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_location',
-      'type' => 'text',
-      'module' => 'text',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'varchar',
-          'length' => '255',
-          'not null' => FALSE,
-        ),
-        'format' => array(
-          'type' => 'varchar',
-          'length' => 255,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'node' => array(
-          0 => 'er_event',
         ),
       ),
     ),
@@ -912,7 +774,7 @@ $data = array(
       0 => array(
         'label' => 'Abstract or Short Description',
         'widget' => array(
-          'weight' => '8',
+          'weight' => '6',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -949,45 +811,6 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'body',
-        'entity_type' => 'node',
-        'bundle' => 'er_event',
-        'deleted' => '0',
-      ),
-    ),
-    'field_building_room_number_' => array(
-      0 => array(
-        'label' => 'Building (Room Number)',
-        'widget' => array(
-          'type' => 'text_textfield',
-          'weight' => '11',
-          'settings' => array(
-            'size' => 60,
-          ),
-          'module' => 'text',
-        ),
-        'settings' => array(
-          'text_processing' => 0,
-          'user_register_form' => FALSE,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '27',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => FALSE,
-        'description' => '',
-        'default_value' => NULL,
-        'field_name' => 'field_building_room_number_',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
@@ -1053,7 +876,7 @@ $data = array(
       0 => array(
         'label' => 'Attach Flier',
         'widget' => array(
-          'weight' => '9',
+          'weight' => '8',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -1091,61 +914,6 @@ $data = array(
         'deleted' => '0',
       ),
     ),
-    'field_er_event_location' => array(
-      0 => array(
-        'label' => 'Location',
-        'widget' => array(
-          'weight' => '12',
-          'type' => 'geofield_openlayers',
-          'module' => 'openlayers',
-          'active' => 1,
-          'settings' => array(
-            'openlayers_map' => 'geofield_widget_map',
-            'data_storage' => 'collection',
-          ),
-        ),
-        'settings' => array(
-          'required_by_role' => array(
-            5 => '5',
-            4 => '4',
-            6 => '6',
-            3 => '3',
-            1 => 0,
-          ),
-          'local_solr' => array(
-            'enabled' => FALSE,
-            'lat_field' => 'lat',
-            'lng_field' => 'lng',
-          ),
-          'user_register_form' => FALSE,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'hidden',
-            'type' => 'geofield_openlayers',
-            'weight' => '26',
-            'settings' => array(
-              'data' => 'full',
-              'map_preset' => 'geofield_formatter_map',
-            ),
-            'module' => 'geofield',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 0,
-        'description' => 'Where is your event taking place?',
-        'default_value' => NULL,
-        'field_name' => 'field_er_event_location',
-        'entity_type' => 'node',
-        'bundle' => 'er_event',
-        'deleted' => '0',
-      ),
-    ),
     'field_er_event_reminders' => array(
       0 => array(
         'weight' => '5',
@@ -1158,7 +926,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '6',
+          'weight' => '5',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1353,11 +1121,51 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_er_location' => array(
+      0 => array(
+        'label' => 'Location/Address',
+        'widget' => array(
+          'weight' => '9',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 28,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_location',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_push_notifications' => array(
       0 => array(
         'label' => 'Send notifications of this event to',
         'widget' => array(
-          'weight' => '8',
+          'weight' => '7',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1388,6 +1196,46 @@ $data = array(
         'default_value_function' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_push_notifications',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_room_num' => array(
+      0 => array(
+        'label' => 'Building (Room Number)',
+        'widget' => array(
+          'weight' => '10',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 29,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_room_num',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
@@ -1586,46 +1434,6 @@ $data = array(
         'default_value' => NULL,
         'default_value_function' => '',
         'field_name' => 'field_er_user_entity_reference',
-        'entity_type' => 'node',
-        'bundle' => 'er_event',
-        'deleted' => '0',
-      ),
-    ),
-    'field_location' => array(
-      0 => array(
-        'label' => 'Address',
-        'widget' => array(
-          'weight' => '10',
-          'type' => 'text_textfield',
-          'module' => 'text',
-          'active' => 1,
-          'settings' => array(
-            'size' => '60',
-          ),
-        ),
-        'settings' => array(
-          'text_processing' => '0',
-          'user_register_form' => FALSE,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'weight' => '26',
-            'settings' => array(),
-            'module' => 'text',
-          ),
-          'teaser' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 0,
-        'description' => '',
-        'default_value' => NULL,
-        'field_name' => 'field_location',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
