@@ -233,7 +233,7 @@ function er_menu() {
     'title' => 'Download Reporting Tables',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
-		'page arguments' => array('reporting/execl/download'),
+		'page arguments' => array('reporting/excel/download'),
     'access arguments' => array(ER_DOWNLOAD_PERMISSION),
   );
 	
