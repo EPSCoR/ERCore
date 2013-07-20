@@ -101,7 +101,6 @@ $data = array(
           6 => 'er_presentation',
           7 => 'er_proposal',
           8 => 'er_publication',
-          9 => 'simpletest_example',
         ),
       ),
     ),
