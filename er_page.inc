@@ -18,7 +18,7 @@ class er_page{
 		'race'=>'field_er_race',
 		'ethnicity'=>'field_er_ethnicity',
 		'disability'=>'field_er_disabilities',
-		'participant_date'=>'field__er_particip_date_ca1',
+		'participant_date'=>'field_er_particip_date_aw1',
 		'hired_date'=>'field_er_hired_date',
 		'mas_act_grad_date'=>'field_er_act_mast_grad_ca1',
 		'doc_act_grad_date'=>'field_er_act_doctl_complet_ca1',
