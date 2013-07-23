@@ -266,13 +266,7 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'Development Tools',
 			'severity' => REQUIREMENT_OK,
-			'value' => 'Devel is enabled'
-		);
-	}else{
-		$requirements[] = array(
-			'title' => 'Development Tools',
-			'severity' => REQUIREMENT_WARNING,
-			'value' => 'Devel module not found',
+			'value' => 'Devel is enabled',
 			'description' => 'This module should be enabled in a development environment, but should not be necessary for a live site.',
 		);
 	}
