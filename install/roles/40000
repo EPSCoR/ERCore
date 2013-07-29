@@ -1,23 +1,16 @@
 <?php
-$role = array(
+
+$role = array (
   'rid' => '40000',
   'name' => 'guest',
-  'permissions' => array(
-    'access comments',
-    'access er content',
-    'access user profiles',
-    'edit own field_er_disabilities',
-    'edit own field_er_phone_personal',
-    'edit own main profile',
-    'post comments',
-    'search content',
-    'use advanced search',
-    'use text format filtered_html',
-    'view any administrative_staff profile',
-    'view any administrator profile',
-    'view any student profile',
-    'view own field_er_disabilities',
-    'view own main profile',
-    'view own student profile',
-  )
+  'permissions' => 
+  array (
+    0 => 'access comments',
+    1 => 'access er content',
+    2 => 'access user profiles',
+    3 => 'post comments',
+    4 => 'search content',
+    5 => 'use advanced search',
+    6 => 'use text format filtered_html',
+  ),
 );
