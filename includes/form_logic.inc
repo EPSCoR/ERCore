@@ -67,7 +67,7 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 	if (_deny_direct_form_access($form)) return;
 	
 	$form['field_er_collab_ref']['#disabled'] = TRUE;
-	$ref_field = 'field_user_lookup';
+	$ref_field = 'field_er_user_lookup';
 	$form_state['autofill_ref_field'] = $ref_field;
 	$form['autofill_collab_submit'] = array(
 		'#value' => 'Auto-fill fields below',
@@ -472,7 +472,7 @@ function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_components']['#access'] = FALSE;
 	$form['field_er_paid']['#access'] = FALSE;
 	$form['field_er_160hours']['#access'] = FALSE;
-	$form['field_er_most_sen_proj_role_ca1']['#access'] = FALSE;
+	$form['field_er_most_sen_proj_role']['#access'] = FALSE;
 	$form['account']['notify']['#default_value'] = TRUE;
 	// $form['account']['name']['#access'] = FALSE;
 	$form['account']['pass']['#required'] = FALSE;
@@ -492,100 +492,110 @@ function testmike(&$form){
 	unset($form['#group_er_profile']['group_er_involvement']);
 }
 
+
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
 	
+
+	
 // Faculty Participant (or Equivalent)
 	$faculty_part = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Faculty participant (or equivalent)'),
-	  );
+	  );	  
 	
 // Technical support staff
 	$tech_support_staff = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Technical support staff'),
 	  );
 
 // Non-Technical support staff
 	$non_tech_support_staff = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Non-technical support staff'),
 	  );
 	  
 // EPSCoR Leadership Team
 	$epscor_leadership_team = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'EPSCoR Leadership Team'),
 	  );
 	  
 // Other Staff
 	$other_epscor_staff = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Other'),
 	  );
 
 // Evaluation Staff
 	$evaluation_staff = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Evaluation'),
 	  );	
 	    	
 // Undergraduate selection
 	$undergrad = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Undergraduate student'),
 	  );
 	//anticipated undergraduate completion
-	$form['field_er_ant_undergrad_ca1']['#states'] = array(
+	$form['field_er_ant_under']['#states'] = array(
 	  'visible' => $undergrad, 
 	  'required' => $undergrad,
 	);
 	
+	
+	
 // Graduate Student
 	$grad_student = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array(
+		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Graduate student'),
 	);
-	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
+	$form['field_er_ant_masters']['#states'] = array(
 	  'visible' => $grad_student,
 	  'required' => $grad_student,
 	);
 	//anticipated masters completion
-	$form['field_er_ant_mast_grad_ca1']['#states'] = array(
+	$form['field_er_ant_masters']['#states'] = array(
 	  'visible' => $grad_student,
 	);
+	
+
 		
 // Post Doctorate selection
 	$post_doc = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => array('value' => 'Post Doc'),
+		':input[name="field_er_most_sen_proj_role[und]"]' => array('value' => 'Post Doc'),
 	);
 	//anticipated doctorate completion
-	$form['field_er_ant_doct_completion_ca1']['#states'] = array(
+	$form['field_er_ant_doctor']['#states'] = array(
 	  	'visible' => $post_doc,$grad_student,
 	  	'required' => $post_doc,$grad_student,
 	);
 	
+	
 	////// Actual Undergrad, masters, post-doc completion fields /////
 
 	//actual undergraduate completion
-	$form['field_er_act_undergrad_grad_ca1']['#states'] = array(
+	$form['field_er_act_under']['#states'] = array(
 	  	'visible' => array($undergrad, $grad_student, $post_doc),
 	);	
 	//actual masters completion
-	$form['field_er_act_mast_grad_ca1']['#states'] = array(
+	$form['field_er_act_masters']['#states'] = array(
 	 	'visible' => array($grad_student,$post_doc),
 	);
 	//actual doctorate completion
-	$form['field_er_act_doctl_complet_ca1']['#states'] = array(
+	$form['field_er_act_doctor']['#states'] = array(
 	 	'visible' => $post_doc,
 	);
-	$form['field_er_ant_doct_completion_ca1']['#states'] = 
-	$form['field_er_mentoring_plan_ul']['#states'] = 
+	
+	
+	$form['field_er_ant_doctor']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
 	  	'visible' => $post_doc,
 	);
+	
 	
 	//Certifications fieldsets only available to Graduates, Undergraduates	
 
@@ -603,8 +613,8 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$completed_rcr = array(
 		'input:[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-		$form['field_er_rcr_online_ca1']['#states'] = 
-		$form['field_er_rcr_in_person_ca1']['#states'] =
+		$form['field_er_rcr_online']['#states'] = 
+		$form['field_er_rcr_in_person']['#states'] =
 		$form['field_er_additional_doc']['#states'] =
 		$form['field_er_rcr_online_ul']['#states'] = 
 		$form['field_er_rcr_inperson_ca1']['#states'] = 
@@ -631,9 +641,10 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_type_of_data']['#states'] = array(
 	'required' => $collection, 
 	'visible' => $collection);
+
 	
 	// change labels on participant date range
-	$form['field_er_participant_date']['#after_build'] = array('er_date_label');  //field name of the date
+	$form['field_er_participating_date']['#after_build'] = array('er_date_label');  //field name of the date
 	
 	_quick_add_inst($form, $form_state, 'field_er_inst_ref');
 	
@@ -649,7 +660,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 //Education fieldset only available to Graduates, Undergraduates
 		$form['group_er_education']['#states']['visible'] = array(
-		':input[name="field_er_most_sen_proj_role_ca1[und]"]' => 
+		':input[name="field_er_most_sen_proj_role[und]"]' => 
 		array('value' => $grad_student, $undergrad, $post_doc),
 		);	  
 //Advisor field only available to Students
@@ -660,7 +671,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 //Mentoring plan fields only available to Post-Docs
 		$form['field_er_mentoring_sign_off']['#states'] = 
-		$form['field_er_ment_plan_post_docs_ca1']['#states'] = 
+		$form['field_er_ment_plan_post_docs']['#states'] = 
 		$form['field_er_mentoring_plan_ul']['#states'] =
 		array(
 		'visible' => array($post_doc),
@@ -689,7 +700,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 //If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
 // used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
-		$form['field_provide_a_list_of_all_fund']['#states'] = array(
+		$form['field_er_list_funding_sources']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
 		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $paid_by_epscor),
@@ -701,11 +712,12 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
 		);
 		
-		$form['field_er_select_the_near_ca1']['#states'] = array(
+		$form['field_er_person_month']['#states'] = array(
 		'visible' => $participant_more_than_sixty,
 		'required' => $participant_more_than_sixty,
 	);		
 }
+
 
 /*
  * This function is used because we want our "Smart Forms" to be able to hide/show an entire fieldset, and this is needed

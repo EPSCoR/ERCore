@@ -5,7 +5,7 @@ class er_page{
 	protected $range;
 	
 	protected static $field_aliases = array(
-		'position_type'=>'field_er_most_sen_proj_role_ca1',
+		'position_type'=>'field_er_most_sen_proj_role',
 		'fname'=>'field_er_fname',
 		'lname'=>'field_er_lname',
 		'department'=>'field_er_department',
@@ -18,11 +18,11 @@ class er_page{
 		'race'=>'field_er_race',
 		'ethnicity'=>'field_er_ethnicity',
 		'disability'=>'field_er_disabilities',
-		'participant_date'=>'field_er_particip_date_aw1',
+		'participant_date'=>'field_er_participating_date',
 		'hired_date'=>'field_er_hired_date',
-		'mas_act_grad_date'=>'field_er_act_mast_grad_ca1',
-		'doc_act_grad_date'=>'field_er_act_doctl_complet_ca1',
-		'und_act_grad_date'=>'field_er_act_undergrad_grad_ca1',
+		'mas_act_grad_date'=>'field_er_act_masters',
+		'doc_act_grad_date'=>'field_er_act_doctor',
+		'und_act_grad_date'=>'field_er_act_under',
 		'collab_inst_ref' => 'field_er_collab_inst_ref',
 		'collab_department_unit' => 'field_er_collab_department_unit',
 		'inst_category' => 'field_er_inst_category',
