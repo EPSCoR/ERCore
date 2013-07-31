@@ -32,9 +32,7 @@
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
-  background-position: 14px 14px;
-  background-repeat: no-repeat;
+  background: url("../img/glyphicons-halflings.png") no-repeat 14px 14px;
 }
 [class^="icon-"]:last-child,
 [class*=" icon-"]:last-child {
@@ -611,8 +609,7 @@ a.pill:hover {
   position: absolute;
   width: 0;
   height: 0;
-  border-color: transparent;
-  border-style: solid;
+  border: solid transparent;
 }
 
 .tooltip.top .tooltip-arrow {

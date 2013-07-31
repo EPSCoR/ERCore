@@ -121,6 +121,9 @@ class er_debug extends er_page{
 
 
 		switch(arg(2)){
+			case 'test_field_rename':
+				return er_field_rename();
+				break;
 			case 'speed1':
 				$start = microtime(true);
 				for ($i = 0; $i<50; $i++){

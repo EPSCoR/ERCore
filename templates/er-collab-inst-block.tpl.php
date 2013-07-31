@@ -7,4 +7,3 @@
 		$title = isset($view->build_info['title'])?$view->build_info['title']:'Collaborators';
 		echo '<fieldset class="er-collab-inst-block-view"><legend>'.$title.'</legend>'. $view_output . '</fieldset>';
   }
-?>

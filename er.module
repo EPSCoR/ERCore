@@ -63,8 +63,10 @@ function er_init(){
 /**
  * Display help and module information
  *  This hook adds documentation to various pages, and defines the main ER Core Help texts
- * @param path which path of the site we're displaying help
- * @param arg array that holds the current path as would be returned from arg() function
+ * @param which $path
+ * @param array $arg
+ * @internal param \which $path path of the site we're displaying help
+ * @internal param array $arg that holds the current path as would be returned from arg() function
  * @return help text for the path
  */
 function er_help($path, $arg) {

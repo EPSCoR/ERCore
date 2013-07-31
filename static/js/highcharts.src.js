@@ -10423,7 +10423,7 @@ var PieSeries = extendClass(Series, {
 			
 			// if the point is sliced, use special translation, else use plot area traslation
 			groupTranslation = point.sliced ? point.slicedTranslation : [chart.plotLeft, chart.plotTop];
-			group.translate(groupTranslation[0], groupTranslation[1])
+			group.translate(groupTranslation[0], groupTranslation[1]);
 				
 			
 			// draw the slice

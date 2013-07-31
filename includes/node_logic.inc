@@ -395,7 +395,7 @@ function er_parse_ee_file(&$node){
     
     //really simple validation; this just makes sure that it's the expected excel sheet by checking for the header text.
     if ($worksheet->getCellByColumnAndRow(2, 1)->getValue() != "External Engagement Reporting Sheet")
-      break;
+      return;
     
     $title = $worksheet->getCellByColumnAndRow(2, 4)->getValue();
     //d($title);

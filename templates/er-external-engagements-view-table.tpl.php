@@ -54,4 +54,3 @@ echo '<table class="er-external-engagements-view-table">';
     echo '</tr>';
   }
 echo '</table>';
-?>
