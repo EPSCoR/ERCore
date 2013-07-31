@@ -224,7 +224,7 @@ $handler->display->display_options['fields']['field_er_proposal_date']['settings
 );
 $handler->display->display_options['path'] = 'admin/epscor/content/proposals';
 $handler->display->display_options['menu']['type'] = 'normal';
-$handler->display->display_options['menu']['title'] = 'Proposals';
+$handler->display->display_options['menu']['title'] = 'Proposal or Grant';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;

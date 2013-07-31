@@ -222,7 +222,7 @@ function er_node_delete($node){
 //see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
 function er_field_attach_presave($entity_type, $entity){
   if ($entity_type == 'user'){
-    $field = 'field_er_participant_date'; //this is the name of the date field on the user profile
+    $field = 'field_er_participating_date'; //this is the name of the date field on the user profile
   }else if ($entity_type == 'node' && isset($entity->type)){
     switch ($entity->type){
       case 'er_collaboration':

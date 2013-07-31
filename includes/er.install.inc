@@ -129,25 +129,34 @@ function er_batch_import_taxonomy($file_path, &$context){
 
 //This function is used by Batch API; it installs a content type + fields from file.
 function er_batch_import_fields($file_path, &$context){
-	$name = basename($file_path);
-	$context['message'] = t('Now processing bundle: @name', array('@name' => $name));
-	if (function_exists('bundle_copy_import_submit')){
-		if (($contents = prep_file_contents($file_path)) !== FALSE){
-			$form = array();
-			$form_state = array();
-			$form_state['values']['macro'] = $contents;
-			// for these imports, work gets done in the _validate and _submit functions to do the actual import
-			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-			watchdog('er', "Bundle $name imported successfully.");
+	try {	
+		$name = basename($file_path);
+		$context['message'] = t('Now processing bundle: @name', array('@name' => $name));
+		if (function_exists('bundle_copy_import_submit')){
+			if (($contents = prep_file_contents($file_path)) !== FALSE){
+				$form = array();
+				$form_state = array();
+				$form_state['values']['macro'] = $contents;
+				// for these imports, work gets done in the _validate and _submit functions to do the actual import
+				bundle_copy_import_submit('', $form_state); // function doesn't use first arg
+				watchdog('er', "Bundle $name imported successfully.");
+			}else{
+				$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
+				watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+				drupal_set_message($error, 'error');
+			}
 		}else{
-			$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
+			$error = 'No bundle_copy_import_submit function found, bundle installation cannot proceed.';
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
-	}else{
-		$error = 'No bundle_copy_import_submit function found, bundle installation cannot proceed.';
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		drupal_set_message($error, 'error');
+	} catch (Exception $e) {
+		// Code 0 has meant that a field is conflicting 
+		if ($e->getCode() == 0){
+		    $trace = $e->getTrace();
+		    $conflictField = $trace[0]['args'][0]['field_name'];
+			echo 'HUGE problem with ' . $conflictField . ' contact Andrew Patrick Wessels.';
+		}
 	}
 }
 

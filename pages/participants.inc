@@ -192,10 +192,10 @@ class er_participants extends er_page{
 				$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 				$range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
 				//This is for overlapping date ranges:
-				//$query->condition('date.field_er_participant_date_value', $range[1], '<=');
+				//$query->condition('date.field_er_participating_date_value', $range[1], '<=');
 				//$db_or = db_or()
-				//			->condition('date.field_er_participant_date_value2', $range[0], '>=')
-				//			->isNull('date.field_er_participant_date_value2');
+				//			->condition('date.field_er_participating_date_value2', $range[0], '>=')
+				//			->isNull('date.field_er_participating_date_value2');
 				//$query->condition($db_or);
 				
 				//Start date is within my range:
@@ -228,9 +228,9 @@ class er_participants extends er_page{
 		//d($_SESSION);
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
 		$data = array();
-		d($this->data(), 'count');
+		//d($this->data(), 'count');
 		$data = $this->data(false);
-		d($data, 'data');
+		//d($data, 'data');
 		$ret = '<strong>NOTICE: The date range only affects the New Investigators column at this time. </strong>'.'<br>';
 		$ret .= $this->download_link();
 		foreach ($data['Institutions'] as $inst_id => $categories){

@@ -861,7 +861,7 @@ $data = array(
         ),
       ),
     ),
-    'field_user_lookup' => array(
+    'field_er_user_lookup' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -887,13 +887,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_user_lookup' => array(
-                'target_id' => 'field_user_lookup_target_id',
+              'field_data_field_er_user_lookup' => array(
+                'target_id' => 'field_er_user_lookup_target_id',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_user_lookup' => array(
-                'target_id' => 'field_user_lookup_target_id',
+              'field_revision_field_er_user_lookup' => array(
+                'target_id' => 'field_er_user_lookup_target_id',
               ),
             ),
           ),
@@ -915,7 +915,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_user_lookup',
+      'field_name' => 'field_er_user_lookup',
       'type' => 'entityreference',
       'module' => 'entityreference',
       'active' => '1',
@@ -1413,7 +1413,7 @@ $data = array(
         'deleted' => '0',
       ),
     ),
-    'field_user_lookup' => array(
+    'field_er_user_lookup' => array(
       0 => array(
         'label' => 'User Lookup',
         'widget' => array(
@@ -1500,7 +1500,7 @@ $data = array(
         'description' => 'Look-up the name of anyone with an account in the system. If the name you wish to enter does not show up, please manually fill out the form below.',
         'default_value' => NULL,
         'default_value_function' => '',
-        'field_name' => 'field_user_lookup',
+        'field_name' => 'field_er_user_lookup',
         'entity_type' => 'node',
         'bundle' => 'er_collaborators',
         'deleted' => '0',
@@ -1561,7 +1561,7 @@ $data = array(
       'label' => 'User Lookup',
       'weight' => '2',
       'children' => array(
-        0 => 'field_user_lookup',
+        0 => 'field_er_user_lookup',
       ),
       'format_type' => 'fieldset',
       'format_settings' => array(

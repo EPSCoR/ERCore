@@ -118,15 +118,15 @@ $handler->display->display_options['fields']['field_er_collab_name']['label'] = 
 $handler->display->display_options['fields']['field_er_collab_name']['exclude'] = TRUE;
 $handler->display->display_options['fields']['field_er_collab_name']['element_label_colon'] = FALSE;
 /* Field: Content: User Lookup */
-$handler->display->display_options['fields']['field_user_lookup']['id'] = 'field_user_lookup';
-$handler->display->display_options['fields']['field_user_lookup']['table'] = 'field_data_field_user_lookup';
-$handler->display->display_options['fields']['field_user_lookup']['field'] = 'field_user_lookup';
-$handler->display->display_options['fields']['field_user_lookup']['label'] = '';
-$handler->display->display_options['fields']['field_user_lookup']['alter']['alter_text'] = TRUE;
-$handler->display->display_options['fields']['field_user_lookup']['alter']['text'] = '[field_er_collab_user_status] [field_user_lookup] [edit_node]';
-$handler->display->display_options['fields']['field_user_lookup']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_user_lookup']['empty'] = '[field_er_collab_user_status] [field_er_collab_name] [edit_node]';
-$handler->display->display_options['fields']['field_user_lookup']['settings'] = array(
+$handler->display->display_options['fields']['field_er_user_lookup']['id'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['table'] = 'field_data_field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['field'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['label'] = '';
+$handler->display->display_options['fields']['field_er_user_lookup']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_user_lookup']['alter']['text'] = '[field_er_collab_user_status] [field_er_user_lookup] [edit_node]';
+$handler->display->display_options['fields']['field_er_user_lookup']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_user_lookup']['empty'] = '[field_er_collab_user_status] [field_er_collab_name] [edit_node]';
+$handler->display->display_options['fields']['field_er_user_lookup']['settings'] = array(
   'link' => 1,
 );
 /* Sort criterion: Content: Post date */

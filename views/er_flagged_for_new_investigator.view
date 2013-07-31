@@ -118,18 +118,18 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: Participant Date -  start date (field_er_participant_date) */
-$handler->display->display_options['filters']['field_er_participant_date_value']['id'] = 'field_er_participant_date_value';
-$handler->display->display_options['filters']['field_er_participant_date_value']['table'] = 'field_data_field_er_participant_date';
-$handler->display->display_options['filters']['field_er_participant_date_value']['field'] = 'field_er_participant_date_value';
-$handler->display->display_options['filters']['field_er_participant_date_value']['operator'] = '>=';
-$handler->display->display_options['filters']['field_er_participant_date_value']['group'] = 1;
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['operator_id'] = 'field_er_participant_date_value_op';
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['label'] = 'Participant Date -  start date';
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['use_operator'] = TRUE;
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['operator'] = 'field_er_participant_date_value_op';
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['identifier'] = 'field_er_participant_date_value';
-$handler->display->display_options['filters']['field_er_participant_date_value']['expose']['remember_roles'] = array(
+/* Filter criterion: User: Participant Date -  start date (field_er_participating_date) */
+$handler->display->display_options['filters']['field_er_participating_date_value']['id'] = 'field_er_participating_date_value';
+$handler->display->display_options['filters']['field_er_participating_date_value']['table'] = 'field_data_field_er_participating_date';
+$handler->display->display_options['filters']['field_er_participating_date_value']['field'] = 'field_er_participating_date_value';
+$handler->display->display_options['filters']['field_er_participating_date_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_participating_date_value']['group'] = 1;
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['operator_id'] = 'field_er_participating_date_value_op';
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['label'] = 'Participant Date -  start date';
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['use_operator'] = TRUE;
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['operator'] = 'field_er_participating_date_value_op';
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['identifier'] = 'field_er_participating_date_value';
+$handler->display->display_options['filters']['field_er_participating_date_value']['expose']['remember_roles'] = array(
   2 => '2',
   66784200 => 0,
   137756511 => 0,
@@ -137,17 +137,17 @@ $handler->display->display_options['filters']['field_er_participant_date_value']
   3 => 0,
   1 => 0,
 );
-$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['label'] = 'Participant Date -  start date (field_er_participant_date)';
-$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['identifier'] = 'field_er_participant_date_value';
-$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['remember'] = FALSE;
-$handler->display->display_options['filters']['field_er_participant_date_value']['group_info']['group_items'] = array(
+$handler->display->display_options['filters']['field_er_participating_date_value']['group_info']['label'] = 'Participant Date -  start date (field_er_participating_date)';
+$handler->display->display_options['filters']['field_er_participating_date_value']['group_info']['identifier'] = 'field_er_participating_date_value';
+$handler->display->display_options['filters']['field_er_participating_date_value']['group_info']['remember'] = FALSE;
+$handler->display->display_options['filters']['field_er_participating_date_value']['group_info']['group_items'] = array(
   1 => array(),
   2 => array(),
   3 => array(),
 );
-$handler->display->display_options['filters']['field_er_participant_date_value']['default_date'] = 'now-365 days';
-$handler->display->display_options['filters']['field_er_participant_date_value']['default_to_date'] = 'now';
-$handler->display->display_options['filters']['field_er_participant_date_value']['year_range'] = '-1:+0';
+$handler->display->display_options['filters']['field_er_participating_date_value']['default_date'] = 'now-365 days';
+$handler->display->display_options['filters']['field_er_participating_date_value']['default_to_date'] = 'now';
+$handler->display->display_options['filters']['field_er_participating_date_value']['year_range'] = '-1:+0';
 /* Filter criterion: User: Roles */
 $handler->display->display_options['filters']['rid']['id'] = 'rid';
 $handler->display->display_options['filters']['rid']['table'] = 'users_roles';

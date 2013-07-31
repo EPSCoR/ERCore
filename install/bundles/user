@@ -72,7 +72,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_act_doctl_complet_ca1' => array(
+    'field_er_act_doctor' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -99,13 +99,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_act_doctl_complet_ca1' => array(
-                'value' => 'field_er_act_doctl_complet_ca1_value',
+              'field_data_field_er_act_doctor' => array(
+                'value' => 'field_er_act_doctor_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_act_doctl_complet_ca1' => array(
-                'value' => 'field_er_act_doctl_complet_ca1_value',
+              'field_revision_field_er_act_doctor' => array(
+                'value' => 'field_er_act_doctor_value',
               ),
             ),
           ),
@@ -116,7 +116,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_act_doctl_complet_ca1',
+      'field_name' => 'field_er_act_doctor',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -141,7 +141,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_act_mast_grad_ca1' => array(
+    'field_er_act_masters' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -168,13 +168,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_act_mast_grad_ca1' => array(
-                'value' => 'field_er_act_mast_grad_ca1_value',
+              'field_data_field_er_act_masters' => array(
+                'value' => 'field_er_act_masters_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_act_mast_grad_ca1' => array(
-                'value' => 'field_er_act_mast_grad_ca1_value',
+              'field_revision_field_er_act_masters' => array(
+                'value' => 'field_er_act_masters_value',
               ),
             ),
           ),
@@ -185,7 +185,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_act_mast_grad_ca1',
+      'field_name' => 'field_er_act_masters',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -210,7 +210,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_act_undergrad_grad_ca1' => array(
+    'field_er_act_under' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -237,13 +237,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_act_undergrad_grad_ca1' => array(
-                'value' => 'field_er_act_undergrad_grad_ca1_value',
+              'field_data_field_er_act_under' => array(
+                'value' => 'field_er_act_under_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_act_undergrad_grad_ca1' => array(
-                'value' => 'field_er_act_undergrad_grad_ca1_value',
+              'field_revision_field_er_act_under' => array(
+                'value' => 'field_er_act_under_value',
               ),
             ),
           ),
@@ -254,7 +254,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_act_undergrad_grad_ca1',
+      'field_name' => 'field_er_act_under',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -523,7 +523,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_ant_doct_completion_ca1' => array(
+    'field_er_ant_doctor' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -550,13 +550,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_ant_doct_completion_ca1' => array(
-                'value' => 'field_er_ant_doct_completion_ca1_value',
+              'field_data_field_er_ant_doctor' => array(
+                'value' => 'field_er_ant_doctor_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_ant_doct_completion_ca1' => array(
-                'value' => 'field_er_ant_doct_completion_ca1_value',
+              'field_revision_field_er_ant_doctor' => array(
+                'value' => 'field_er_ant_doctor_value',
               ),
             ),
           ),
@@ -567,7 +567,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_ant_doct_completion_ca1',
+      'field_name' => 'field_er_ant_doctor',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -592,7 +592,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_ant_mast_grad_ca1' => array(
+    'field_er_ant_masters' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -619,13 +619,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_ant_mast_grad_ca1' => array(
-                'value' => 'field_er_ant_mast_grad_ca1_value',
+              'field_data_field_er_ant_masters' => array(
+                'value' => 'field_er_ant_masters_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_ant_mast_grad_ca1' => array(
-                'value' => 'field_er_ant_mast_grad_ca1_value',
+              'field_revision_field_er_ant_masters' => array(
+                'value' => 'field_er_ant_masters_value',
               ),
             ),
           ),
@@ -636,7 +636,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_ant_mast_grad_ca1',
+      'field_name' => 'field_er_ant_masters',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -661,7 +661,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_ant_undergrad_ca1' => array(
+    'field_er_ant_under' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -688,13 +688,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_ant_undergrad_ca1' => array(
-                'value' => 'field_er_ant_undergrad_ca1_value',
+              'field_data_field_er_ant_under' => array(
+                'value' => 'field_er_ant_under_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_ant_undergrad_ca1' => array(
-                'value' => 'field_er_ant_undergrad_ca1_value',
+              'field_revision_field_er_ant_under' => array(
+                'value' => 'field_er_ant_under_value',
               ),
             ),
           ),
@@ -705,7 +705,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_ant_undergrad_ca1',
+      'field_name' => 'field_er_ant_under',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -2401,6 +2401,73 @@ $data = array(
         ),
       ),
     ),
+    'field_er_list_funding_sources' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_list_funding_sources' => array(
+                'value' => 'field_er_list_funding_sources_value',
+                'format' => 'field_er_list_funding_sources_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_list_funding_sources' => array(
+                'value' => 'field_er_list_funding_sources_value',
+                'format' => 'field_er_list_funding_sources_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_list_funding_sources',
+      'type' => 'text_long',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
     'field_er_lname' => array(
       'type_name' => 'er_user_profile',
       'entity_types' => array(),
@@ -2483,7 +2550,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_ment_plan_post_docs_ca1' => array(
+    'field_er_ment_plan_post_docs' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -2510,13 +2577,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_ment_plan_post_docs_ca1' => array(
-                'value' => 'field_er_ment_plan_post_docs_ca1_value',
+              'field_data_field_er_ment_plan_post_docs' => array(
+                'value' => 'field_er_ment_plan_post_docs_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_ment_plan_post_docs_ca1' => array(
-                'value' => 'field_er_ment_plan_post_docs_ca1_value',
+              'field_revision_field_er_ment_plan_post_docs' => array(
+                'value' => 'field_er_ment_plan_post_docs_value',
               ),
             ),
           ),
@@ -2527,7 +2594,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_ment_plan_post_docs_ca1',
+      'field_name' => 'field_er_ment_plan_post_docs',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -2782,7 +2849,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_most_sen_proj_role_ca1' => array(
+    'field_er_most_sen_proj_role' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -2807,13 +2874,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_most_sen_proj_role_ca1' => array(
-                'value' => 'field_er_most_sen_proj_role_ca1_value',
+              'field_data_field_er_most_sen_proj_role' => array(
+                'value' => 'field_er_most_sen_proj_role_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_most_sen_proj_role_ca1' => array(
-                'value' => 'field_er_most_sen_proj_role_ca1_value',
+              'field_revision_field_er_most_sen_proj_role' => array(
+                'value' => 'field_er_most_sen_proj_role_value',
               ),
             ),
           ),
@@ -2828,7 +2895,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_most_sen_proj_role_ca1',
+      'field_name' => 'field_er_most_sen_proj_role',
       'type' => 'list_text',
       'module' => 'list',
       'active' => '1',
@@ -2983,7 +3050,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_particip_date_aw1' => array(
+    'field_er_participating_date' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -3010,15 +3077,15 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_particip_date_aw1' => array(
-                'value' => 'field_er_particip_date_aw1_value',
-                'value2' => 'field_er_particip_date_aw1_value2',
+              'field_data_field_er_participating_date' => array(
+                'value' => 'field_er_participating_date_value',
+                'value2' => 'field_er_participating_date_value2',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_particip_date_aw1' => array(
-                'value' => 'field_er_particip_date_aw1_value',
-                'value2' => 'field_er_particip_date_aw1_value2',
+              'field_revision_field_er_participating_date' => array(
+                'value' => 'field_er_participating_date_value',
+                'value2' => 'field_er_participating_date_value2',
               ),
             ),
           ),
@@ -3029,12 +3096,12 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_particip_date_aw1',
+      'field_name' => 'field_er_participating_date',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
       'locked' => '0',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'columns' => array(
         'value' => array(
@@ -3056,6 +3123,74 @@ $data = array(
           'not null' => FALSE,
           'sortable' => TRUE,
           'views' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
+    'field_er_person_month' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          1 => '1',
+          2 => '2',
+          3 => '3',
+          4 => '4',
+          5 => '5',
+          6 => '6',
+          7 => '7',
+          8 => '8',
+          9 => '9',
+          10 => '10',
+          11 => '11',
+          12 => '12',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_person_month' => array(
+                'value' => 'field_er_person_month_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_person_month' => array(
+                'value' => 'field_er_person_month_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_person_month',
+      'type' => 'list_integer',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
         ),
       ),
       'bundles' => array(
@@ -3456,7 +3591,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_rcr_in_person_ca1' => array(
+    'field_er_rcr_in_person' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -3483,13 +3618,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_rcr_in_person_ca1' => array(
-                'value' => 'field_er_rcr_in_person_ca1_value',
+              'field_data_field_er_rcr_in_person' => array(
+                'value' => 'field_er_rcr_in_person_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_rcr_in_person_ca1' => array(
-                'value' => 'field_er_rcr_in_person_ca1_value',
+              'field_revision_field_er_rcr_in_person' => array(
+                'value' => 'field_er_rcr_in_person_value',
               ),
             ),
           ),
@@ -3500,7 +3635,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_rcr_in_person_ca1',
+      'field_name' => 'field_er_rcr_in_person',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -3618,7 +3753,7 @@ $data = array(
         ),
       ),
     ),
-    'field_er_rcr_online_ca1' => array(
+    'field_er_rcr_online' => array(
       'translatable' => '0',
       'entity_types' => array(),
       'settings' => array(
@@ -3645,13 +3780,13 @@ $data = array(
         'details' => array(
           'sql' => array(
             'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_rcr_online_ca1' => array(
-                'value' => 'field_er_rcr_online_ca1_value',
+              'field_data_field_er_rcr_online' => array(
+                'value' => 'field_er_rcr_online_value',
               ),
             ),
             'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_rcr_online_ca1' => array(
-                'value' => 'field_er_rcr_online_ca1_value',
+              'field_revision_field_er_rcr_online' => array(
+                'value' => 'field_er_rcr_online_value',
               ),
             ),
           ),
@@ -3662,7 +3797,7 @@ $data = array(
       'field_permissions' => array(
         'type' => '0',
       ),
-      'field_name' => 'field_er_rcr_online_ca1',
+      'field_name' => 'field_er_rcr_online',
       'type' => 'datetime',
       'module' => 'date',
       'active' => '1',
@@ -3838,74 +3973,6 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
           'type' => 'varchar',
           'length' => '32',
           'not null' => 0,
-        ),
-      ),
-      'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
-      ),
-    ),
-    'field_er_select_the_near_ca1' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'allowed_values' => array(
-          1 => '1',
-          2 => '2',
-          3 => '3',
-          4 => '4',
-          5 => '5',
-          6 => '6',
-          7 => '7',
-          8 => '8',
-          9 => '9',
-          10 => '10',
-          11 => '11',
-          12 => '12',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_select_the_near_ca1' => array(
-                'value' => 'field_er_select_the_near_ca1_value',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_select_the_near_ca1' => array(
-                'value' => 'field_er_select_the_near_ca1_value',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_er_select_the_near_ca1',
-      'type' => 'list_integer',
-      'module' => 'list',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'int',
-          'not null' => FALSE,
         ),
       ),
       'bundles' => array(
@@ -4140,80 +4207,13 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         ),
       ),
     ),
-    'field_provide_a_list_of_all_fund' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_provide_a_list_of_all_fund' => array(
-                'value' => 'field_provide_a_list_of_all_fund_value',
-                'format' => 'field_provide_a_list_of_all_fund_format',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_provide_a_list_of_all_fund' => array(
-                'value' => 'field_provide_a_list_of_all_fund_value',
-                'format' => 'field_provide_a_list_of_all_fund_format',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(
-        'format' => array(
-          'table' => 'filter_format',
-          'columns' => array(
-            'format' => 'format',
-          ),
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_provide_a_list_of_all_fund',
-      'type' => 'text_long',
-      'module' => 'text',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'text',
-          'size' => 'big',
-          'not null' => FALSE,
-        ),
-        'format' => array(
-          'type' => 'varchar',
-          'length' => 255,
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
-      ),
-    ),
   ),
   'instances' => array(
     'field_er_160hours' => array(
       0 => array(
-        'label' => 'Do you participate in EPSCoR activities more than 160 hours per year?',
+        'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
         'widget' => array(
-          'weight' => '80',
+          'weight' => '90',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -4248,11 +4248,11 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         'deleted' => '0',
       ),
     ),
-    'field_er_act_doctl_complet_ca1' => array(
+    'field_er_act_doctor' => array(
       0 => array(
         'label' => 'Actual Doctoral Completion Date',
         'widget' => array(
-          'weight' => '69',
+          'weight' => '70',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4286,22 +4286,22 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 53,
+            'weight' => 72,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_act_doctl_complet_ca1',
+        'field_name' => 'field_er_act_doctor',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
       ),
     ),
-    'field_er_act_mast_grad_ca1' => array(
+    'field_er_act_masters' => array(
       0 => array(
         'label' => 'Actual Masters Graduation Date',
         'widget' => array(
-          'weight' => '66',
+          'weight' => '67',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4335,22 +4335,22 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 51,
+            'weight' => 70,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_act_mast_grad_ca1',
+        'field_name' => 'field_er_act_masters',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
       ),
     ),
-    'field_er_act_undergrad_grad_ca1' => array(
+    'field_er_act_under' => array(
       0 => array(
         'label' => 'Actual Undergraduate Graduation Date',
         'widget' => array(
-          'weight' => '64',
+          'weight' => '65',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4384,12 +4384,12 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 49,
+            'weight' => 68,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_act_undergrad_grad_ca1',
+        'field_name' => 'field_er_act_under',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -4399,7 +4399,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please upload your RCR certificate.',
         'widget' => array(
-          'weight' => '73',
+          'weight' => '74',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -4482,7 +4482,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Advisor',
         'widget' => array(
-          'weight' => '70',
+          'weight' => '71',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -4518,9 +4518,9 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
         'deleted' => '0',
       ),
     ),
-    'field_er_ant_doct_completion_ca1' => array(
+    'field_er_ant_doctor' => array(
       0 => array(
-        'label' => 'Anticipate Doctorate Completion Date',
+        'label' => 'Anticipated Doctorate Completion Date',
         'widget' => array(
           'weight' => '68',
           'type' => 'date_select',
@@ -4556,22 +4556,22 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 52,
+            'weight' => 71,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_ant_doct_completion_ca1',
+        'field_name' => 'field_er_ant_doctor',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
       ),
     ),
-    'field_er_ant_mast_grad_ca1' => array(
+    'field_er_ant_masters' => array(
       0 => array(
-        'label' => 'Anticipate Masters Graduation Date',
+        'label' => 'Anticipated Masters Graduation Date',
         'widget' => array(
-          'weight' => '65',
+          'weight' => '66',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4605,22 +4605,22 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 50,
+            'weight' => 69,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_ant_mast_grad_ca1',
+        'field_name' => 'field_er_ant_masters',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
       ),
     ),
-    'field_er_ant_undergrad_ca1' => array(
+    'field_er_ant_under' => array(
       0 => array(
         'label' => 'Anticipated Undergraduate Graduation Date',
         'widget' => array(
-          'weight' => '63',
+          'weight' => '64',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -4654,12 +4654,12 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 54,
+            'weight' => 67,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_ant_undergrad_ca1',
+        'field_name' => 'field_er_ant_under',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -4712,7 +4712,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '74',
+          'weight' => '84',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
@@ -4725,14 +4725,14 @@ Statewide Committee (SWC)
             'other' => 'Other',
             'other_title' => '',
             'other_unknown_defaults' => 'other',
+            'other_size' => '60',
             'sort_options' => 1,
             'markup_available_options_php' => '&lt;none&gt;',
-            'other_size' => 60,
           ),
         ),
         'settings' => array(
           'text_processing' => '0',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -4762,7 +4762,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Please select which project component(s) you will participate in',
         'widget' => array(
-          'weight' => '73',
+          'weight' => '83',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5001,7 +5001,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Please describe role and contribution to the project.',
         'widget' => array(
-          'weight' => '82',
+          'weight' => '92',
           'type' => 'text_textarea',
           'module' => 'text',
           'active' => 1,
@@ -5254,7 +5254,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Have you completed the RCR Training?',
         'widget' => array(
-          'weight' => '70',
+          'weight' => '80',
           'type' => 'markup',
           'module' => 'markup',
           'active' => 0,
@@ -5453,7 +5453,7 @@ Mobility/Orthopedic Impairment',
     ),
     'field_er_inst_description' => array(
       0 => array(
-        'label' => 'Please describe the institution',
+        'label' => 'Please describe role and contribution to the project',
         'widget' => array(
           'weight' => '29',
           'type' => 'text_textarea',
@@ -5465,7 +5465,7 @@ Mobility/Orthopedic Impairment',
         ),
         'settings' => array(
           'text_processing' => '0',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -5629,6 +5629,40 @@ Mobility/Orthopedic Impairment',
         'deleted' => '0',
       ),
     ),
+    'field_er_list_funding_sources' => array(
+      0 => array(
+        'label' => 'Provide a list of all funding sources that supported your participation in EPSCoR',
+        'widget' => array(
+          'weight' => '89',
+          'type' => 'text_textarea',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'rows' => '5',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 78,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => NULL,
+        'field_name' => 'field_er_list_funding_sources',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_lname' => array(
       0 => array(
         'label' => 'Last Name',
@@ -5669,11 +5703,11 @@ Mobility/Orthopedic Impairment',
         'deleted' => '0',
       ),
     ),
-    'field_er_ment_plan_post_docs_ca1' => array(
+    'field_er_ment_plan_post_docs' => array(
       0 => array(
         'label' => 'Mentoring Plan (Post-Docs only)',
         'widget' => array(
-          'weight' => '75',
+          'weight' => '77',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5707,12 +5741,12 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 58,
+            'weight' => 75,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_ment_plan_post_docs_ca1',
+        'field_name' => 'field_er_ment_plan_post_docs',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -5722,7 +5756,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Please upload your mentoring plan',
         'widget' => array(
-          'weight' => '76',
+          'weight' => '78',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -5765,7 +5799,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Mentoring Plan Sign Off Date',
         'widget' => array(
-          'weight' => '74',
+          'weight' => '75',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -5773,7 +5807,7 @@ Mobility/Orthopedic Impairment',
             'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
             'year_range' => '-3:+3',
-            'increment' => '15',
+            'increment' => 15,
             'label_position' => 'above',
             'text_parts' => array(),
             'repeat_collapsed' => 0,
@@ -5784,7 +5818,7 @@ Mobility/Orthopedic Impairment',
           'default_value_code' => '',
           'default_value2' => 'same',
           'default_value_code2' => '',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -5821,14 +5855,14 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'How many months of direct funding do you receive?',
         'widget' => array(
-          'weight' => '78',
+          'weight' => '87',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
           'settings' => array(),
         ),
         'settings' => array(
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -5854,18 +5888,18 @@ Mobility/Orthopedic Impairment',
         'deleted' => '0',
       ),
     ),
-    'field_er_most_sen_proj_role_ca1' => array(
+    'field_er_most_sen_proj_role' => array(
       0 => array(
         'label' => 'Most Senior Project Role',
         'widget' => array(
-          'weight' => '67',
+          'weight' => '77',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
           'settings' => array(),
         ),
         'settings' => array(
-          'user_register_form' => 1,
+          'user_register_form' => 0,
         ),
         'display' => array(
           'default' => array(
@@ -5873,13 +5907,13 @@ Mobility/Orthopedic Impairment',
             'type' => 'list_default',
             'settings' => array(),
             'module' => 'list',
-            'weight' => 59,
+            'weight' => 66,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
         'default_value' => NULL,
-        'field_name' => 'field_er_most_sen_proj_role_ca1',
+        'field_name' => 'field_er_most_sen_proj_role',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -5889,7 +5923,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'NSF Grant Signatory',
         'widget' => array(
-          'weight' => '77',
+          'weight' => '79',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5930,7 +5964,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '77',
+          'weight' => '86',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5965,16 +5999,16 @@ Mobility/Orthopedic Impairment',
         'deleted' => '0',
       ),
     ),
-    'field_er_particip_date_aw1' => array(
+    'field_er_participating_date' => array(
       0 => array(
         'label' => 'Participating Date(s)',
         'widget' => array(
-          'weight' => '75',
+          'weight' => '85',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
           'settings' => array(
-            'input_format' => 'Y-m-d H:i:s',
+            'input_format' => 'm/d/Y - H:i:s',
             'input_format_custom' => '',
             'year_range' => '-3:+3',
             'increment' => '15',
@@ -6003,12 +6037,43 @@ Mobility/Orthopedic Impairment',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 65,
+            'weight' => 76,
           ),
         ),
         'required' => 0,
-        'description' => 'Please enter the date when you (officially) began participating in EPSCoR.  Click the "show end date" box to make the Participating End Date widget appear.  If you are currently participating, do not enter an end date.',
-        'field_name' => 'field_er_particip_date_aw1',
+        'description' => 'Please enter the date when you (officially) began participating in EPSCoR. Click the "show end date" box to make the Participating End Date widget appear. If you are currently participating, do not enter an end date.',
+        'field_name' => 'field_er_participating_date',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_person_month' => array(
+      0 => array(
+        'label' => 'Please select the nearest person month of effort in EPSCoR',
+        'widget' => array(
+          'weight' => '91',
+          'type' => 'options_select',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 77,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_person_month',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -6205,7 +6270,7 @@ White|White',
       0 => array(
         'label' => 'I have completed the RCR training',
         'widget' => array(
-          'weight' => '71',
+          'weight' => '81',
           'type' => 'options_onoff',
           'module' => 'options',
           'active' => 1,
@@ -6244,11 +6309,11 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field_er_rcr_in_person_ca1' => array(
+    'field_er_rcr_in_person' => array(
       0 => array(
         'label' => 'RCR In-person',
         'widget' => array(
-          'weight' => '69',
+          'weight' => '70',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6282,12 +6347,12 @@ White|White',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 56,
+            'weight' => 73,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_rcr_in_person_ca1',
+        'field_name' => 'field_er_rcr_in_person',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -6297,7 +6362,7 @@ White|White',
       0 => array(
         'label' => 'RCR In-person Upload',
         'widget' => array(
-          'weight' => '70',
+          'weight' => '71',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -6336,11 +6401,11 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field_er_rcr_online_ca1' => array(
+    'field_er_rcr_online' => array(
       0 => array(
         'label' => 'RCR Online',
         'widget' => array(
-          'weight' => '71',
+          'weight' => '72',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6374,12 +6439,12 @@ White|White',
               'show_repeat_rule' => 'show',
             ),
             'module' => 'date',
-            'weight' => 57,
+            'weight' => 74,
           ),
         ),
         'required' => 0,
         'description' => '',
-        'field_name' => 'field_er_rcr_online_ca1',
+        'field_name' => 'field_er_rcr_online',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
@@ -6389,7 +6454,7 @@ White|White',
       0 => array(
         'label' => 'RCR Online Upload',
         'widget' => array(
-          'weight' => '72',
+          'weight' => '73',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -6464,42 +6529,11 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field_er_select_the_near_ca1' => array(
-      0 => array(
-        'label' => 'Please select the nearest person month of effort in EPSCoR',
-        'widget' => array(
-          'weight' => '81',
-          'type' => 'options_select',
-          'module' => 'options',
-          'active' => 1,
-          'settings' => array(),
-        ),
-        'settings' => array(
-          'user_register_form' => 0,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'list_default',
-            'settings' => array(),
-            'module' => 'list',
-            'weight' => 61,
-          ),
-        ),
-        'required' => 0,
-        'description' => 'Round up or down to the nearest month of effort you are expected to participate in EPSCoR research.',
-        'default_value' => NULL,
-        'field_name' => 'field_er_select_the_near_ca1',
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => '0',
-      ),
-    ),
     'field_er_supervisor' => array(
       0 => array(
         'label' => 'Supervisor',
         'widget' => array(
-          'weight' => '68',
+          'weight' => '78',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -6618,40 +6652,6 @@ White|White',
         'deleted' => '0',
       ),
     ),
-    'field_provide_a_list_of_all_fund' => array(
-      0 => array(
-        'label' => 'Provide a list of all funding sources that supported your participation in EPSCoR',
-        'widget' => array(
-          'weight' => '79',
-          'type' => 'text_textarea',
-          'module' => 'text',
-          'active' => 1,
-          'settings' => array(
-            'rows' => '5',
-          ),
-        ),
-        'settings' => array(
-          'text_processing' => '0',
-          'user_register_form' => 0,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'above',
-            'type' => 'text_default',
-            'settings' => array(),
-            'module' => 'text',
-            'weight' => 60,
-          ),
-        ),
-        'required' => 0,
-        'description' => '',
-        'default_value' => NULL,
-        'field_name' => 'field_provide_a_list_of_all_fund',
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => '0',
-      ),
-    ),
   ),
   'fieldgroups' => array(
     'group_er_data|user|user|form' => (object) array(
@@ -6732,17 +6732,17 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Certifications and Supporting Documents',
-      'weight' => '72',
+      'weight' => '82',
       'children' => array(
         0 => 'field_er_additional_doc',
-        1 => 'field_er_ment_plan_post_docs_ca1',
-        2 => 'field_er_mentoring_plan_ul',
-        3 => 'field_er_mentoring_sign_off',
-        4 => 'field_er_nsf_grant_signatory',
-        5 => 'field_er_rcr_in_person_ca1',
-        6 => 'field_er_rcr_inperson_ul',
-        7 => 'field_er_rcr_online_ca1',
-        8 => 'field_er_rcr_online_ul',
+        1 => 'field_er_mentoring_plan_ul',
+        2 => 'field_er_mentoring_sign_off',
+        3 => 'field_er_nsf_grant_signatory',
+        4 => 'field_er_rcr_inperson_ul',
+        5 => 'field_er_rcr_online_ul',
+        6 => 'field_er_rcr_in_person',
+        7 => 'field_er_rcr_online',
+        8 => 'field_er_ment_plan_post_docs',
       ),
       'format_type' => 'div',
       'format_settings' => array(
@@ -6899,16 +6899,17 @@ White|White',
         3 => 'field_er_description',
         4 => 'field_er_have_you_comp_the_rcr',
         5 => 'field_er_months_of_effort',
-        6 => 'field_er_most_sen_proj_role_ca1',
-        7 => 'field_er_paid',
-        8 => 'field_er_rcr_completion_bool',
-        9 => 'field_er_select_the_near_ca1',
-        10 => 'field_er_supervisor',
-        11 => 'field_provide_a_list_of_all_fund',
-        12 => 'field_er_hired_date',
-        13 => 'field_er_particip_date_aw1',
-        14 => 'group_er_certs',
-        15 => 'group_er_education',
+        6 => 'field_er_paid',
+        7 => 'field_er_rcr_completion_bool',
+        8 => 'field_er_supervisor',
+        9 => 'field_provide_a_list_of_all_fund',
+        10 => 'field_er_hired_date',
+        11 => 'field_er_most_sen_proj_role',
+        12 => 'field_er_participating_date',
+        13 => 'field_er_person_month',
+        14 => 'field_er_list_funding_sources',
+        15 => 'group_er_certs',
+        16 => 'group_er_education',
       ),
       'format_type' => 'tab',
       'format_settings' => array(
@@ -6932,15 +6933,15 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Education',
-      'weight' => '69',
+      'weight' => '79',
       'children' => array(
-        0 => 'field_er_act_doctl_complet_ca1',
-        1 => 'field_er_act_mast_grad_ca1',
-        2 => 'field_er_act_undergrad_grad_ca1',
-        3 => 'field_er_advisor',
-        4 => 'field_er_ant_doct_completion_ca1',
-        5 => 'field_er_ant_mast_grad_ca1',
-        6 => 'field_er_ant_undergrad_ca1',
+        0 => 'field_er_advisor',
+        1 => 'field_er_ant_under',
+        2 => 'field_er_act_under',
+        3 => 'field_er_ant_masters',
+        4 => 'field_er_act_masters',
+        5 => 'field_er_ant_doctor',
+        6 => 'field_er_act_doctor',
       ),
       'format_type' => 'div',
       'format_settings' => array(

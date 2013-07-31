@@ -28,7 +28,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'field_er_lname' => 'field_er_lname',
   'field_er_description' => 'field_er_description',
   'created' => 'created',
-  'field_er_participant_date' => 'field_er_participant_date',
+  'field_er_participating_date' => 'field_er_participating_date',
 );
 $handler->display->display_options['style_options']['default'] = 'field_er_lname';
 $handler->display->display_options['style_options']['info'] = array(
@@ -67,7 +67,7 @@ $handler->display->display_options['style_options']['info'] = array(
     'separator' => '',
     'empty_column' => 0,
   ),
-  'field_er_participant_date' => array(
+  'field_er_participating_date' => array(
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
@@ -100,10 +100,10 @@ $handler->display->display_options['fields']['created']['field'] = 'created';
 $handler->display->display_options['fields']['created']['label'] = 'Profile Created';
 $handler->display->display_options['fields']['created']['date_format'] = 'short';
 /* Field: User: Participating Date(s) */
-$handler->display->display_options['fields']['field_er_participant_date']['id'] = 'field_er_participant_date';
-$handler->display->display_options['fields']['field_er_participant_date']['table'] = 'field_data_field_er_participant_date';
-$handler->display->display_options['fields']['field_er_participant_date']['field'] = 'field_er_participant_date';
-$handler->display->display_options['fields']['field_er_participant_date']['settings'] = array(
+$handler->display->display_options['fields']['field_er_participating_date']['id'] = 'field_er_participating_date';
+$handler->display->display_options['fields']['field_er_participating_date']['table'] = 'field_data_field_er_participating_date';
+$handler->display->display_options['fields']['field_er_participating_date']['field'] = 'field_er_participating_date';
+$handler->display->display_options['fields']['field_er_participating_date']['settings'] = array(
   'format_type' => 'short',
   'fromto' => 'both',
   'multiple_number' => '',
@@ -111,7 +111,7 @@ $handler->display->display_options['fields']['field_er_participant_date']['setti
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
-$handler->display->display_options['fields']['field_er_participant_date']['delta_offset'] = '0';
+$handler->display->display_options['fields']['field_er_participating_date']['delta_offset'] = '0';
 /* Filter criterion: User: Active */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'users';
