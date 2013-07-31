@@ -144,6 +144,7 @@ class er_debug extends er_page{
 				d(get_batch_operations("all"), 'all');
 				d(get_batch_operations("flags"), 'flags');
 				d(get_batch_operations("bundles"), 'bundles');
+				d(get_batch_operations("rules"), 'rules');
 				return '';
 			case 'EFQ':
 				$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');

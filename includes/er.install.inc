@@ -48,7 +48,7 @@ function prep_file_contents($file_path){
 //This function is used by Batch API; it installs a flag from file.
 function er_batch_import_flag($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing flag: @name', array('@name' => $name));
+	watchdog('er', t('Now processing flag: @name', array('@name' => $name)));
 	module_load_include('inc', 'flag', 'includes/flag.export');
 	if (function_exists('flag_import_form_validate')){
 		//watchdog('er', 'Importing flag: ' . $file_path);
@@ -59,7 +59,9 @@ function er_batch_import_flag($file_path, &$context){
 			// for these imports, work gets done in the _validate and _submit functions to do the actual import
 			flag_import_form_validate($form, $form_state);
 			flag_import_form_submit($form, $form_state);
-			watchdog('er', "Flag $name imported successfully.");
+			$message = t("Flag @name imported successfully.", array('@name'=>$name));
+			$context['message'] = $message;
+			watchdog('er', $message);
 		}else{
 			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
@@ -75,7 +77,7 @@ function er_batch_import_flag($file_path, &$context){
 //This function is used by Batch API; it installs a rule from rules directory.
 function er_batch_import_rules($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing rule: @name', array('@name' => $name));
+	watchdog('er', t('Now processing rule: @name', array('@name' => $name)));
 	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
 	module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
 	if (function_exists('rules_ui_import_form_validate')){
@@ -89,9 +91,11 @@ function er_batch_import_rules($file_path, &$context){
 			// for these imports, work gets done in the _validate and _submit functions to do the actual import
 			rules_ui_import_form_validate($form, $form_state);
 			rules_ui_import_form_submit($form, $form_state);
-			watchdog('er', "Rule $name imported successfully.");
+			$message = t("Rule @name imported successfully.", array('@name'=>$name));
+			$context['message'] = $message;
+			watchdog('er', $message);
 		}else{
-			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
+			$error = "Rule $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
@@ -105,7 +109,7 @@ function er_batch_import_rules($file_path, &$context){
 //Note: This is function is basically the same as er_batch_import_fields.
 function er_batch_import_taxonomy($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing taxonomy: @name', array('@name' => $name));
+	watchdog('er', t('Now processing taxonomy: @name', array('@name' => $name)));
 	module_load_include('inc', 'taxonomy', 'includes/taxonomy.export');
 	if (function_exists('bundle_copy_import_submit')){
 		if (($contents = prep_file_contents($file_path)) !== FALSE){
@@ -114,7 +118,9 @@ function er_batch_import_taxonomy($file_path, &$context){
 			$form_state['values']['macro'] = $contents;
 			// for these imports, work gets done in the _validate and _submit functions to do the actual import
 			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-			watchdog('er', "Taxonomy Vocabulary $name imported successfully.");
+			$message = t("Taxonomy Vocabulary @name imported successfully.", array('@name'=>$name));
+			$context['message'] = $message;
+			watchdog('er', $message);
 		}else{
 			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
@@ -131,7 +137,7 @@ function er_batch_import_taxonomy($file_path, &$context){
 function er_batch_import_fields($file_path, &$context){
 	try {	
 		$name = basename($file_path);
-		$context['message'] = t('Now processing bundle: @name', array('@name' => $name));
+		watchdog('er', t('Now processing bundle: @name', array('@name' => $name)));
 		if (function_exists('bundle_copy_import_submit')){
 			if (($contents = prep_file_contents($file_path)) !== FALSE){
 				$form = array();
@@ -139,7 +145,9 @@ function er_batch_import_fields($file_path, &$context){
 				$form_state['values']['macro'] = $contents;
 				// for these imports, work gets done in the _validate and _submit functions to do the actual import
 				bundle_copy_import_submit('', $form_state); // function doesn't use first arg
-				watchdog('er', "Bundle $name imported successfully.");
+				$message = t("Bundle @name imported successfully.", array('@name'=>$name));
+				$context['message'] = $message;
+				watchdog('er', $message);
 			}else{
 				$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
 				watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
@@ -152,10 +160,11 @@ function er_batch_import_fields($file_path, &$context){
 		}
 	} catch (Exception $e) {
 		// Code 0 has meant that a field is conflicting 
-		if ($e->getCode() == 0){
-		    $trace = $e->getTrace();
-		    $conflictField = $trace[0]['args'][0]['field_name'];
-			echo 'HUGE problem with ' . $conflictField . ' contact Andrew Patrick Wessels.';
+		if ($e->getCode() == 0 && $trace = $e->getTrace() && $field_name = $trace[0]['args'][0]['field_name']){
+			er_field_rename($field_name);
+			er_batch_import_fields($file_path, $context);//re-run the update process for this bundle.
+		}else{
+			throw new Exception('Unable to complete field update process. The field name was not detected.');
 		}
 	}
 }
@@ -172,7 +181,7 @@ function er_get_role_by_name($name){
 //This function will hijack the role by setting the role's RID to the RID that is expected by our system.
 function er_batch_hijack_roles($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now reserving role: @name', array('@name' => $name));
+	watchdog('er', t('Now reserving role: @name', array('@name' => $name)));
 	if (file_exists($file_path)){
 		include($file_path);//$role variable becomes available
 		$db_role = er_get_role_by_name($role['name']);
@@ -180,7 +189,9 @@ function er_batch_hijack_roles($file_path, &$context){
 			$internal_role = $db_role;
 			$internal_role->static_rid = $role['rid'];//get the system to reset it's rid to the one that is expected.
 			$status = user_role_save($internal_role);
-			watchdog('er', "Role {$role['name']} successfully hijacked.");
+			$message = t("Role @name successfully hijacked.", array('@name'=>$role['name']));
+			$context['message'] = $message;
+			watchdog('er', $message);
 		}else{
 			$error = "There is no role with RID:$rid in the system! The system was unable to hijack this role.";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
@@ -195,7 +206,7 @@ function er_batch_hijack_roles($file_path, &$context){
 
 function er_batch_import_role($file_path, &$context){
 	$name = basename($file_path);
-	$context['message'] = t('Now processing role: @name', array('@name' => $name));
+	watchdog('er', t('Now processing role: @name', array('@name' => $name)));
 	if (file_exists($file_path)){
 		include($file_path);
 		if (isset($role)){
@@ -232,9 +243,10 @@ function er_batch_import_role($file_path, &$context){
 				// Add that array of permissions to the role. a Drupal API call
 				user_role_grant_permissions($rid, $array_perms);
 				//d($array_perms, '$array_perms');
-				watchdog('er', 'Granted permissions to role '.$name);
 			}
-			
+			$message = t("Role @name + permissions imported successfully.", array('@name'=>$role['name']));
+			$context['message'] = $message;
+			watchdog('er', $message);
 		}else{
 			$error = "Role $name was not imported! Unable to read data contained in: $file_path";
 			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
@@ -246,7 +258,6 @@ function er_batch_import_role($file_path, &$context){
 		drupal_set_message($error, 'error');
 	}
 }
-
 
 /**
  * This function adjusts the RID of newly created roles, this will allow us to use the same RID on all installations of er-core.
@@ -408,8 +419,9 @@ function get_batch_operations($type = "all", $filename = ""){
 			$drupal_path = ER_INSTALL_DIR . '/' . $tdata['directory'];
 			$dir = new DirectoryIterator($drupal_path);
 			foreach ($dir as $fileinfo) {// loop through each file in the directory
-				if (!$fileinfo->isDot()) { // make sure its not . or ..
-					$operations[] = array($tdata['callback'], array($drupal_path . '/' . $fileinfo->getFilename()));
+				if (!$fileinfo->isDot()) { // make sure its not . (current directory) or .. (parent directory)
+					$filename = $fileinfo->getFilename();
+					$operations[] = array($tdata['callback'], array($drupal_path . '/' . $filename));
 				}
 			}
 		}
@@ -421,8 +433,9 @@ function get_batch_operations($type = "all", $filename = ""){
 			}else{// .. otherwise loop over each file in the directory belonging to this installation type (ex: 'bundles', 'flags', ...)
 				$dir = new DirectoryIterator($drupal_path);
 				foreach ($dir as $fileinfo) {// loop through each file in the directory
-					if (!$fileinfo->isDot()) { // make sure its not . or ..
-						$operations[] = array($tdata['callback'], array($drupal_path . '/' . $fileinfo->getFilename()));
+					if (!$fileinfo->isDot()) { // make sure its not . (current directory) or .. (parent directory)
+						$filename = $fileinfo->getFilename();
+						$operations[] = array($tdata['callback'], array($drupal_path . '/' . $filename));
 					}
 				}
 			}
@@ -431,7 +444,7 @@ function get_batch_operations($type = "all", $filename = ""){
 	return $operations;
 }
 
-function er_field_rename($field_name = "field_er_cal_event_date"){
+function er_field_rename($field_name){
 	$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
 	//d($new_field_name, '$new_field_name');
 	
@@ -516,8 +529,8 @@ function er_field_rename($field_name = "field_er_cal_event_date"){
 		db_query('ALTER TABLE '.$table_name.' RENAME TO '.$new_table_name);
 	}
 	drupal_get_complete_schema(true);//rebuild the schema to make sure drupal knows about our changes.
-	$message = "Renamed field: $field_name to $new_field_name in order to avoid update conflicts.";
-	d($message, '$message');
-	watchdog('er', $message);
+	$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
+	drupal_set_message($message, 'warning');
+	watchdog('er', $message, array(), WATCHDOG_WARNING);
 	return '';
 }

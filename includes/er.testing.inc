@@ -380,7 +380,6 @@ function _test_flags(){
 	$drupal_path = ER_INSTALL_DIR . '/flags';
 	$dir = new DirectoryIterator($drupal_path);
 	$internal_flags = flag_get_flags();
-	//d($internal_flags, '$internal_flags');
 	// loop through all flag files in the directory
 	$return = array('found'=>array(), 'missing'=>array(), 'extra'=>array());
 	foreach ($dir as $fileinfo) {
@@ -463,7 +462,6 @@ function _test_taxonomy(){
 	$internal_taxonomy = array();
 	foreach (taxonomy_get_vocabularies() as $vocab)
 		$internal_taxonomy[$vocab->machine_name] = $vocab;
-	// d($internal_taxonomy, 'taxonomy vocabularies');
 	foreach ($dir as $fileinfo) {
 		if (!$fileinfo->isDot()) {
 			$taxonomy_filename = $fileinfo->getFilename();
@@ -483,7 +481,10 @@ function _test_taxonomy(){
 			}
 		}
 	}
-	$return['extra'] = $internal_taxonomy;
+	foreach ($internal_taxonomy as $name => $node){//iterate over the remaining flags, and look for er_ prefix.
+		if (substr($name, 0, 3) == "er_")
+			$return['extra'][$name] = $node;
+	}
 	// d($return, '$return');
 	return $return;
 }
