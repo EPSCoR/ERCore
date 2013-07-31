@@ -135,9 +135,11 @@ $handler->display->display_options['header']['area']['format'] = 'filtered_html'
 $handler->display->display_options['path'] = 'user-involvement';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Participants';
+$handler->display->display_options['menu']['description'] = 'Lists Users with Name, Description, Date Created, and Participating Dates';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'main-menu';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: Collecting Data Information */
 $handler = $view->new_display('page', 'Collecting Data Information', 'page_1');
@@ -300,10 +302,11 @@ $handler->display->display_options['filters']['field_er_has_this_user_value']['r
 $handler->display->display_options['path'] = 'admin/epscor/views/collecting-data-information';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Data Collection Information';
-$handler->display->display_options['menu']['description'] = 'Data Collection Information';
+$handler->display->display_options['menu']['description'] = 'Lists details on Users that will be collecting data';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: Participant Activity */
 $handler = $view->new_display('page', 'Participant Activity', 'page_3');

@@ -1,4 +1,4 @@
-<?php  
+<?php
 $view = new view();
 $view->name = 'er_collaborating_institutions';
 $view->description = 'This will show up when creating a new collaboration';
@@ -53,6 +53,7 @@ $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['path'] = 'admin/epscor/views/institutions';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Collaborating Institutions';
+$handler->display->display_options['menu']['description'] = 'Lists institutions with details on Type (like Domestic), Category (like PUI), and a description';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;

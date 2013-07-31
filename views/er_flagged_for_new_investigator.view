@@ -118,7 +118,7 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: Participant Date -  start date (field_er_participating_date) */
+/* Filter criterion: User: Participating Date(s) -  start date (field_er_participating_date) */
 $handler->display->display_options['filters']['field_er_participating_date_value']['id'] = 'field_er_participating_date_value';
 $handler->display->display_options['filters']['field_er_participating_date_value']['table'] = 'field_data_field_er_participating_date';
 $handler->display->display_options['filters']['field_er_participating_date_value']['field'] = 'field_er_participating_date_value';
@@ -148,22 +148,21 @@ $handler->display->display_options['filters']['field_er_participating_date_value
 $handler->display->display_options['filters']['field_er_participating_date_value']['default_date'] = 'now-365 days';
 $handler->display->display_options['filters']['field_er_participating_date_value']['default_to_date'] = 'now';
 $handler->display->display_options['filters']['field_er_participating_date_value']['year_range'] = '-1:+0';
-/* Filter criterion: User: Roles */
-$handler->display->display_options['filters']['rid']['id'] = 'rid';
-$handler->display->display_options['filters']['rid']['table'] = 'users_roles';
-$handler->display->display_options['filters']['rid']['field'] = 'rid';
-$handler->display->display_options['filters']['rid']['value'] = array(
-  137756511 => '137756511',
+/* Filter criterion: User: Most Senior Project Role (field_er_most_sen_proj_role) */
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['id'] = 'field_er_most_sen_proj_role_value';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['table'] = 'field_data_field_er_most_sen_proj_role';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['field'] = 'field_er_most_sen_proj_role_value';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['value'] = array(
+  'Faculty participant (or equivalent)' => 'Faculty participant (or equivalent)',
 );
-$handler->display->display_options['filters']['rid']['group'] = 2;
-$handler->display->display_options['filters']['rid']['reduce_duplicates'] = TRUE;
 $handler->display->display_options['path'] = 'admin/epscor/views/er-flagged-for-new-investigator';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'New Investigators';
-$handler->display->display_options['menu']['description'] = 'New Investigators';
+$handler->display->display_options['menu']['description'] = 'Lists Users participating in the last year, who are Faculty participant (or equivalent)';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: New Investigator - XLS */
 $handler = $view->new_display('views_data_export', 'New Investigator - XLS', 'views_data_export_1');

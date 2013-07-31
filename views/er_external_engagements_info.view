@@ -128,7 +128,7 @@ $handler->display->display_options['fields']['field_er_cal_event_date']['setting
   'show_repeat_rule' => 'show',
 );
 $handler->display->display_options['fields']['field_er_cal_event_date']['delta_offset'] = '0';
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Researchers(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -190,10 +190,11 @@ $handler->display->display_options['filters']['field_er_event_reminders_value'][
 $handler->display->display_options['path'] = 'admin/epscor/views/external-engagements-information';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'External Engagements Information';
-$handler->display->display_options['menu']['description'] = 'External Engagements Information';
+$handler->display->display_options['menu']['description'] = 'Lists Calendar Events that were open to the public, and which need External Engagements';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: EE with Data */
 $handler = $view->new_display('attachment', 'EE with Data', 'attachment_1');
