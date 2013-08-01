@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_proposal',
-          3 => 'er_publication',
-          4 => 'er_award',
+          2 => 'er_award',
+          3 => 'er_collaboration',
+          4 => 'er_event',
           5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          6 => 'er_presentation',
+          7 => 'er_proposal',
+          8 => 'er_publication',
         ),
       ),
     ),
@@ -733,9 +733,78 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
+          0 => 'er_patent',
+          1 => 'er_presentation',
+          2 => 'er_publication',
+        ),
+      ),
+    ),
+    'field_er_non_epscor_authors' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '512',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_non_epscor_authors' => array(
+                'value' => 'field_er_non_epscor_authors_value',
+                'format' => 'field_er_non_epscor_authors_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_non_epscor_authors' => array(
+                'value' => 'field_er_non_epscor_authors_value',
+                'format' => 'field_er_non_epscor_authors_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_non_epscor_authors',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '512',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
           0 => 'er_publication',
-          1 => 'er_patent',
-          2 => 'er_presentation',
         ),
       ),
     ),
@@ -799,8 +868,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_publication',
-          1 => 'er_other_product',
+          0 => 'er_other_product',
+          1 => 'er_publication',
         ),
       ),
     ),
@@ -1457,8 +1526,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_publication',
-          1 => 'er_other_product',
+          0 => 'er_other_product',
+          1 => 'er_publication',
         ),
       ),
     ),
@@ -1549,8 +1618,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_publication',
-          1 => 'er_presentation',
+          0 => 'er_presentation',
+          1 => 'er_publication',
         ),
       ),
     ),
@@ -1626,15 +1695,14 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_proposal',
-          1 => 'er_publication',
-          2 => 'er_other_product',
-          3 => 'er_news',
-          4 => 'er_award',
-          5 => 'er_event',
-          6 => 'er_patent',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          0 => 'er_award',
+          1 => 'er_event',
+          2 => 'er_news',
+          3 => 'er_other_product',
+          4 => 'er_patent',
+          5 => 'er_presentation',
+          6 => 'er_proposal',
+          7 => 'er_publication',
         ),
       ),
     ),
@@ -1644,7 +1712,7 @@ $data = array(
       0 => array(
         'label' => 'Abstract',
         'widget' => array(
-          'weight' => '7',
+          'weight' => '9',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -1811,7 +1879,7 @@ $data = array(
       0 => array(
         'label' => 'EPSCoR Acknowledged ',
         'widget' => array(
-          'weight' => '10',
+          'weight' => '13',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1851,7 +1919,7 @@ $data = array(
       0 => array(
         'label' => 'Full Citation',
         'widget' => array(
-          'weight' => '13',
+          'weight' => '14',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -2159,7 +2227,7 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '14',
+          'weight' => '15',
           'type' => 'link_field',
           'module' => 'link',
           'active' => 0,
@@ -2226,7 +2294,7 @@ $data = array(
         'settings' => array(
           'validate_url' => 1,
           'url' => 0,
-          'title' => 'optional',
+          'title' => 'none',
           'title_value' => '',
           'title_maxlength' => '128',
           'display' => array(
@@ -2249,6 +2317,46 @@ $data = array(
         'deleted' => '0',
       ),
     ),
+    'field_er_non_epscor_authors' => array(
+      0 => array(
+        'label' => 'Non-EPSCoR Authors',
+        'widget' => array(
+          'weight' => '2',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '150',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'text_default',
+            'settings' => array(),
+            'module' => 'text',
+            'weight' => 23,
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'List any authors that may not be users in this system. You may comma-separate names if you wish.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_non_epscor_authors',
+        'entity_type' => 'node',
+        'bundle' => 'er_publication',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_nsf_ack' => array(
       0 => array(
         'weight' => '12',
@@ -2261,7 +2369,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '8',
+          'weight' => '10',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -2382,7 +2490,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '2',
+          'weight' => '5',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -2495,7 +2603,7 @@ $data = array(
       0 => array(
         'label' => 'Is it being archived?',
         'widget' => array(
-          'weight' => '17',
+          'weight' => '18',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -2532,7 +2640,7 @@ $data = array(
       0 => array(
         'label' => 'Are you collecting Data?',
         'widget' => array(
-          'weight' => '16',
+          'weight' => '17',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -2569,7 +2677,7 @@ $data = array(
       0 => array(
         'label' => 'What Archive?',
         'widget' => array(
-          'weight' => '18',
+          'weight' => '19',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -2612,7 +2720,7 @@ $data = array(
         'widget_type' => 'date_popup',
         'description' => '',
         'widget' => array(
-          'weight' => '6',
+          'weight' => '8',
           'type' => 'date_popup',
           'module' => 'date',
           'active' => 1,
@@ -2758,7 +2866,7 @@ $data = array(
       0 => array(
         'label' => 'Status',
         'widget' => array(
-          'weight' => '3',
+          'weight' => '6',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -2783,7 +2891,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => 1,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_publication_status',
@@ -2799,7 +2907,7 @@ $data = array(
         'widget_type' => 'date_popup',
         'description' => '',
         'widget' => array(
-          'weight' => '4',
+          'weight' => '7',
           'type' => 'date_popup',
           'module' => 'date',
           'active' => 1,
@@ -2945,7 +3053,7 @@ $data = array(
       0 => array(
         'label' => 'Publication Type',
         'widget' => array(
-          'weight' => '11',
+          'weight' => '3',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -2970,7 +3078,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => 1,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_publication_type',
@@ -3027,7 +3135,7 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'widget' => array(
-          'weight' => '9',
+          'weight' => '11',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -3107,7 +3215,7 @@ $data = array(
       0 => array(
         'label' => 'Upload File',
         'widget' => array(
-          'weight' => '15',
+          'weight' => '16',
           'type' => 'file_generic',
           'module' => 'file',
           'active' => 1,
@@ -3253,7 +3361,7 @@ $data = array(
   ),
   'fieldgroups' => array(
     'group_er_journal|node|er_publication|form' => (object) array(
-      'id' => '1',
+      'id' => '8',
       'identifier' => 'group_er_journal|node|er_publication|form',
       'group_name' => 'group_er_journal',
       'entity_type' => 'node',
@@ -3264,15 +3372,15 @@ $data = array(
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Publication Information',
-      'weight' => '12',
+      'weight' => '4',
       'children' => array(
-        0 => 'field_er_doi',
-        1 => 'field_er_journal_name',
-        2 => 'field_er_journal_pages',
-        3 => 'field_er_journal_volume',
-        4 => 'field_er_ark',
-        5 => 'field_er_publisher',
-        6 => 'field_er_collection_title',
+        0 => 'field_er_ark',
+        1 => 'field_er_collection_title',
+        2 => 'field_er_doi',
+        3 => 'field_er_journal_name',
+        4 => 'field_er_journal_pages',
+        5 => 'field_er_journal_volume',
+        6 => 'field_er_publisher',
       ),
       'format_type' => 'fieldset',
       'format_settings' => array(

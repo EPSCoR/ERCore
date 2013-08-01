@@ -60,7 +60,7 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: Do you participate in EPSCoR research more than 160 hours per year? (field_er_160hours) */
+/* Filter criterion: User: Do you participate in EPSCoR activities more than 160 hours per year? (field_er_160hours) */
 $handler->display->display_options['filters']['field_er_160hours_value']['id'] = 'field_er_160hours_value';
 $handler->display->display_options['filters']['field_er_160hours_value']['table'] = 'field_data_field_er_160hours';
 $handler->display->display_options['filters']['field_er_160hours_value']['field'] = 'field_er_160hours_value';
@@ -114,6 +114,7 @@ $handler->display->display_options['header']['area']['format'] = 'filtered_html'
 $handler->display->display_options['path'] = 'admin/epscor/views/160-hours';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = '160 Hour Criteria';
+$handler->display->display_options['menu']['description'] = 'Shows a list of users that work more than 160 hours, according to their User Profile';
 $handler->display->display_options['menu']['weight'] = '0';
 $handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
@@ -172,7 +173,7 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: Do you participate in EPSCoR research more than 160 hours per year? (field_er_160hours) */
+/* Filter criterion: User: Do you participate in EPSCoR activities more than 160 hours per year? (field_er_160hours) */
 $handler->display->display_options['filters']['field_er_160hours_value']['id'] = 'field_er_160hours_value';
 $handler->display->display_options['filters']['field_er_160hours_value']['table'] = 'field_data_field_er_160hours';
 $handler->display->display_options['filters']['field_er_160hours_value']['field'] = 'field_er_160hours_value';
