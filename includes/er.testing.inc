@@ -200,6 +200,7 @@ function er_testing() {
 	foreach ($field_status as $bundle=>$results){
 		$title = "Bundle: ".$results['name']." ($bundle)";
 		$has_missing = false;
+		$has_modified = false;
 		$has_extra = false;
 		$description = null;
 		if (count($results['extra_fields']) || count($results['extra_groups'])){//if missing fields or groups were returned
@@ -210,7 +211,12 @@ function er_testing() {
 			if (count($results['extra_groups'])){
 				$description .= "Extra field groups: ".implode(", ", array_keys($results['extra_groups'])).'<br>';
 			}
-			$description .= "<i>Extra fields may be removed without breaking ER Core's functionality. You may need to transfer data out of an old field into a new field. Please consult the changelog if available.</i><br>";
+			$description .= "<i>Extra fields may be removed without breaking ER Core's functionality. You may need to <u>manually transfer data</u> out of an old field into a new field. Please consult the changelog if available.</i><br>";
+		}
+		if (count($results['modified_fields'])){//if missing fields or groups were returned
+			$has_modified = true;
+			$description .= '<strong>Modified fields:</strong> '.implode(", ", array_keys($results['modified_fields'])).'<br>';
+			$description .= "<i>The system has detected that one or more fields have changed. It is recommended that you reset this bundle.</i><br>";
 		}
 		if (count($results['missing_fields']) || count($results['missing_groups'])){//if missing fields or groups were returned
 			$has_missing = true;
@@ -225,7 +231,7 @@ function er_testing() {
 		
 		$severity = REQUIREMENT_OK;
 		$value = l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)).', '.create_reset_link('bundles', $bundle, 'this bundle');
-		if ($has_missing){
+		if ($has_missing || $has_modified){
 			$severity = REQUIREMENT_ERROR;
 			$value = create_reset_link('bundles', $bundle, 'this bundle');
 		}else if($has_extra){
@@ -302,6 +308,26 @@ function _test_components(){
 	return $count;
 }
 
+//compares two nested arrays, returns the difference (recursive).
+function arrayRecursiveDiff($aArray1, $aArray2) { 
+	$aReturn = array(); 
+	foreach ($aArray1 as $mKey => $mValue) { 
+		if (array_key_exists($mKey, $aArray2)) { 
+			if (is_array($mValue)) { 
+				$aRecursiveDiff = arrayRecursiveDiff($mValue, $aArray2[$mKey]); 
+				if (count($aRecursiveDiff)) { $aReturn[$mKey] = $aRecursiveDiff; } 
+			} else { 
+				if ($mValue != $aArray2[$mKey]) { 
+					$aReturn[$mKey] = $mValue; 
+				} 
+			} 
+		} else { 
+			$aReturn[$mKey] = $mValue; 
+		} 
+	}
+	return $aReturn; 
+} 
+
 /**
  * Check the status of fields and fieldgroups
  */
@@ -311,6 +337,8 @@ function _test_fields(){
 	$bundle_list = array();
 	$found_errors = false;
 	$return = array();
+	$all_fields = field_info_fields();
+	$gogo = true;
 	foreach ($dir as $fileinfo) {//loop through all files in the directory
 		if (!$fileinfo->isDot()) { //Check that it's not . or .. (which are not really files)
 			$bundle_filename = $fileinfo->getFilename();
@@ -322,12 +350,27 @@ function _test_fields(){
 			$bundle_label = isset($bundle_info->name)?$bundle_info->name:'User Profile';
 			$entity_type = $bundle_type=='user'?'user':'node';
 			
-			$installed_fields = field_info_instances($entity_type, $bundle_type);
+			$bundle_fields = field_info_instances($entity_type, $bundle_type);
+			$modified_fields = array();
+			//if ($bundle_type == 'er_collaboration'){
+			//	d($bundle_fields, '$bundle_fields');
+			//	d($data, '$data');
+			//}
 			if (isset($data['fields'])){ //Make sure there are fields
 				foreach ($data['fields'] as $field_name=>$field){ //Check each field
-					if (isset($installed_fields[$field_name])){//the field exists
-						unset($installed_fields[$field_name]);
+					if (isset($bundle_fields[$field_name])){//the field exists
+						unset($bundle_fields[$field_name]);
 						unset($data['fields'][$field_name]);
+						$internal_field = $all_fields[$field_name];
+						unset($internal_field['id']);
+						unset($internal_field['bundles']);
+						unset($field['bundles']);
+						if (json_encode($internal_field) != json_encode($field)){//compare field information
+							//d($field, '$field');
+							//d($all_fields[$field_name], '$all_fields[$field_name]');
+							//d(arrayRecursiveDiff($internal_field, $field), 'Field has changed: '.$bundle_type.':'.$field_name);
+							$modified_fields[$field_name] = $field;
+						}
 					}
 				}
 			}
@@ -350,7 +393,8 @@ function _test_fields(){
 			
 			$return[$bundle_type] = array(
 				'missing_fields' => $data['fields'],
-				'extra_fields' => $installed_fields,
+				'modified_fields' => $modified_fields,
+				'extra_fields' => $bundle_fields,
 				'missing_groups' => $fieldgroups,
 				'extra_groups' => $installed_groups,
 				'name' => $bundle_label
