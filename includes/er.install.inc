@@ -423,7 +423,7 @@ function er_installer_reset_form($form, &$form_state){
 			$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
 			$cancel_path = 'admin/config/epscor/er/status';
 		}
-		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone.'), $button_label, t('Cancel'));
+		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone. It is highly recommended that you <strong>backup your database</strong> before attempting a reset/update.'), $button_label, t('Cancel'));
 	}
 	return array('#disabled'=>true);//invalid input, just return a junk form.
 }
