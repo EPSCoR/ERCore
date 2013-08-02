@@ -7178,7 +7178,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Deomographics',
+      'label' => 'Demographics',
       'weight' => '35',
       'children' => array(
         0 => 'field_er_citizenship',
