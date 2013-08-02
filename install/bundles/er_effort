@@ -307,7 +307,11 @@ $data = array(
         ),
         'required' => 1,
         'description' => '',
-        'default_value' => NULL,
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
         'field_name' => 'field_er_pm_acad',
         'entity_type' => 'node',
         'bundle' => 'er_effort',
@@ -353,7 +357,11 @@ $data = array(
         ),
         'required' => 1,
         'description' => '',
-        'default_value' => NULL,
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
         'field_name' => 'field_er_pm_cal',
         'entity_type' => 'node',
         'bundle' => 'er_effort',
@@ -399,7 +407,11 @@ $data = array(
         ),
         'required' => 1,
         'description' => '',
-        'default_value' => NULL,
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
         'field_name' => 'field_er_pm_sumr',
         'entity_type' => 'node',
         'bundle' => 'er_effort',
