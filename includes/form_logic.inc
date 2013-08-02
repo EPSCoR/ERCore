@@ -553,6 +553,12 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	  'required' => $undergrad,
 	);
 	
+// Ask them "Do you or anyone in your research group receive salary support from EPSCoR?" if they're faculty
+//  (this was decided upon in Utah, Summer of 2013)
+	$form['field_er_faculty_any_support']['#states'] = array(
+	  'visible' => $faculty_part,
+	  'required' => $faculty_part,
+	);
 	
 	
 // Graduate Student
