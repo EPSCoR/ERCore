@@ -9,6 +9,12 @@ function er_theme($existing, $type, $theme, $path){
 			'template' => 'er-help',
 			'path' => $path,
 		),
+		'er_help_admin' => array(//produces a block, and a page: node/add2
+			'variables' => array(),
+			'render element' => 'links',
+			'template' => 'er-help-admin',
+			'path' => $path,
+		),
 		//'er_formatter_node_reference_full_node' => array(
 		//	'arguments' => array('element' => NULL),
 		//),

@@ -12,203 +12,6 @@
   will need to have an account and be logged in.</p>
 </div>
 <div id="er-help">
-	<h3 id="terms">
-		<a href="#terms">Common Drupal Terms</a>
-	</h3>
-	<div>
-    <ul>
-      <li>
-        <strong>Auto Lookup</strong>
-        <p>A field on a form that searches for data already in the database such as a User's name.  If you were to start typing "dav" of David Kimball, the blue
-        wheel to the right of the lookup field starts to spin as it is searching.  When the search is complete, the search results are displayed in a list directly below the 
-        lookup field.  Use your mouse or tab down to select one of the results.  Click on it to enter that result to the field.  Note, even though you can type in any string of 
-        text, unless there is a match (search result hit) and you select it from the list, the form cannot be saved.  If you are searching for a name of someone who is a project 
-        member, for example, and the name does not appear, you may be misspelling the name, or that person does not have a User Profile.</p>
-      </li>
-      <li>
-        <strong>Content</strong>
-        <p>Content refers to the information or data that Users input into Drupal through Forms.</p>
-      </li>
-      <li>
-        <strong>Content Type</strong>
-        <p>A content type is one of the more technical terms used to specify the different groups of content Drupal can collect.  Examples of Content Types are 
-        event, page, blog, image, collaboration, presentation, publication, etc.</p>
-      </li>
-      <li>
-        <strong>Custom Module</strong>
-        <p>A custom module is a Drupal Module that is written in the PHP programming language that has not been adopted by the Drupal Association for general 
-        release and made available at Drupal.org.  Typically custom modules are written for the unique needs for certain groups.  In our case, we are developing a custom module 
-        named the ER-Core and its functionality will be useful only to EPSCoR administrators.</p>
-      </li>
-      <li>
-        <strong>Drupal</strong>
-        <p>Drupal is a free and open-source content management framework (CMF) written in PHP and distributed under the GNU General Public License.</p>
-      </li>
-      <li>
-        <strong>Field</strong>
-        <p>A Field is an element of a Form where data is entered.  Fields can include such items as Dates, Titles, text boxes, etc.</p>
-      </li>
-      <li>
-        <strong>Form</strong>
-        <p>A form is the web interface that allows Users to input information or data.  Each Content Type will have a form associated with it.  The term form is rather generic.</p>
-      </li>
-      <li>
-        <strong>Module</strong>
-        <p>A module is a packaged group of PHP code that allows users to do specific defined actions.  Drupal is built on the premise that web site developers and 
-        managers can easily download a module and turn it on to gain quick, easy access to functions that web sites typically utilize.  There are thousands of modules to 
-        choose from.  Example of typical modules are calendar, image gallery, event registration forms, etc.</p>
-      </li>
-      <li>
-        <strong>Node</strong>
-        <p>A Node refers to the group of information or data that comes into the database through a form.  If you wanted to create an Event, the Event Node would be all 
-        the information that the user can input through the Event form about that specific event.  Each time a new event is created it is assigned a unique Node ID, which 
-        is used to differentiate Events or nodes.  In the case of events, the database can collect unlimited events, or event nodes, each one being unique, and just as Events 
-        have nodes, so do each of the other Content Types.</p>
-      </li>
-      <li>
-        <strong>Roles (Drupal)</strong>
-        <p>(Drupal) Roles are the names of the types of Users with respect to the web site and Drupal, not EPSCoR.  A Drupal role is defined by the site 
-        administrator and represent the various groups of people that will be using the site.  For each role privileges will be assigned giving or restricting access to various 
-        functions of the site.  Typical Drupal Roles are Adminsitrator, EPSCoR Administrator, Faculty, Student, Committee Member and Public.  This approach allows new Users to 
-        be assigned appropriate access to the site quickly and confidently.  NSF defined (EPSCoR) roles are different and often confused. </p>
-      </li>
-      <li>
-        <strong>User Profile</strong>
-        <p>The User Profile is the data or information that is associated with a User.  It is in the User Profile where the User's real name, user name, 
-        password, photo, EPSCoR roles, involvement, contact information, demographics, etc., is kept.</p>
-      </li>
-      <li>
-        <strong>User Privileges</strong>
-        <p>User privileges are the set of access or restrictions to the various functions of the site.  For each content type one can define who can see, 
-        edit, delete or create new and whether or not you need to be logged in or not to do so.  User privileges are grouped by roles to allow the site administrator to quickly 
-        assign or restrict access to common types of users.</p>
-      </li>
-      <li>
-        <strong>View</strong>
-        <p>A View is the web page that displays a node, or the information or data that has been input through a form.  Typically after you enter data or information 
-        through a form and click Save, the View will follow allowing you to see what you just entered.</p>
-      </li>
-      <li>
-        <strong>Widget</strong>
-        <p>A widget is a generic term that describes items on a form that does a specific function.  A common widget is the calendar widget.  The calendar widget has 
-      	both the little fields for day, month and year, where you can enter that data manually or you can click a day on a mini-calendar.</p>
-      </li>
-    </ul>
-	</div>
-	<h3 id="definitions">
-		<a href="#definitions">Key Term NSF Definitions and the Criteria in the System that Defines these Terms</a>
-	</h3>
-	<div>
-    <p>The following are a few key terms used in EPSCoR reporting, which may or may not be defined by NSF, yet must be and have been defined by the 
-    ER-Core collaborative group in order for the Drupal ER-Core to properly handle this data.  EPSCoR administrators must understand the ER-Core criterion in order to 
-    have confidence in the data and manage it properly.</p>
-    <ul>
-      <li>
-        <strong>Participant (NSF)</strong>
-        <p>Participants are members of the project who contribute in an ongoing and regular basis. They can be paid or unpaid and are involved in 
-        activities funded by the project.</p>
-        <p>Note, in the absence of a formal NSF definition of a Participant of EPSCoR, the ER-Core Drupal Committee defines a Participant as:</p>
-        <p>
-          <ul>
-            <li>Needs to be housed at one of the partnering institutions as defined by the RII, and,</li>
-            <li>Contribute equal to or greater than 160 hours (one person month) in a year (reporting period).</li>
-          </ul>
-        </p>
-      </li>
-      <li>
-        <strong>Participant (ER-Core)</strong>
-        <p>Once the user's account meets the following criteria, the system adds 1 to the appropriate category in Table A - Participants.  The criteria is: </p>
-        <p>
-          <ul>
-            <li>User must be marked as Active</li>
-            <li>User must have the "Authenticated EPSCoR" user role</li>
-            <li>User must belong to a Participating Institution</li>
-            <li>User must contribute at least 160 hours per year (1 person-month of effort)</li>
-          </ul>
-        </p>
-      </li>
-      <li>
-        <strong>Participating Institution (NSF)</strong>
-        <p>Participating institutions are those institutions that receive direct support from the RII award including sub-awards.</p>
-      </li>
-      <li>
-        <strong>Participating Institution (ER-Core)</strong>
-        <p>Institution node must be marked as participating (checkbox, an administrative function).  For each institution that has 
-        its "participating" field checked, the system is then able to properly place participants in Table A, by institution.</p>
-      </li>
-      <li>
-        <strong>Collaboration (NSF)</strong>
-        <p>NSF does not formally define what a collaboration is for EPSCoR. Note, in the absence of a formal NSF definition of a collaboration 
-        for EPSCoR, the ER-Core Drupal Committee defines a collaboration as a set of activities between a participating institution(s) and non-participating institutions, 
-        organizations or agencies that lead to a definable outcome.  In a collaboration, each party contributes intellectually and brings complementary capabilities and resources. 
-        Examples can include activities such as research projects, outreach events, database development or web dissemination of research data and results.</p>
-      </li>
-      <li>
-        <strong>Collaboration (ER-Core)</strong>
-        <p>A collaboration is the composition of 2 different elements.  Each of these elements have criteria that must be met.  Once all the 
-        required elements meet the criteria, a collaboration is established and a count of 1 is added to Table C - Collaborations, regardless of how many EPSCoR researchers 
-        participate in the collaboration.  The following is a list of the required elements for a collaboration:</p>
-        <p>
-          <ol>
-            <li>Non-participating Institution (see above criteria to be counted as participating)</li>
-            <li>Text fields that describe:</li>
-            <ul>
-              <li>Title</li>
-              <li>Description of work and contribution to the RII</li>
-              <li>Start Date</li>
-              <li>Name of at least one EPSCoR participant</li>
-              <li>Name of at least one EPSCoR research component or project</li>
-              <li>Names of collaborators (see definition of collaborator below)</li>
-              <li>Department for each named collaborator</li>
-            </ul>
-          </ol>
-        </p>
-      </li>
-      <li>
-        <strong>Collaborator (Drupal Committee)</strong>
-        <p>NSF does not formally define who a collaborator is for EPSCoR. Note, in the absence of a formal NSF definition of who a 
-        collaborator is for EPSCoR, the ER-Core Drupal Committee defines a collaborator as a researcher, faculty level or equivalent, who significantly contributes 
-        (intellectually, labor) to the project less than 160 hrs/yr.  A collaborator may or may not be housed in a participating institution.  </p>
-      </li>
-      <li>
-        <strong>Collaborator (ER-Core)</strong>
-        <p>A collaborator contributes less than 160 hrs of effort during the (reporting period) year.  This value is set in the user profile within 
-        the Involvement tab.  A collaborator may or may not be housed at a participating institution.</p>
-        <p>Collaborator names are simply text fields and part of the Collaboration Content Type, not formal roles assigned within a default installation of the ER-Core.  For 
-        each name that is listed as a collaborator in a completed collaboration, the system counts 1 and adds that to Table C - Collaborations.</p>
-        <p>The default ER-Core role options do not include a Collaborator Role.  This is left up to the jurisdiction.  We suggest using the Guest Role to allow collaborators 
-        access to the system.  </p>
-      </li>
-      <li>
-        <strong>New Investigator (NSF)</strong>
-        <p>New investigators are those at the faculty, junior faculty, and post doc level who are new to the RII project during the reporting period.</p>
-      </li>
-      <li>
-        <strong>New Investigator (ER-Core)</strong>
-        <p>New Investigators are Participants assigned with Post Doc or Faculty roles who's start date is less then 365 days from the most recent 
-        reporting period.  For each user who's profile meets the below criteria, the system counts 1 and adds it to Table B - Participants.  </p>
-        <p>In order for the system to count a user as a new investigator, the following criteria must be met:</p>
-        <p>
-          <ol>
-            <li>Be an active system-defined participant</li>
-            <li>Have the faculty or Post Doc role assigned</li>
-            <li>Have the difference between the most recent reporting period and the user's start date be less than 365 days</li>
-          </ol>
-        </p>
-      </li>
-      <li>
-        <strong>Project Start Date (ER-Core)</strong>
-        <p>The start date is set by administration after the installation of the ER-Core in the EPSCoR Reporting Module Settings page accessed from 
-        the black menu (default install) under Configuration/EPSCoR/EPSCoR Reporting Module Settings.  It is arbitrarily set and can be changed at any point.</p>
-      </li>
-      <li>
-        <strong>Reporting Period (ER-Core)</strong>
-        <p>The Reporting Period uses the Year of the Start Date, plus a month (arbitrarily set by administration), and the first day of that month.  
-        The Reporting Period starting month is set in the EPSCoR Reporting Module Settings page accessed from the black menu (default install) under Configuration/EPSCoR/EPSCoR 
-        Reporting Module Settings.  The Reporting Period starting day is 1 and cannot be changed.</p>
-      </li>
-    </ul>
-	</div>
 	<h3 id="request-account">
 		<a href="#request-account">Request an Account</a>
 	</h3>
@@ -690,115 +493,214 @@
 		<p>Once the entry to edit has been located click on its title to view the entry.  Then click on the EDIT tab underneath the title. This will reopen the node and allow you 
 		to make changes to it. Once you are done with your changes you can save them by clicking on the save button at the bottom of the page.</p>
 	</div>
-  <h3 id="post-install"><a href="#post-install">Post-Installation Guide</a></h3>
-  <div>
-    <strong>
-    These are steps that should be taken immediately after installing the EPSCoR Reporting package.
-    These customizations will help make the system a better fit your juristiction.
-    </strong>
+	<h3 id="terms">
+		<a href="#terms">Common Drupal Terms</a>
+	</h3>
+	<div>
     <ul>
       <li>
-        <h4>Project Components</h4>
-        <p>
-          Change the list of <?php echo l('project components', 'admin/structure/taxonomy/er_components')?> (which may also be known as "teams").
-          Use the "Add term" button to add a new component.
-          This will present you with a form, which includes a checkbox labeled "Core Component",
-          this checkbox denotes whether the component should show up on every component selection list, or just on the user profile's select list.
-          <br>
-          Ex. The "Administration" component is non-core, while "CYBER", "ENDER", "ECOGEM", and "DEW" are all core teams for Hawaii.
-        </p>
+        <strong>Auto Lookup</strong>
+        <p>A field on a form that searches for data already in the database such as a User's name.  If you were to start typing "dav" of David Kimball, the blue
+        wheel to the right of the lookup field starts to spin as it is searching.  When the search is complete, the search results are displayed in a list directly below the 
+        lookup field.  Use your mouse or tab down to select one of the results.  Click on it to enter that result to the field.  Note, even though you can type in any string of 
+        text, unless there is a match (search result hit) and you select it from the list, the form cannot be saved.  If you are searching for a name of someone who is a project 
+        member, for example, and the name does not appear, you may be misspelling the name, or that person does not have a User Profile.</p>
       </li>
       <li>
-        <h4>Customize the list of ethnicities/races</h4>
-        <p>
-          Modify the <?php echo l('list of ethnicities/races', 'admin/config/people/accounts/fields/field_er_race')?> that your jurisdiction will want to track and report on.
-          <br>
-          Ex. In Hawaii we also provide options for: Filipino, Pacific Islander, and Native Hawaiian
-        </p>
+        <strong>Content</strong>
+        <p>Content refers to the information or data that Users input into Drupal through Forms.</p>
       </li>
       <li>
-        <h4>Committees/Advisory Boards</h4>
-        <p>
-          Change the <?php echo l('list of Committees/Advisory Boards', 'admin/config/people/accounts/fields/field_er_committees')?> which oversee your EPSCoR grant.
-          <br>
-          Ex. Hawaii has three advisory committees: Community Advisory Committee (CAC), Monitoring Assessment Panel (MAP), Statewide Committee (SWC)  
-        </p>
+        <strong>Content Type</strong>
+        <p>A content type is one of the more technical terms used to specify the different groups of content Drupal can collect.  Examples of Content Types are 
+        event, page, blog, image, collaboration, presentation, publication, etc.</p>
       </li>
       <li>
-        <h4>Institutions</h4>
-        <p>
-          The reporting system needs to know certain information about the institutions being attached to users, or collaborations.
-          We need to know where the users come from, and what kind of institution it is in order to automatically fulfill certain NSF requirements.
-          <br>
-          The system requires that you explicitly list the "Participating Institutions" (i.e. Those institutions which are participating in your EPSCoR grant), as well as any institution which will be listed in a collaboration.
-          This list will likely expand over time, but it is necessary to begin this process by setting up the most important institutions first.
-          <br>
-          You can add a new institution to the system by going to the <?php echo l('Add content', 'node/add')?> link, then selecting the <?php echo l('Institution', 'node/add/er-institution')?> link.
-          <br>
-          You may also see a list of institutions currently in the system through the <?php echo l('Institutions view', 'institutions')?>.  
-        </p>
+        <strong>Custom Module</strong>
+        <p>A custom module is a Drupal Module that is written in the PHP programming language that has not been adopted by the Drupal Association for general 
+        release and made available at Drupal.org.  Typically custom modules are written for the unique needs for certain groups.  In our case, we are developing a custom module 
+        named the ER-Core and its functionality will be useful only to EPSCoR administrators.</p>
       </li>
       <li>
-        <h4>Data Repository Managers</h4>
-        <p>
-          After setting up user accounts for your administrators, you will be able to flag users whom should receive email notifications regarding researcher data collection events.
-          We suggest that you create an account for your Data Repository Manager, then flag this person's account to recieve the notifications. Other users may also be flagged to recieve these notifications using the same procedure.
-          <br>
-          In order to flag the user, you must first navigate to their user profile.
-          You can find the user profile of someone in the system by navigating to the <?php echo l('People', 'admin/people')?> admin page.
-          <br>
-          Once viewing the user's profile, scroll to the bottom of the page, and locate the blue link labeled "Receive data collection notifications" and click on that link.
-          The link should change it's label to say "Do not receive data collection notifications", which when clicked will remove the user from recieving these notifications.
-        </p>
+        <strong>Drupal</strong>
+        <p>Drupal is a free and open-source content management framework (CMF) written in PHP and distributed under the GNU General Public License.</p>
       </li>
       <li>
-        <h4>Start date of grant and reporting periods</h4>
-        <p>
-          Visit the <?php echo l('ER-Core Settings page', 'admin/config/epscor/er')?>, and change the start date.
-        </p>
-      </li>
-      <li id="phpexcel">
-        <h4>Setup Excel Sheet Output</h4>
-        <p>
-          The system relies on an external library called <?php echo l('PHPExcel', 'http://phpexcel.codeplex.com/releases/view/107442')?> to export various excel sheets.
-          The Library must be downloaded, then uploaded to this server.<br>
-          <br>
-          The PHPExcel kit should first be downloaded and decompressed, and the contents should then be uploaded to the server directory
-          <code>/sites/all/libraries/PHPExcel/</code>, creating the <code>/libraries/PHPExcel/</code> directory if necessary.
-          Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel.php</code>
-          and the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel/IOFactory.php</code><br>
-          <br>
-          You can then navigate to the <?php echo l('ER-Core Settings page', 'admin/config/epscor/er')?> to see if the library was detected.
-        </p>
+        <strong>Field</strong>
+        <p>A Field is an element of a Form where data is entered.  Fields can include such items as Dates, Titles, text boxes, etc.</p>
       </li>
       <li>
-        <h4>(Optional) Cutomize the list of Event Types</h4>
-        <p>
-          Some states may wish to <?php echo l('customize the list of "Event Types"', 'admin/structure/types/manage/er_event/fields/field_er_event_type', array('fragment' => 'edit-submit'))?> which label calendar events.<br>
-          Notice: The available values should be of the form:<br>
-          <code style="margin:10px;">#|Label</code><br>
-          Where # is an integer value which is used as the internal representation (stored in the database), and Label is what is shown to the user.
-        </p>
+        <strong>Form</strong>
+        <p>A form is the web interface that allows Users to input information or data.  Each Content Type will have a form associated with it.  The term form is rather generic.</p>
       </li>
       <li>
-        <h4>(Optional) Public Profile settings</h4>
-        <p>
-          Some states may wish to hide the uer profiles from public view.<br>
-          This may be accomplished by changing the "View user profiles" flag located on the <?php echo l('user permissions', 'admin/people/permissions/1', array('fragment' => 'edit-access-user-profiles'))?> page.
-        </p>
+        <strong>Module</strong>
+        <p>A module is a packaged group of PHP code that allows users to do specific defined actions.  Drupal is built on the premise that web site developers and 
+        managers can easily download a module and turn it on to gain quick, easy access to functions that web sites typically utilize.  There are thousands of modules to 
+        choose from.  Example of typical modules are calendar, image gallery, event registration forms, etc.</p>
+      </li>
+      <li>
+        <strong>Node</strong>
+        <p>A Node refers to the group of information or data that comes into the database through a form.  If you wanted to create an Event, the Event Node would be all 
+        the information that the user can input through the Event form about that specific event.  Each time a new event is created it is assigned a unique Node ID, which 
+        is used to differentiate Events or nodes.  In the case of events, the database can collect unlimited events, or event nodes, each one being unique, and just as Events 
+        have nodes, so do each of the other Content Types.</p>
+      </li>
+      <li>
+        <strong>Roles (Drupal)</strong>
+        <p>(Drupal) Roles are the names of the types of Users with respect to the web site and Drupal, not EPSCoR.  A Drupal role is defined by the site 
+        administrator and represent the various groups of people that will be using the site.  For each role privileges will be assigned giving or restricting access to various 
+        functions of the site.  Typical Drupal Roles are Adminsitrator, EPSCoR Administrator, Faculty, Student, Committee Member and Public.  This approach allows new Users to 
+        be assigned appropriate access to the site quickly and confidently.  NSF defined (EPSCoR) roles are different and often confused. </p>
+      </li>
+      <li>
+        <strong>User Profile</strong>
+        <p>The User Profile is the data or information that is associated with a User.  It is in the User Profile where the User's real name, user name, 
+        password, photo, EPSCoR roles, involvement, contact information, demographics, etc., is kept.</p>
+      </li>
+      <li>
+        <strong>User Privileges</strong>
+        <p>User privileges are the set of access or restrictions to the various functions of the site.  For each content type one can define who can see, 
+        edit, delete or create new and whether or not you need to be logged in or not to do so.  User privileges are grouped by roles to allow the site administrator to quickly 
+        assign or restrict access to common types of users.</p>
+      </li>
+      <li>
+        <strong>View</strong>
+        <p>A View is the web page that displays a node, or the information or data that has been input through a form.  Typically after you enter data or information 
+        through a form and click Save, the View will follow allowing you to see what you just entered.</p>
+      </li>
+      <li>
+        <strong>Widget</strong>
+        <p>A widget is a generic term that describes items on a form that does a specific function.  A common widget is the calendar widget.  The calendar widget has 
+      	both the little fields for day, month and year, where you can enter that data manually or you can click a day on a mini-calendar.</p>
       </li>
     </ul>
-  </div>
+	</div>
+	<h3 id="definitions">
+		<a href="#definitions">Key Term NSF Definitions and the Criteria in the System that Defines these Terms</a>
+	</h3>
+	<div>
+    <p>The following are a few key terms used in EPSCoR reporting, which may or may not be defined by NSF, yet must be and have been defined by the 
+    ER-Core collaborative group in order for the Drupal ER-Core to properly handle this data.  EPSCoR administrators must understand the ER-Core criterion in order to 
+    have confidence in the data and manage it properly.</p>
+    <ul>
+      <li>
+        <strong>Participant (NSF)</strong>
+        <p>Participants are members of the project who contribute in an ongoing and regular basis. They can be paid or unpaid and are involved in 
+        activities funded by the project.</p>
+        <p>Note, in the absence of a formal NSF definition of a Participant of EPSCoR, the ER-Core Drupal Committee defines a Participant as:</p>
+        <p>
+          <ul>
+            <li>Needs to be housed at one of the partnering institutions as defined by the RII, and,</li>
+            <li>Contribute equal to or greater than 160 hours (one person month) in a year (reporting period).</li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        <strong>Participant (ER-Core)</strong>
+        <p>Once the user's account meets the following criteria, the system adds 1 to the appropriate category in Table A - Participants.  The criteria is: </p>
+        <p>
+          <ul>
+            <li>User must be marked as Active</li>
+            <li>User must have the "Authenticated EPSCoR" user role</li>
+            <li>User must belong to a Participating Institution</li>
+            <li>User must contribute at least 160 hours per year (1 person-month of effort)</li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        <strong>Participating Institution (NSF)</strong>
+        <p>Participating institutions are those institutions that receive direct support from the RII award including sub-awards.</p>
+      </li>
+      <li>
+        <strong>Participating Institution (ER-Core)</strong>
+        <p>Institution node must be marked as participating (checkbox, an administrative function).  For each institution that has 
+        its "participating" field checked, the system is then able to properly place participants in Table A, by institution.</p>
+      </li>
+      <li>
+        <strong>Collaboration (NSF)</strong>
+        <p>NSF does not formally define what a collaboration is for EPSCoR. Note, in the absence of a formal NSF definition of a collaboration 
+        for EPSCoR, the ER-Core Drupal Committee defines a collaboration as a set of activities between a participating institution(s) and non-participating institutions, 
+        organizations or agencies that lead to a definable outcome.  In a collaboration, each party contributes intellectually and brings complementary capabilities and resources. 
+        Examples can include activities such as research projects, outreach events, database development or web dissemination of research data and results.</p>
+      </li>
+      <li>
+        <strong>Collaboration (ER-Core)</strong>
+        <p>A collaboration is the composition of 2 different elements.  Each of these elements have criteria that must be met.  Once all the 
+        required elements meet the criteria, a collaboration is established and a count of 1 is added to Table C - Collaborations, regardless of how many EPSCoR researchers 
+        participate in the collaboration.  The following is a list of the required elements for a collaboration:</p>
+        <p>
+          <ol>
+            <li>Non-participating Institution (see above criteria to be counted as participating)</li>
+            <li>Text fields that describe:</li>
+            <ul>
+              <li>Title</li>
+              <li>Description of work and contribution to the RII</li>
+              <li>Start Date</li>
+              <li>Name of at least one EPSCoR participant</li>
+              <li>Name of at least one EPSCoR research component or project</li>
+              <li>Names of collaborators (see definition of collaborator below)</li>
+              <li>Department for each named collaborator</li>
+            </ul>
+          </ol>
+        </p>
+      </li>
+      <li>
+        <strong>Collaborator (Drupal Committee)</strong>
+        <p>NSF does not formally define who a collaborator is for EPSCoR. Note, in the absence of a formal NSF definition of who a 
+        collaborator is for EPSCoR, the ER-Core Drupal Committee defines a collaborator as a researcher, faculty level or equivalent, who significantly contributes 
+        (intellectually, labor) to the project less than 160 hrs/yr.  A collaborator may or may not be housed in a participating institution.  </p>
+      </li>
+      <li>
+        <strong>Collaborator (ER-Core)</strong>
+        <p>A collaborator contributes less than 160 hrs of effort during the (reporting period) year.  This value is set in the user profile within 
+        the Involvement tab.  A collaborator may or may not be housed at a participating institution.</p>
+        <p>Collaborator names are simply text fields and part of the Collaboration Content Type, not formal roles assigned within a default installation of the ER-Core.  For 
+        each name that is listed as a collaborator in a completed collaboration, the system counts 1 and adds that to Table C - Collaborations.</p>
+        <p>The default ER-Core role options do not include a Collaborator Role.  This is left up to the jurisdiction.  We suggest using the Guest Role to allow collaborators 
+        access to the system.  </p>
+      </li>
+      <li>
+        <strong>New Investigator (NSF)</strong>
+        <p>New investigators are those at the faculty, junior faculty, and post doc level who are new to the RII project during the reporting period.</p>
+      </li>
+      <li>
+        <strong>New Investigator (ER-Core)</strong>
+        <p>New Investigators are Participants assigned with Post Doc or Faculty roles who's start date is less then 365 days from the most recent 
+        reporting period.  For each user who's profile meets the below criteria, the system counts 1 and adds it to Table B - Participants.  </p>
+        <p>In order for the system to count a user as a new investigator, the following criteria must be met:</p>
+        <p>
+          <ol>
+            <li>Be an active system-defined participant</li>
+            <li>Have the faculty or Post Doc role assigned</li>
+            <li>Have the difference between the most recent reporting period and the user's start date be less than 365 days</li>
+          </ol>
+        </p>
+      </li>
+      <li>
+        <strong>Project Start Date (ER-Core)</strong>
+        <p>The start date is set by administration after the installation of the ER-Core in the EPSCoR Reporting Module Settings page accessed from 
+        the black menu (default install) under Configuration/EPSCoR/EPSCoR Reporting Module Settings.  It is arbitrarily set and can be changed at any point.</p>
+      </li>
+      <li>
+        <strong>Reporting Period (ER-Core)</strong>
+        <p>The Reporting Period uses the Year of the Start Date, plus a month (arbitrarily set by administration), and the first day of that month.  
+        The Reporting Period starting month is set in the EPSCoR Reporting Module Settings page accessed from the black menu (default install) under Configuration/EPSCoR/EPSCoR 
+        Reporting Module Settings.  The Reporting Period starting day is 1 and cannot be changed.</p>
+      </li>
+    </ul>
+	</div>
+
 </div>
 <script>
-  (function name($) {
-    var $help = $("#er-help").accordion({
-      autoHeight: false, //the current docs say to use "heightStyle", this is old jquery ui
-      active: window.location.hash,
-      collapsible: true
-    });
-    $("h3 > a").click(function(event){
-      window.location.hash = this.hash;
-    });
-  })(jQuery);
+  //(function name($) {
+  //  var $help = $("#er-help").accordion({
+  //    autoHeight: false, //the current docs say to use "heightStyle", this is old jquery ui
+  //    active: window.location.hash,
+  //    collapsible: true
+  //  });
+  //  $("h3 > a").click(function(event){
+  //    window.location.hash = this.hash;
+  //  });
+  //})(jQuery);
 </script>
