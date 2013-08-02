@@ -463,12 +463,19 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 // User Profile Registration 
 //	This isn't a content type, instead, it's where people go to register:
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
+// This is "Quick add user" basically
 function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
 	
 	// all of this is to make the add user form quick without all the required fields having to be entered
 	$form['field_er_fname']['#weight'] = -12;
 	$form['field_er_lname']['#weight'] = -11;
+	
+	$form['field_er_months_of_effort']['#access'] = FALSE;
+	$form['field_er_committees']['#access'] = FALSE;
+	$form['field_er_mentoring_sign_off']['#access'] = FALSE;
+	$form['field_er_inst_description']['#access'] = FALSE;
+	$form['field_er_most_sen_proj_role']['#access'] = FALSE;
 	$form['field_er_components']['#access'] = FALSE;
 	$form['field_er_paid']['#access'] = FALSE;
 	$form['field_er_160hours']['#access'] = FALSE;
