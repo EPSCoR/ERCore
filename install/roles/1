@@ -1,14 +1,14 @@
 <?php
-$role = array(
+$role = array (
   'rid' => '1',
   'name' => 'anonymous user',
-  'permissions' => array(
-    'access comments',
-    'access content',
-    'access er content',
-    'create field_er_disabilities',
-    'search content',
-    'use advanced search',
-    'use text format filtered_html',
-  )
+  'permissions' => 
+  array (
+    0 => 'access comments',
+    1 => 'access content',
+    2 => 'access er content',
+    3 => 'search content',
+    4 => 'use advanced search',
+    5 => 'use text format filtered_html',
+  ),
 );
