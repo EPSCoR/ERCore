@@ -90,7 +90,7 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		$u = entity_metadata_wrapper('user', $user);
 		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
 		//I haven't figured out how to make this more robust yet...
-		$participating = check_user_participating($user->uid);
+		$participating = er_is_user_participating($user);
 		$status = $participating?'Participant':'Collaborator';
 		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
