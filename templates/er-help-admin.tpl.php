@@ -82,8 +82,8 @@
           <br>
           The PHPExcel kit should first be downloaded and decompressed, and the contents should then be uploaded to the server directory
           <code>/sites/all/libraries/PHPExcel/</code>, creating the <code>/libraries/PHPExcel/</code> directory if necessary.
-          Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel.php</code>
-          and the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel/IOFactory.php</code><br>
+          Once uploaded, <code>PHPExcel.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel.php</code>,
+          the <code>IOFactory.php</code> should be located at <code>/sites/all/libraries/PHPExcel/Classes/PHPExcel/IOFactory.php</code>, and <code>changelog.txt</code> needs to be located at <code>/sites/all/libraries/PHPExcel/changelog.txt</code><br>
           <br>
           You can then navigate to the <?php echo l('ER-Core Settings page', 'admin/config/epscor/er')?> to see if the library was detected.
         </p>
