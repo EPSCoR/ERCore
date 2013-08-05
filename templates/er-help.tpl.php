@@ -331,7 +331,7 @@
 			<a href="#5.9">5.9</a> Please describe role and contribution to the project
 		</h2>
 		<p>Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.</p>
-        <!--RCR is no longer required?
+      
 		<h3 id="">
 			<a href="#5.10">5.10</a> RCR - Responsible Conduct of Research
 		</h3>
@@ -341,7 +341,7 @@
 			<li>RCR In-Person Upload: Upload a txt, word or pdf of your certificate</li>
 			<li>RCR On-Line: Enter the date you took the RCR online training</li>
 			<li>RCR On-Line Upload: attach the txt, word or pdf of your online RCR certificate</li>
-		</ul>-->
+		</ul>
 		<h3 id="">
 			<a href="#5.11">5.11</a> Institution
 		</h2>
