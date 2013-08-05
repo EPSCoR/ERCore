@@ -365,6 +365,9 @@ function _test_fields(){
 						unset($internal_field['id']);
 						unset($internal_field['bundles']);
 						unset($field['bundles']);
+						unset($internal_field['field_permissions']);
+						unset($field['field_permissions']);
+						
 						if (json_encode($internal_field) != json_encode($field)){//compare field information
 							//d($field, '$field');
 							//d($all_fields[$field_name], '$all_fields[$field_name]');

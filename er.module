@@ -70,40 +70,34 @@ function er_init(){
  * @return help text for the path
  */
 function er_help($path, $arg) {
-	//d($path, '$path');
-	//d($arg, '$arg');
+//	d($path, '$path');
+//	d($arg, '$arg');
+	
 	switch ($path) {
 		case 'user/%/edit':
 			return _make_documentation_link('user');
     case 'admin/help#er'://This path is special, note the "#" ... see the hook_help docs for info.
-      return theme('er_help');
+      return theme('er_help_admin');
   }
 	
 	//Add a help link to every er-core form.
 	if ($arg[0] == 'node' && $arg[1] == 'add' && substr($arg[2], 0, 3) == 'er-'){
 		switch ($arg[2]) {
-			case 'er-collaboration':
-				return _make_documentation_link($arg[2]);
 			case 'er-collaborators':
 				return _make_documentation_link('er-collaboration');
+			case 'er-collaboration':
 			case 'er-engagement':
-				return _make_documentation_link($arg[2]);
 			case 'er-proposal':
-				return _make_documentation_link($arg[2]);
 			case 'er-event':
 				return _make_documentation_link($arg[2]);
 			default:
 				return _make_documentation_link('other-cts');
-			case 'admin/help#er'://This path is special, note the "#" ... see the hook_help docs for info.
-				return theme('er_help');
 		}
-		if (in_array($arg[2], array('er-collaboration')))
-		return _make_documentation_link($arg[2]);
 	}
 }
 
 function _make_documentation_link($ct){
-	return '<span class="er-documentation-notification">Notice: You may want to read the ' . l('Documentation', 'admin/help/er', array('fragment'=>"$ct")) .  ' related to this form.</span>';
+	return '<span class="er-documentation-notification">Notice: You may want to read the ' . l('Documentation', 'admin/epscor/user-guide', array('fragment'=>"$ct")) .  ' related to this form.</span>';
 }
 
 /**
@@ -240,14 +234,36 @@ function er_menu() {
   );
 	
 	//Link to the ER Core help docs
-	$items['admin/epscor/help'] = array(
+//	$items['admin/epscor/help'] = array(
+//    'menu_name' => 'management',
+//    'title' => 'Help Documentation',
+//		'type' => MENU_NORMAL_ITEM,
+//		'page callback' => 'drupal_goto',
+//		'page arguments' => array('admin/help/er'),
+//    'access arguments' => array('access administration pages'),//"Use the administration pages and help"
+//  );
+	
+	$items['admin/epscor/user-guide'] = array(
     'menu_name' => 'management',
-    'title' => 'Help Documentation',
+    'title' => 'User Guide',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'theme',
+		'page arguments' => array('er_help'),
+    'access arguments' => array('access content'),//"Use the administration pages and help"
+		'weight' => '15',
+  );
+	
+	$items['admin/epscor/admin-guide'] = array(
+    'menu_name' => 'management',
+    'title' => 'Admin Guide',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/help/er'),
     'access arguments' => array('access administration pages'),//"Use the administration pages and help"
+		'weight' => '20',
   );
+	
+	
 	
 	// Set up the settings page located under Configuration.
 	$items['admin/config/epscor'] = array(
@@ -368,69 +384,6 @@ function er_admin_paths() {
   return array(
     'user/*/status' => TRUE,
   );
-}
-
-/*
- * Menu callback for 'user/%/status'
- * This adds a tab to the user profile.
- * It displays info about whether the user is a participant or collaborator.
- */
-function er_user_participating_status($uid){
-	//These should have already been defined, but supposidly not.
-	define('REQUIREMENT_INFO', -1);
-	define('REQUIREMENT_OK', 0);
-	define('REQUIREMENT_WARNING', 1);
-	define('REQUIREMENT_ERROR', 2);
-	
-	//TODO: add info about "active" participant or not using the participant date ranges.
-	
-	$user = user_load($uid);
-  $parti_inst = false;
-  $one_sixty = false;
-  //d($user, '$user');
-  $u = entity_metadata_wrapper('user', $user);
-  $u->field_er_inst_ref->value();
-  $inst_nodes = $u->field_er_inst_ref->value();
-  if (count($inst_nodes)){
-    $inst = array_pop($inst_nodes);
-    $i = entity_metadata_wrapper('node', $inst);
-    $parti_inst = $i->field_er_inst_participating->value()==1?true:false;
-  }
-  $one_sixty = $u->field_er_160hours->value()==1?true:false;
-  //d($participating, '$participating');
-  //d($one_sixty, '$one_sixty');
-	$participant = $parti_inst && $one_sixty;
-
-	$requirements = array();
-	$requirements[] = array(
-		'severity' => REQUIREMENT_INFO,
-		'title' => 'username',
-		'value' => $u->name->value(),
-	);
-	$requirements[] = array(
-		'severity' => $one_sixty?REQUIREMENT_OK:REQUIREMENT_WARNING,
-		'title' => '> 160 hrs/year',
-		'value' => $one_sixty?"yes":"no",
-	);
-	$requirements[] = array(
-		'severity' => $parti_inst?REQUIREMENT_OK:REQUIREMENT_WARNING,
-		'title' => 'Participating Institution',
-		'value' => $parti_inst?"yes":"no",
-	);
-	$requirements[] = array(
-		'severity' => $participant?REQUIREMENT_OK:REQUIREMENT_WARNING,
-		'title' => 'Participant or Collaborator?',
-		'value' => $participant?"Participant":"Collaborator",
-	);
-	$form['info'] = array(
-		'#markup' => '<p>This view is helpful in determining the status of this user (participant or collaborator).</p>',
-	);
-	//Display the table
-	$form['participant_status'] = array(
-		"#theme"=>"er_status_report",
-		'#requirements'=>$requirements,
-	);
-	return $form;
 }
 
 //This hook replaces the original node/add page with one that separates the different types of content.
@@ -682,16 +635,19 @@ function er_create_download_link($label = "", $arg = "", $options = array()){
 	return l('<i class="icon-download-alt"></i>'.t($label), ER_ROOT_NAME."/$arg/download", $options);
 }
 
-//This works with EntityFieldQuery.
-//Usage:
-//	$efq = new EntityFieldQuery();
-//	$efq->addTag('epscor_participant');
-//Purpose:
-//	This tag checks to make sure that the returned user's are all considdered participants.
-//Criteria:
-//	User must be active
-//	User is attached to a "participating" institution
-//	User contributes more than 160hrs/yr
+/**
+ * DEPRECATED:: We should simply rely on the participant date range to determine the user's status.
+ * This works with EntityFieldQuery.
+ * Usage:
+ *	$efq = new EntityFieldQuery();
+ *	$efq->addTag('epscor_participant');
+ * Purpose:
+ *	This tag checks to make sure that the returned user's are all considdered participants.
+ * Criteria:
+ * 	User must be active
+ * 	User is attached to a "participating" institution
+ *  User contributes more than 160hrs/yr
+ */
 function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
 	//User must be active
 	$query->condition('users.status', '1', '=');
@@ -712,17 +668,30 @@ function er_query_epscor_participant_alter(QueryAlterableInterface $query) {
 	//d((string)$query, '$query');
 }
 
-//This works with EntityFieldQuery.
-//Usage:
-//	$efq = new EntityFieldQuery();
-//	$efq->addTag('epscor_active_participant');
-//Purpose:
-//	It compares the user's participating date range with the date range that has been set on the summary table.
-//	If no date range has been selected, it checks if the person is currently participating (right now).
+/**
+ * This works with EntityFieldQuery.
+ * Usage:
+ * 	$efq = new EntityFieldQuery();
+ * 	$efq->entityCondition('entity_type', 'user')
+				->addMetaData('participant_date_range', array([date1], [date2])); //you can use er_get_reporting_range() to get the active date range
+				->addTag('epscor_active_participant');
+ *  $result = $efq->execute();
+ * Notice:
+ * 	Dates are entered in as unix timestamps
+ * Purpose:
+ * 	It compares the user's participating date range with the date range that has been set on the summary table.
+ * 	If no date range has been selected, it checks if the person is currently participating (right now).
+ */
 function er_query_epscor_active_participant_alter(QueryAlterableInterface $query) {
 	$participant_date_field = 'field_er_participating_date';
 	$query->innerJoin('field_data_'.$participant_date_field, 'participant_date', 'users.uid = participant_date.entity_id');
-	if ($range = er_get_reporting_range()){
+	
+	if (isset($query->alterMetaData['participant_date_range'])){
+		$range = $query->alterMetaData['participant_date_range'];
+	}else{
+		$range = er_get_reporting_range();
+	}
+	if (is_array($range) && count($range) == 2){
 		$dates = array(date('Y-m-d H:i:s', $range[0]), date('Y-m-d H:i:s', $range[1]));
 	}else{
 		$now = date('Y-m-d H:i:s');
@@ -733,33 +702,115 @@ function er_query_epscor_active_participant_alter(QueryAlterableInterface $query
 		$or->isNull('participant_date.'.$participant_date_field.'_value2');
 		$or->condition('participant_date.'.$participant_date_field.'_value2', $dates[0], '>');
 	$query->condition($or);
-	//d($query, 'select');
-	//d((string)$query, '$query');
 }
 
-function check_user_participating(&$uid, $range = array()){
-  /*
-    Check for participating institution
-    >160 hrs/yr
-    TODO: (optiona) check participating date ranges
-  */
-  if (is_object($uid))//user object was passed in...
-    $user = $uid;
-  else
-    $user = user_load($uid);
-  $participating = false;
+//
+function er_is_user_participating($uid, $range = null){
+	$efq = new EntityFieldQuery();
+	$efq->entityCondition('entity_type', 'user')
+			->propertyCondition('uid', $uid)
+			->range(0,1);
+	if ($range)
+		$efq->addMetaData('participant_date_range', $range);
+	$efq->addTag('epscor_active_participant');
+	$result = $efq->execute();
+	return !!count($result);
+}
+
+//Predict the user's status (Participant or Collaborator) bas on the user profile.
+//The final determination must come from the participating date ranges.
+function er_predict_user_status(&$user, $verbose = false){
+  $participating_inst = false;
   $one_sixty = false;
+	$paid = false;
+	$paid_student = false;
   $u = entity_metadata_wrapper('user', $user);
-  $u->field_er_inst_ref->value();
-  $inst_nodes = $u->field_er_inst_ref->value();
-  if (count($inst_nodes) && $inst = array_pop($inst_nodes)){//this way you don't get an error if the user doesn't have an inst selected
-    $i = entity_metadata_wrapper('node', $inst);
-    $participating = $i->field_er_inst_participating->value()==1?true:false;
-  }
-  $one_sixty = $u->field_er_160hours->value()==1?true:false;
-  //d($participating, '$participating');
-  //d($one_sixty, '$one_sixty');
-  return $participating && $one_sixty;
+	$u->field_er_inst_ref->value();
+	$inst_nodes = $u->field_er_inst_ref->value();
+	if (count($inst_nodes)){
+		$inst = array_pop($inst_nodes);
+		$i = entity_metadata_wrapper('node', $inst);
+		$participating_inst = !!$i->field_er_inst_participating->value();
+	}
+	$one_sixty = !!$u->field_er_160hours->value();
+	$paid = !!$u->field_er_paid->value();
+	$participant = $paid || $one_sixty || $paid_student;
+	if ($verbose)
+		return array(
+			'participant'=>$participant,
+			'label'=>$participant?"Participant":"Collaborator",
+			'one_sixty'=>$one_sixty,
+			'participating_inst'=>$participating_inst,
+			'paid'=>$paid,
+			'paid_student'=>$paid_student
+		);
+	else
+		return $participant;
+}
+
+/*
+ * Menu callback for 'user/%/status'
+ * This adds a tab to the user profile.
+ * It displays info about whether the user is a participant or collaborator.
+ */
+function er_user_participating_status($uid){
+	//These should have already been defined, but supposidly not.
+	define('REQUIREMENT_INFO', -1);
+	define('REQUIREMENT_OK', 0);
+	define('REQUIREMENT_WARNING', 1);
+	define('REQUIREMENT_ERROR', 2);
+	
+	//TODO: add info about "active" participant or not using the participant date ranges.
+	
+	$user = user_load($uid);
+	$status_info = er_predict_user_status($user, true);
+	$participant = er_is_user_participating($user->uid);
+
+	$requirements = array();
+	$requirements[] = array(
+		'severity' => REQUIREMENT_INFO,
+		'title' => 'username',
+		'value' => $user->name,
+	);
+	$requirements[] = array(
+		'severity' => $status_info['participating_inst']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => 'Participating Institution',
+		'value' => $status_info['participating_inst']?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => ($status_info['one_sixty'])?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => '> 160 hrs/year',
+		'value' => $status_info['one_sixty']?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => $status_info['paid']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => 'Paid by EPSCoR',
+		'value' => $status_info['paid']?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => $status_info['paid_student']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'title' => 'Faculty with student paid by EPSCoR',
+		'value' => $status_info['paid_student']?"yes":"no",
+	);
+	$requirements[] = array(
+		'severity' => REQUIREMENT_OK,
+		'title' => 'Expected classification',
+		'value' => $status_info['label'],
+	);
+	$requirements[] = array(
+		'severity' => ($status_info['participant'] xor $participant)?REQUIREMENT_ERROR:REQUIREMENT_OK,
+		'title' => 'Has participating date-range?',
+		'value' => $participant?'yes':'no',
+	);
+	$form['info'] = array(
+		'#markup' => '<p>This view is helpful in determining the status of this user (participant or collaborator).</p>',
+	);
+	//Display the table
+	$form['participant_status'] = array(
+		"#theme"=>"er_status_report",
+		'#requirements'=>$requirements,
+	);
+	return $form;
 }
 
 //Export a role to code

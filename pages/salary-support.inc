@@ -25,7 +25,7 @@ class er_salary_support extends er_page{
 		
 		$query = db_select('users', 'users');
 		//this uses the EntityFieldQuery tag definitions:
-		er_query_epscor_participant_alter($query);//Make sure it's only participants
+		//er_query_epscor_participant_alter($query);//Make sure it's only participants
 		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range
 		//Only faculty:
 		$query->innerJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id AND position_type.bundle = \'user\'');

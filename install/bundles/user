@@ -1500,6 +1500,64 @@ $data = array(
         ),
       ),
     ),
+    'field_er_faculty_any_support' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_faculty_any_support' => array(
+                'value' => 'field_er_faculty_any_support_value',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_faculty_any_support' => array(
+                'value' => 'field_er_faculty_any_support_value',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_faculty_any_support',
+      'type' => 'list_boolean',
+      'module' => 'list',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'int',
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'user' => array(
+          0 => 'user',
+        ),
+      ),
+    ),
     'field_er_fname' => array(
       'type_name' => 'er_user_profile',
       'entity_types' => array(),
@@ -4712,7 +4770,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
       0 => array(
         'label' => 'Please select which committees or boards you will be a member of',
         'widget' => array(
-          'weight' => '84',
+          'weight' => '85',
           'type' => 'select_or_other_buttons',
           'module' => 'select_or_other',
           'active' => 1,
@@ -4762,7 +4820,7 @@ Statewide Committee (SWC)
       0 => array(
         'label' => 'Please select which project component(s) you will participate in',
         'widget' => array(
-          'weight' => '83',
+          'weight' => '84',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -5130,6 +5188,41 @@ Mobility/Orthopedic Impairment',
         'deleted' => '0',
       ),
     ),
+    'field_er_faculty_any_support' => array(
+      0 => array(
+        'label' => 'Do you or anyone in your research group receive salary support from EPSCoR?',
+        'widget' => array(
+          'weight' => '78',
+          'type' => 'options_buttons',
+          'module' => 'options',
+          'active' => 1,
+          'settings' => array(),
+        ),
+        'settings' => array(
+          'user_register_form' => 0,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'above',
+            'type' => 'list_default',
+            'settings' => array(),
+            'module' => 'list',
+            'weight' => 79,
+          ),
+        ),
+        'required' => 0,
+        'description' => '',
+        'default_value' => array(
+          0 => array(
+            'value' => '0',
+          ),
+        ),
+        'field_name' => 'field_er_faculty_any_support',
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => '0',
+      ),
+    ),
     'field_er_fname' => array(
       0 => array(
         'label' => 'First Name',
@@ -5254,7 +5347,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Have you completed the RCR Training?',
         'widget' => array(
-          'weight' => '80',
+          'weight' => '81',
           'type' => 'markup',
           'module' => 'markup',
           'active' => 0,
@@ -5855,7 +5948,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'How many months of direct funding do you receive?',
         'widget' => array(
-          'weight' => '87',
+          'weight' => '88',
           'type' => 'options_select',
           'module' => 'options',
           'active' => 1,
@@ -5964,7 +6057,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Are you paid by the EPSCoR grant?',
         'widget' => array(
-          'weight' => '86',
+          'weight' => '87',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -6003,7 +6096,7 @@ Mobility/Orthopedic Impairment',
       0 => array(
         'label' => 'Participating Date(s)',
         'widget' => array(
-          'weight' => '85',
+          'weight' => '86',
           'type' => 'date_select',
           'module' => 'date',
           'active' => 1,
@@ -6270,7 +6363,7 @@ White|White',
       0 => array(
         'label' => 'I have completed the RCR training',
         'widget' => array(
-          'weight' => '81',
+          'weight' => '82',
           'type' => 'options_onoff',
           'module' => 'options',
           'active' => 1,
@@ -6533,7 +6626,7 @@ White|White',
       0 => array(
         'label' => 'Supervisor',
         'widget' => array(
-          'weight' => '78',
+          'weight' => '79',
           'type' => 'text_textfield',
           'module' => 'text',
           'active' => 1,
@@ -6732,7 +6825,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Certifications and Supporting Documents',
-      'weight' => '82',
+      'weight' => '83',
       'children' => array(
         0 => 'field_er_additional_doc',
         1 => 'field_er_mentoring_plan_ul',
@@ -6802,10 +6895,9 @@ White|White',
       'label' => 'Account Information',
       'weight' => '71',
       'children' => array(
-        0 => 'field_er_realname',
-        1 => 'account',
-        2 => 'timezone',
-        3 => 'picture',
+        0 => 'account',
+        1 => 'timezone',
+        2 => 'picture',
       ),
       'format_type' => 'tab',
       'format_settings' => array(
@@ -6902,12 +6994,12 @@ White|White',
         6 => 'field_er_paid',
         7 => 'field_er_rcr_completion_bool',
         8 => 'field_er_supervisor',
-        9 => 'field_provide_a_list_of_all_fund',
-        10 => 'field_er_hired_date',
-        11 => 'field_er_most_sen_proj_role',
-        12 => 'field_er_participating_date',
-        13 => 'field_er_person_month',
-        14 => 'field_er_list_funding_sources',
+        9 => 'field_er_hired_date',
+        10 => 'field_er_most_sen_proj_role',
+        11 => 'field_er_participating_date',
+        12 => 'field_er_person_month',
+        13 => 'field_er_list_funding_sources',
+        14 => 'field_er_faculty_any_support',
         15 => 'group_er_certs',
         16 => 'group_er_education',
       ),
@@ -6933,7 +7025,7 @@ White|White',
       'type' => 'Normal',
       'export_type' => 1,
       'label' => 'Education',
-      'weight' => '79',
+      'weight' => '80',
       'children' => array(
         0 => 'field_er_advisor',
         1 => 'field_er_ant_under',
@@ -7086,7 +7178,7 @@ White|White',
       'table' => 'field_group',
       'type' => 'Normal',
       'export_type' => 1,
-      'label' => 'Deomographics',
+      'label' => 'Demographics',
       'weight' => '35',
       'children' => array(
         0 => 'field_er_citizenship',

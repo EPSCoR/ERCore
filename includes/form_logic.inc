@@ -90,7 +90,7 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		$u = entity_metadata_wrapper('user', $user);
 		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
 		//I haven't figured out how to make this more robust yet...
-		$participating = check_user_participating($user->uid);
+		$participating = er_is_user_participating($user);
 		$status = $participating?'Participant':'Collaborator';
 		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
@@ -463,12 +463,19 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 // User Profile Registration 
 //	This isn't a content type, instead, it's where people go to register:
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
+// This is "Quick add user" basically
 function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
 	
 	// all of this is to make the add user form quick without all the required fields having to be entered
 	$form['field_er_fname']['#weight'] = -12;
 	$form['field_er_lname']['#weight'] = -11;
+	
+	$form['field_er_months_of_effort']['#access'] = FALSE;
+	$form['field_er_committees']['#access'] = FALSE;
+	$form['field_er_mentoring_sign_off']['#access'] = FALSE;
+	$form['field_er_inst_description']['#access'] = FALSE;
+	$form['field_er_most_sen_proj_role']['#access'] = FALSE;
 	$form['field_er_components']['#access'] = FALSE;
 	$form['field_er_paid']['#access'] = FALSE;
 	$form['field_er_160hours']['#access'] = FALSE;
@@ -546,6 +553,12 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	  'required' => $undergrad,
 	);
 	
+// Ask them "Do you or anyone in your research group receive salary support from EPSCoR?" if they're faculty
+//  (this was decided upon in Utah, Summer of 2013)
+	$form['field_er_faculty_any_support']['#states'] = array(
+	  'visible' => $faculty_part,
+	  'required' => $faculty_part,
+	);
 	
 	
 // Graduate Student
