@@ -1,7 +1,7 @@
 <?php
   drupal_add_library('system', 'ui.accordion');
 ?>
-<h2>User Guide Introduction</h2>
+<h2>Introduction</h2>
 <div>
   <p>This guide has been developed for first time users of the EPSCoR Core Reporting site (ER-Core).  This site has been developed using Drupal 7, an open-source content 
   management system. Whether you are a developer, tester, administrator or an end user, we all need to get familiar with Drupal first.  In addition, this guide also 
@@ -178,16 +178,15 @@
             <li>E-mail address: This will need to be A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.  This is a required field.
 			<li>Status:  This determines whether or not you or a user can login to the system.  Leave it Active.  </li>
 			<li>Roles:  These roles are the technical Drupal roles created to designate who can see or access what.  Different from Involvement, which is the role or hat one 
-			wears with respect to their participation within EPSCoR.  The standard roles are:</li>
+			wears with respect to their participation within EPSCoR.  It is strongly recommended that EPSCoR staff review the Roles and Permissions page to suit your needs at your local area. Below is what is provided in the default EPSCoR Reporting Core module. The standard roles are as follows:</li>
 			<ul>
-				<li>Authenticated user:  Simply means that you have an account in Drupal</li>
-				<li>SITE ADMINISTRATOR: Access to any and all Drupal capabilities</li>
-               		
-                <li>Administrator Staff: A subset of Site Administrator and EPSCoR Administrator, restricting access to the more technical aspects of Drupal and EPSCoR reporting</li>
-				<li>Faculty:  A subset of EPSCoR Administrator generally restricting the ability to edit other's content</li>
-				<li>Student:  Identical to Faculty out-of-the-box.  An important designation technically, but left up to the jurisdiction to further restrict or grant access 
-				to specific areas.</li>
-                 <li>Guest: Simply means that you have an account in Drupal	</li>	
+            <li>Anonymous User:  This role is used for users that don't have a user account or that are not authenticated.</li>
+				<li>Authenticated user:  This role is automatically granted to all logged in users (simply means that you have an account in Drupal). </li>
+                 <li>Guest: Very limited role with access to view ERCore module functionality only. </li>
+                 <li>Student:  Identical to Faculty out-of-the-box. An important designation technically, but left up to the jurisdiction to further restrict or grant access to specific areas.</li>
+                 <li>Faculty:  A subset of EPSCoR Administrator generally restricting the ability to edit other's content</li>
+                 <li>Administrator Staff: A subset of Site Administrator and EPSCoR Administrator, restricting access to the more technical aspects of Drupal and EPSCoR reporting</li>	
+                 <li>Administrator: Access to any and all Drupal capabilities</li>
 			</ul>
             	<li>Flags: Clicking the Receive data collection notification tells the system to send you an email when a new user has registered in the system who anticipates 
 			collecting data.</li>
@@ -247,12 +246,8 @@
     <a href="#er-event">Calendar Events</a>
   </h3>
   <div>
-		<p>The Calendar Event and External Engagement content types are unique content types, i.e., they have their respective forms and views and they are linked to each other.  
-		The general process is to enter a calendar event and denote whether or not the event will be attended or not by the public.  If it is, then the external engagement form 
-		will be made available after the event has passed in time.  To get to the external engagement form you visit the calendar event and look for the external engagement link 
-		down near the bottom (specific steps outlined below).</p>
-		<p>A Calendar Event (node) is the typical data that represents an event.   The External Engagement data (node) is linked to a specific Calendar Event when the event will 
-		be attended by non-EPSCoR participants and includes the counts by demographic breakout of the public that attended the event.</p>
+		<p>The Calendar Event and External Engagement content types are unique content types, i.e., they have their respective forms and views but they are linked to each other. The general process is to enter a calendar event and denote whether or not the event will be attended or not by the public. If it is, then the external engagement form will be made available after the event has passed in time. To get to the external engagement form you visit the calendar event and look for the external engagement link down near the bottom (specific steps outlined below).</p>
+		<p>A Calendar Event (node) is the typical data that represents an event. The External Engagement data (node) is linked to a specific Calendar Event when the event will be attended by non-EPSCoR participants and includes the counts by demographic breakout of the public that attended the event.</p>
 		<p>To create a Calendar Event:</p>
 		<ol>
 			<li>Find the Calendar Event link from within the Add Content drop down from the black administrative menu or on the Create Content page.
@@ -278,7 +273,6 @@
 			<li>Attach Flier:  click the Browse button to attach a flier or additional file for the event.
 			<li>Address:  Enter the address of the event if there is one
 			<li>Building (Room Number):  Enter the building and room number if there is one
-			<li>Geolocator Map:  Use the map and tools to geographically locate the site of the event.
 			<li>Save:  Click Save when you are done.
 		</ol>
   </div>
@@ -357,9 +351,9 @@
 		and after the event will be sent to the point of contact (POC) as identified in the Event form.  This notification will inform the POC the NSF requirement to collect the 
 		data, and include an Excel template to assist with collecting the data.  Additionally, once an event is identified as being an External Engagement, the Event will be 
 		denoted as "This content needs review" next to the title until the external engagement data is submitted.  </p>
-		<p>There are two ways you can add EE data to an event:  You can upload the EE template file, or you can input the values manually into the form.  Both methods will be 
-		explained below.</p>
-		<p>To add External Engagement data collected from an event:</p>
+        <p>To add External Engagement data to an event: You can upload the External Engagement template file, or you can input the values manually into the External Engagement form. Both methods will be explained below.</p>
+		<p>There are two options for adding External Engagement data collected from a calendar event:</p>
+
 		<ol>
 			<li>Click the Add Attendee Data link at the bottom of the Calendar Event View (after the event has been saved).</li>
 			<li>Calendar Event:  This is an auto lookup field and should be linked to the event at hand.  There is a one-to-one relationship between Events and EE data.  If the 
@@ -368,14 +362,9 @@
 		</ol>
 		<p>There are two options to add attendee data: </p>
 		<ul>
-			<li><p>Upload a completed Excel sheet: One way, and perhaps the easiest, to attach EE data to an event is to use the Upload a completed Excel Sheet method.  After an 
-			event is created and designated an EE event, an email will be sent to the POC along with an EE Excel template.  The POC can then print out this sheet to be sent 
-			around to the event participants to be filled out by themself, or the POC can count and estimate the demographics of the event participants him or herself.  After the 
-			event, the POC can complete the template working at their PC and save that file locally.  Once saved, this file can be uploaded to the system and the system will read 
-			in those values - given that the form was not altered in format. </p>
+			<li>Upload a completed Excel sheet: One way, and perhaps the easiest, to attach External Engagement data to an event is to use the Upload a completed Excel Sheet method. After an event is created and designated an External Engagement event, an email will be sent to the POC along with an External Engagement Excel template. The POC can then print out this sheet to be sent around to the event participants to be filled out, or the POC can count and estimate the demographics of the event participants him or herself. After the event, the POC can complete the template working at their PC and save that file locally. Once saved, this file can be uploaded to the system and the system will read in those values - given that the form was not altered in format.</li>
 			<ol>
-				<li>Click the "I WANT TO UPLOAD A COMPLETED EXCEL SHEET" and the information will expand. Download the External Engagement Reporting Sheet and fill out the data at 
-				your event. Once the sheet is completed you may then upload the excel sheet below, and the system will do the rest. </li>
+				<li>Click the "I WANT TO UPLOAD A COMPLETED EXCEL SHEET" and the information will expand. Download the External Engagement Reporting Sheet and fill out the data at your event. Once the sheet is completed you may then upload the excel sheet below, and the system will do the rest.</li>
 				<li>After you have uploaded your completed excel sheet you may skip the "I WANT TO ENTER ATTENDEE FIGURES MANUALLY" section. Click "Save" at the bottom of the form.</li>
 			</ol></li>
 			<li><p>Enter attendee figures manually: Alternatively, you can enter in the counts individually.  After linking this EE data to a specific event click the groups to expand 
