@@ -1,7 +1,7 @@
 <?php
   drupal_add_library('system', 'ui.accordion');
 ?>
-<h2>Introduction</h2>
+<h2>User Guide Introduction</h2>
 <div>
   <p>This guide has been developed for first time users of the EPSCoR Core Reporting site (ER-Core).  This site has been developed using Drupal 7, an open-source content 
   management system. Whether you are a developer, tester, administrator or an end user, we all need to get familiar with Drupal first.  In addition, this guide also 
