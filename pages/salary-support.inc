@@ -24,7 +24,13 @@ class er_salary_support extends er_page{
 		
 		
 		$query = db_select('users', 'users');
-		//this uses the EntityFieldQuery tag definitions:
+		
+		//Join in the institution data:
+		$query->innerJoin('field_data_field_er_inst_ref', 'inst_ref', 'users.uid = inst_ref.entity_id AND inst_ref.bundle = \'user\'');
+		$query->innerJoin('node', 'inst', 'inst.nid = inst_ref.field_er_inst_ref_target_id');
+		
+		//These use the EntityFieldQuery tag definitions:
+		//DEPRECATED: We need to rely solely on the date ranges to determine participant status.
 		//er_query_epscor_participant_alter($query);//Make sure it's only participants
 		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range
 		//Only faculty:
