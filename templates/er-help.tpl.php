@@ -62,7 +62,7 @@
 		privilege indicator is "Authenticated", which means that only you, registered and logged in EPSCoR participants, and EPSCoR Administrators can see that data.</p>
 		<h3 id="">
 			Contact Information
-		</h2>
+		</h3>
 		<ol>
 			<li>Click on the "Hello (username)" link at the top right of any page  (after you are logged in)</li>
 			<li>Click on the Contact Information tab if you are not already there</li>
@@ -74,7 +74,7 @@
 		</ol>
 		<h3 id="">
 			Demographics
-		</h2>
+		</h3>
 		<p>NSF requires that we try to obtain demographic data for all our participants, including those attending EPSCoR sponsored events.  Given such a requirement, it is 
 		OPTIONAL to you if you want to submit it or not.  This data will be encrypted and disassociated from your name.  Only the counts of the various entries will be submitted 
 		to NSF.</p>
@@ -86,17 +86,17 @@
 			<li>Check the "I am a veteran" check box if you are a veteran</li>
 		</ol>
 		<h3 id="">
-			<a href="#5.1">5.1</a> EPSCoR Involvement
+			 EPSCoR Involvement
 		</h2>
 		<p>Enter a short but accurate description of your involvement with EPSCoR.  Include component names, board names, key personnel, advisors and lab names and what you are 
 		doing, where and when. </p>
 		<h3 id="">
-			<a href="#5.2">5.2</a> Most Senior Project Role (Required)
+			 Most Senior Project Role (Required)
 		</h2>
 		<p>Select the one position type that best describes your involvement with EPSCoR.  This list is defined by NSF Fastlane. If a position type is not listed that better 
 		defines your involvement, select the Other option.</p>
 		<h3 id="">
-			<a href="#5.3">5.3</a> Project Component
+		Project Component
 		</h2>
 		<p>Components are analogous to teams and are unique to each jurisdiction.  Components can easily be changed by an administrator or Drupal developer.</p>
 		<ol>
@@ -105,15 +105,15 @@
 			<li>If a component you are involved with is not listed, contact your administrator</li>
 		</ol>
 		<h3 id="">
-			<a href="#5.4">5.4</a> Please select which committes or boards you will be a member of
+		 Please select which committes or boards you will be a member of
 		</h2>
 		<p>Select one or multiple (if applicable)</p>
 		<h3 id="">
-			<a href="#5.5">5.5</a> Participating Date
+			 Participating Date
 		</h2>
 		<p>Enter the date you officially began participating with EPSCoR</p>
 		<h3 id="">
-			<a href="#5.6">5.6</a> Are you paid by the EPSCoR grant
+			 Are you paid by the EPSCoR grant
 		</h2>
 		<p>Select Yes or No. This is a required field.</p>
         <!--This question is no longer requiered
@@ -122,7 +122,7 @@
 		</h2>
 		<p>Select a number from the drop down box and round up or down to the nearest month of funding you are expected to receive</p>-->
 		<h3 id="">
-			<a href="#5.8">5.8</a> Do you participate in EPSCoR research more than 160 hours per year
+			 Do you participate in EPSCoR research more than 160 hours per year
 		</h2>
 		<p>This ties into NSF Fastlane and refers to whether or not you put in more thatn 160 hours of effort in a year to this EPSCoR grant, whether you are paid or not</p>
 		<ol>
@@ -131,12 +131,12 @@
 			<li>Select a number from the drop down box and round up or down to the nearest month of funding you are expected to receive.</li>
 		</ol>
 		<h3 id="">
-			<a href="#5.9">5.9</a> Please describe role and contribution to the project
-		</h2>
+			 Please describe role and contribution to the project
+		</h3>
 		<p>Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.</p>
       
 		<h3 id="">
-			<a href="#5.10">5.10</a> RCR - Responsible Conduct of Research
+			 RCR - Responsible Conduct of Research
 		</h3>
 		<p>Click the "I have completed the RCR training" check box if you have taken either in-person or on-line versions of the RCR training.</p>
 		<ul>
@@ -146,8 +146,8 @@
 			<li>RCR On-Line Upload: attach the txt, word or pdf of your online RCR certificate</li>
 		</ul>
 		<h3 id="">
-			<a href="#5.11">5.11</a> Institution
-		</h2>
+			 Institution
+		</h3>
 		<p>Click the radio button of the institution you are affiliated with.  The house icon denotes that institution is a Participating institution with respect to your 
 		EPSCoR jurisdiction.  The world icon denotes that that institution is not a participating institution.  If your institution is not listed, click the "My institution is 
 		not listed here (add a new institution) check box:</p>
@@ -162,14 +162,14 @@
 		</ul>
 	  <p>Department: Enter in the name of the department for which you are affiliated</p>
 		<h3 id="">
-			<a href="#5.12">5.12</a> Data Collection
-		</h2>
+		 Data Collection
+		</h3>
 		<p>Check the "I plan to be collecting data through my research" check box if you anticipate collecting data as a result of your research.</p>
         <p>Has this user been put in touch with the Data Manager?: Check the appropriate button for your situation.  This will send notices to the EPSCoR administrator as well as the data repository manager.</p>
 		<p>
 		  <h3 id="">
-			<a href="#5.13">5.13</a> Account Information
-		</h2>
+		 Account Information
+		</h3>
 		</p>
 		<ol>
 		  <li>Username: The system user name is determined by the website administrator upon account creation. This is a required field </li>
@@ -193,8 +193,8 @@
             
 		</ol>
 		<h3 id="">
-			<a href="#5.14">5.14</a> Participant Date
-		</h2>
+			Participant Date
+		</h3>
 		<ol>
 			<li>Click the "Show end date" check box if you are back-entering data and know the day that you or the user's end participation date</li>
 			<li>Select the month, day and year of the day you started participating with EPSCoR</li>
@@ -206,21 +206,21 @@
 			<li>You can also rearrange the dates by a click-and-drag of the 4-way arrow icon to the left of the date group.</li>
 		</ol>
 		<h3 id="">
-			<a href="#5.15">5.15</a> Administrative Overlay
-		</h2>
+			 Administrative Overlay
+		</h3>
 		<p>Disregard this option if you see it.</p>
 		
 		<h3 id="">
-			<a href="#5.17">5.17</a> Upload a photo
-		</h2>
+			 Upload a photo
+		</h3>
 		<p>Click on the Choose file button to browse and upload a photo.</p>
         <h3 id="">
-			<a href="#5.16">5.16</a> Location Settings
-		</h2>
+			Location Settings
+		</h3>
 		<p>Select your locale setting.  This will configure Drupal to show date and time to your location.</p>
 		<h3 id="">
-			<a href="#5.18">5.18</a> Save
-		</h2>
+			Save
+		</h3>
 		<p>Click the Save button when you are done. If any required fields are incorrectly or not answered, an error message will be displayed at the top of the page.  Read it 
 		and address the issue.  If for some reason you cannot address the issue, call your EPSCoR administrator or your Drupal web site manager for help.</p>
 	</div>
