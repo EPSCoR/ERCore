@@ -335,6 +335,8 @@ function er_batch_import_role($file_path, &$context){
 						//drupal_set_message($error, 'error');
 					}
 				}
+				//Clear out all permissions for the role:
+				db_delete('role_permission')->condition('rid', $rid)->execute();
 				// Add that array of permissions to the role. a Drupal API call
 				user_role_grant_permissions($rid, $array_perms);
 				//d($array_perms, '$array_perms');
