@@ -734,6 +734,7 @@ function er_predict_user_status(&$user, $verbose = false){
 	}
 	$one_sixty = !!$u->field_er_160hours->value();
 	$paid = !!$u->field_er_paid->value();
+	$paid_student = !!$u->field_er_faculty_any_support->value();
 	$participant = $paid || $one_sixty || $paid_student;
 	if ($verbose)
 		return array(
