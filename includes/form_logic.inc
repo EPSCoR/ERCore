@@ -115,7 +115,7 @@ function _quick_add_inst(&$form, &$form_state, $inst_field_name = 'field_er_inst
 	//$form_state['quick_add_inst_field_name'] = 'field_er_collab_inst_ref';
 	$form['#validate'] = array('_load_quick_add_inst_validate');
 	array_unshift($form['#submit'], '_load_quick_add_inst_process');
-	$form[$inst_field_name]['#after_build'] = array('_remove_NA_inst');
+	$form[$inst_field_name]['#after_build'] = array('_remove_NA_option');
 }
 
 function _load_quick_add_inst_validate(&$form, &$form_state){
@@ -503,7 +503,7 @@ function testmike(&$form){
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
-	
+	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
 
 	
 // Faculty Participant (or Equivalent)
@@ -810,7 +810,7 @@ function er_date_label($form, &$form_state) {
  * 
  * Called from er_form_er_collaboration_node_form_alter
  */
-function _remove_NA_inst($form, &$form_state){
+function _remove_NA_option($form, &$form_state){
 	// this renames the N/A
 	// $form['und']['_none']['#title'] = "Institution is not listed (add a new Institution)";
 	// this removes the N/A option
