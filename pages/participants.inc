@@ -9,6 +9,7 @@ class er_participants extends er_page{
 		}
 		$categories = $this->get_allowed_values(self::$field_aliases['position_type']);
 		unset($categories['Other']);
+		unset($categories['Evaluation']);
 		$this->categories = $categories;
 	}
 	
@@ -191,15 +192,9 @@ class er_participants extends er_page{
 			case 'New Investigators':
 				$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 				$range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
-				//This is for overlapping date ranges:
-				//$query->condition('date.field_er_participating_date_value', $range[1], '<=');
-				//$db_or = db_or()
-				//			->condition('date.field_er_participating_date_value2', $range[0], '>=')
-				//			->isNull('date.field_er_participating_date_value2');
-				//$query->condition($db_or);
-				
 				//Start date is within my range:
 				$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $range, 'BETWEEN');
+				$query->condition('participant_date.delta', '0');//it must be the first time they were participating. Cant show up in the new investigators section more than once.
 				//d((string)$query);
 				break;
 		}
@@ -228,9 +223,9 @@ class er_participants extends er_page{
 		//d($_SESSION);
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
 		$data = array();
-		//d($this->data(), 'count');
+		d($this->data(), 'count');
 		$data = $this->data(false);
-		//d($data, 'data');
+		d($data, 'data');
 		$ret = '<strong>NOTICE: The date range only affects the New Investigators column at this time. </strong>'.'<br>';
 		$ret .= $this->download_link();
 		foreach ($data['Institutions'] as $inst_id => $categories){
@@ -305,9 +300,9 @@ class er_participants extends er_page{
 				$fill_inv = (
 					!empty($this->range) //Only show this if we have a date range specified
 					//We don't fill in Graduate students or Undergrad students:
-					&& $category != 'Graduate students' 
-					&& $category != 'Undergraduate students'
+					&& strpos(strtolower($category), 'student') === FALSE
 				);
+				//d(strpos(strtolower($category), 'student'), 'strpos(strtolower($category), \'student\')');
 				$this->fill_cell_data($worksheet, $row, isset($data_cat[$category])?$data_cat[$category]:array(), $fill_inv);
 				$row++;
 			}
