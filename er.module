@@ -896,3 +896,43 @@ function er_default_accomplishment_content_types(){
 	);
 	return $default_types;
 }
+
+
+///**
+// * Implements hook_field_extra_fields().
+// * This adds "Related Content" to the user-profile's display settings, allowing you to re-order it.
+// */
+//function er_field_extra_fields() {
+//  $return['user']['user'] = array(
+//    'display' => array(
+//      'related_content' => array(
+//        'label' => t('Related Content'),
+//        'description' => t('Content that the user has been attached to.'),
+//        'weight' => 5,
+//      ),
+//    ),
+//  );
+//
+//  return $return;
+//}
+//
+///**
+// * Implements hook_user_view().
+// * This works with the above hook, this is the actual output.
+// */
+//function er_user_view($account) {
+//  if (!isset($account->content['related_content'])) {
+//    $account->content['related_content'] = array();
+//  }
+//  $account->content['related_content'] += array(
+//    '#type' => 'user_profile_category',
+//    '#attributes' => array('class' => array('user-member')),
+//    '#weight' => 5,
+//    '#title' => t('Related Content'),
+//  );
+//  $account->content['related_content']['derp'] = array(
+//    '#type' => 'user_profile_item',
+//    '#title' => t('Content'),
+//    '#markup' => format_interval(REQUEST_TIME - $account->created),
+//  );
+//}
