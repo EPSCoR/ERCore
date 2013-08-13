@@ -4,15 +4,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2013-07-07"/>
+<meta name="create-date" content="2013-08-13"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
-
-<!-- local mods to elyxer Change Tracking style by B. Sadler -->
-<style type="text/css">
-    span.inserted {color: red;}
-    span.deleted  {color: silver; text-decoration: line-through;}
-</style>
-
 <title>ERcore Installation Guide</title>
 </head>
 <body>
@@ -21,7 +14,7 @@
 ERcore Installation Guide
 </h1>
 <h2 class="Date">
-<span class="inserted">[July 9, 2013]<span class="deleted">[June 18, 2013]</span></span> 
+[August 12, 2013] 
 </h2>
 <div class="Unindented">
 This document describes how to install ERcore V1.1 on a target system. The first section provides system requirements and a high level overview of the installation process. Subsequent sections provide more detail and include troubleshooting suggestions and common site customizations. The intended audience for this document are system administrators and ERcore developers. 
@@ -129,45 +122,45 @@ Table of Contents
 </div>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Section-10">Section 10: Step 7: <span class="inserted">Initial <span class="deleted">Final</span></span> ERcore configuration</a>
+<a class="Link" href="#toc-Section-10">Section 10: Step 7: Initial ERcore configuration</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Section-11"><span class="inserted">Section 11: Step 8: Drupal permissions configuration </span></a>
-</div>
-<div class="tocindent">
-<div class="toc">
-<a class="Link" href="#toc-Subsection-11.1"><span class="inserted">Subsection 11.1: ERcore roles and permissions reset</span> </a>
-</div>
-<div class="toc">
-<a class="Link" href="#toc-Subsection-11.2"><span class="inserted">Subsection 11.2: Drupal permissions page</span> </a>
-</div>
-<div class="toc">
-<a class="Link" href="#toc-Subsection-11.3"><span class="inserted">Subsection 11.3: Reorder roles</span> </a>
-</div>
-<div class="toc">
-<a class="Link" href="#toc-Subsection-11.4"><span class="inserted">Subsection 11.4: ERcore permissions adjustment</span></a>
+<a class="Link" href="#toc-Section-11">Section 11: Step 8: Drupal permissions configuration </a>
 </div>
 <div class="tocindent">
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--1"><span class="inserted">Subsubsection: Administration menu</span> </a>
+<a class="Link" href="#toc-Subsection-11.1">Subsection 11.1: ERcore roles and permissions reset</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--2"><span class="inserted">Subsubsection: EPSCoR Reporting</span></a>
+<a class="Link" href="#toc-Subsection-11.2">Subsection 11.2: Drupal permissions page</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--3"><span class="inserted">Subsubsection: Field Permissions</span> </a>
+<a class="Link" href="#toc-Subsection-11.3">Subsection 11.3: Reorder roles</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--4"><span class="inserted">Subsubsection: Filter</span> </a>
+<a class="Link" href="#toc-Subsection-11.4">Subsection 11.4: ERcore permissions adjustment</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection--1">Subsubsection: Administration menu</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--5"><span class="inserted">Subsubsection: Node</span></a>
+<a class="Link" href="#toc-Subsubsection--2">Subsubsection: EPSCoR Reporting</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--6"><span class="inserted">Subsubsection: System</span> </a>
+<a class="Link" href="#toc-Subsubsection--3">Subsubsection: Field Permissions</a>
 </div>
 <div class="toc">
-<a class="Link" href="#toc-Subsubsection--7"><span class="inserted">Subsubsection: User</span> </a>
+<a class="Link" href="#toc-Subsubsection--4">Subsubsection: Filter</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection--5">Subsubsection: Node</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection--6">Subsubsection: System</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection--7">Subsubsection: User</a>
 </div>
 </div>
 </div>
@@ -188,13 +181,13 @@ ERcore is known to work with the following specific versions of Drupal 7 server 
 Drupal: 7.14 through 7.22
 </li>
 <li>
-MySQL: 5.1.66-0+squeeze1, 5.1.58-1ubuntu1
+MySQL: 5.1.66-0+squeeze1, 5.1.58-1ubuntu1, 5.5.31-1.fc17.x86_64 (Fedora)
 </li>
 <li>
-PHP: 5.3.3-7+squeeze15, 5.3.6-13ubuntu3.8
+PHP: 5.3.3-7+squeeze15, 5.3.6-13ubuntu3.8, 5.4.16-1.fc17.x86_64 (Fedora)
 </li>
 <li>
-Apache: 2.2.16 (Debian), 2.2.20 (Ubuntu)
+Apache: 2.2.16 (Debian), 2.2.20 (Ubuntu), 2.2.23-1.fc17.x86_64 (Fedora)
 </li>
 
 </ul>
@@ -290,13 +283,7 @@ field_group
 field_permissions
 </li>
 <li>
-flag<span class="inserted"></span>
-</li>
-<li>
-<span class="inserted">geophp</span>
-</li>
-<li>
-<span class="inserted">geofield</span>
+flag
 </li>
 <li>
 libraries
@@ -315,9 +302,6 @@ page_manager
 </li>
 <li>
 php
-</li>
-<li>
-proj4js
 </li>
 <li>
 rules
@@ -601,7 +585,7 @@ DOCUMENT_ROOT/sites/all/libraries/PHPExcel/Classes/PHPExcel.php
 <a class="toc" name="toc-Subsection-6.3">6.3</a> Drupal module download
 </h2>
 <div class="Unindented">
-The <i>drush command-line utility</i> is used to update Drupal and to download required prerequisite modules prior to installing ERcore. The following commands assume a standard Turnkey Drupal 7 appliance installation. If the target system directory tree is not structured as described above, change the cd command-line to meet your needs. See Section <a class="Reference" href="#sec:TargetLocation">3↑</a> to determine the directory tree structure of your target system. See Section <a class="Reference" href="#sub: DrupalModules">1.4↑</a> for the list of required Drupal modules.
+<a class="Label" name="sub:DrupalModuleDownload"> </a>The <i>drush command-line utility</i> is used to update Drupal and to download required prerequisite projects and modules prior to installing ERcore. The following commands assume a standard Turnkey Drupal 7 appliance installation. If the target system directory tree is not structured as described above, change the cd command-line to meet your needs. See Section <a class="Reference" href="#sec:TargetLocation">3↑</a> to determine the directory tree structure of your target system. See Section <a class="Reference" href="#sub: DrupalModules">1.4↑</a> for the list of required Drupal modules.
 </div>
 <div class="Indented">
 Perform these commands on the target system.
@@ -613,14 +597,17 @@ cd DOCUMENT_ROOT/sites/all/modules
 drush dl bundle_copy computed_field ctools date date_api date_popup
 drush dl date_repeat_field date_views entity entity_token
 drush dl entityreference entityreference_prepopulate field_group
-<span class="inserted">drush dl field_permissions flag geophp geofield libraries link markup</span>
-<span class="deleted">drush dl field_permissions flag libraries link markup</span>
-drush dl nodeaccess_userreference page_manager php proj4js rules
+drush dl field_permissions flag libraries link markup
+drush dl nodeaccess_userreference page_manager php rules
 drush dl rules_admin rules_scheduler select_or_other views
 drush dl views_content views_data_export views_php views_ui
+drush en entityreference
 </pre>
 <div class="Unindented">
-If any of the above modules are already installed on your system, a warning message will be displayed.
+If any of the above modules are already installed on your system, a warning message will be displayed. &ldquo;No release history&rdquo; warnings can also be ignored.
+</div>
+<div class="Indented">
+The last <tt>drush</tt> command listed above is required to prevent an error later in the installation process. It enables the <tt>entityreference</tt> module within Drupal prior to installing ERcore with the steps below.
 </div>
 <h1 class="Section">
 <a class="toc" name="toc-Section-7">7</a> Step 4: Installing ERcore files
@@ -775,7 +762,7 @@ check <i>EPSCoR Reporting</i>
 click <i>Save configuration</i> at the bottom of the page.
 </li>
 <li>
-click <i>Continue</i> to the question about if to enable other modules. This step will probably take several minutes.
+click <i>Continue</i> to the question about if to enable other modules.
 </li>
 <li>
 if you get a question about &ldquo;rebuild permissions&rdquo; click <i>Rebuild</i>.
@@ -787,7 +774,7 @@ After several minutes, a status page should appear indicating if installation co
 </div>
 <ul>
 <li>
-In the EPSCOR section of the Modules page, be sure that <i>EPSCoR Reporting</i> is checked. If not, check it and click <i>Save configuration</i> again.
+In the EPSCOR section of the Modules page, be sure that <i>EPSCoR Reporting</i> is checked. (This may occur if the Drupal <tt>entityreference</tt> module was not enabled prior to enabling ERcore. See Section .<a class="Reference" href="#sub:DrupalModuleDownload">6.3↑</a>) If <i>EPSCoR Reporting</i> is not checked, check it and click <i>Save configuration</i> again.
 </li>
 <li>
 If this doesn’t work, try unchecking the flag, clicking <i>Save configuration</i>, followed by re-checking the flag and saving again.
@@ -802,6 +789,24 @@ cd &lt;target-modules&gt;
 find er -type d -exec chmod o+rx {} \;
 find er -type f -exec chmod o+r {} \;
 </pre>
+<div class="Unindented">
+Note that the following errors are normal for a typical installation:
+</div>
+<ul>
+<li>
+Error: <i>No Institutions found!</i>
+</li>
+<li>
+Error: <i>No Research Components found!</i>
+</li>
+<li>
+Warning: <i>Taxonomy: &lt;field&gt; is extraneous.</i>
+</li>
+
+</ul>
+<div class="Unindented">
+The first two errors indicate initial site configuration data has not been entered yet. This data can be entered after ERcore installation is complete.
+</div>
 <h1 class="Section">
 <a class="toc" name="toc-Section-9">9</a> Step 6: Check installation status and troubleshoot
 </h1>
@@ -816,7 +821,7 @@ At this point, ERcore should be installed properly. Check the following to be su
 Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
 </li>
 <li>
-Make sure there are no errors shown on this page. See Section <a class="Reference" href="#sub:ErcoreReset">9.2↓</a> if errors are found on this page.<br/>
+Make sure there are no errors shown on this page other than those listed in the previous section. See Section <a class="Reference" href="#sub:ErcoreReset">9.2↓</a> if abnormal errors are found on this page.<br/>
 
 </li>
 <li>
@@ -961,25 +966,10 @@ Some developers reported receiving PDO errors like "General error: 2006 MySQL se
 
 </ul>
 <h1 class="Section">
-<a class="toc" name="toc-Section-10">10</a> Step 7: <span class="inserted">Initial <span class="deleted">Final</span></span> ERcore configuration
+<a class="toc" name="toc-Section-10">10</a> Step 7: Initial ERcore configuration
 </h1>
 <div class="Unindented">
-To perform <span class="inserted">initial <span class="deleted">final</span></span> configuration and customization, start by reading the EPSCoR reporting &ldquo;Installation Guide&rdquo;, accessed as follows:
-</div>
-<ul>
-<li>
-click <i>Modules</i>.
-</li>
-<li>
-Scroll down to the EPSCoR section.
-</li>
-<li>
-click <i>Help</i> to the right of EPSCoR Reporting.
-</li>
-
-</ul>
-<div class="Unindented">
-The menu options available can be tweaked as follows:
+The menu options should be changed as follows:
 </div>
 <ul>
 <li>
@@ -1009,7 +999,7 @@ logout and login again to see these changes.
 
 </ul>
 <div class="Unindented">
-You may also want to modify settings at Configuration  ▷  Administration  ▷  Administration menu:
+In addition, modify these settings at Configuration  ▷  Administration  ▷  Administration menu:
 </div>
 <ul>
 <li>
@@ -1094,199 +1084,160 @@ click <i>Save</i>
 
 </ul>
 <div class="Unindented">
-Another configuration page is at:
+User documentation and additional configuration pages can be found at:
 </div>
 <ul>
 <li>
-click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></span></i>
+<i>EPSCoR</i>  ▷ <i> Help Documentation</i>
+</li>
+<li>
+<i>EPSCoR</i>  ▷ <i> Admin Action</i>  ▷ <i> EPSCoR Reporting Core Settings</i>
 </li>
 
 </ul>
 <h1 class="Section">
-<a class="toc" name="toc-Section-11">11</a> <span class="inserted">Step 8: Drupal permissions configuration </span>
+<a class="toc" name="toc-Section-11">11</a> Step 8: Drupal permissions configuration 
 </h1>
 <div class="Unindented">
-<span class="inserted">Drupal <i>permissions</i> control which actions can be performed by a user and, additionally, which features are presented via menu selections and web page content. Perform the steps described in this section to insure proper operation of ERcore. Please note that ERcore documentation assumes permissions are set as described in this section and that deviation from these settings could create confusion to the readers of that documentation.</span>
+Drupal <i>permissions</i> control which actions can be performed by a user and, additionally, which features are presented via menu selections and web page content. Perform the steps described in this section to insure proper operation of ERcore. Please note that ERcore documentation assumes permissions are set as described in this section and that deviation from these settings could create confusion to the readers of that documentation.
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-11.1">11.1</a> <span class="inserted">ERcore roles and permissions reset</span>
+<a class="toc" name="toc-Subsection-11.1">11.1</a> ERcore roles and permissions reset
 </h2>
 <div class="Unindented">
-<span class="inserted">The default Drupal <i>permissions</i> granted to the various user <i>roles</i> may vary from ERcore installation to installation. Begin permissions configuration by performing a <i>Bulk Reset</i> of the <i>Roles</i> bundle as follows:</span>
+The default Drupal <i>permissions</i> granted to the various user <i>roles</i> may vary from ERcore installation to installation. Begin permissions configuration by performing a <i>Bulk Reset</i> of the <i>Roles</i> bundle as follows:
 </div>
 <ul>
 <li>
-<span class="inserted">Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. </span>
+Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
 </li>
 <li>
-<span class="inserted">Click <i>BULK RESET</i> on the the <i>EPSCoR Reporting Status Report</i> page to display the available groups for reset.</span>
+Click <i>BULK RESET</i> on the the <i>EPSCoR Reporting Status Report</i> page to display the available groups for reset.
 </li>
 <li>
-<span class="inserted">Click <i>Reset roles</i>.</span>
+Click <i>Reset roles</i>.
 </li>
 
 </ul>
 <div class="Unindented">
-<span class="inserted">This action resets permissions consistently across installations. For more information on <i>Bulk reset</i>, see Section <a class="Reference" href="#sub:ErcoreReset">9.2↑</a>.</span>
+This action resets permissions consistently across installations. For more information on <i>Bulk reset</i>, see Section <a class="Reference" href="#sub:ErcoreReset">9.2↑</a>.
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-11.2">11.2</a> <span class="inserted">Drupal permissions page</span>
+<a class="toc" name="toc-Subsection-11.2">11.2</a> Drupal permissions page
 </h2>
 <div class="Unindented">
-<span class="inserted">The Drupal permissions page is used by the site administrator to grant or deny permissions for user roles. Access the Drupal permission page using either of the following sequences:</span>
+The Drupal permissions page is used by the site administrator to grant or deny permissions for user roles. Access the Drupal permission page using either of the following sequences:
 </div>
 <ul>
 <li>
-<span class="inserted">Click <i>People</i>  ▷ <i> Permissions</i></span>
+Click <i>People</i>  ▷ <i> Permissions</i>
 </li>
 <li>
-<span class="inserted">Enter URL: <tt>http://&lt;your-site&gt;/admin/people/permissions</tt></span>
+Enter URL: <tt>http://&lt;your-site&gt;/admin/people/permissions</tt>
 </li>
 
 </ul>
 <div class="Unindented">
-<span class="inserted">This page lists permissions granted to particular user roles available within ERcore. Avaliable roles are listed across the top of the page with permissions granted for a particular role indicated with check marks below. Permissions are grouped by an alphebetized list of categories.</span>
+This page lists permissions granted to particular user roles available within ERcore. Avaliable roles are listed across the top of the page with permissions granted for a particular role indicated with check marks below. Permissions are grouped by an alphebetized list of categories.
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-11.3">11.3</a> <span class="inserted">Reorder roles</span>
+<a class="toc" name="toc-Subsection-11.3">11.3</a> Reorder roles
 </h2>
 <div class="Unindented">
-<span class="inserted">The Druapl roles within ERcore should be appear in the following order:</span>
+The Druapl roles within ERcore should be appear in the following order:
 </div>
 <ol>
 <li>
-<span class="inserted">Anonymous user</span>
+Anonymous user
 </li>
 <li>
-<span class="inserted">Authenticated user</span>
+Authenticated user
 </li>
 <li>
-<span class="inserted">Administrator</span>
+Administrator
 </li>
 <li>
-<span class="inserted">Administrative staff</span>
+Administrative staff
 </li>
 <li>
-<span class="inserted">Faculty</span>
+Faculty
 </li>
 <li>
-<span class="inserted">Student</span>
+Student
 </li>
 <li>
-<span class="inserted">Guest</span>
+Guest
 </li>
 
 </ol>
 <div class="Unindented">
-<span class="inserted">If the roles across the permissions page to not appear in this order, perform the following steps:</span>
+If the roles across the permissions page to not appear in this order, perform the following steps:
 </div>
 <ul>
 <li>
-<span class="inserted">Click the <i>Roles</i> button while on the Drupal permissions page.</span>
+Click the <i>Roles</i> button while on the Drupal permissions page.
 </li>
 <li>
-<span class="inserted">For each role that is out of order, drag the <i>plus sign</i> adjacent to the role up or down to adjust its order.</span>
+For each role that is out of order, drag the <i>plus sign</i> adjacent to the role up or down to adjust its order.
 </li>
 <li>
-<span class="inserted">Click <i>Save order</i> to complete the ordering process.</span>
+Click <i>Save order</i> to complete the ordering process.
 </li>
 
 </ul>
 <div class="Unindented">
-<span class="inserted">When roles have been reordered, click <i>Permissions</i> to return to the permissions page.</span>
+When roles have been reordered, click <i>Permissions</i> to return to the permissions page.
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-11.4">11.4</a> <span class="inserted">ERcore permissions adjustment</span>
+<a class="toc" name="toc-Subsection-11.4">11.4</a> ERcore permissions adjustment
 </h2>
 <div class="Unindented">
-<span class="inserted">This section lists permissions important to the operation of ERcore and provides appropriate settings for typical operation. There are two possible settings for a given permission and role:</span>
+This section lists permissions important to the operation of ERcore and provides appropriate settings for typical operation. There are two possible settings for a given permission and role:
 </div>
 <ul>
 <li>
-<span class="inserted">Checkmark — permission is <i>granted</i> to users with this role.</span>
+Checkmark — permission is <i>granted</i> to users with this role.
 </li>
 <li>
-<span class="inserted">no Checkmark — permission is <i>denied</i> to users with this role.</span>
+no Checkmark — permission is <i>denied</i> to users with this role.
 </li>
 
 </ul>
 <div class="Unindented">
-<span class="inserted">In the descriptions below, this selection is explicitly specified using the terms <u>Grant</u> and <u>Deny</u>, for checkmark and no checkmark, respectively. Compare the settings on your site’s permissions page with the settings described below and make appropriate changes to your site. Click <i>Save permissions</i> at the bottom of the permissions page when complete.</span>
+In the descriptions below, this selection is explicitly specified using the terms <u>Grant</u> and <u>Deny</u>, for checkmark and no checkmark, respectively. Compare the settings on your site’s permissions page with the settings described below and make appropriate changes to your site. Click <i>Save permissions</i> at the bottom of the permissions page when complete.
 </div>
 <h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--1"></a><span class="inserted">Administration menu</span>
+<a class="toc" name="toc-Subsubsection--1"></a>Administration menu
 </h3>
 <div class="Unindented">
-<span class="inserted">Permissions in this category generally concern the <i>Adminstration Toolbar Menu</i> or &ldquo;black bar&rdquo; menu at the top of most ERcore web pages. The following are important permission settings in this group.</span>
+Permissions in this category generally concern the <i>Adminstration Toolbar Menu</i> or &ldquo;black bar&rdquo; menu at the top of most ERcore web pages. The following are important permission settings in this group.
 </div>
 <ul>
 <li>
-<span class="inserted"><i>Access administration menu</i> settings — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
+<i>Access administration menu</i> settings — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
 <li>
-<span class="inserted">Administrator</span>
+Administrator
 </li>
 <li>
-<span class="inserted">Administrative Staff</span>
+Administrative Staff
 </li>
 <li>
-<span class="inserted">Faculty</span>
+Faculty
 </li>
 <li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>Flush caches</i> settings — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-
-</ul>
-
-</li>
-
-</ul>
-<h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--2"></a><span class="inserted">EPSCoR Reporting</span>
-</h3>
-<div class="Unindented">
-<span class="inserted">Permissions in this category control basic ERcore features. Set these as follows.</span>
-</div>
-<ul>
-<li>
-<span class="inserted"><i>Administer EPSCoR Module</i>:</span><ul>
-<li>
-<span class="inserted"><u>Grant</u> for Administrator only</span>
+Student
 </li>
 
 </ul>
 
 </li>
 <li>
-<span class="inserted"><i>Access EPSCoR Module content</i>:</span><ul>
+<i>Flush caches</i> settings — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
 <li>
-<span class="inserted"><u>Grant</u> for all roles</span>
-</li>
-
-</ul>
-
+Administrator
 </li>
 <li>
-<span class="inserted"><i>Access EPSCoR Module excel sheets</i>:</span><ul>
-<li>
-<span class="inserted">Site preference for Administrator, either <u>Grant</u> or <u>Deny</u></span>
-</li>
-<li>
-<span class="inserted"><u>Grant</u> for Administrative Staff</span>
-</li>
-<li>
-<span class="inserted"><u>Deny</u> for all other roles</span>
+Administrative Staff
 </li>
 
 </ul>
@@ -1295,127 +1246,40 @@ click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></sp
 
 </ul>
 <h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--3"></a><span class="inserted">Field Permissions</span>
+<a class="toc" name="toc-Subsubsection--2"></a>EPSCoR Reporting
 </h3>
 <div class="Unindented">
-<span class="inserted">Permissions in this category control the level of access allowed to private fields within stored content:</span>
+Permissions in this category control basic ERcore features. Set these as follows.
 </div>
 <ul>
 <li>
-<span class="inserted">Disabilities</span>
-</li>
+<i>Administer EPSCoR Module</i>:<ul>
 <li>
-<span class="inserted">Ethnicity</span>
-</li>
-<li>
-<span class="inserted">Gender</span>
-</li>
-<li>
-<span class="inserted">Phone (mobile)</span>
-</li>
-<li>
-<span class="inserted">Race</span>
-</li>
-
-</ul>
-<div class="Unindented">
-<span class="inserted">Field Permissions are listed in two groups within this section: <i>general</i> permissions first, and <i>field-type-specific</i> permissions second. The second group contains 5 specific permissions for each field-type, allowing various levels of access. Set permissions in this category as described below.</span>
-</div>
-<ul>
-<li>
-<span class="inserted"><i>Administer field permissions</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
+<u>Grant</u> for Administrator only
 </li>
 
 </ul>
 
 </li>
 <li>
-<span class="inserted"><i>Access other users’ private fields</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
+<i>Access EPSCoR Module content</i>:<ul>
 <li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
+<u>Grant</u> for all roles
 </li>
 
 </ul>
 
 </li>
 <li>
-<span class="inserted"><i>Create own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
+<i>Access EPSCoR Module excel sheets</i>:<ul>
 <li>
-<span class="inserted">Administrator</span>
+Site preference for Administrator, either <u>Grant</u> or <u>Deny</u>
 </li>
 <li>
-<span class="inserted">Administrative Staff</span>
+<u>Grant</u> for Administrative Staff
 </li>
 <li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>Edit own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>Edit anyone’s value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>View own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>View anyone’s value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
+<u>Deny</u> for all other roles
 </li>
 
 </ul>
@@ -1424,16 +1288,121 @@ click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></sp
 
 </ul>
 <h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--4"></a><span class="inserted">Filter</span>
+<a class="toc" name="toc-Subsubsection--3"></a>Field Permissions
 </h3>
 <div class="Unindented">
-<span class="inserted">Permissions in this category control the types of explicit HTML markup that can be entered in webpage text. The following permissions should be changed:</span>
+Permissions in this category control the level of access allowed to private fields within stored content:
 </div>
 <ul>
 <li>
-<span class="inserted"><i>Use the PHP code text format</i> </span><ul>
+Disabilities
+</li>
 <li>
-<span class="inserted"><u>Deny</u> for all roles (for security reasons).</span>
+Ethnicity
+</li>
+<li>
+Gender
+</li>
+<li>
+Phone (mobile)
+</li>
+<li>
+Field Permissions are listed in two groups within this section: <i>general</i> permissions first, and <i>field-type-specific</i> permissions second. The second group contains 5 specific permissions for each field-type, allowing various levels of access. Set permissions in this category as described below.
+</li>
+<li>
+<i>Administer field permissions</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>Access other users’ private fields</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>Create own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>Edit own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>Edit anyone’s value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>View own value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+<i>View anyone’s value for field</i> &lt;field-type&gt; — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
 </li>
 
 </ul>
@@ -1442,142 +1411,16 @@ click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></sp
 
 </ul>
 <h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--5"></a><span class="inserted">Node</span>
+<a class="toc" name="toc-Subsubsection--4"></a>Filter
 </h3>
 <div class="Unindented">
-<span class="inserted">Permissions in the <i>Node</i> category control the level of access allowed to various types of content, such as <i>Institution</i> or <i>Publication</i>. Node permissions are listed in two groups within this section: <i>general</i> permissions first, and <i>content-type-specific</i> permissions second. The second group contains 5 specific permissions for each content-type, allowing various levels of access. Set permissions in this category as described below.</span>
+Permissions in this category control the types of explicit HTML markup that can be entered in webpage text. The following permissions should be changed:
 </div>
 <ul>
 <li>
-<span class="inserted"><i>Bypass content access control</i> — Roles with this permission can create, edit, and delete any node, regardless of the individual &ldquo;low-level&rdquo; node settings. However, Add Content features are not presented consistently to users granted this permission. Set as follows:</span><ul>
+<i>Use the PHP code text format</i> <ul>
 <li>
-<span class="inserted"><u>Deny</u> for all roles.</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted"><i>Access the content overview page</i> — Roles with this permission have access to the <tt>/admin/content</tt> page and have a <i>Content</i> selection in the <i>Adminstration Toolbar Menu</i>. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted">&lt;node-type&gt;. <i>Create new content</i> — This node-type can be created. If granted, this node-type will appear on the Add Content page and the Add Content toolbar menu. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted">&lt;node-type&gt;. <i>Edit own content</i> — This node-type can be edited if the user created it. An <i>edit</i> button is displayed on the /admin/content page for content that can be edited. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted">&lt;node-type&gt;. <i>Edit any content</i> — This node-type can be edited regardless of which user created it. An <i>edit</i> button is displayed on the /admin/content page for content that can be edited. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted">&lt;node-type&gt;. <i>Delete own content</i> — This node-type can be deleted if the user created it. A <i>delete</i> button is displayed on the /admin/content page for content that can be deleted. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
-</li>
-
-</ul>
-
-</li>
-<li>
-<span class="inserted">&lt;node-type&gt;. <i>Delete any content</i> — This node-type can be deleted regardless of which user created it. A <i>delete</i> button is displayed on the /admin/content page for content that can be deleted. <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-
-</ul>
-
-</li>
-
-</ul>
-<div class="Unindented">
-<span class="inserted">Note that when the <i>Bypass content access control</i> permission is granted to a user, the <i>Add Content</i> selection in the Administration Menu will show that the user can create any node. However, the Add Content <i>page</i> at &lt;yoursite&gt;/node/add does <b>not</b> show entries for all nodes. As such, if this permission is granted, Add Content features are not presented consistently to users with that role.</span>
-</div>
-<h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--6"></a><span class="inserted">System</span>
-</h3>
-<div class="Unindented">
-<span class="inserted">The following permission in the <i>System</i> category controls availability of the the <i>EPSCoR</i> and <i>Help</i> menu selection in the <i>Adminstration Toolbar Menu</i>. </span>
-</div>
-<ul>
-<li>
-<span class="inserted"><i>Use the administration pages and help</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:</span><ul>
-<li>
-<span class="inserted">Administrator</span>
-</li>
-<li>
-<span class="inserted">Administrative Staff</span>
-</li>
-<li>
-<span class="inserted">Faculty</span>
-</li>
-<li>
-<span class="inserted">Student</span>
+<u>Deny</u> for all roles (for security reasons).
 </li>
 
 </ul>
@@ -1586,22 +1429,166 @@ click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></sp
 
 </ul>
 <h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--7"></a><span class="inserted">User</span>
+<a class="toc" name="toc-Subsubsection--5"></a>Node
 </h3>
 <div class="Unindented">
-<span class="inserted">Permissions in this category control access to User Profiles. Set these as follows.</span>
+Permissions in the <i>Node</i> category control the level of access allowed to various types of content, such as <i>Institution</i> or <i>Publication</i>. Node permissions are listed in two groups within this section: <i>general</i> permissions first, and <i>content-type-specific</i> permissions second. The second group contains 5 specific permissions for each content-type, allowing various levels of access. Set permissions in this category as described below.
 </div>
 <ul>
 <li>
-<span class="inserted"><i>Administer users</i> — Roles with this permission can change any user’s profile, and have a <i>People</i> selection in the <i>Adminstration Toolbar Menu</i>. Set as follows.</span><ul>
+<i>Bypass content access control</i> — Roles with this permission can create, edit, and delete any node, regardless of the individual &ldquo;low-level&rdquo; node settings. However, Add Content features are not presented consistently to users granted this permission. Set as follows:<ul>
 <li>
-<span class="inserted"><u>Grant</u> for Administrator</span>
+<u>Deny</u> for all roles.
+</li>
+
+</ul>
+
 </li>
 <li>
-<span class="inserted">Site preference for Administrative Staff, either <u>Grant</u> or <u>Deny</u></span>
+<i>Access the content overview page</i> — Roles with this permission have access to the <tt>/admin/content</tt> page and have a <i>Content</i> selection in the <i>Adminstration Toolbar Menu</i>. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
 </li>
 <li>
-<span class="inserted"><u>Deny</u> for all other roles</span>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+&lt;node-type&gt;. <i>Create new content</i> — This node-type can be created. If granted, this node-type will appear on the Add Content page and the Add Content toolbar menu. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+&lt;node-type&gt;. <i>Edit own content</i> — This node-type can be edited if the user created it. An <i>edit</i> button is displayed on the /admin/content page for content that can be edited. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+&lt;node-type&gt;. <i>Edit any content</i> — This node-type can be edited regardless of which user created it. An <i>edit</i> button is displayed on the /admin/content page for content that can be edited. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+
+</ul>
+
+</li>
+<li>
+&lt;node-type&gt;. <i>Delete own content</i> — This node-type can be deleted if the user created it. A <i>delete</i> button is displayed on the /admin/content page for content that can be deleted. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+<li>
+&lt;node-type&gt;. <i>Delete any content</i> — This node-type can be deleted regardless of which user created it. A <i>delete</i> button is displayed on the /admin/content page for content that can be deleted. <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Unindented">
+Note that when the <i>Bypass content access control</i> permission is granted to a user, the <i>Add Content</i> selection in the Administration Menu will show that the user can create any node. However, the Add Content <i>page</i> at &lt;yoursite&gt;/node/add does <b>not</b> show entries for all nodes. As such, if this permission is granted, Add Content features are not presented consistently to users with that role.
+</div>
+<h3 class="Subsubsection-">
+<a class="toc" name="toc-Subsubsection--6"></a>System
+</h3>
+<div class="Unindented">
+The following permission in the <i>System</i> category controls availability of the the <i>EPSCoR</i> and <i>Help</i> menu selection in the <i>Adminstration Toolbar Menu</i>. 
+</div>
+<ul>
+<li>
+<i>Use the administration pages and help</i> — <u>Grant</u> for the following roles, <u>Deny</u> for all others:<ul>
+<li>
+Administrator
+</li>
+<li>
+Administrative Staff
+</li>
+<li>
+Faculty
+</li>
+<li>
+Student
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<h3 class="Subsubsection-">
+<a class="toc" name="toc-Subsubsection--7"></a>User
+</h3>
+<div class="Unindented">
+Permissions in this category control access to User Profiles. Set these as follows.
+</div>
+<ul>
+<li>
+<i>Administer users</i> — Roles with this permission can change any user’s profile, and have a <i>People</i> selection in the <i>Adminstration Toolbar Menu</i>. Set as follows.<ul>
+<li>
+<u>Grant</u> for Administrator
+</li>
+<li>
+Site preference for Administrative Staff, either <u>Grant</u> or <u>Deny</u>
+</li>
+<li>
+<u>Deny</u> for all other roles
 </li>
 
 </ul>
@@ -1612,7 +1599,7 @@ click <i>EPSCoR</i>  ▷ <i> ERcore Module Settings<span class="inserted"></sp
 
 <hr class="footer"/>
 <div class="footer" id="generated-by">
-Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2013-07-07T09:53:19.892000</span>
+Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2013-08-13T06:24:59.812000</span>
 </div>
 </div>
 </body>
