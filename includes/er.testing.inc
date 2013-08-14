@@ -332,6 +332,7 @@ function arrayRecursiveDiff($aArray1, $aArray2) {
  * Check the status of fields and fieldgroups
  */
 function _test_fields(){
+	$debug_mode = isset($_GET['debug']);
 	$bundle_path = ER_INSTALL_DIR . '/bundles';
 	$dir = new DirectoryIterator($bundle_path);
 	$bundle_list = array();
@@ -363,15 +364,16 @@ function _test_fields(){
 						unset($data['fields'][$field_name]);
 						$internal_field = $all_fields[$field_name];
 						unset($internal_field['id']);
-						unset($internal_field['bundles']);
-						unset($field['bundles']);
-						unset($internal_field['field_permissions']);
-						unset($field['field_permissions']);
+						unset($internal_field['bundles']);unset($field['bundles']);
+						unset($internal_field['field_permissions']);unset($field['field_permissions']);
+						unset($internal_field['foreign keys']);unset($field['foreign keys']);//for some reason this bugs out for entiry reference fields...
 						
 						if (json_encode($internal_field) != json_encode($field)){//compare field information
-							//d($field, '$field');
-							//d($all_fields[$field_name], '$all_fields[$field_name]');
-							//d(arrayRecursiveDiff($internal_field, $field), 'Field has changed: '.$bundle_type.':'.$field_name);
+							if ($debug_mode){
+								d($field, '$field');
+								d($all_fields[$field_name], '$all_fields[$field_name]');
+								d(arrayRecursiveDiff($internal_field, $field), 'Field has changed: '.$bundle_type.':'.$field_name);
+							}
 							$modified_fields[$field_name] = $field;
 						}
 					}
