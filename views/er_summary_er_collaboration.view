@@ -1,5 +1,4 @@
 <?php
-
 $view = new view();
 $view->name = 'er_summary_er_collaboration';
 $view->description = '';
@@ -303,71 +302,3 @@ $handler->display->display_options['filters']['type']['value'] = array(
   'er_collaborators' => 'er_collaborators',
 );
 $handler->display->display_options['filters']['type']['group'] = 1;
-
-/* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_2');
-$handler->display->display_options['defaults']['access'] = FALSE;
-$handler->display->display_options['access']['type'] = 'role';
-$handler->display->display_options['access']['role'] = array(
-  166149871 => '166149871',
-  3 => '3',
-);
-$handler->display->display_options['defaults']['style_plugin'] = FALSE;
-$handler->display->display_options['style_plugin'] = 'list';
-$handler->display->display_options['defaults']['style_options'] = FALSE;
-$handler->display->display_options['defaults']['row_plugin'] = FALSE;
-$handler->display->display_options['row_plugin'] = 'fields';
-$handler->display->display_options['row_options']['inline'] = array(
-  'title' => 'title',
-  'field_er_collaboration_dates' => 'field_er_collaboration_dates',
-  'field_er_inst_ref' => 'field_er_inst_ref',
-);
-$handler->display->display_options['defaults']['row_options'] = FALSE;
-$handler->display->display_options['defaults']['fields'] = FALSE;
-/* Field: Content: Title */
-$handler->display->display_options['fields']['title']['id'] = 'title';
-$handler->display->display_options['fields']['title']['table'] = 'node';
-$handler->display->display_options['fields']['title']['field'] = 'title';
-$handler->display->display_options['fields']['title']['label'] = '';
-$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: Dates */
-$handler->display->display_options['fields']['field_er_collaboration_dates']['id'] = 'field_er_collaboration_dates';
-$handler->display->display_options['fields']['field_er_collaboration_dates']['table'] = 'field_data_field_er_collaboration_dates';
-$handler->display->display_options['fields']['field_er_collaboration_dates']['field'] = 'field_er_collaboration_dates';
-$handler->display->display_options['fields']['field_er_collaboration_dates']['label'] = '';
-$handler->display->display_options['fields']['field_er_collaboration_dates']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_er_collaboration_dates']['settings'] = array(
-  'format_type' => 'short',
-  'fromto' => 'both',
-  'multiple_number' => '',
-  'multiple_from' => '',
-  'multiple_to' => '',
-  'show_repeat_rule' => 'show',
-);
-/* Field: Content: EPSCoR Presenter(s) */
-$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborators';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['element_type'] = 'span';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
-  'link' => 1,
-);
-$handler->display->display_options['fields']['field_er_user_entity_reference']['group_column'] = 'entity_id';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: User: Participating Institutions */
-$handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
-$handler->display->display_options['fields']['field_er_inst_ref']['label'] = 'Institutions';
-$handler->display->display_options['fields']['field_er_inst_ref']['settings'] = array(
-  'link' => 1,
-);
-$handler->display->display_options['fields']['field_er_inst_ref']['group_column'] = 'entity_id';
-$handler->display->display_options['fields']['field_er_inst_ref']['delta_offset'] = '0';
-$handler->display->display_options['path'] = 'admin/epscor/content/collaborations';
-$handler->display->display_options['menu']['type'] = 'normal';
-$handler->display->display_options['menu']['title'] = 'Collaborations';
-$handler->display->display_options['menu']['weight'] = '0';
-$handler->display->display_options['menu']['name'] = 'management';
-$handler->display->display_options['menu']['context'] = 0;

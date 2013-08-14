@@ -80,9 +80,11 @@ class er_salary_support extends er_page{
 	
 	public function html(){
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-		d($this->data(), 'count');		
 		$data = $this->data(false);
-		d($data, 'data');
+    if (isset($_GET['debug'])){
+      d($this->data(), 'counts');
+      d($data, 'full data');
+    }
 		$output = $this->download_link();
 		if (is_array($data['users']))
 		foreach ($data['users'] as $inst_nid=>$users){

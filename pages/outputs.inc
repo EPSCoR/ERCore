@@ -232,9 +232,11 @@ class er_outputs extends er_page{
 	
   public function html(){
     if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-    d($this->data(), 'counts');
     $data = $this->data(false);
-    d($data, 'data');
+    if (isset($_GET['debug'])){
+      d($this->data(), 'counts');
+      d($data, 'full data');
+    }
 		//$data = array();
     $output = '';
 		$output .= $this->download_link();

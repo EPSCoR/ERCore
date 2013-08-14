@@ -223,9 +223,11 @@ class er_participants extends er_page{
 		//d($_SESSION);
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
 		$data = array();
-		d($this->data(), 'count');
 		$data = $this->data(false);
-		d($data, 'data');
+    if (isset($_GET['debug'])){
+      d($this->data(), 'counts');
+      d($data, 'full data');
+    }
 		$ret = '<strong>NOTICE: The date range only affects the New Investigators column at this time. </strong>'.'<br>';
 		$ret .= $this->download_link();
 		foreach ($data['Institutions'] as $inst_id => $categories){

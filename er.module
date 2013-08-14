@@ -216,6 +216,82 @@ function er_menu() {
     'access arguments' => array(ER_ADMIN_PERMISSION),
   );
 	
+	//NSF TABLE VIEWS:
+	$items['admin/epscor/views/salary-support'] = array(
+    'menu_name' => 'management',
+    'title' => 'NSF Table A - Salary Support',
+    'description' => 'This view aims to help you determine where the Salary Support information is coming from.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting/salary-support'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/views/participants'] = array(
+    'menu_name' => 'management',
+    'title' => 'NSF Table B - Participants',
+    'description' => 'This view aims to help you determine where the Participant information is coming from.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting/participants'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/views/collaborations'] = array(
+    'menu_name' => 'management',
+    'title' => 'NSF Table C - Collaborations',
+    'description' => 'This view aims to help you determine where the Collaborator counts are coming from.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting/collaborations'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/views/external-engagement'] = array(
+    'menu_name' => 'management',
+    'title' => 'NSF Table D - External Engagements',
+    'description' => 'This view aims to help you determine where the External Engagement counts are coming from.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting/external-engagement'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	$items['admin/epscor/views/outputs'] = array(
+    'menu_name' => 'management',
+    'title' => 'NSF Table E - Outputs',
+    'description' => 'This view aims to help you determine where the Outputs counts are coming from.',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'drupal_goto',
+		'page arguments' => array('reporting/outputs'),
+    'access arguments' => array(ER_ADMIN_PERMISSION),
+  );
+	
+	//Links to content views
+	$content_views = array(
+		"calendar"=>"Calendar Events",
+		"collaborations"=>"Collaborations",
+		"collaborators"=>"External Collaborators",
+		"external-engagements"=>"External Engagements",
+		"highlights"=>"Highlights",
+		"awards"=>"Honors and Awards",
+		"institutions"=>"Institutions",
+		"other-research-products"=>"Other Research Products",
+		"participants"=>"Participants",
+		"patents"=>"Patents",
+		"presentations"=>"Presentations",
+		"proposals"=>"Proposal or Grant",
+		"publications"=>"Publications"
+	);
+	foreach ($content_views as $url=>$label){
+		$items['admin/epscor/content/'.$url] = array(
+			'menu_name' => 'management',
+			'title' => $label,
+			'type' => MENU_NORMAL_ITEM,
+			'page callback' => 'drupal_goto',
+			'page arguments' => array($url),
+			'access arguments' => array('access content'),
+		);
+	}
+
+	
+	
 	$items['admin/epscor/reporting'] = array(
     'menu_name' => 'management',
     'title' => 'Accomplishments',

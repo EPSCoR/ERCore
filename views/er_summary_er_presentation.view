@@ -1,5 +1,4 @@
 <?php
-
 $view = new view();
 $view->name = 'er_summary_er_presentation';
 $view->description = '';
@@ -296,33 +295,3 @@ $handler->display->display_options['displays'] = array(
   'page_1' => 'page_1',
   'page_2' => 'page_2',
 );
-
-/* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_2');
-$handler->display->display_options['defaults']['sorts'] = FALSE;
-/* Sort criterion: Content: Upload File (field_er_upload_file:display) */
-$handler->display->display_options['sorts']['field_er_upload_file_display']['id'] = 'field_er_upload_file_display';
-$handler->display->display_options['sorts']['field_er_upload_file_display']['table'] = 'field_data_field_er_upload_file';
-$handler->display->display_options['sorts']['field_er_upload_file_display']['field'] = 'field_er_upload_file_display';
-$handler->display->display_options['sorts']['field_er_upload_file_display']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['field_er_upload_file_display']['expose']['label'] = 'Uploaded File';
-/* Sort criterion: Content: Post date */
-$handler->display->display_options['sorts']['created']['id'] = 'created';
-$handler->display->display_options['sorts']['created']['table'] = 'node';
-$handler->display->display_options['sorts']['created']['field'] = 'created';
-$handler->display->display_options['sorts']['created']['order'] = 'DESC';
-$handler->display->display_options['sorts']['created']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['created']['expose']['label'] = 'Date';
-$handler->display->display_options['sorts']['created']['granularity'] = 'minute';
-/* Sort criterion: Content: Title */
-$handler->display->display_options['sorts']['title']['id'] = 'title';
-$handler->display->display_options['sorts']['title']['table'] = 'node';
-$handler->display->display_options['sorts']['title']['field'] = 'title';
-$handler->display->display_options['sorts']['title']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
-$handler->display->display_options['path'] = 'admin/epscor/content/presentations';
-$handler->display->display_options['menu']['type'] = 'normal';
-$handler->display->display_options['menu']['title'] = 'Presentations';
-$handler->display->display_options['menu']['weight'] = '0';
-$handler->display->display_options['menu']['name'] = 'management';
-$handler->display->display_options['menu']['context'] = 0;

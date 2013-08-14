@@ -102,9 +102,11 @@ class er_collaborations extends er_page{
   
   public function html(){
     if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-    d($this->data(), 'counts');
     $data = $this->data(false);
-    d($data, 'full data');
+    if (isset($_GET['debug'])){
+      d($this->data(), 'counts');
+      d($data, 'full data');
+    }
     $ret = $this->download_link();
     foreach ($data as $category => $cat_data){
       $ret .= "<h1>".self::$categories[$category]."</h1>";

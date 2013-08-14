@@ -41,9 +41,11 @@ class er_external_engagement extends er_page{
 	public function html(){
 		$attr_names = array('total'=>'Total', 'male'=>'Male', 'female'=>'Female', 'urm'=>'Under-represented Minority');
 		if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
-		d($this->data(), 'count');
 		$data = $this->data(false);
-		d($data, 'data');
+    if (isset($_GET['debug'])){
+      d($this->data(), 'counts');
+      d($data, 'full data');
+    }
 		$ret = $this->download_link() . '<br>';
 		$ret .=
 			 "This is a view meant only for admin. This data corresponds to the counts seen on the accomplishments table. Scroll to the  bottom to download the excel sheet. Mouse over the node id (the number in blue) to see the title of the node.<br>"
