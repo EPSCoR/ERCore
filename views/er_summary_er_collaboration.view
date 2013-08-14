@@ -220,6 +220,7 @@ $handler->display->display_options['fields']['title']['element_label_colon'] = F
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['relationship'] = 'reverse_field_er_collab_ref_node';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborator/Partner Names';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
   'link' => 0,
@@ -229,6 +230,7 @@ $handler->display->display_options['fields']['field_er_user_entity_reference']['
 $handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
 $handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
 $handler->display->display_options['fields']['field_er_collab_department_unit']['field'] = 'field_er_collab_department_unit';
+$handler->display->display_options['fields']['field_er_collab_department_unit']['relationship'] = 'reverse_field_er_collab_ref_node';
 $handler->display->display_options['fields']['field_er_collab_department_unit']['label'] = 'Collaborating/Partnering Institution';
 /* Field: Content: Body */
 $handler->display->display_options['fields']['body']['id'] = 'body';
