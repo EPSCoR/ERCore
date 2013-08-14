@@ -229,7 +229,7 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 }
 
 function _proposal_validate(&$form, &$form_state){
-	d($form_state, 'fs');
+	//d($form_state, 'fs');
 	switch ($form_state['values']['field_er_proposal_status'][LANGUAGE_NONE][0]['value']){
 		// remember that the Date Submitted is required in the CCK field, so we don't have to check for that ~mike
 		case "Pending":
@@ -253,14 +253,6 @@ function _proposal_validate(&$form, &$form_state){
 				form_set_error('field_er_proposal_denied', t('Please select a Date of Denial Notification as the Status is Denied.'));				
 			break;
 	}
-}
-
-// Current and Pending Support - Effort
-function er_form_er_effort_node_form_alter(&$form, &$form_state, $form_id){
-	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
-	$form['field_er_proposal_entity']['#disabled'] = true; //the user should not be able to edit this.
-	if (_deny_direct_form_access($form)) return;
-	//d($form, 'er_form_er_paid_node_form_alter');
 }
 
 // External Engagements
@@ -895,10 +887,6 @@ function _deny_direct_form_access(&$form){
 			$link = '<strong>'.l('Collaboration', 'node/add/er-collaboration').'</strong>';
 			$message = t("External Collaborators content cannot be created stand-alone. You must first create a !link, then attach External Collaborators to the Collaboration. See the documentation above.", array('!link'=>$link));
 			break;
-		case 'er_effort':
-			$reference_field = 'field_er_proposal_entity';
-			$link = '<strong>'.l('Proposal', 'node/add/er-proposal').'</strong>';
-			$message = t("Proposal - Effort content cannot be created stand-alone. You must first create a !link, then the system will allow you to edit individual effort. See the documentation above.", array('!link'=>$link));
 	}
 	if (
 		$reference_field &&
