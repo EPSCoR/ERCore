@@ -1,5 +1,4 @@
 <?php
-
 $view = new view();
 $view->name = 'er_summary_participants';
 $view->description = '';
@@ -121,12 +120,3 @@ $handler->display->display_options['displays'] = array(
   'page' => 'page',
   'page_1' => 'page_1',
 );
-
-/* Display: Page */
-$handler = $view->new_display('page', 'Page', 'page_1');
-$handler->display->display_options['path'] = 'admin/epscor/content/participants';
-$handler->display->display_options['menu']['type'] = 'normal';
-$handler->display->display_options['menu']['title'] = 'Participants';
-$handler->display->display_options['menu']['weight'] = '0';
-$handler->display->display_options['menu']['name'] = 'management';
-$handler->display->display_options['menu']['context'] = 0;
