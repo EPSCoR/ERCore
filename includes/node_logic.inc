@@ -29,34 +29,23 @@ function er_node_view($node, $view_mode, $langcode){
     case 'er_event':
       er_calendar_extras_modify_view($node);
       break;
-    case 'er_proposal':
-	  	er_cnp_extras_modify_view($node);
-	  	break;
-		case 'er_engagement':
-			if ($view_mode == 'full'){
-				$node->content['table'] = array(
-					'#theme' => 'er_external_engagements_view_table',
-					'#node' => $node,
-					'#weight' => 500,
-				);
-			}
-			break;
-		case 'er_collaborators':
-			if ($view_mode == 'full'){
-				//if you get directed to a collaborators node, just redirect to the collaboration
-				$n = entity_metadata_wrapper('node', $node);
-				$collab_nid = $n->field_er_collab_ref->raw();
-				drupal_goto('node/'.$collab_nid);
-			}
-			break;
-		case 'er_effort':
-			if ($view_mode == 'full'){
-				//if you get directed to a effort node, just redirect to the proposal
-				$n = entity_metadata_wrapper('node', $node);
-				$proposal_nid = $n->field_er_proposal_entity->raw();
-				drupal_goto('node/'.$proposal_nid);
-			}
-			break;
+	case 'er_engagement':
+		if ($view_mode == 'full'){
+			$node->content['table'] = array(
+				'#theme' => 'er_external_engagements_view_table',
+				'#node' => $node,
+				'#weight' => 500,
+			);
+		}
+		break;
+	case 'er_collaborators':
+		if ($view_mode == 'full'){
+			//if you get directed to a collaborators node, just redirect to the collaboration
+			$n = entity_metadata_wrapper('node', $node);
+			$collab_nid = $n->field_er_collab_ref->raw();
+			drupal_goto('node/'.$collab_nid);
+		}
+		break;
 	}
 }
 
@@ -190,33 +179,6 @@ function er_node_validate($node){
 		case 'er_collaborators':
 			_validate_collaborators($node);
 	}
-}
-
-function er_node_insert($node){
-	switch ($node->type){
-    case 'er_proposal':
-			er_manage_cnp_extra_nodes($node, 'insert');
-			break;			
-	}
-}
-
-function er_node_update($node){
-  switch ($node->type){
-		case 'er_proposal':
-			er_manage_cnp_extra_nodes($node, 'update');
-			break;
-		case 'er_effort':
-			er_check_cnp_extra_status($node->nid, $node);
-			break;			
-	}
-}
-
-function er_node_delete($node){
-  switch ($node->type){
-	case 'er_proposal':
-	  er_manage_cnp_extra_nodes($node, 'delete');
-	  break;	  
-  }
 }
 
 //see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
@@ -478,196 +440,4 @@ function er_parse_ee_file(&$node){
 		watchdog('er', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
 	
   }
-}
-
-function er_manage_cnp_extra_nodes($cnp_node, $op){
-	//retrieve the user-ids currently attached to this proposal via paid nodes.
-	$query = db_select('field_data_field_er_proposal_entity', 'e')->condition('e.field_er_proposal_entity_target_id', $cnp_node->nid);//->condition('e.bundle', $type);
-	$query->innerJoin('node', 'n', "n.nid = e.entity_id");
-	$query->fields('n', array('uid', 'nid', 'type'));
-	$returned = $query->execute()->fetchAll();
-	// d($returned, 'nodes found');
-	
-	$nodes = array('er_paid'=>array(), 'er_effort'=>array());
-	foreach ($returned as $ent)
-		$nodes[$ent->type][$ent->nid] = $ent;
-	
-	
-	$referenced_users = array();//this becomes the new node list
-	if (isset($cnp_node->field_er_user_entity_reference['und'])){
-		//$referenced_users = $cnp_node->field_er_user_entity_reference['und'];
-		foreach($cnp_node->field_er_user_entity_reference['und'] as $ref_user){
-			$referenced_users[$ref_user['target_id']] = (object)array('uid'=>$ref_user['target_id']);
-		}
-	}
-	// d($cnp_node, 'cnp node');
-	// add the PI/Co-PI to the list of referenced users. We will not get into this function unless it passes validation
-	// this is the uid we want
-	// d($cnp_node->field_er_epscor_pi_co_pi[LANGUAGE_NONE][0]['target_id'], 'uid of the PI');
-	$piUID = $cnp_node->field_er_epscor_pi_co_pi[LANGUAGE_NONE][0]['target_id'];
-	// $piObj = new stdClass($piUID);
-	$piObj = (object) array('uid' => $piUID);
-	// $piObj->uid = $piUID;
-	// d($piObj, 'piObj');
-	$referenced_users[$piUID] = $piObj;
-
-	// d($referenced_users, 'Users referenced');
-	
-	$types = array('er_effort');
-	//TODO: don't want logic with field_er_proposal_paid
-	//DONE
-	// if ($cnp_node->field_er_proposal_paid['und'][0]['value'])//if the flag is set to not use paid nodes, we can skip this, potentially deleting any paid nodes attached
-		// $types[] = 'er_paid';
-		
-	$users = array('er_paid'=>array(), 'er_effort'=>array());
-	if ($op != 'delete'){//if the node is being deleted, skip this step and simply delete all paid nodes
-		foreach ($types as $type){
-			$users[$type] = $referenced_users;
-			//d($nodes[$type], "$type nodes:");
-			//d($users[$type], "$type users");
-			foreach ($users[$type] as $uk=>$user){
-				foreach ($nodes[$type] as $nk=>$node){
-					if ($user->uid == $node->uid){
-						unset($users[$type][$uk]);
-						unset($nodes[$type][$nk]);
-						break;//found a match, kill the search
-					}
-				}
-			}
-			//d($nodes[$type], "Need to delete $type:");
-			//d($users[$type], "Need to create $type:");
-		}
-	}
-	
-	$flag = flag_get_flag('er_needs_review');
-	$created = false;
-	$deleted = false;
-	foreach (array('er_paid', 'er_effort') as $type){
-		//if (isset($users[$type]))//there's no er_paid when paid = false... throws an error without this.
-		foreach ($users[$type] as $uk=>$user){//add these new nodes
-			//d('Adding user: '.$user['target_id']);
-			$newNode = er_create_cnp_extra_node($cnp_node, $user, $type);
-			node_save($newNode);
-			$flag->flag('flag', $newNode->nid, null, TRUE);
-			//d('Created node: '.$newNode->nid);
-			$created = true;
-		}
-		
-		foreach ($nodes[$type] as $nk=>$node){//delete these nodes
-			//NOTE: This function requires that the user has sufficient priveles to delete the node in question
-			node_delete($node->nid);
-			//d('Deleting: '.$node->nid);
-			$deleted = true;
-		}
-	}
-	
-	if ($created)//If new nodes were created
-		$flag->flag('flag', $cnp_node->nid, null, TRUE); //So flag the proposal as "needs review"
-	
-	if ($deleted)//If something was deleted, it's possible that the cnp is now valid.
-		er_check_cnp_status($cnp_node->nid);
-	
-// TODO: dont want logic with field_er_proposal_paid
-	// if (!$cnp_node->field_er_proposal_paid['und'][0]['value']){ //weird edge case occurs when proposal gets flagged, then uncheck "paid" checkbox.
-		// $flag->flag('unflag', $cnp_node->nid, null, TRUE);
-	// }
-}
-
-function er_cnp_extras_modify_view(&$node){
-	$flag = flag_get_flag('er_needs_review');
-	// $paid = views_embed_view('er_attach_cnp_extras', 'er_paid', $node->nid); // will not get used even if it's uncommented
-	$effort = views_embed_view('er_attach_cnp_extras', 'er_effort', $node->nid);
-	if ($flag->is_flagged($node->nid)){
-		$node->content['needs_review'] = array(
-			'#weight' => -1,
-			'#markup' => '<span class="er-needs-review-label">This content needs review</span>',
-		);
-	}
-	//this adds the views to the bottom
-	$node->content['extra_views'] = array(
-		'#weight' => 99,
-		'#markup' => $effort.$paid,
-	);
-}
-
-//Paid node stuff
-//Add or Remove extra nodes (Paid or Effort) after saving a proposal
-function er_create_cnp_extra_node(&$cnp_node, $user, $type){
-	//we need to know which fields are important on this content type, it wont save otherwise.
-	static $node_fields = array(
-		'er_paid'=>array('field_er_funded_effort', 'field_er_funding'),
-		'er_effort'=>array('field_er_pm_cal', 'field_er_pm_acad', 'field_er_pm_sumr')
-	);
-	//the node doesn't exist, so we create it.
-	$newNode = new StdClass;
-	$newNode->type = $type;
-	node_object_prepare($newNode);
-	
-	//dsm($user);
-	//dsm(strip_tags(theme('username', array('account' => $user['entity']))));
-	
-	$user = user_load($user->uid);
-	
-	//kind of fudge the "realname":
-	$name = count($user->field_er_lname)?$user->field_er_fname['und'][0]['safe_value'].' '.$user->field_er_lname['und'][0]['safe_value']:$user->name;
-	$newNode->title = "$name financial support - {$cnp_node->title}";
-	$newNode->uid = $user->uid;
-	$newNode->moderate = 0;
-	$newNode->comment = 0;
-	$newNode->language = 'und';
-	$newNode->created = strtotime("now");
-	$newNode->changed = strtotime("now");
-	
-	// add CCK field data
-	//$newNode->field_er_paid_user[0]['uid'] = $user['uid'];
-	$newNode->field_er_proposal_entity['und'][0]['target_id'] = $cnp_node->nid;
-	$newNode->field_er_proposal_entity['und'][0]['entity'] = $cnp_node;
-	
-	//need the placeholder for these fields or the node won't save.
-	if (isset($node_fields[$type]))
-		foreach ($node_fields[$type] as $field_name)
-			$newNode->{$field_name} = array();
-	
-	//dsm($newNode, '$newNode');
-	return $newNode;
-}
-
-//If the paid or effort node gets passed validation we can safely unflag the node, we then check to see if it validates the proposal.
-function er_check_cnp_extra_status($nid, $node = null){
-	if (!isset($node)) $node = node_load($nid);
-	$flag = flag_get_flag('er_needs_review');
-	$flag->flag('unflag', $nid, null, TRUE);
-	//get the node id of the attached proposal:
-	$proposal_nid = $node->field_er_proposal_entity['und'][0]['target_id'];
-	er_check_cnp_status($proposal_nid);
-}
-
-//This function determines if the proposal should still be flagged as "needs review".
-//It checks for any attached paid nodes, checks their status, and if all is well, it removes the "needs review" flag from the proposal.
-function er_check_cnp_status($nid){
-	//dsm('checking paid status here...', $nid);
-	$flag = flag_get_flag('er_needs_review');
-	if ($flag->is_flagged($nid)){
-		//dsm('we need to check...');
-		//get all of the attached paid nodes:
-		$query = new EntityFieldQuery();
-		$query  ->entityCondition('entity_type', 'node')
-						->fieldCondition('field_er_proposal_entity', 'target_id', $nid, '=');
-		$returned = $query->execute();
-		if (isset($returned['node'])){//if we found something:
-			$flagged = false;
-			foreach ($returned['node'] as $node){ //check the review status of each paid node
-				//dsm('checking node: '.$paid_node->nid);
-				if ($flag->is_flagged($node->nid)){
-					//dsm('flagged!', $paid_node->nid);
-					$flagged = true;//we just need one paid node to be pending for it to invalidate the proposal
-					break;
-				}
-			}
-			if (!$flagged){//if there is no reviews pending, we can set the proposal to be completed
-				//dsm('unflagging proposal');
-				$flag->flag('unflag', $nid, null, TRUE);
-			}
-		}
-	}
 }
