@@ -472,6 +472,7 @@ function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_paid']['#access'] = FALSE;
 	$form['field_er_160hours']['#access'] = FALSE;
 	$form['field_er_most_sen_proj_role']['#access'] = FALSE;
+	$form['field_er_leadership_team']['#access'] = FALSE;
 	$form['account']['notify']['#default_value'] = TRUE;
 	// $form['account']['name']['#access'] = FALSE;
 	$form['account']['pass']['#required'] = FALSE;
