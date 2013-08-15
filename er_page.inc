@@ -46,11 +46,11 @@ class er_page{
 	}
 	
 	public function range_string(){
-		return $this->range?' ['.date('M n, Y', $this->range[0]).' - '.date('M n, Y', $this->range[1]).']':'';
+		return ' ['.date('M d, Y', $this->range[0]).' - '.date('M n, Y', $this->range[1]).']';
 	}
 	
 	public function data(){
-		return "No output.";
+		return array();
 	}
 	
 	public function html(){

@@ -74,6 +74,8 @@ function er_help($path, $arg) {
 //	d($arg, '$arg');
 	
 	switch ($path) {
+		case 'reporting':
+			return '<strong>Notice:</strong> If you select a date range below, the accomplishments table will show only the content from that period. Also note that this date range also affects the <em>EPSCoR Reporting Core Tables</em> downloads.';
 		case 'user/%/edit':
 			return _make_documentation_link('user');
     case 'admin/help#er'://This path is special, note the "#" ... see the hook_help docs for info.
@@ -653,35 +655,38 @@ function list_cts_having_field($fieldname, $suffix = ''){
 
 /*
  * Generates a nested array of date ranges corresponding to the start and end of a valid reporting period.
- * This is used primarily on the summary table.
+ * This is primarily being used on the summary table (accomplishments.inc)
  */
-function er_get_reporting_ranges($everything = false){
+function er_get_reporting_ranges(){
 	static $ranges = array();
-	if (!$everything && $range = er_get_reporting_range()){
-		return array($range);
-	}else if(!count($ranges)){//only need to do this once.
+	if(!count($ranges)){//should only need to do this once
 		//provide the default ranges
 		//this code takes the start date provided in er.module file, and creates an array of date ranges.
 		//it is assumed that the reporting periods start with whatever month the grant was awarded on.
 		$start_date = variable_get('er_start_date');
 		$reporting_month = intval(variable_get('er_reporting_month'));
-		//d($reporting_month, '$reporting_month');
-		//dsm(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']));
 		$cur_month = date('n');
-		//$start_month = $start_date['month'];
 		$adjusted_date = mktime(0, 0, 0, $cur_month-$reporting_month+7);//+half a year into the future (6) +1 offset
-		//$adjusted_date = mktime(0, 0, 0, $cur_month+6);
 		$cur_year = date('Y', $adjusted_date);
 		$start_year = $start_date['year'];
 		for ($y = $cur_year; $y>=$start_year;$y--){
-			if ($y == $start_year)
-				$ranges[] = array(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']), mktime(0, 0, 0, $reporting_month, 0, $y+1));
-			else
-				$ranges[] = array(mktime(0, 0, 0, $reporting_month, 1, $y), mktime(0, 0, 0, $reporting_month, 0, $y+1));
-			//self::$ranges[] = Array(($y-1)."-09-00", $y."-08-31");
+			$ranges[] = _generate_reporting_range($y);
 		}
 	}
 	return $ranges;
+}
+
+//This returns a date range as a pair of unix timestamps in an array
+//If the year requested == the start year, use the exact start date rather than the standard reporting period.
+function _generate_reporting_range($year){
+	static $start_date;
+	static $reporting_month;
+	if (!isset($start_date)) $start_date = variable_get('er_start_date');
+	if (!isset($reporting_month)) $reporting_month = intval(variable_get('er_reporting_month'));
+	if ($year == $start_date['year'])
+		return array(mktime(0, 0, 0, $start_date['month'], $start_date['day'], $start_date['year']), mktime(0, 0, 0, $reporting_month, 0, $year+1));
+	else
+		return array(mktime(0, 0, 0, $reporting_month, 1, $year), mktime(0, 0, 0, $reporting_month, 0, $year+1));
 }
 
 /*
@@ -689,12 +694,21 @@ function er_get_reporting_ranges($everything = false){
  * This is used primarily on the summary table.
  * The date values get set via the form seen on the summary table.
  */
-function er_get_reporting_range(){
+function er_get_reporting_range($use_default = true){
 	drupal_session_start();
 	if (array_key_exists('er_start_date', $_SESSION) && array_key_exists('er_end_date', $_SESSION)){
 		return array($_SESSION['er_start_date'], $_SESSION['er_end_date']);
-	}else
-		return false;
+	}else if ($use_default){
+		//$ranges = er_get_reporting_ranges();
+		//return array_shift($ranges);
+		$reporting_month = intval(variable_get('er_reporting_month'));
+		$cur_month = date('n');
+		$adjusted_date = mktime(0, 0, 0, $cur_month-$reporting_month-5);//+half a year into the past (6) +1 offset
+		$year = date('Y', $adjusted_date);
+		return _generate_reporting_range($year);//array(mktime(0, 0, 0, $reporting_month, 1, $cur_year), mktime(0, 0, 0, $reporting_month, 0, $cur_year+1));
+	}else{
+		return FALSE;
+	}
 }
 
 /*

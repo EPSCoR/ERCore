@@ -12,7 +12,7 @@ class er_excel extends er_page{
 	}
 	
 	public function title(){
-		return "Excel Sheet Output";
+		return "EPSCoR Reporting Core Tables".$this->range_string();;
 	}
     
 	public function excel_file(){

@@ -3,6 +3,22 @@ function er_accomplishments(){
 	return drupal_get_form('er_date_range_form');
 }
 
+function _reporting_range_is_set(){
+	return array_key_exists('er_start_date', $_SESSION) && array_key_exists('er_end_date', $_SESSION);
+}
+
+/*
+ * Generates a nested array of date ranges corresponding to the start and end of a valid reporting period.
+ * This is used primarily on the summary table.
+ */
+function _summary_table_ranges(){
+	if ($range = er_get_reporting_range(false)){//only if explicitly specified.
+		return array($range);
+	}else{//only need to do this once.
+		return er_get_reporting_ranges();
+	}
+}
+
 /*
  * This theme function (see theme.inc) generates the summary table.
  * @param $ranges = a nested a array of date ranges
@@ -57,10 +73,8 @@ function er_summary_table($variables){
 		drupal_set_message($message, 'error');
 	}
 	
-	if (count($ranges) == 1)
-		$date_label = ' ('.date('n/j/y', $ranges[0][0]).' - '.date('n/j/y', $ranges[0][1]).')';
-	else
-		$date_label = '';
+	$range = er_get_reporting_range();
+	$date_label = ' ('.date('n/j/y', $range[0]).' - '.date('n/j/y', $range[1]).')';
 	
 	$user_can_download = user_access(ER_DOWNLOAD_PERMISSION);
 	$ret = array(
@@ -95,10 +109,10 @@ function er_format_label($type, &$view){
  * This gets fired when the select box is changed.
  */
 function er_change_reporting_year($form, $form_state){
-	$ranges = er_get_reporting_ranges(true);
+	$ranges = er_get_reporting_ranges();
 	$selected = $form_state['input']['reporting-year']['range']-1;
 	//watchdog("testing er_change_reporting_year", 'regenerating summary table. range:'.$selected, array(), WATCHDOG_ALERT);
-  if ($selected == -1){
+  if ($selected == -1){//The "Select" option
     unset($_SESSION['er_start_date']);
 		unset($_SESSION['er_end_date']);
   }else{
@@ -131,7 +145,7 @@ function er_change_date_range($form, $form_state){
   }else{
 		unset($_SESSION['er_start_date']);
     unset($_SESSION['er_end_date']);
-    $ranges = er_get_reporting_ranges();
+    $ranges = _summary_table_ranges();
   }
 	$form['table']['#ranges'] = $ranges;
 	return $form['table'];
@@ -146,12 +160,13 @@ function er_date_range_form($form_state) {
   $date_year_range = "{$start_date['year']}:+1";//"2008:+1"; //+1 means 1 year from today
 	
 	$select_list = array('Select');
-	$ranges = er_get_reporting_ranges(true); //This returns the list of available date ranges...
-	$range = er_get_reporting_range();//This is only the selected date range
+	$ranges = er_get_reporting_ranges(); //This returns the list of available date ranges...
+	$range = er_get_reporting_range(); //Get the select reporting period, this defaults to the current reporting period if none was selected.
+	$range_is_set = _reporting_range_is_set();//Was a reporting period selected, or is $range the default -- current reporting period.
 	$selected = 0;
 	foreach ($ranges as $k=>$v){
 		$select_list[] = date('M d, Y', $v[0]) . ' to ' . date('M d, Y', $v[1]);
-		if ($range == $v) $selected = $k+1;
+		if ($range_is_set && $range == $v) $selected = $k+1;
 	}
 	$access = user_access(ER_DOWNLOAD_PERMISSION);
 	
@@ -195,7 +210,7 @@ function er_date_range_form($form_state) {
     '#date_format' => $date_format,
     '#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
 		//'#value' => array('date'=>date('Y-m-d', isset($range[0])?$range[0]:time())),
-    '#default_value' => date('Y-m-d', isset($range[0])?$range[0]:time()),
+    '#default_value' => date('Y-m-d', $range[0]),
     '#date_year_range' => $date_year_range,
 		'#date_label_position' => 'none',
   );
@@ -205,7 +220,7 @@ function er_date_range_form($form_state) {
     '#title' => t('End Date'),
     '#date_format' => $date_format,
 		//'#value' => array('date'=>date('Y-m-d', isset($range[1])?$range[1]:mktime(0, 0, 0, date('n')+1))),
-    '#default_value' => date('Y-m-d', isset($range[1])?$range[1]:mktime(0, 0, 0, date('n')+1)),
+    '#default_value' => date('Y-m-d', $range[1]),
     '#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
     '#date_year_range' => $date_year_range,
 		'#date_label_position' => 'none',
@@ -232,7 +247,7 @@ function er_date_range_form($form_state) {
   );
 	$form['table'] = array(
 		'#theme'=>'er_summary_table',
-		'#ranges'=>er_get_reporting_ranges(),//returns the full list of reporting ranges if a range wasn't selected, otherwise just returns the selected range.
+		'#ranges'=>_summary_table_ranges(),//returns the full list of reporting ranges if a range wasn't selected, otherwise just returns the selected range.
 		'#prefix'=>'<div id="er_summary_table">',
 		'#suffix'=>'</div>',
 		//'#access'=>$access,
