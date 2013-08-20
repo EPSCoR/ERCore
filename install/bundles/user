@@ -1,5 +1,4 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'user' => NULL,
