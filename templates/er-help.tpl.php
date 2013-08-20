@@ -228,14 +228,14 @@
 		<a href="#enter-data">Introduction to Entering Reporting Data</a>
 	</h3>
 	<div>
-		<p>This guide is written with the assumption that you are working with a default ER-Core installation.  Logged in userss will see a black menu across the top of the 
+		<p>This guide is written with the assumption that you are working with a default ER-Core installation.  Logged in users will see a black menu across the top of the 
 		browser, just under the tabs of the browser.  The default ER Core installation will show this administrative menu and this guide is written assuming it is visible.  
 		Each jurisdiction will have the option to change the layout of the site and how menus look and are placed.</p>
 		<p>The 4th link from the left in the black administration menu is Content.  Hover your mouse over the link to see nested drop down menus.  Hover over the Add Content 
 		link to expand yet a 2nd nested menu list that contains links to the default forms that come with standard Drupal installation, plus links to the ER Core reporting forms, 
 		and custom jurisdictional forms.  </p>
 		<p>Hover over the Content link to show the expanded menu and click on the Add Content link.  You will see a page that has the various types of content you can 
-		add grouped into the headings of Drupal Conent, EPSCoR Reporting Categories, and Jurisdictional.  </p>
+		add grouped into the headings of Drupal Content, EPSCoR Reporting Categories, and Jurisdictional.  </p>
 		<p>Drupal Content is the type of content that Drupal comes with during a standard installation such as article, page, blog, image, etc.  Your jurisdiction can add or 
 		remove items from this group.  </p>
 		<p>EPSCoR Reporting Categories are the content types that come with the ER-Core module and represent the minimal reporting requirements to populate the reporting tables.  </p>
