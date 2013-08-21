@@ -146,7 +146,7 @@ function er_menu() {
 	$items['admin/epscor/content'] = array(
 		'menu_name' => 'management',
 		'title' => 'EPSCoR Content',
-		'description' => 'EPSCoR Content',
+		'description' => 'All EPSCoR related content types that come with the ER-Core module in populating the reporting tables are located in EPSCoR Content. ',
 		'page callback' => 'system_admin_menu_block_page',
 		'access arguments' => array('access administration pages'),
 		'file' => 'system.admin.inc',
@@ -156,7 +156,7 @@ function er_menu() {
 	$items['admin/epscor/views'] = array(
 		'menu_name' => 'management',
 		'title' => 'Admin Views',
-		'description' => 'Administrative views',
+		'description' => 'At a glance EPSCoR generated reporting views related to NSF Reporting Tables are available here. In addition, other views such as flagged items for review are available in this menu flyout.',
 		'page callback' => 'system_admin_menu_block_page',
 		'access arguments' => array('access administration pages'),
 		'file' => 'system.admin.inc',
@@ -167,7 +167,7 @@ function er_menu() {
 	$items['admin/epscor/actions'] = array(
 		'menu_name' => 'management',
 		'title' => 'Admin Actions',
-		'description' => 'Administrative actions',
+		'description' => 'Administrative actions for site administrators and administrative staff.',
 		'page callback' => 'system_admin_menu_block_page',
 		'access arguments' => array(ER_ADMIN_PERMISSION),
 		'file' => 'system.admin.inc',
@@ -177,6 +177,7 @@ function er_menu() {
 	$items['admin/epscor/actions/config'] = array(
     'menu_name' => 'management',
     'title' => 'EPSCoR Reporting Core Settings',
+    'description' => 'This area is specific to EPSCoR grant start dates as well as reporting period dates.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/config/epscor/er'),
@@ -185,6 +186,7 @@ function er_menu() {
 	$items['admin/epscor/actions/new-inst'] = array(
     'menu_name' => 'management',
     'title' => 'Create New Institution',
+      'description' => 'This page allows administrators to add new institutions.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('node/add/er-institution'),
@@ -200,18 +202,22 @@ function er_menu() {
 	// 'access callback' => TRUE,
     // 'access arguments' => array(ER_ADMIN_PERMISSION),
   // );
+	
+
 	$items['admin/epscor/actions/new-user'] = array(
-    'menu_name' => 'management',
+   'menu_name' => 'management',
     'title' => 'Create New User',
+   'description' => 'This page allows administrators to register new users.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/people/create'),
     'access arguments' => array(ER_ADMIN_PERMISSION),
   );
+  
 	$items['admin/epscor/actions/rules'] = array(
     'menu_name' => 'management',
     'title' => 'Notifications Settings',
-    'description' => 'Notifications are handled by the Rules module.',
+    'description' => 'Notifications are handled by the Rules module in which rules react on selected events on the site. Many of the items marked as "flagged" can be configured here.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/config/workflow/rules'),
@@ -297,6 +303,7 @@ function er_menu() {
 	$items['admin/epscor/reporting'] = array(
     'menu_name' => 'management',
     'title' => 'Accomplishments',
+    'description' => 'This page shows all categories of accomplishments (collaborations, grants & proposals, external engagements, etc) with the option of selecting by reporting year/period.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('reporting'),
@@ -324,7 +331,8 @@ function er_menu() {
 	$items['admin/epscor/user-guide'] = array(
     'menu_name' => 'management',
     'title' => 'User Guide',
-		'type' => MENU_NORMAL_ITEM,
+    'description' => 'A reference and guide for the EPSCoR user.',
+    	'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'theme',
 		'page arguments' => array('er_help'),
     'access arguments' => array('access content'),//"Use the administration pages and help"
@@ -334,6 +342,7 @@ function er_menu() {
 	$items['admin/epscor/admin-guide'] = array(
     'menu_name' => 'management',
     'title' => 'Admin Guide',
+    'description' => 'A reference and guide for the Site Administrator and EPSCoR Administrative Staff.',
 		'type' => MENU_NORMAL_ITEM,
 		'page callback' => 'drupal_goto',
 		'page arguments' => array('admin/help/er'),
