@@ -6894,7 +6894,7 @@ White|White',
       'format_settings' => array(
         'label' => 'Institution',
         'instance_settings' => array(
-          'required_fields' => 0,
+          'required_fields' => 1,
           'classes' => '',
           'description' => '',
         ),
@@ -7190,6 +7190,7 @@ White|White',
         'instance_settings' => array(
           'description' => '',
           'classes' => '',
+          'required_fields' => 1,
         ),
       ),
     ),
