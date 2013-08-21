@@ -113,7 +113,7 @@ function _quick_add_inst(&$form, &$form_state, $inst_field_name = 'field_er_inst
 	$form_state['quick_add_inst_field_name'] = $inst_field_name;
 	_set_states_for_inst($form, $inst_field_name);
 	//$form_state['quick_add_inst_field_name'] = 'field_er_collab_inst_ref';
-	$form['#validate'] = array('_load_quick_add_inst_validate');
+	$form['#validate'][] = '_load_quick_add_inst_validate';
 	array_unshift($form['#submit'], '_load_quick_add_inst_process');
 	$form[$inst_field_name]['#after_build'] = array('_remove_NA_option');
 }
@@ -497,114 +497,114 @@ function testmike(&$form){
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
-
 	
-// Faculty Participant (or Equivalent)
+	
+	// Faculty Participant (or Equivalent)
 	$faculty_part = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Faculty participant (or equivalent)'),
-	  );	  
+		);	  
 	
-// Technical support staff
+	// Technical support staff
 	$tech_support_staff = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Technical support staff'),
-	  );
-
-// Non-Technical support staff
+		);
+	
+	// Non-Technical support staff
 	$non_tech_support_staff = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Non-technical support staff'),
-	  );
-	  
-// EPSCoR Leadership Team
+		);
+		
+	// EPSCoR Leadership Team
 	$epscor_leadership_team = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'EPSCoR Leadership Team'),
-	  );
-	  
-// Other Staff
+		);
+		
+	// Other Staff
 	$other_epscor_staff = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Other'),
-	  );
-
-// Evaluation Staff
+		);
+	
+	// Evaluation Staff
 	$evaluation_staff = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Evaluation'),
-	  );	
-	    	
-// Undergraduate selection
+		);	
+				
+	// Undergraduate selection
 	$undergrad = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Undergraduate student'),
-	  );
+		);
 	//anticipated undergraduate completion
 	$form['field_er_ant_under']['#states'] = array(
-	  'visible' => $undergrad, 
-	  'required' => $undergrad,
+		'visible' => $undergrad, 
+		'required' => $undergrad,
 	);
 	
-// Ask them "Do you or anyone in your research group receive salary support from EPSCoR?" if they're faculty
-//  (this was decided upon in Utah, Summer of 2013)
+	// Ask them "Do you or anyone in your research group receive salary support from EPSCoR?" if they're faculty
+	//  (this was decided upon in Utah, Summer of 2013)
 	$form['field_er_faculty_any_support']['#states'] = array(
-	  'visible' => $faculty_part,
-	  'required' => $faculty_part,
+		'visible' => $faculty_part,
+		'required' => $faculty_part,
 	);
 	
 	
-// Graduate Student
+	// Graduate Student
 	$grad_student = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Graduate student'),
 	);
 	$form['field_er_ant_masters']['#states'] = array(
-	  'visible' => $grad_student,
-	  'required' => $grad_student,
+		'visible' => $grad_student,
+		'required' => $grad_student,
 	);
 	//anticipated masters completion
 	$form['field_er_ant_masters']['#states'] = array(
-	  'visible' => $grad_student,
+		'visible' => $grad_student,
 	);
 	
-
+	
 		
-// Post Doctorate selection
+	// Post Doctorate selection
 	$post_doc = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array('value' => 'Post Doc'),
 	);
 	//anticipated doctorate completion
 	$form['field_er_ant_doctor']['#states'] = array(
-	  	'visible' => $post_doc,$grad_student,
-	  	'required' => $post_doc,$grad_student,
+			'visible' => $post_doc,$grad_student,
+			'required' => $post_doc,$grad_student,
 	);
 	
 	
 	////// Actual Undergrad, masters, post-doc completion fields /////
-
+	
 	//actual undergraduate completion
 	$form['field_er_act_under']['#states'] = array(
-	  	'visible' => array($undergrad, $grad_student, $post_doc),
+			'visible' => array($undergrad, $grad_student, $post_doc),
 	);	
 	//actual masters completion
 	$form['field_er_act_masters']['#states'] = array(
-	 	'visible' => array($grad_student,$post_doc),
+		'visible' => array($grad_student,$post_doc),
 	);
 	//actual doctorate completion
 	$form['field_er_act_doctor']['#states'] = array(
-	 	'visible' => $post_doc,
+		'visible' => $post_doc,
 	);
 	
 	
 	$form['field_er_ant_doctor']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
-	  	'visible' => $post_doc,
+			'visible' => $post_doc,
 	);
 	
 	
 	//Certifications fieldsets only available to Graduates, Undergraduates	
-
+	
 	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
 		'required' => array($undergrad, $grad_student),
@@ -635,19 +635,19 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// show all the fields if they click the checkbox that "I will be collecting data"
 	$collection = array(
 		':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
-	  ); 
-
+		); 
+	
 	$form['field_er_data_frequency']['#states'] = 
 	$form['field_er_data_url']['#states'] = 
 	$form['field_er_data_submit_date']['#states'] = array(
-	  'visible' => $collection,
+		'visible' => $collection,
 	);
 	
 	//required fields
 	$form['field_er_type_of_data']['#states'] = array(
 	'required' => $collection, 
 	'visible' => $collection);
-
+	
 	
 	// change labels on participant date range
 	$form['field_er_participating_date']['#after_build'] = array('er_date_label');  //field name of the date
@@ -658,24 +658,24 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
 	$form['field_er_inst_ref']['und']['#default_value'] = array_pop($form['field_er_inst_ref']['und']['#default_value']); //fixes the selection
 	
-//Supervisors Field only available to Graduates, Undergraduates
+	//Supervisors Field only available to Graduates, Undergraduates
 		$form['field_er_supervisor']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
 		'required' => array($undergrad, $grad_student),
 	);
 	
-//Education fieldset only available to Graduates, Undergraduates
+	//Education fieldset only available to Graduates, Undergraduates
 		$form['group_er_education']['#states']['visible'] = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => 
 		array('value' => $grad_student, $undergrad, $post_doc),
 		);	  
-//Advisor field only available to Students
+	//Advisor field only available to Students
 		$form['field_er_advisor']['#states'] = array(
 		'visible' => array($post_doc, $undergrad, $grad_student),
 		'required' => array($post_doc, $undergrad, $grad_student),
 	);
 	
-//Mentoring plan fields only available to Post-Docs
+	//Mentoring plan fields only available to Post-Docs
 		$form['field_er_mentoring_sign_off']['#states'] = 
 		$form['field_er_ment_plan_post_docs']['#states'] = 
 		$form['field_er_mentoring_plan_ul']['#states'] =
@@ -684,9 +684,9 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		'required' => array($post_doc),
 	);	
 	
-
-
-// Set up Paid by EPSCoR Variables
+	
+	
+	// Set up Paid by EPSCoR Variables
 		$paid_by_epscor = array(
 		 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
 		);
@@ -695,8 +695,8 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
 		);
 		
-//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
-// used 'invisible' here to rule out all Roles other than Faculty AND not Paid by EPSCoR
+	//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
+	// used 'invisible' here to rule out all Roles other than Faculty AND not Paid by EPSCoR
 		$form['field_er_months_of_effort']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
@@ -704,8 +704,8 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 	
-//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
-// used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
+	//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+	// used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
 		$form['field_er_list_funding_sources']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
@@ -713,7 +713,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 		
-//If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
+	//If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
 		$participant_more_than_sixty = array(
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
 		);
