@@ -123,15 +123,87 @@ $handler->display->display_options['filters']['status']['expose']['operator'] = 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'grid';
+$handler->display->display_options['style_options']['columns'] = '5';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_fname' => 'field_er_fname',
+  'field_er_lname' => 'field_er_lname',
+);
+$handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['header'] = FALSE;
 /* Header: Global: Text area */
 $handler->display->display_options['header']['area']['id'] = 'area';
 $handler->display->display_options['header']['area']['table'] = 'views';
 $handler->display->display_options['header']['area']['field'] = 'area';
-$handler->display->display_options['header']['area']['content'] = 'This view shows user activity in the system.
-This allows admins to view at a glance those who haven\'t been: in the system, updating their content, or adding content. 
-';
+$handler->display->display_options['header']['area']['content'] = 'This view shows all users in the system.';
 $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Picture */
+$handler->display->display_options['fields']['picture']['id'] = 'picture';
+$handler->display->display_options['fields']['picture']['table'] = 'users';
+$handler->display->display_options['fields']['picture']['field'] = 'picture';
+$handler->display->display_options['fields']['picture']['label'] = '';
+$handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['picture']['empty'] = '<img src ="http://www.fashionally.com/images/default_profile_pic.jpg" width="98px">';
+$handler->display->display_options['fields']['picture']['image_style'] = 'thumbnail';
+/* Field: User: First Name */
+$handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['table'] = 'field_data_field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['field'] = 'field_er_fname';
+$handler->display->display_options['fields']['field_er_fname']['label'] = '';
+$handler->display->display_options['fields']['field_er_fname']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_fname']['element_label_colon'] = FALSE;
+/* Field: User: Last Name */
+$handler->display->display_options['fields']['field_er_lname']['id'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['field'] = 'field_er_lname';
+$handler->display->display_options['fields']['field_er_lname']['label'] = '';
+$handler->display->display_options['fields']['field_er_lname']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_lname']['element_label_colon'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['name']['alter']['text'] = '[field_er_fname] [field_er_lname]';
+$handler->display->display_options['fields']['name']['alter']['path'] = '[view_user]';
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+/* Field: User: Most Senior Project Role */
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['id'] = 'field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['table'] = 'field_data_field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['field'] = 'field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['label'] = '';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['element_label_colon'] = FALSE;
+/* Field: Field: Description */
+$handler->display->display_options['fields']['field_er_description']['id'] = 'field_er_description';
+$handler->display->display_options['fields']['field_er_description']['table'] = 'field_data_field_er_description';
+$handler->display->display_options['fields']['field_er_description']['field'] = 'field_er_description';
+$handler->display->display_options['fields']['field_er_description']['label'] = 'Involvement';
+$handler->display->display_options['fields']['field_er_description']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_description']['alter']['max_length'] = '100';
+$handler->display->display_options['fields']['field_er_description']['alter']['more_link'] = TRUE;
+$handler->display->display_options['fields']['field_er_description']['alter']['trim'] = TRUE;
+/* Field: User: Created date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'users';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['label'] = 'Profile Created';
+$handler->display->display_options['fields']['created']['exclude'] = TRUE;
+$handler->display->display_options['fields']['created']['date_format'] = 'short';
+/* Field: User: Link */
+$handler->display->display_options['fields']['view_user']['id'] = 'view_user';
+$handler->display->display_options['fields']['view_user']['table'] = 'users';
+$handler->display->display_options['fields']['view_user']['field'] = 'view_user';
+$handler->display->display_options['fields']['view_user']['label'] = '';
+$handler->display->display_options['fields']['view_user']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['view_user']['text'] = 'more';
 $handler->display->display_options['path'] = 'user-involvement';
 $handler->display->display_options['menu']['type'] = 'normal';
 $handler->display->display_options['menu']['title'] = 'Participants';
@@ -283,14 +355,14 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: I plan to be collecting data through my research (field_er_collecting_data_bool) */
+/* Filter criterion: User: Collecting Data? (field_er_collecting_data_bool) */
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['id'] = 'field_er_collecting_data_bool_value';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['table'] = 'field_data_field_er_collecting_data_bool';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['field'] = 'field_er_collecting_data_bool_value';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['value'] = array(
   1 => '1',
 );
-/* Filter criterion: User: Has this user been put in touch with the Data Manager? (field_er_has_this_user) */
+/* Filter criterion: User: Have you been put in touch with the Data Manager? (field_er_has_this_user) */
 $handler->display->display_options['filters']['field_er_has_this_user_value']['id'] = 'field_er_has_this_user_value';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['table'] = 'field_data_field_er_has_this_user';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['field'] = 'field_er_has_this_user_value';
@@ -517,14 +589,14 @@ $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = '1';
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: User: I plan to be collecting data through my research (field_er_collecting_data_bool) */
+/* Filter criterion: User: Collecting Data? (field_er_collecting_data_bool) */
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['id'] = 'field_er_collecting_data_bool_value';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['table'] = 'field_data_field_er_collecting_data_bool';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['field'] = 'field_er_collecting_data_bool_value';
 $handler->display->display_options['filters']['field_er_collecting_data_bool_value']['value'] = array(
   1 => '1',
 );
-/* Filter criterion: User: Has this user been put in touch with the Data Manager? (field_er_has_this_user) */
+/* Filter criterion: User: Have you been put in touch with the Data Manager? (field_er_has_this_user) */
 $handler->display->display_options['filters']['field_er_has_this_user_value']['id'] = 'field_er_has_this_user_value';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['table'] = 'field_data_field_er_has_this_user';
 $handler->display->display_options['filters']['field_er_has_this_user_value']['field'] = 'field_er_has_this_user_value';
