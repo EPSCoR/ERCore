@@ -2,6 +2,7 @@
 define('ER_DEBUG_EXCEL', 0); //Change this to True (1) in order to debug the excel downloads.
 
 define('ER_ADMIN_PERMISSION','administer er');
+define('ER_ADMIN_ACCESS_PERMISSION','access er admin content');
 define('ER_ACCESS_PERMISSION','access er content');
 define('ER_DOWNLOAD_PERMISSION','download er content');
 
@@ -110,6 +111,9 @@ function er_permission(){
 	return array(
 		ER_ADMIN_PERMISSION=>array(
 			'title' => t('Administer EPSCoR Module')
+		),
+		ER_ADMIN_ACCESS_PERMISSION=>array(
+			'title' => t('Access EPSCoR Module Admin content')
 		),
 		ER_ACCESS_PERMISSION=>array(
 			'title' => t('Access EPSCoR Module content')
