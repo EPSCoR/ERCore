@@ -20,6 +20,7 @@ class er_page{
 		'disability'=>'field_er_disabilities',
 		'participant_date'=>'field_er_participating_date',
 		'hired_date'=>'field_er_hired_date',
+		'leadership_team'=>'field_er_leadership_team',
 		'mas_act_grad_date'=>'field_er_act_masters',
 		'doc_act_grad_date'=>'field_er_act_doctor',
 		'und_act_grad_date'=>'field_er_act_under',

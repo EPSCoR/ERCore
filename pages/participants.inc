@@ -7,10 +7,8 @@ class er_participants extends er_page{
 		if ($this->range){//a reporting year date range has been specified.
 			$this->columns[] = 'New Investigators';//So we can look up the new investigators, otherwise don't bother.
 		}
-		$categories = $this->get_allowed_values(self::$field_aliases['position_type']);
-		unset($categories['Other']);
-		unset($categories['Evaluation']);
-		$this->categories = $categories;
+		$this->categories = array('Faculty participant (or equivalent)', 'Technical support staff', 'Non-technical support staff', 'Post Doc', 'Graduate student', 'Undergraduate student', 'RII Leadership Team');
+		$this->query_participant_range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
 	}
 	
 	public function title(){
@@ -56,20 +54,38 @@ class er_participants extends er_page{
 		$query->innerJoin('field_data_'.self::$field_aliases['inst_ref'], 'inst_ref', 'users.uid = inst_ref.entity_id');
 		//Join in field: Is this institution a "participating" institution?
 		$query->leftJoin('field_data_'.self::$field_aliases['participating'], 'participating', 'inst_ref.'.self::$field_aliases['inst_ref'].'_target_id = participating.entity_id');
-		//Join in position type
-		$query->leftJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id');
-		//Join in field_er_160hours field
-		$query->leftJoin('field_data_'.self::$field_aliases['160hours'], '160hours', 'users.uid = 160hours.entity_id');
-		
-		//only give me valid position types (not Other, or Evaluation)
-		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', $this->categories, 'IN');
 		//Institution must be "Participating"
 		$query->condition('participating.'.self::$field_aliases['participating'].'_value', '1', '=');
-		//Participants must be >160hrs
-		$query->condition('160hours.'.self::$field_aliases['160hours'].'_value', '1', '=');
+		
+		
+		//Join in position type
+		$query->leftJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id');
+		
+		//Join in leadership team checkbox
+		$query->leftJoin('field_data_'.self::$field_aliases['leadership_team'], 'leadership_team', 'users.uid = leadership_team.entity_id');
+		
+		$or = db_or();
+			$or->condition('position_type.'.self::$field_aliases['position_type'].'_value', $this->categories, 'IN');//only give me valid position types (not Other, or Evaluation)
+			$or->condition('leadership_team.'.self::$field_aliases['leadership_team'].'_value', 1);
+		$query->condition($or);
+		
+		//Join in the participating date ranges
+		$query->leftJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
+		//the users must have the appropriate participating date range
+		$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $this->query_participant_range[1], '<');
+		$or = db_or();
+			$or->isNull('participant_date.'.self::$field_aliases['participant_date'].'_value2');
+			$or->condition('participant_date.'.self::$field_aliases['participant_date'].'_value2', $this->query_participant_range[0], '>');
+		$query->condition($or);
+		
+		////Join in field_er_160hours field
+		//$query->leftJoin('field_data_'.self::$field_aliases['160hours'], '160hours', 'users.uid = 160hours.entity_id');
+		////Participants must be >160hrs
+		//$query->condition('160hours.'.self::$field_aliases['160hours'].'_value', '1', '=');
 		
 		$query->addField('inst_ref', self::$field_aliases['inst_ref'].'_target_id', 'institution_id');
-		$query->addField('position_type', self::$field_aliases['position_type'].'_value', 'position_type');
+		//$query->addField('position_type', self::$field_aliases['position_type'].'_value', 'position_type');
+		$query->addExpression("case leadership_team.".self::$field_aliases['leadership_team']."_value when 1 then 'RII Leadership Team' else position_type.".self::$field_aliases['position_type']."_value end", 'position_type');
 		
 		if ($count){
 			//We do the grouping when counting, otherwise show everything individually.
@@ -191,9 +207,8 @@ class er_participants extends er_page{
 				break;
 			case 'New Investigators':
 				$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
-				$range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
 				//Start date is within my range:
-				$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $range, 'BETWEEN');
+				$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $this->query_participant_range, 'BETWEEN');
 				$query->condition('participant_date.delta', '0');//it must be the first time they were participating. Cant show up in the new investigators section more than once.
 				//d((string)$query);
 				break;
