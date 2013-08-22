@@ -317,6 +317,21 @@ function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	      'visible' => $patentChecked,
 	      'required' => $patentChecked,
 	  );
+	  
+	  $form['#validate'][] = 'patent_validate';
+}
+
+function patent_validate(&$form, &$form_state){
+	if ($form_state['values']['field_er_patent_licensed'][LANGUAGE_NONE][0]['value']){
+		// if they've checked that it's licensed, then it needs to have a license date and licensee
+		if (empty($form_state['values']['field_er_patent_date'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_patent_date', t('Please enter a license date'));
+		}
+		if (empty($form_state['values']['field_er_patent_licensee'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_patent_licensee', t('Please enter a licensee'));
+		}
+	}
+	
 }
 
 // Presentation
