@@ -344,9 +344,17 @@ function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id)
 		);
 	  // These fields will be visible, and required
 	  $form['field_er_other_pres']['#states'] = array(
-	      'visible' => $presOther
+	      'visible' => $presOther,
+	      'required' => $presOther
 	  );
-	
+	  $form['#validate'][] = 'presentation_validate';	
+}
+
+function presentation_validate(&$form, &$form_state){
+	// Make sure they have "Other filled in" if they've selected Other
+	if ($form_state['values']['field_er_type_of_presentation'][LANGUAGE_NONE][0]['value'] == 'Other' && empty($form_state['values']['field_er_other_pres'][LANGUAGE_NONE][0]['value'])){
+		form_set_error('field_er_other_pres', t('Please enter a value for Other'));
+	}
 }
 
 // Publication
