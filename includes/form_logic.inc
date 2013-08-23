@@ -567,12 +567,154 @@ function testmike(&$form){
 	unset($form['#group_er_profile']['group_er_involvement']);
 }
 
+//This class processes the #states values in a form, checks the conditions, and verified the required status of appropriate fields.
+//@author: Andrew W.
+//@email: shixish@gmail.com
+class states_validate {
+	public function states_validate(&$form, &$form_state){
+		$this->form = $form;
+		//d($form, '$form');
+		$this->form_state = $form_state;
+		foreach ($form as $field_name=>&$field){
+			if (substr($field_name, 0, 6) == 'field_' && isset($field['#states']) && $states = $field['#states']){//just inspect the fields
+				//d($states, 'Rule:'.$field_name);
+				foreach (array('required', 'optional') as $type){//for now we are only concerned with the 'required' states.
+					if (isset($states[$type])){
+						//there is some variation in the way you can set up the states...
+						if (is_array($states[$type]) && count($states[$type]) > 1){
+							foreach ($states[$type] as $rule){
+								$this->check_rule($type, $field_name, $rule);
+							}
+						}else{
+							$this->check_rule($type, $field_name, $states['required']);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//Process a rule.
+	//The function parses, and checks the rule condition, if the condition is satisfied, it then attempts to enforce the rule.
+	//@param string $type is the state type: required, optional, visible, etc...
+	//@param string $field_name is the full name of the field to which the rule applies.
+	//@param array $rule The condition that must be met for the rule to be enforced
+	//  Ex: $rule = array(':input[name="field_er_most_sen_proj_role[und]"]' => array('value' => 'Evaluation')));
+	protected function check_rule($type, $field_name, &$rule){
+		if (count($rule) == 1){
+			$key = key($rule);
+			try{
+				list($condition_field_name, $lang) = $this->parse_selector($key);
+				$check = array_pop($rule);
+				try{
+					$values = $this->form_state['values'][$condition_field_name][$lang];
+					$condition_is_met = $this->check_condition($check, $values);
+					//Field is either required, or non-optional:
+					if (($type == 'required' && $condition_is_met) || ($type == 'optional' && !$condition_is_met)){
+						if (!$this->check_field_required($field_name, $lang)){//field is empty
+							$title = $this->get_field_title($field_name, $lang);
+							form_set_error($field_name, t('@name field is required.', array('@name'=>$title)) );
+						}
+					}
+				}catch (Exception $e){
+					watchdog('er', 'States validation error: Unable to verify condition statement for field @field', array('@field'=>$field_name), WATCHDOG_WARNING);
+				}
+			}catch (Exception $e){
+				if (intval($key) === 0){
+					$rule = array_pop($rule);
+					$this->check_rule($type, $field_name, $rule);//try it again, one step deeper.
+				}else{
+					watchdog('er', 'States validation error: @key unknown in field @field', array('@key'=>$key, '@field'=>$field_name), WATCHDOG_WARNING);
+				}
+			}
+		}else{
+			watchdog('er', 'States validation error: Unable to process states for @field. Unexpected formatting...', array('@field'=>$field_name), WATCHDOG_WARNING);
+		}
+	}
+	
+	//Function checks to make sure that a field satisfies the required/non-optional rule.
+	//@param string $field_name The full name of the field.
+	//@param string $lang The language the field is using. Most of the time this is 'und'.
+	//@returns bool True if the field is filled, False if empty/unset.
+	protected function check_field_required($field_name, $lang = 'und'){
+		$values = $this->form_state['values'][$field_name][$lang];
+		if (is_array($values)){
+			foreach ($values as $value){
+				if (isset($value['value'])){
+					if (is_array($value['value']) || strlen($value['value'])>0)//The value can be an array for date fields.
+						return TRUE;
+				}else if (isset($value['target_id']) && !empty($value['target_id'])){
+					return TRUE;
+				}else if (isset($value['fid']) && !empty($value['fid'])){
+					return TRUE;
+				}
+			}
+		}
+		return FALSE;
+	}
+	
+	//This function is responsible for checking if the rule condition has been met.
+	//@param array $check This refers to the check that states means to make...
+	//  Ex: $check = array('value' => 'Evaluation');
+	//@param array $values The contents of $this->form_state['values'][field_name][field_language]
+	//@returns bool Indicates whether the condition has been met or not.
+	protected function check_condition($check, $values){
+		//d($check, '$check');
+		if (isset($check['value'])){
+			$check_value = $check['value'];
+		}else if (isset($check['checked'])){
+			$check_value = $check['checked']?1:0;
+		}
+		if (is_array($values)){
+			foreach ($values as &$value){
+				if (isset($value['value'])){
+					//d($value['value'], $field_name);
+					if ($value['value'] == $check_value)
+						return TRUE;
+				}
+			}
+			return FALSE;
+		}
+	}
+	
+	//This function breaks up the states selector string.
+	//@param string $string The string to break up.
+	// Ex: $string = ':input[name="field_er_most_sen_proj_role[und]"]';
+	//@returns array Use this: list($field_name, $lang);
+	protected function parse_selector($string){
+		if (substr($string, 0, 13) == ':input[name="'){
+			$select = substr($string, 13, -2);
+			$bracket = strpos($select, '[');
+			$field_name = substr($select, 0, $bracket);
+			$lang = substr($select, $bracket+1, -1);
+			return array($field_name, $lang);
+		}else{
+			throw new Exception('Unable to parse selector');
+		}
+	}
+	
+	//Attempt to get the display title of a field, used in displaying error messages.
+	protected function get_field_title($field_name, $lang = 'und'){
+		try{
+			return $this->form[$field_name][$lang]['#title'];
+		}catch(Exception $e){
+			return $field_name;
+		}
+	}
+}
+
+function _states_validate(&$form, &$form_state){
+	new states_validate($form, $form_state);
+}
+
 
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate';//Automatically try to validate the form based on the #states.
+	
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
-	
+	$form['field_er_nsf_grant_signatory']['#after_build'] = array('_remove_NA_option');
 	
 	// Faculty Participant (or Equivalent)
 	$faculty_part = array(
@@ -681,10 +823,9 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	
 	//Certifications fieldsets only available to Graduates, Undergraduates	
-	
-	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
+	$form['field_er_have_you_comp_the_rcr']['#states'] = array(//This is a markup field, don't make it required. It'll screw up the validation.
 		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
+		//'required' => array($undergrad, $grad_student),
 	);
 	
 	$form['field_er_rcr_completion_bool']['#states'] = array(
@@ -694,18 +835,18 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// RCR Certification fields only if "I have completed RCR certifications" ic checked
 	$completed_rcr = array(
-		'input:[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
+		':input[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
 		$form['field_er_rcr_online']['#states'] = 
 		$form['field_er_rcr_in_person']['#states'] =
 		$form['field_er_additional_doc']['#states'] =
 		$form['field_er_rcr_online_ul']['#states'] = 
-		$form['field_er_rcr_inperson_ca1']['#states'] = 
+		$form['field_er_rcr_in_person']['#states'] = 
 		$form['field_er_nsf_grant_signatory']['#states'] = 
 		$form['field_er_rcr_inperson_ul']['#states'] 
 		= array(
-			'visible' => $completed_rcr, $grad_student, $undergrad,
-			'required' => $completed_rcr, $grad_student, $undergrad,
+			'visible' => array($completed_rcr, $grad_student, $undergrad),
+			'required' => array($completed_rcr, $grad_student, $undergrad),
 	);
 	
 	// Data collection Tab -- 
