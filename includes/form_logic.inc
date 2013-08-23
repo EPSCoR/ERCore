@@ -497,7 +497,7 @@ function testmike(&$form){
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
-	
+	$form['field_er_nsf_grant_signatory']['#after_build'] = array('_remove_NA_option');
 	
 	// Faculty Participant (or Equivalent)
 	$faculty_part = array(
