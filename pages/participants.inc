@@ -195,7 +195,7 @@ class er_participants extends er_page{
 				break;
 			case 'Hispanic':
 				$query->innerJoin('field_data_'.self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
-				$query->condition('ethnicity.'.self::$field_aliases['ethnicity'].'_value', 1, '='); //1 == true (this person is hispanic)
+				$query->condition('ethnicity.'.self::$field_aliases['ethnicity'].'_value', 0, '='); // 0 == true (this person is hispanic; shown in 'admin/config/people/accounts/fields/field_er_ethnicity')
 				break;
 			case 'Other Ethnic':
 				$query->innerJoin('field_data_'.self::$field_aliases['race'], 'race', 'users.uid = race.entity_id');

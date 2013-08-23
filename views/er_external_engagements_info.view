@@ -14,6 +14,7 @@ $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'External Engagements-Information';
 $handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'access er admin content';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -128,7 +129,7 @@ $handler->display->display_options['fields']['field_er_cal_event_date']['setting
   'show_repeat_rule' => 'show',
 );
 $handler->display->display_options['fields']['field_er_cal_event_date']['delta_offset'] = '0';
-/* Field: Content: EPSCoR Researchers(s) */
+/* Field: Content: Inventor(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
