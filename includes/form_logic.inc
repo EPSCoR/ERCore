@@ -611,10 +611,12 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		);	
 				
 	// Undergraduate selection
+	
 	$undergrad = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Undergraduate student'),
 		);
+	/* WORKING HERE */
 	//anticipated undergraduate completion
 	$form['field_er_ant_under']['#states'] = array(
 		'visible' => $undergrad, 
@@ -796,9 +798,48 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		$form['field_er_person_month']['#states'] = array(
 		'visible' => $participant_more_than_sixty,
 		'required' => $participant_more_than_sixty,
-	);		
+	);
+	
+	// $form['#validate'][] = 'user_profile_validate';
 }
 
+/*
+function user_profile_validate(&$form, &$form_state){
+	d($form_state, 'fs');
+	$fs = $form_state['values'];
+	
+	// if they're an undergrad and have not filled in anticipated graduation date, throw validation error	
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Undergraduate student' && fs_empty($fs, 'field_er_ant_under')){		
+		form_set_error('field_er_ant_under', t('Please enter anticipated graduation date.'));
+	}
+
+	// if they're a grad student, make sure they have anticipated graduation date
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Graduate student' && fs_empty($fs, 'field_er_ant_masters')){		
+		form_set_error('field_er_ant_masters', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+	
+	// if they're a post-doc student, make sure they have anticipated graduation date
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Graduate student' && fs_empty($fs, 'field_er_ant_masters')){		
+		form_set_error('field_er_ant_masters', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+		
+		
+	// if they're faculty, ask if they receive salary support from EPSCoR
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Faculty participant (or equivalent)' && fs_empty($fs, 'field_er_faculty_any_support')){		
+		form_set_error('field_er_faculty_any_support', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+	
+}
+ */
+
+// this function returns form_state values, to cut down on repetition
+function fs_val(&$fs, $field){
+	return $fs[$field][LANGUAGE_NONE][0]['value'];
+}
+
+function fs_empty($fs, $field){
+	return empty($fs[$field][LANGUAGE_NONE][0]['value']);
+}
 
 /*
  * This function is used because we want our "Smart Forms" to be able to hide/show an entire fieldset, and this is needed
