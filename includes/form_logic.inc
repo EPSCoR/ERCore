@@ -366,13 +366,13 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	
 // Setting up SmartForm variables that will be used
 	$submitted = array(
-		':input[name="field_er_publication_status[und]"]' => array('value' => '2'),
+		':input[name="field_er_publication_status[und]"]' => array('value' => '2'), 
 	);
 	$accepted = array(
-		':input[name="field_er_publication_status[und]"]' => array('value' => '1'),
+		':input[name="field_er_publication_status[und]"]' => array('value' => '1'), 
 	);
 	$published = array(
-		':input[name="field_er_publication_status[und]"]' => array('value' => '0'),
+		':input[name="field_er_publication_status[und]"]' => array('value' => '0'), 
 	);
 	$yesdata = array(
 		':input[name="field_er_pub_data[und]"]' => array('value' => '1'),
@@ -400,7 +400,9 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	$newspaper = array(
 		':input[name="field_er_publication_type[und]"]' => array(
 			'value' => 'Newspaper Article'),
-	); 
+	); 	
+	
+	
 
 // The Date fields	
 	// Submitted
@@ -415,7 +417,7 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	); 	
 	// Published
 	// Date Published, Abstract, NSF Ack fields are visible & required if:
-	// ... Publication Status contains value:  Submitted
+	// ... Publication Status contains value:  Published
 	// These fields are invisible & optional if:
 	// ... Publication Status contain other values:  (eg. '-none-', Accepted)
 	
@@ -458,6 +460,56 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 	// d($form, 'form exiting er_form_er_publication_node_form_alter');
+	$form['#validate'][] = 'publication_validate';
+	
+	// we want to remove the N/A option from this radio list
+	$form['field_er_pub_archived']['#after_build'] = array('_remove_NA_option');
+	
+}
+
+function publication_validate(&$form, &$form_state){
+	// d($form_state, 'fs');
+	// This is sort of silly because there are only three values that it can be, all of which make it required
+	if (empty($form_state['values']['field_er_publication_submit'][LANGUAGE_NONE][0]['value'])){
+		form_set_error('field_er_publication_submit', t('Please enter a date of submission'));
+	}
+	
+	// If Published, make sure three fields are included
+	if ($form_state['values']['field_er_publication_status'][LANGUAGE_NONE][0]['value'] == 0){
+		// date of publication
+		if (empty($form_state['values']['field_er_publication_date'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_publication_date', t('Please enter the date of publication.'));
+		}
+		// body
+		if (empty($form_state['values']['body'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('body', t('Please enter an abstract.'));
+		}
+		// nsf acknowledgement
+		if (empty($form_state['values']['field_er_nsf_ack'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_nsf_ack', t('Please enter acknowledgement information.'));
+		}		
+	}
+	
+	// If collecting data, ask if it's being archived (required)
+	if ($form_state['values']['field_er_pub_data'][LANGUAGE_NONE][0]['value'] == 1){
+		// if they don't have anything for archived, stop them
+		if (empty($form_state['values']['field_er_pub_archived'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_pub_archived', t('Please select whether it\'s archived.'));
+		}
+		// if they've selected Another Repository, have the textbox required
+		if ($form_state['values']['field_er_pub_archived'][LANGUAGE_NONE][0]['value'] == 2 && empty($form_state['values']['field_er_pub_what_archive_'][LANGUAGE_NONE][0]['value'])){
+			form_set_error('field_er_pub_what_archive_', t('Please enter the name of the archive.'));
+		}		
+	}
+	
+	// Here's a list of options that should make the Journal Title required
+	$journal_title = array('Journal Article', 'Book', 'Conference Proceedings', 'Magazine Article', 'Newspaper Article');
+	// if the value is one of those, and the journal title is empty, let them know
+	if (in_array($form_state['values']['field_er_publication_type'][LANGUAGE_NONE][0]['value'], $journal_title) && empty($form_state['values']['field_er_journal_name'][LANGUAGE_NONE][0]['value'])){
+		form_set_error('field_er_journal_name', t('Please enter the name of the Journal, Book, Magazine, or Newspaper.'));
+	}
+	
+	// if ($form_state['values']['field_er_publication_status'][LANGUAGE_NONE][0]['value'])
 }
 
 // Research Project
