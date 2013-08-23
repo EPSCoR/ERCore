@@ -166,10 +166,6 @@ function _node_autogen_title(&$node){
 	}
 }
 
-function er_validate($entity){
-	//d($node, 'validate');
-}
-
 function er_node_validate($node){
 	_quick_add_institution_validation($node);
 	switch ($node->type){
