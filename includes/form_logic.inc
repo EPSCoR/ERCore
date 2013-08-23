@@ -573,6 +573,7 @@ function testmike(&$form){
 class states_validate {
 	public function states_validate(&$form, &$form_state){
 		$this->form = $form;
+		//d($form, '$form');
 		$this->form_state = $form_state;
 		foreach ($form as $field_name=>&$field){
 			if (substr($field_name, 0, 6) == 'field_' && isset($field['#states']) && $states = $field['#states']){//just inspect the fields
@@ -611,7 +612,8 @@ class states_validate {
 					//Field is either required, or non-optional:
 					if (($type == 'required' && $condition_is_met) || ($type == 'optional' && !$condition_is_met)){
 						if (!$this->check_field_required($field_name, $lang)){//field is empty
-							form_set_error($field_name, t('Field @name is required', array('@name'=>$field_name)));
+							$title = $this->get_field_title($field_name, $lang);
+							form_set_error($field_name, t('@name field is required.', array('@name'=>$title)) );
 						}
 					}
 				}catch (Exception $e){
@@ -638,8 +640,9 @@ class states_validate {
 		$values = $this->form_state['values'][$field_name][$lang];
 		if (is_array($values)){
 			foreach ($values as $value){
-				if (isset($value['value']) && strlen($value['value'])>0){
-					return TRUE;
+				if (isset($value['value'])){
+					if (is_array($value['value']) || strlen($value['value'])>0)//The value can be an array for date fields.
+						return TRUE;
 				}else if (isset($value['target_id']) && !empty($value['target_id'])){
 					return TRUE;
 				}else if (isset($value['fid']) && !empty($value['fid'])){
@@ -687,6 +690,15 @@ class states_validate {
 			return array($field_name, $lang);
 		}else{
 			throw new Exception('Unable to parse selector');
+		}
+	}
+	
+	//Attempt to get the display title of a field, used in displaying error messages.
+	protected function get_field_title($field_name, $lang = 'und'){
+		try{
+			return $this->form[$field_name][$lang]['#title'];
+		}catch(Exception $e){
+			return $field_name;
 		}
 	}
 }
