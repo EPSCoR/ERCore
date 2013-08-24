@@ -14,7 +14,7 @@ function er_settings() {
   $form['status'] = array(
     '#type' => 'item',
     '#title'=> 'ER-Core Status:',
-    '#markup' => t('Access the <b>!link</b> to diagnose problems, update your installation, or reset something if it\'s broken.', array('!link'=>l('ER-Core status page', 'admin/config/epscor/er/status')))
+    '#markup' => t('Access the <b>!link</b> to diagnose problems, update your installation, or reset something if it\'s broken.', array('!link'=>l('ER-Core status page', 'admin/config/epscor/status')))
   );
 	$form['help_description'] = array(
     '#type' => 'item',
