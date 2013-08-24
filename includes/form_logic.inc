@@ -246,7 +246,7 @@ function _proposal_validate(&$form, &$form_state){
 			if (empty($form_state['values']['field_er_award_amount'][LANGUAGE_NONE][0]['value'])){
 				form_set_error('field_er_award_amount', t('Please select an Award Amount.'));
 			}
-			break;			
+			break;
 			
 		case "Denied":
 			if (empty($form_state['values']['field_er_proposal_denied'][LANGUAGE_NONE][0]['value']))
