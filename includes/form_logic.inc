@@ -179,6 +179,7 @@ function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id
 
 // Current and Pending Support
 function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form, 'er_form_er_proposal_node_form_alter');
 
 	// Setting up variables that will be used
@@ -227,12 +228,13 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'required' => $denied,
 	);	
 	
-	$form['#validate'][] = '_proposal_validate';
+	// $form['#validate'][] = '_proposal_validate';
 
 	// This automatically attaches the user's name to this field...	
 	//er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
+/*
 function _proposal_validate(&$form, &$form_state){
 	//d($form_state, 'fs');
 	switch ($form_state['values']['field_er_proposal_status'][LANGUAGE_NONE][0]['value']){
@@ -259,6 +261,7 @@ function _proposal_validate(&$form, &$form_state){
 			break;
 	}
 }
+ */
 
 // External Engagements
 function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
@@ -300,6 +303,7 @@ function er_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id
 
 // Patent
 function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
 	//field_er_patent_licensed
@@ -323,9 +327,10 @@ function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	      'required' => $patentChecked,
 	  );
 	  
-	  $form['#validate'][] = 'patent_validate';
+	  // $form['#validate'][] = 'patent_validate';
 }
 
+/*
 function patent_validate(&$form, &$form_state){
 	if ($form_state['values']['field_er_patent_licensed'][LANGUAGE_NONE][0]['value']){
 		// if they've checked that it's licensed, then it needs to have a license date and licensee
@@ -335,12 +340,13 @@ function patent_validate(&$form, &$form_state){
 		if (empty($form_state['values']['field_er_patent_licensee'][LANGUAGE_NONE][0]['value'])){
 			form_set_error('field_er_patent_licensee', t('Please enter a licensee'));
 		}
-	}
-	
+	}	
 }
+ */
 
 // Presentation
 function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
 	// smart form to show "Other" text box...
@@ -352,19 +358,22 @@ function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id)
 	      'visible' => $presOther,
 	      'required' => $presOther
 	  );
-	  $form['#validate'][] = 'presentation_validate';	
+	  // $form['#validate'][] = 'presentation_validate';	
 }
 
+/*
 function presentation_validate(&$form, &$form_state){
 	// Make sure they have "Other filled in" if they've selected Other
 	if ($form_state['values']['field_er_type_of_presentation'][LANGUAGE_NONE][0]['value'] == 'Other' && empty($form_state['values']['field_er_other_pres'][LANGUAGE_NONE][0]['value'])){
 		form_set_error('field_er_other_pres', t('Please enter a value for Other'));
 	}
 }
+ */
 
 // Publication
 // Modified by Brent on 2013-01-09
 function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form_id, 'form_id entering er_form_er_publication_node_form_alter');
 	// d($form, 'form entering er_form_er_publication_node_form_alter');
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
@@ -465,11 +474,10 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 	// d($form, 'form exiting er_form_er_publication_node_form_alter');
-	$form['#validate'][] = 'publication_validate';
+	// $form['#validate'][] = 'publication_validate';
 	
 	// we want to remove the N/A option from this radio list
-	$form['field_er_pub_archived']['#after_build'] = array('_remove_NA_option');
-	
+	$form['field_er_pub_archived']['#after_build'] = array('_remove_NA_option');	
 }
 
 /*
@@ -710,7 +718,7 @@ function _states_validate(&$form, &$form_state){
 
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
-	$form['#validate'][] = '_states_validate';//Automatically try to validate the form based on the #states.
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
