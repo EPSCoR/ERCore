@@ -256,9 +256,10 @@ function er_testing() {
 	
 	$installation_types = er_get_install_types();//don't include the special functions...
 	foreach ($installation_types as $type){
+		$status_label = ($type == 'roles') ? $type . ' (Warning, this will undo all manual permission changes)' : $type;
 		$form['reset'][$type] = array(
 			'#type' => 'link',
-			'#title' => 'Reset '.$type,
+			'#title' => 'Reset '. $status_label,
 			'#href' => 'admin/config/epscor/er/reset/'.$type,
 			//'#options' => $l_options,
 			'#prefix' => '<p>',
