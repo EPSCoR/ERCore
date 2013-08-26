@@ -21,6 +21,11 @@ function er_form_alter(&$form, &$form_state, $form_id){
 	}
 }
 
+// this adds a warning not to change the values of the Most Senior Project values 
+function er_form_field_ui_field_edit_form_alter(&$form, &$form_state){
+	$form['field']['settings']['allowed_values']['#title'] .= " (ER CORE: Attention - Do not change these)";
+}
+
 /*
  *	This function is called by er_form_alter
  * 		The purpose is to check to make sure the User has permission to edit the given field
@@ -467,6 +472,7 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	
 }
 
+/*
 function publication_validate(&$form, &$form_state){
 	// d($form_state, 'fs');
 	// This is sort of silly because there are only three values that it can be, all of which make it required
@@ -511,6 +517,7 @@ function publication_validate(&$form, &$form_state){
 	
 	// if ($form_state['values']['field_er_publication_status'][LANGUAGE_NONE][0]['value'])
 }
+ */
 
 // Research Project
 function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
@@ -558,13 +565,6 @@ function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	$form['flag']['#access'] = FALSE;
 	
 
-}
-
-function testmike(&$form){
-	d($form, 'f in testmike');
-	// d($form_state, 'fs in testmike');
-	// unset($form['#groups']['group_er_involvement']);
-	unset($form['#group_er_profile']['group_er_involvement']);
 }
 
 //This class processes the #states values in a form, checks the conditions, and verified the required status of appropriate fields.
@@ -758,7 +758,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Undergraduate student'),
 		);
-	/* WORKING HERE */
+	
 	//anticipated undergraduate completion
 	$form['field_er_ant_under']['#states'] = array(
 		'visible' => $undergrad, 
@@ -770,90 +770,82 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_faculty_any_support']['#states'] = array(
 		'visible' => $faculty_part,
 		'required' => $faculty_part,
-	);
-	
+	);	
 	
 	// Graduate Student
 	$grad_student = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Graduate student'),
 	);
-	$form['field_er_ant_masters']['#states'] = array(
-		'visible' => $grad_student,
-		'required' => $grad_student,
-	);
 	//anticipated masters completion
 	$form['field_er_ant_masters']['#states'] = array(
 		'visible' => $grad_student,
 	);
-	
-	
 		
 	// Post Doctorate selection
 	$post_doc = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array('value' => 'Post Doc'),
 	);
-	//anticipated doctorate completion
-	$form['field_er_ant_doctor']['#states'] = array(
-			'visible' => $post_doc,$grad_student,
-			'required' => $post_doc,$grad_student,
-	);
 	
+	// anticipated doctorate completion
+	$form['field_er_ant_doctor']['#states'] = array(
+		'visible' => $grad_student,
+	);
 	
 	////// Actual Undergrad, masters, post-doc completion fields /////
 	
-	//actual undergraduate completion
+	// actual undergraduate completion
 	$form['field_er_act_under']['#states'] = array(
-			'visible' => array($undergrad, $grad_student, $post_doc),
-	);	
-	//actual masters completion
+			'visible' => array($undergrad, $grad_student),
+	);	 
+
+	// actual masters completion
 	$form['field_er_act_masters']['#states'] = array(
-		'visible' => array($grad_student,$post_doc),
+		'visible' => $grad_student,
 	);
-	//actual doctorate completion
+	
+	// actual doctorate completion
 	$form['field_er_act_doctor']['#states'] = array(
-		'visible' => $post_doc,
-	);
+		'visible' => $grad_student,
+	);	
 	
-	
-	$form['field_er_ant_doctor']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
 			'visible' => $post_doc,
-	);
-	
+	);	
 	
 	//Certifications fieldsets only available to Graduates, Undergraduates	
-	$form['field_er_have_you_comp_the_rcr']['#states'] = array(//This is a markup field, don't make it required. It'll screw up the validation.
-		'visible' => array($undergrad, $grad_student),
-		//'required' => array($undergrad, $grad_student),
+
+	//This is a markup field, don't make it required. It'll screw up the validation.
+	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),	
 	);
-	
+
+	// RCR completion is only for undergrads and grads
 	$form['field_er_rcr_completion_bool']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
-		//'required' => array($undergrad, $grad_student),
-	);
+		'required' => array($undergrad, $grad_student),
+	);	
 	
 	// RCR Certification fields only if "I have completed RCR certifications" ic checked
 	$completed_rcr = array(
 		':input[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-		$form['field_er_rcr_online']['#states'] = 
-		$form['field_er_rcr_in_person']['#states'] =
-		$form['field_er_additional_doc']['#states'] =
-		$form['field_er_rcr_online_ul']['#states'] = 
-		$form['field_er_rcr_in_person']['#states'] = 
-		$form['field_er_nsf_grant_signatory']['#states'] = 
-		$form['field_er_rcr_inperson_ul']['#states'] 
-		= array(
-			'visible' => array($completed_rcr, $grad_student, $undergrad),
-			'required' => array($completed_rcr, $grad_student, $undergrad),
+	
+	$form['field_er_rcr_online']['#states'] = 
+	$form['field_er_rcr_in_person']['#states'] =
+	$form['field_er_additional_doc']['#states'] =
+	$form['field_er_rcr_online_ul']['#states'] =  
+	$form['field_er_nsf_grant_signatory']['#states'] = 
+	$form['field_er_rcr_inperson_ul']['#states'] = array(
+		'visible' => $completed_rcr,
+		'required' => $completed_rcr,
 	);
 	
-	// Data collection Tab -- 
-	// show all the fields if they click the checkbox that "I will be collecting data"
+	// Data collection Tab
+	// show all the fields if they click the checkbox that " I do/not plan to be collecting data through my research. "
 	$collection = array(
 		':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
-		); 
+	);
 	
 	$form['field_er_data_frequency']['#states'] = 
 	$form['field_er_data_url']['#states'] = 
@@ -861,82 +853,70 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		'visible' => $collection,
 	);
 	
-	//required fields
+	// required fields "Description of Data"
 	$form['field_er_type_of_data']['#states'] = array(
 	'required' => $collection, 
 	'visible' => $collection);
 	
-	
 	// change labels on participant date range
 	$form['field_er_participating_date']['#after_build'] = array('er_date_label');  //field name of the date
 	
-	_quick_add_inst($form, $form_state, 'field_er_inst_ref');
+	_quick_add_inst($form, $form_state, 'field_er_inst_ref');	
 	
-	
-	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
+	$form['field_er_inst_ref']['und']['#type'] = 'radios'; //make this field single select.
 	$form['field_er_inst_ref']['und']['#default_value'] = array_pop($form['field_er_inst_ref']['und']['#default_value']); //fixes the selection
 	
-	//Supervisors Field only available to Graduates, Undergraduates
-		$form['field_er_supervisor']['#states'] = array(
+	// supervisors Field only available to Graduates, Undergraduates
+	$form['field_er_supervisor']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
 		'required' => array($undergrad, $grad_student),
 	);
-	
-	//Education fieldset only available to Graduates, Undergraduates
-		$form['group_er_education']['#states']['visible'] = array(
-		':input[name="field_er_most_sen_proj_role[und]"]' => 
-		array('value' => $grad_student, $undergrad, $post_doc),
-		);	  
-	//Advisor field only available to Students
+		  
+	// advisor field only available to Students
 		$form['field_er_advisor']['#states'] = array(
 		'visible' => array($post_doc, $undergrad, $grad_student),
 		'required' => array($post_doc, $undergrad, $grad_student),
 	);
 	
-	//Mentoring plan fields only available to Post-Docs
-		$form['field_er_mentoring_sign_off']['#states'] = 
-		$form['field_er_ment_plan_post_docs']['#states'] = 
-		$form['field_er_mentoring_plan_ul']['#states'] =
-		array(
-		'visible' => array($post_doc),
-		'required' => array($post_doc),
-	);	
-	
-	
+	// mentoring plan fields only available to Post-Docs
+	$form['field_er_mentoring_sign_off']['#states'] = 
+	$form['field_er_ment_plan_post_docs']['#states'] = 
+	$form['field_er_mentoring_plan_ul']['#states'] = array(
+		'visible' => $post_doc,
+		'required' => $post_doc,
+	);		
 	
 	// Set up Paid by EPSCoR Variables
-		$paid_by_epscor = array(
-		 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
-		);
+	$paid_by_epscor = array(
+	 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
+	);
 		
-		$not_paid_by_epscor = array(
-		 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
-		);
+	$not_paid_by_epscor = array(
+	 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
+	);
 		
-	//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
+	// if Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
 	// used 'invisible' here to rule out all Roles other than Faculty AND not Paid by EPSCoR
-		$form['field_er_months_of_effort']['#states'] = array(
+	$form['field_er_months_of_effort']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
 		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $not_paid_by_epscor),
-	);
+	);	
 	
-	
-	//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+	// if Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
 	// used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
-		$form['field_er_list_funding_sources']['#states'] = array(
+	$form['field_er_list_funding_sources']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
 		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $paid_by_epscor),
-	);
-	
+	);	
 		
-	//If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
-		$participant_more_than_sixty = array(
+	// if Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
+	$participant_more_than_sixty = array(
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
-		);
+	);
 		
-		$form['field_er_person_month']['#states'] = array(
+	$form['field_er_person_month']['#states'] = array(
 		'visible' => $participant_more_than_sixty,
 		'required' => $participant_more_than_sixty,
 	);
