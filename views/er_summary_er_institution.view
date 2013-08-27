@@ -143,7 +143,7 @@ $handler->display->display_options['sorts']['title']['id'] = 'title';
 $handler->display->display_options['sorts']['title']['table'] = 'node';
 $handler->display->display_options['sorts']['title']['field'] = 'title';
 $handler->display->display_options['sorts']['title']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['title']['expose']['label'] = 'Sort by Title';
+$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
 /* Sort criterion: Content: Category (field_er_inst_category) */
 $handler->display->display_options['sorts']['field_er_inst_category_value']['id'] = 'field_er_inst_category_value';
 $handler->display->display_options['sorts']['field_er_inst_category_value']['table'] = 'field_data_field_er_inst_category';
