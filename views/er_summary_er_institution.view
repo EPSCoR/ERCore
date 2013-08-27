@@ -138,6 +138,18 @@ $active = $row[\'er_participating_institution\'] ? \'Yes\' : \'No\';
 echo($active);
 ?>';
 $handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
+$handler->display->display_options['sorts']['title']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['title']['expose']['label'] = 'Sort by Title';
+/* Sort criterion: Content: Category (field_er_inst_category) */
+$handler->display->display_options['sorts']['field_er_inst_category_value']['id'] = 'field_er_inst_category_value';
+$handler->display->display_options['sorts']['field_er_inst_category_value']['table'] = 'field_data_field_er_inst_category';
+$handler->display->display_options['sorts']['field_er_inst_category_value']['field'] = 'field_er_inst_category_value';
+$handler->display->display_options['sorts']['field_er_inst_category_value']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['field_er_inst_category_value']['expose']['label'] = 'Category';
 $handler->display->display_options['path'] = 'institutions';
 $handler->display->display_options['menu']['title'] = 'Institutions';
 $handler->display->display_options['menu']['description'] = 'Institutions - Listing';
@@ -209,7 +221,7 @@ $handler->display->display_options['fields']['field_er_inst_link_1']['click_sort
 $handler->display->display_options['fields']['field_er_inst_type']['id'] = 'field_er_inst_type';
 $handler->display->display_options['fields']['field_er_inst_type']['table'] = 'field_data_field_er_inst_type';
 $handler->display->display_options['fields']['field_er_inst_type']['field'] = 'field_er_inst_type';
-/* Field: Field: Full name of Institution */
+/* Field: Field: Name of Institution */
 $handler->display->display_options['fields']['field_er_inst_name']['id'] = 'field_er_inst_name';
 $handler->display->display_options['fields']['field_er_inst_name']['table'] = 'field_data_field_er_inst_name';
 $handler->display->display_options['fields']['field_er_inst_name']['field'] = 'field_er_inst_name';
