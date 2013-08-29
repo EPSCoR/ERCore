@@ -68,8 +68,8 @@ function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 
 // External Collaborators
 function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
-	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	if (_deny_direct_form_access($form)) return;
+	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	
 	$form['field_er_collab_ref']['#disabled'] = TRUE;
 	$ref_field = 'field_er_user_lookup';
@@ -90,12 +90,17 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		$form['#group_children']['autofill_collab_submit'] = $form['#group_children'][$ref_field];
 	
 	if (isset($form_state['attached_user']) && $user = user_load($form_state['attached_user'])){
-		//recursive_find_value(51516, $form_state);
-		//d($user, '$user');
 		$u = entity_metadata_wrapper('user', $user);
+		//get a reference to the linked collaboration node
+		$collab_nid = isset($_GET['field_er_collab_ref'])?intval($_GET['field_er_collab_ref']):$form['#node']->field_er_collab_ref['und'][0]['target_id'];
+		$collab_node = node_load($collab_nid);
+		$cn = entity_metadata_wrapper('node', $collab_node);
+		$dates = $cn->field_er_collaboration_dates->value();
+		$collab_range = array(strtotime($dates['value']), strtotime($dates['value2']));//the range of time that the collaboration is going on...
+		
 		//This part is a bit shakey. Some of them seem to work with ['und'] = value, while other's need ['und'][0]['value']
 		//I haven't figured out how to make this more robust yet...
-		$participating = er_is_user_participating($user);
+		$participating = er_is_user_participating($user->uid, $collab_range);
 		$status = $participating?'Participant':'Collaborator';
 		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
 		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());

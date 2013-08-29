@@ -65,7 +65,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -121,7 +121,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -177,7 +177,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -233,7 +233,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -388,7 +388,7 @@ $handler->display->display_options['fields']['title']['alter']['alter_text'] = T
 $handler->display->display_options['fields']['title']['alter']['text'] = '[title] [timestamp]';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -471,16 +471,16 @@ $handler->display->display_options['fields']['field_er_collab_user_status']['alt
 $handler->display->display_options['fields']['field_er_collab_user_status']['alter']['text'] = '[field_er_collab_user_status] at [field_er_collab_department_unit] in [title]';
 $handler->display->display_options['fields']['field_er_collab_user_status']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: User Lookup (field_user_lookup) */
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['id'] = 'field_user_lookup_target_id';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['table'] = 'field_data_field_user_lookup';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['field'] = 'field_user_lookup_target_id';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['default_action'] = 'default';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['default_argument_type'] = 'user';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['default_argument_options']['user'] = FALSE;
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['summary']['number_of_records'] = '0';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['summary']['format'] = 'default_summary';
-$handler->display->display_options['arguments']['field_user_lookup_target_id']['summary_options']['items_per_page'] = '25';
+/* Contextual filter: Content: User Lookup (field_er_user_lookup) */
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['id'] = 'field_er_user_lookup_target_id';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['table'] = 'field_data_field_er_user_lookup';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['field'] = 'field_er_user_lookup_target_id';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['default_action'] = 'default';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['default_argument_type'] = 'user';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['default_argument_options']['user'] = FALSE;
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_user_lookup_target_id']['summary_options']['items_per_page'] = '25';
 $handler->display->display_options['defaults']['filter_groups'] = FALSE;
 $handler->display->display_options['defaults']['filters'] = FALSE;
 /* Filter criterion: Content: Type */
@@ -527,7 +527,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -615,7 +615,7 @@ $handler->display->display_options['fields']['field_er_event_reminders']['hide_e
 $handler->display->display_options['fields']['field_er_event_reminders']['empty_zero'] = TRUE;
 $handler->display->display_options['fields']['field_er_event_reminders']['type'] = 'list_key';
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
@@ -671,7 +671,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Content: Inventor(s) (field_er_user_entity_reference) */
+/* Contextual filter: Content: EPSCoR Presenter(s) (field_er_user_entity_reference) */
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['id'] = 'field_er_user_entity_reference_target_id';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['arguments']['field_er_user_entity_reference_target_id']['field'] = 'field_er_user_entity_reference_target_id';
