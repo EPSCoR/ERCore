@@ -70,7 +70,7 @@ class er_participants extends er_page{
 		$query->condition($or);
 		
 		//Join in the participating date ranges
-		$query->leftJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
+		$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 		//the users must have the appropriate participating date range
 		$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $this->query_participant_range[1], '<');
 		$or = db_or();
@@ -112,6 +112,8 @@ class er_participants extends er_page{
 		$query = db_select('users', 'users');
 		
 		$query->innerJoin('field_data_'.self::$field_aliases['committee'], 'committee', 'users.uid = committee.entity_id');
+		//Join in the participating date ranges
+		$query->leftJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 		
 		if ($count){
 			//Count the user ids...
@@ -206,11 +208,9 @@ class er_participants extends er_page{
 				$query->condition('disability.'.self::$field_aliases['disability'].'_value', 'None', '!=');
 				break;
 			case 'New Investigators':
-				$query->innerJoin('field_data_'.self::$field_aliases['participant_date'], 'participant_date', 'users.uid = participant_date.entity_id');
 				//Start date is within my range:
 				$query->condition('participant_date.'.self::$field_aliases['participant_date'].'_value', $this->query_participant_range, 'BETWEEN');
 				$query->condition('participant_date.delta', '0');//it must be the first time they were participating. Cant show up in the new investigators section more than once.
-				//d((string)$query);
 				break;
 		}
 		return $query;
