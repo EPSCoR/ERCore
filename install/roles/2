@@ -1,17 +1,17 @@
 <?php
-
 $role = array (
   'rid' => '2',
   'name' => 'authenticated user',
   'permissions' => 
   array (
     0 => 'access comments',
-    1 => 'access er content',
-    2 => 'access user profiles',
-    3 => 'post comments',
-    4 => 'search content',
-    5 => 'skip comment approval',
-    6 => 'use advanced search',
-    7 => 'use text format filtered_html',
+    1 => 'access content',
+    2 => 'access er content',
+    3 => 'access user profiles',
+    4 => 'post comments',
+    5 => 'search content',
+    6 => 'skip comment approval',
+    7 => 'use advanced search',
+    8 => 'use text format filtered_html',
   ),
 );

@@ -21,6 +21,11 @@ function er_form_alter(&$form, &$form_state, $form_id){
 	}
 }
 
+// this adds a warning not to change the values of the Most Senior Project values 
+function er_form_field_ui_field_edit_form_alter(&$form, &$form_state){
+	$form['field']['settings']['allowed_values']['#title'] .= " (ER CORE: Attention - Do not change these)";
+}
+
 /*
  *	This function is called by er_form_alter
  * 		The purpose is to check to make sure the User has permission to edit the given field
@@ -179,6 +184,7 @@ function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id
 
 // Current and Pending Support
 function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form, 'er_form_er_proposal_node_form_alter');
 
 	// Setting up variables that will be used
@@ -227,12 +233,13 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	  'required' => $denied,
 	);	
 	
-	$form['#validate'][] = '_proposal_validate';
+	// $form['#validate'][] = '_proposal_validate';
 
 	// This automatically attaches the user's name to this field...	
 	//er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
+/*
 function _proposal_validate(&$form, &$form_state){
 	//d($form_state, 'fs');
 	switch ($form_state['values']['field_er_proposal_status'][LANGUAGE_NONE][0]['value']){
@@ -251,7 +258,7 @@ function _proposal_validate(&$form, &$form_state){
 			if (empty($form_state['values']['field_er_award_amount'][LANGUAGE_NONE][0]['value'])){
 				form_set_error('field_er_award_amount', t('Please select an Award Amount.'));
 			}
-			break;			
+			break;
 			
 		case "Denied":
 			if (empty($form_state['values']['field_er_proposal_denied'][LANGUAGE_NONE][0]['value']))
@@ -259,6 +266,7 @@ function _proposal_validate(&$form, &$form_state){
 			break;
 	}
 }
+ */
 
 // External Engagements
 function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
@@ -300,6 +308,7 @@ function er_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id
 
 // Patent
 function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
 	//field_er_patent_licensed
@@ -323,9 +332,10 @@ function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	      'required' => $patentChecked,
 	  );
 	  
-	  $form['#validate'][] = 'patent_validate';
+	  // $form['#validate'][] = 'patent_validate';
 }
 
+/*
 function patent_validate(&$form, &$form_state){
 	if ($form_state['values']['field_er_patent_licensed'][LANGUAGE_NONE][0]['value']){
 		// if they've checked that it's licensed, then it needs to have a license date and licensee
@@ -335,12 +345,13 @@ function patent_validate(&$form, &$form_state){
 		if (empty($form_state['values']['field_er_patent_licensee'][LANGUAGE_NONE][0]['value'])){
 			form_set_error('field_er_patent_licensee', t('Please enter a licensee'));
 		}
-	}
-	
+	}	
 }
+ */
 
 // Presentation
 function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
 	// smart form to show "Other" text box...
@@ -352,19 +363,22 @@ function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id)
 	      'visible' => $presOther,
 	      'required' => $presOther
 	  );
-	  $form['#validate'][] = 'presentation_validate';	
+	  // $form['#validate'][] = 'presentation_validate';	
 }
 
+/*
 function presentation_validate(&$form, &$form_state){
 	// Make sure they have "Other filled in" if they've selected Other
 	if ($form_state['values']['field_er_type_of_presentation'][LANGUAGE_NONE][0]['value'] == 'Other' && empty($form_state['values']['field_er_other_pres'][LANGUAGE_NONE][0]['value'])){
 		form_set_error('field_er_other_pres', t('Please enter a value for Other'));
 	}
 }
+ */
 
 // Publication
 // Modified by Brent on 2013-01-09
 function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form_id, 'form_id entering er_form_er_publication_node_form_alter');
 	// d($form, 'form entering er_form_er_publication_node_form_alter');
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
@@ -465,13 +479,13 @@ function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	);
 	
 	// d($form, 'form exiting er_form_er_publication_node_form_alter');
-	$form['#validate'][] = 'publication_validate';
+	// $form['#validate'][] = 'publication_validate';
 	
 	// we want to remove the N/A option from this radio list
-	$form['field_er_pub_archived']['#after_build'] = array('_remove_NA_option');
-	
+	$form['field_er_pub_archived']['#after_build'] = array('_remove_NA_option');	
 }
 
+/*
 function publication_validate(&$form, &$form_state){
 	// d($form_state, 'fs');
 	// This is sort of silly because there are only three values that it can be, all of which make it required
@@ -516,6 +530,7 @@ function publication_validate(&$form, &$form_state){
 	
 	// if ($form_state['values']['field_er_publication_status'][LANGUAGE_NONE][0]['value'])
 }
+ */
 
 // Research Project
 function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
@@ -563,13 +578,6 @@ function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	$form['flag']['#access'] = FALSE;
 	
 
-}
-
-function testmike(&$form){
-	d($form, 'f in testmike');
-	// d($form_state, 'fs in testmike');
-	// unset($form['#groups']['group_er_involvement']);
-	unset($form['#group_er_profile']['group_er_involvement']);
 }
 
 //This class processes the #states values in a form, checks the conditions, and verified the required status of appropriate fields.
@@ -715,7 +723,7 @@ function _states_validate(&$form, &$form_state){
 
 // User Profile
 function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
-	$form['#validate'][] = '_states_validate';//Automatically try to validate the form based on the #states.
+	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
@@ -758,10 +766,12 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		);	
 				
 	// Undergraduate selection
+	
 	$undergrad = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Undergraduate student'),
 		);
+	
 	//anticipated undergraduate completion
 	$form['field_er_ant_under']['#states'] = array(
 		'visible' => $undergrad, 
@@ -773,90 +783,82 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_faculty_any_support']['#states'] = array(
 		'visible' => $faculty_part,
 		'required' => $faculty_part,
-	);
-	
+	);	
 	
 	// Graduate Student
 	$grad_student = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array(
 		'value' => 'Graduate student'),
 	);
-	$form['field_er_ant_masters']['#states'] = array(
-		'visible' => $grad_student,
-		'required' => $grad_student,
-	);
 	//anticipated masters completion
 	$form['field_er_ant_masters']['#states'] = array(
 		'visible' => $grad_student,
 	);
-	
-	
 		
 	// Post Doctorate selection
 	$post_doc = array(
 		':input[name="field_er_most_sen_proj_role[und]"]' => array('value' => 'Post Doc'),
 	);
-	//anticipated doctorate completion
-	$form['field_er_ant_doctor']['#states'] = array(
-			'visible' => $post_doc,$grad_student,
-			'required' => $post_doc,$grad_student,
-	);
 	
+	// anticipated doctorate completion
+	$form['field_er_ant_doctor']['#states'] = array(
+		'visible' => $grad_student,
+	);
 	
 	////// Actual Undergrad, masters, post-doc completion fields /////
 	
-	//actual undergraduate completion
+	// actual undergraduate completion
 	$form['field_er_act_under']['#states'] = array(
-			'visible' => array($undergrad, $grad_student, $post_doc),
-	);	
-	//actual masters completion
+			'visible' => array($undergrad, $grad_student),
+	);	 
+
+	// actual masters completion
 	$form['field_er_act_masters']['#states'] = array(
-		'visible' => array($grad_student,$post_doc),
+		'visible' => $grad_student,
 	);
-	//actual doctorate completion
+	
+	// actual doctorate completion
 	$form['field_er_act_doctor']['#states'] = array(
-		'visible' => $post_doc,
-	);
+		'visible' => $grad_student,
+	);	
 	
-	
-	$form['field_er_ant_doctor']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
 			'visible' => $post_doc,
-	);
-	
+	);	
 	
 	//Certifications fieldsets only available to Graduates, Undergraduates	
-	$form['field_er_have_you_comp_the_rcr']['#states'] = array(//This is a markup field, don't make it required. It'll screw up the validation.
-		'visible' => array($undergrad, $grad_student),
-		//'required' => array($undergrad, $grad_student),
+
+	//This is a markup field, don't make it required. It'll screw up the validation.
+	$form['field_er_have_you_comp_the_rcr']['#states'] = array(
+		'visible' => array($undergrad, $grad_student),	
 	);
-	
+
+	// RCR completion is only for undergrads and grads
 	$form['field_er_rcr_completion_bool']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
-		//'required' => array($undergrad, $grad_student),
-	);
+		'required' => array($undergrad, $grad_student),
+	);	
 	
 	// RCR Certification fields only if "I have completed RCR certifications" ic checked
 	$completed_rcr = array(
 		':input[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
-		$form['field_er_rcr_online']['#states'] = 
-		$form['field_er_rcr_in_person']['#states'] =
-		$form['field_er_additional_doc']['#states'] =
-		$form['field_er_rcr_online_ul']['#states'] = 
-		$form['field_er_rcr_in_person']['#states'] = 
-		$form['field_er_nsf_grant_signatory']['#states'] = 
-		$form['field_er_rcr_inperson_ul']['#states'] 
-		= array(
-			'visible' => array($completed_rcr, $grad_student, $undergrad),
-			'required' => array($completed_rcr, $grad_student, $undergrad),
+	
+	$form['field_er_rcr_online']['#states'] = 
+	$form['field_er_rcr_in_person']['#states'] =
+	$form['field_er_additional_doc']['#states'] =
+	$form['field_er_rcr_online_ul']['#states'] =  
+	$form['field_er_nsf_grant_signatory']['#states'] = 
+	$form['field_er_rcr_inperson_ul']['#states'] = array(
+		'visible' => $completed_rcr,
+		'required' => $completed_rcr,
 	);
 	
-	// Data collection Tab -- 
-	// show all the fields if they click the checkbox that "I will be collecting data"
+	// Data collection Tab
+	// show all the fields if they click the checkbox that " I do/not plan to be collecting data through my research. "
 	$collection = array(
 		':input[name="field_er_collecting_data_bool[und]"]' => array('checked' => TRUE),
-		); 
+	);
 	
 	$form['field_er_data_frequency']['#states'] = 
 	$form['field_er_data_url']['#states'] = 
@@ -864,87 +866,114 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 		'visible' => $collection,
 	);
 	
-	//required fields
+	// required fields "Description of Data"
 	$form['field_er_type_of_data']['#states'] = array(
 	'required' => $collection, 
 	'visible' => $collection);
 	
-	
 	// change labels on participant date range
 	$form['field_er_participating_date']['#after_build'] = array('er_date_label');  //field name of the date
 	
-	_quick_add_inst($form, $form_state, 'field_er_inst_ref');
+	_quick_add_inst($form, $form_state, 'field_er_inst_ref');	
 	
-	
-	$form['field_er_inst_ref']['und']['#type'] = 'radios';//make this field single select.
+	$form['field_er_inst_ref']['und']['#type'] = 'radios'; //make this field single select.
 	$form['field_er_inst_ref']['und']['#default_value'] = array_pop($form['field_er_inst_ref']['und']['#default_value']); //fixes the selection
 	
-	//Supervisors Field only available to Graduates, Undergraduates
-		$form['field_er_supervisor']['#states'] = array(
+	// supervisors Field only available to Graduates, Undergraduates
+	$form['field_er_supervisor']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
 		'required' => array($undergrad, $grad_student),
 	);
-	
-	//Education fieldset only available to Graduates, Undergraduates
-		$form['group_er_education']['#states']['visible'] = array(
-		':input[name="field_er_most_sen_proj_role[und]"]' => 
-		array('value' => $grad_student, $undergrad, $post_doc),
-		);	  
-	//Advisor field only available to Students
+		  
+	// advisor field only available to Students
 		$form['field_er_advisor']['#states'] = array(
 		'visible' => array($post_doc, $undergrad, $grad_student),
 		'required' => array($post_doc, $undergrad, $grad_student),
 	);
 	
-	//Mentoring plan fields only available to Post-Docs
-		$form['field_er_mentoring_sign_off']['#states'] = 
-		$form['field_er_ment_plan_post_docs']['#states'] = 
-		$form['field_er_mentoring_plan_ul']['#states'] =
-		array(
-		'visible' => array($post_doc),
-		'required' => array($post_doc),
-	);	
-	
-	
+	// mentoring plan fields only available to Post-Docs
+	$form['field_er_mentoring_sign_off']['#states'] = 
+	$form['field_er_ment_plan_post_docs']['#states'] = 
+	$form['field_er_mentoring_plan_ul']['#states'] = array(
+		'visible' => $post_doc,
+		'required' => $post_doc,
+	);		
 	
 	// Set up Paid by EPSCoR Variables
-		$paid_by_epscor = array(
-		 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
-		);
+	$paid_by_epscor = array(
+	 ':input[name="field_er_paid[und]"]' => array('value' => '1'),
+	);
 		
-		$not_paid_by_epscor = array(
-		 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
-		);
+	$not_paid_by_epscor = array(
+	 ':input[name="field_er_paid[und]"]' => array('value' => '0'),
+	);
 		
-	//If Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
+	// if Faculty, and Paid = Yes ---> Show "How many months of direct funding ..." field		
 	// used 'invisible' here to rule out all Roles other than Faculty AND not Paid by EPSCoR
-		$form['field_er_months_of_effort']['#states'] = array(
+	$form['field_er_months_of_effort']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
 		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $not_paid_by_epscor),
-	);
+	);	
 	
-	
-	//If Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
+	// if Faculty, and Paid = No ---> Show "Provide a List of all funding sources ..." field
 	// used 'invisible' here to rule out all Roles other than Faculty AND Paid by EPSCoR
-		$form['field_er_list_funding_sources']['#states'] = array(
+	$form['field_er_list_funding_sources']['#states'] = array(
 		'invisible' => array(
 		$tech_support_staff, $undergrad, $grad_student, $epscor_leadership_team, 
 		$other_epscor_staff, $post_doc, $non_tech_support_staff, $evaluation_staff, $paid_by_epscor),
-	);
-	
+	);	
 		
-	//If Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
-		$participant_more_than_sixty = array(
+	// if Participate in EPSCoR > 160 Hours display "Please select nearest person.."" field
+	$participant_more_than_sixty = array(
 		':input[name="field_er_160hours[und]"]' => array('value' => '1'),
-		);
+	);
 		
-		$form['field_er_person_month']['#states'] = array(
+	$form['field_er_person_month']['#states'] = array(
 		'visible' => $participant_more_than_sixty,
 		'required' => $participant_more_than_sixty,
-	);		
+	);
+	
+	// $form['#validate'][] = 'user_profile_validate';
 }
 
+/*
+function user_profile_validate(&$form, &$form_state){
+	d($form_state, 'fs');
+	$fs = $form_state['values'];
+	
+	// if they're an undergrad and have not filled in anticipated graduation date, throw validation error	
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Undergraduate student' && fs_empty($fs, 'field_er_ant_under')){		
+		form_set_error('field_er_ant_under', t('Please enter anticipated graduation date.'));
+	}
+
+	// if they're a grad student, make sure they have anticipated graduation date
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Graduate student' && fs_empty($fs, 'field_er_ant_masters')){		
+		form_set_error('field_er_ant_masters', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+	
+	// if they're a post-doc student, make sure they have anticipated graduation date
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Graduate student' && fs_empty($fs, 'field_er_ant_masters')){		
+		form_set_error('field_er_ant_masters', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+		
+		
+	// if they're faculty, ask if they receive salary support from EPSCoR
+	if (fs_val($fs, 'field_er_most_sen_proj_role') == 'Faculty participant (or equivalent)' && fs_empty($fs, 'field_er_faculty_any_support')){		
+		form_set_error('field_er_faculty_any_support', t('Do you or anyone in your research group receive salary support from EPSCoR?'));
+	}
+	
+}
+ */
+
+// this function returns form_state values, to cut down on repetition
+function fs_val(&$fs, $field){
+	return $fs[$field][LANGUAGE_NONE][0]['value'];
+}
+
+function fs_empty($fs, $field){
+	return empty($fs[$field][LANGUAGE_NONE][0]['value']);
+}
 
 /*
  * This function is used because we want our "Smart Forms" to be able to hide/show an entire fieldset, and this is needed
