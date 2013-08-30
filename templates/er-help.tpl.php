@@ -87,17 +87,21 @@
 		</ol>
 		<h3 id="">
 			 EPSCoR Involvement
-		</h2>
-		<p>Enter a short but accurate description of your involvement with EPSCoR.  Include component names, board names, key personnel, advisors and lab names and what you are 
-		doing, where and when. </p>
+		</h3>
+	
 		<h3 id="">
 			 Most Senior Project Role (Required)
-		</h2>
+		</h3>
 		<p>Select the one position type that best describes your involvement with EPSCoR.  This list is defined by NSF Fastlane. If a position type is not listed that better 
 		defines your involvement, select the Other option.</p>
+        
+        <h3 id="">
+		EPSCoR Leadership Team (Required)
+		</h3>
+        <p>Select the option that best fits your role.</p>
 		<h3 id="">
-		Project Component
-		</h2>
+		Project Component(s) (Required)
+		</h3>
 		<p>Components are analogous to teams and are unique to each jurisdiction.  Components can easily be changed by an administrator or Drupal developer.</p>
 		<ol>
 			<li>Select the project component of which you are involved</li>
@@ -105,25 +109,34 @@
 			<li>If a component you are involved with is not listed, contact your administrator</li>
 		</ol>
 		<h3 id="">
-		 Please select which committes or boards you will be a member of
-		</h2>
+		 Please select which boards or committees you will be a member of
+		</h3>
 		<p>Select one or multiple (if applicable)</p>
 		<h3 id="">
 			 Participating Date
 		</h2>
-		<p>Enter the date you officially began participating with EPSCoR</p>
+		<p>Enter the date you officially began participating with EPSCoR.  Clicking the Add another item will allow you to add multiple Participating Dates</p>
+        
+                	<h3 id="">
+			 Hire Date
+		</h3>
+        <p>Enter the date that you were first hired by EPSCoR (if applicable). This would be the date that you started getting paid.</p>
+        
+        
 		<h3 id="">
-			 Are you paid by the EPSCoR grant
-		</h2>
-		<p>Select Yes or No. This is a required field.</p>
+			 Are you paid by the EPSCoR grant (Required)
+		</h3>
+		<p>Select the option that best fits your role.</p>
+        <p>If yes, the option for Months of Direct Funding will appear. From the drop down, select how many months of direct funding you receive. Round up or down to the nearest month of funding you are expected to receive.</p>
         <!--This question is no longer requiered
 		<h3 id="">
 			<a href="#5.7">5.7</a> How many months of direct funding do you receive
 		</h2>
 		<p>Select a number from the drop down box and round up or down to the nearest month of funding you are expected to receive</p>-->
+
 		<h3 id="">
 			 Do you participate in EPSCoR research more than 160 hours per year
-		</h2>
+		</h3>
 		<p>This ties into NSF Fastlane and refers to whether or not you put in more thatn 160 hours of effort in a year to this EPSCoR grant, whether you are paid or not</p>
 		<ol>
 			<li>Click the appropriate radio button with respect to the number of hours you participate in this EPSCoR grant in a year</li>
@@ -133,7 +146,7 @@
 		<h3 id="">
 			 Please describe role and contribution to the project
 		</h3>
-		<p>Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.</p>
+		<p>Include information about what you are doing, in which projects, who you are working with, location, dates and your contribution.</p>	
       
 		<h3 id="">
 			 RCR - Responsible Conduct of Research
@@ -215,7 +228,7 @@
 		</h3>
 		<p>Click on the Choose file button to browse and upload a photo.</p>
         <h3 id="">
-			Location Settings
+			Locale Settings
 		</h3>
 		<p>Select your locale setting.  This will configure Drupal to show date and time to your location.</p>
 		<h3 id="">
@@ -228,14 +241,14 @@
 		<a href="#enter-data">Introduction to Entering Reporting Data</a>
 	</h3>
 	<div>
-		<p>This guide is written with the assumption that you are working with a default ER-Core installation.  Logged in users will see a black menu across the top of the 
+		<p>This guide is written with the assumption that you are working with a default ER-Core installation.  Logged in userss will see a black menu across the top of the 
 		browser, just under the tabs of the browser.  The default ER Core installation will show this administrative menu and this guide is written assuming it is visible.  
 		Each jurisdiction will have the option to change the layout of the site and how menus look and are placed.</p>
 		<p>The 4th link from the left in the black administration menu is Content.  Hover your mouse over the link to see nested drop down menus.  Hover over the Add Content 
 		link to expand yet a 2nd nested menu list that contains links to the default forms that come with standard Drupal installation, plus links to the ER Core reporting forms, 
 		and custom jurisdictional forms.  </p>
 		<p>Hover over the Content link to show the expanded menu and click on the Add Content link.  You will see a page that has the various types of content you can 
-		add grouped into the headings of Drupal Content, EPSCoR Reporting Categories, and Jurisdictional.  </p>
+		add grouped into the headings of Drupal Conent, EPSCoR Reporting Categories, and Jurisdictional.  </p>
 		<p>Drupal Content is the type of content that Drupal comes with during a standard installation such as article, page, blog, image, etc.  Your jurisdiction can add or 
 		remove items from this group.  </p>
 		<p>EPSCoR Reporting Categories are the content types that come with the ER-Core module and represent the minimal reporting requirements to populate the reporting tables.  </p>

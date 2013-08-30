@@ -1,4 +1,5 @@
 <?php
+
 $view = new view();
 $view->name = 'er_users';
 $view->description = '';
@@ -123,6 +124,9 @@ $handler->display->display_options['filters']['status']['expose']['operator'] = 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'grid';
 $handler->display->display_options['style_options']['columns'] = '5';
@@ -141,6 +145,7 @@ $handler->display->display_options['header']['area']['table'] = 'views';
 $handler->display->display_options['header']['area']['field'] = 'area';
 $handler->display->display_options['header']['area']['content'] = 'This view shows all users in the system.';
 $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+$handler->display->display_options['defaults']['empty'] = FALSE;
 $handler->display->display_options['defaults']['fields'] = FALSE;
 /* Field: User: Picture */
 $handler->display->display_options['fields']['picture']['id'] = 'picture';
@@ -148,7 +153,8 @@ $handler->display->display_options['fields']['picture']['table'] = 'users';
 $handler->display->display_options['fields']['picture']['field'] = 'picture';
 $handler->display->display_options['fields']['picture']['label'] = '';
 $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['picture']['empty'] = '<img src ="http://www.fashionally.com/images/default_profile_pic.jpg" width="98px">';
+$handler->display->display_options['fields']['picture']['empty'] = '<img src="http://nmepscor.org/sites/default/files/pictures/defaultperson.jpg">';
+$handler->display->display_options['fields']['picture']['hide_alter_empty'] = FALSE;
 $handler->display->display_options['fields']['picture']['image_style'] = 'thumbnail';
 /* Field: User: First Name */
 $handler->display->display_options['fields']['field_er_fname']['id'] = 'field_er_fname';
@@ -386,9 +392,6 @@ $handler->display->display_options['defaults']['use_ajax'] = FALSE;
 $handler->display->display_options['use_ajax'] = TRUE;
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['group_by'] = FALSE;
-$handler->display->display_options['defaults']['access'] = FALSE;
-$handler->display->display_options['access']['type'] = 'perm';
-$handler->display->display_options['access']['perm'] = 'access user profiles';
 $handler->display->display_options['defaults']['exposed_form'] = FALSE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
 $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;

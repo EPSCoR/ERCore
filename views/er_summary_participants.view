@@ -1,4 +1,5 @@
 <?php
+
 $view = new view();
 $view->name = 'er_summary_participants';
 $view->description = '';
@@ -83,6 +84,7 @@ $handler->display->display_options['fields']['picture']['table'] = 'users';
 $handler->display->display_options['fields']['picture']['field'] = 'picture';
 $handler->display->display_options['fields']['picture']['label'] = '';
 $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['picture']['empty'] = '<img src="http://nmepscor.org/sites/default/files/pictures/defaultperson.jpg">';
 /* Field: User: Uid */
 $handler->display->display_options['fields']['uid']['id'] = 'uid';
 $handler->display->display_options['fields']['uid']['table'] = 'users';
@@ -109,6 +111,12 @@ $handler->display->display_options['fields']['field_er_realname']['alter']['path
 $handler->display->display_options['fields']['field_er_realname']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_realname']['empty'] = '[name]';
 $handler->display->display_options['fields']['field_er_realname']['hide_alter_empty'] = FALSE;
+/* Field: User: Most Senior Project Role */
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['id'] = 'field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['table'] = 'field_data_field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['field'] = 'field_er_most_sen_proj_role';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['label'] = '';
+$handler->display->display_options['fields']['field_er_most_sen_proj_role']['element_label_colon'] = FALSE;
 $handler->display->display_options['path'] = 'participants';
 
 /* Display: Attachment */
