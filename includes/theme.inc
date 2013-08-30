@@ -186,10 +186,9 @@ function er_removetab($label, &$vars) {
 		  }
 		  ++$i;
 		}
+		// If we only have the 'View' tab left, get rid of it
+		if (count($vars['tabs']['#primary']) == 1) array_pop($vars['tabs']['#primary']);
 	}
-	
-	// If we only have the 'View' tab left, get rid of it
-	if (count($vars['tabs']['#primary']) == 1) array_pop($vars['tabs']['#primary']);
 }
 
 /*
