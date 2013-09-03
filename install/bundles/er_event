@@ -240,7 +240,7 @@ $data = array(
       'module' => 'file',
       'active' => '1',
       'locked' => '0',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'columns' => array(
         'fid' => array(
@@ -873,7 +873,7 @@ $data = array(
     ),
     'field_er_event_flier' => array(
       0 => array(
-        'label' => 'Attach Flier',
+        'label' => 'Attach Document(s)',
         'widget' => array(
           'weight' => '8',
           'type' => 'file_generic',
@@ -885,7 +885,7 @@ $data = array(
         ),
         'settings' => array(
           'file_directory' => '',
-          'file_extensions' => 'txt pdf xls jpg',
+          'file_extensions' => 'txt pdf xls jpg png gif ppt pptx',
           'max_filesize' => '',
           'description_field' => 0,
           'user_register_form' => FALSE,
@@ -906,7 +906,7 @@ $data = array(
           ),
         ),
         'required' => 0,
-        'description' => 'Attach a pdf of your event flier',
+        'description' => 'Attach a pdf of your event flier, minutes, etc...',
         'field_name' => 'field_er_event_flier',
         'entity_type' => 'node',
         'bundle' => 'er_event',
