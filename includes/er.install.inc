@@ -412,18 +412,18 @@ function er_installer_reset_form($form, &$form_state){
 		if (isset($filename) && $filename != "" && $type != "all"){//if you specify the name of the specific thing you want (bundle, flag, etc)
 			if ($type == 'hijack_roles'){
 				$title = t('Are you sure you want to hijack the role?');
-				$cancel_path = 'admin/config/epscor/er/status';
+				$cancel_path = 'admin/config/epscor/status';
 				$button_label = t('Hijack');
 			}else{
 				$label = "$filename ($type)";
 				$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
-				$cancel_path = 'admin/config/epscor/er/status';
+				$cancel_path = 'admin/config/epscor/status';
 			}
 		}else{
 			//d(get_batch_operations($type), 'batch operations');
 			$label = $type=="all"?"everything imported by er-core":"all ER-core $type";
 			$title = t('Are you sure you want to reset @type?', array('@type'=>$label));
-			$cancel_path = 'admin/config/epscor/er/status';
+			$cancel_path = 'admin/config/epscor/status';
 		}
 		return confirm_form($form, $title, $cancel_path, t('This action cannot be undone. It is highly recommended that you <strong>backup your database</strong> before attempting a reset/update.'), $button_label, t('Cancel'));
 	}
@@ -450,7 +450,7 @@ function er_batch_reset($type = "all", $filename = "", $op = ""){
 		'error_message' => t('ER Core Batch Processing has encountered an error.'),
 	);
 	batch_set($batch); // Standard Batch call
-	batch_process('admin/config/epscor/er/status');
+	batch_process('admin/config/epscor/status');
 }
 
 function er_batch_api_callbacks($include_specials = true){
