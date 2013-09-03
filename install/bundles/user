@@ -1,5 +1,4 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'user' => NULL,
@@ -10,8 +9,8 @@ $data = array(
       'entity_types' => array(),
       'settings' => array(
         'allowed_values' => array(
-          0 => 'I participate in EPSCoR research <strong>less than</strong> 160 hours per year.',
-          1 => 'I participate in EPSCoR research <strong>more than</strong> 160 hours per year.',
+          0 => 'I participate in EPSCoR activities <strong>less than</strong> 160 hours per year.',
+          1 => 'I participate in EPSCoR activities <strong>more than</strong> 160 hours per year.',
         ),
         'allowed_values_function' => '',
         'profile2_private' => 0,
@@ -950,12 +949,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaboration',
+          1 => 'er_news',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_news',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -1342,12 +1341,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_other_product',
           1 => 'er_patent',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -1956,12 +1955,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaborators',
         ),
       ),
     ),
@@ -2027,11 +2026,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -2108,12 +2107,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaborators',
         ),
       ),
     ),
@@ -2189,11 +2188,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -2280,12 +2279,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaborators',
         ),
       ),
     ),
@@ -2366,11 +2365,11 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_collaborators',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -4327,7 +4326,7 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
   'instances' => array(
     'field_er_160hours' => array(
       0 => array(
-        'label' => 'Do you participate in EPSCoR research more than 160 hours per year?',
+        'label' => 'Do you participate in EPSCoR activities more than 160 hours per year?',
         'widget' => array(
           'weight' => '92',
           'type' => 'options_buttons',
@@ -4354,7 +4353,8 @@ $entity_field[0][\'value\'] = $fname[0][\'value\'] . \' \' . $lname[0][\'value\'
           ),
         ),
         'required' => 1,
-        'description' => '160 hours is equivalent to 4 weeks at 40 hours, 8 weeks at 20 hours, or one person-month.',
+        'description' => '160 hours is equivalent to 4 weeks at 40 hours, 8 weeks at 20 hours, or one person-month.
+',
         'default_value_php' => '',
         'default_value_function' => '',
         'default_value' => NULL,
@@ -6836,7 +6836,7 @@ White|White',
   ),
   'fieldgroups' => array(
     'group_er_data|user|user|form' => (object) array(
-      'id' => '2',
+      'id' => '14',
       'identifier' => 'group_er_data|user|user|form',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -6868,7 +6868,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|form' => (object) array(
-      'id' => '3',
+      'id' => '15',
       'identifier' => 'group_er_inst|user|user|form',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -6902,7 +6902,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|form' => (object) array(
-      'id' => '4',
+      'id' => '16',
       'identifier' => 'group_er_certs|user|user|form',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
@@ -6941,7 +6941,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|form' => (object) array(
-      'id' => '5',
+      'id' => '17',
       'identifier' => 'group_er_profile|user|user|form',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -6970,7 +6970,7 @@ White|White',
       ),
     ),
     'group_er_account|user|user|form' => (object) array(
-      'id' => '6',
+      'id' => '18',
       'identifier' => 'group_er_account|user|user|form',
       'group_name' => 'group_er_account',
       'entity_type' => 'user',
@@ -6998,7 +6998,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|form' => (object) array(
-      'id' => '7',
+      'id' => '19',
       'identifier' => 'group_er_contact|user|user|form',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -7029,7 +7029,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|form' => (object) array(
-      'id' => '8',
+      'id' => '20',
       'identifier' => 'group_er_demographics|user|user|form',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -7060,7 +7060,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|form' => (object) array(
-      'id' => '9',
+      'id' => '21',
       'identifier' => 'group_er_involvement|user|user|form',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -7103,7 +7103,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|form' => (object) array(
-      'id' => '10',
+      'id' => '22',
       'identifier' => 'group_er_education|user|user|form',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -7140,7 +7140,7 @@ White|White',
       ),
     ),
     'group_er_profile|user|user|default' => (object) array(
-      'id' => '11',
+      'id' => '23',
       'identifier' => 'group_er_profile|user|user|default',
       'group_name' => 'group_er_profile',
       'entity_type' => 'user',
@@ -7168,7 +7168,7 @@ White|White',
       ),
     ),
     'group_er_inst|user|user|default' => (object) array(
-      'id' => '12',
+      'id' => '24',
       'identifier' => 'group_er_inst|user|user|default',
       'group_name' => 'group_er_inst',
       'entity_type' => 'user',
@@ -7195,7 +7195,7 @@ White|White',
       ),
     ),
     'group_er_data|user|user|default' => (object) array(
-      'id' => '13',
+      'id' => '25',
       'identifier' => 'group_er_data|user|user|default',
       'group_name' => 'group_er_data',
       'entity_type' => 'user',
@@ -7225,7 +7225,7 @@ White|White',
       ),
     ),
     'group_er_contact|user|user|default' => (object) array(
-      'id' => '14',
+      'id' => '26',
       'identifier' => 'group_er_contact|user|user|default',
       'group_name' => 'group_er_contact',
       'entity_type' => 'user',
@@ -7255,7 +7255,7 @@ White|White',
       ),
     ),
     'group_er_demographics|user|user|default' => (object) array(
-      'id' => '15',
+      'id' => '27',
       'identifier' => 'group_er_demographics|user|user|default',
       'group_name' => 'group_er_demographics',
       'entity_type' => 'user',
@@ -7284,7 +7284,7 @@ White|White',
       ),
     ),
     'group_er_involvement|user|user|default' => (object) array(
-      'id' => '16',
+      'id' => '28',
       'identifier' => 'group_er_involvement|user|user|default',
       'group_name' => 'group_er_involvement',
       'entity_type' => 'user',
@@ -7326,7 +7326,7 @@ White|White',
       ),
     ),
     'group_er_education|user|user|default' => (object) array(
-      'id' => '17',
+      'id' => '29',
       'identifier' => 'group_er_education|user|user|default',
       'group_name' => 'group_er_education',
       'entity_type' => 'user',
@@ -7357,7 +7357,7 @@ White|White',
       ),
     ),
     'group_er_certs|user|user|default' => (object) array(
-      'id' => '18',
+      'id' => '30',
       'identifier' => 'group_er_certs|user|user|default',
       'group_name' => 'group_er_certs',
       'entity_type' => 'user',
