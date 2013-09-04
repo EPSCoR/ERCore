@@ -198,15 +198,21 @@ function er_testing() {
 	//Fields and fieldgroups
 	$field_status = _test_fields();
 	foreach ($field_status as $bundle=>$results){
+		//d($results, '$results');
 		$title = "Bundle: ".$results['name']." ($bundle)";
 		$has_missing = false;
 		$has_modified = false;
 		$has_extra = false;
 		$description = null;
+		//$o = _format_field_list($results['extra_fields']);
+		//d($o, '$o');
+		$found_url = $bundle=='user'?'admin/config/people/accounts':'admin/structure/types/manage/'.$bundle;
+		$value = l('<i class="icon-ok"></i> Found', $found_url, array('html'=>true)).', '.create_reset_link('bundles', $bundle, 'this bundle');
+		
 		if (count($results['extra_fields']) || count($results['extra_groups'])){//if missing fields or groups were returned
 			$has_extra = true;
 			if (count($results['extra_fields'])){
-				$description .= "Extra fields: ".implode(", ", array_keys($results['extra_fields'])).'<br>';
+				$description .= "Extra fields: "._format_field_list($found_url, $results['extra_fields']).'<br>';
 			}
 			if (count($results['extra_groups'])){
 				$description .= "Extra field groups: ".implode(", ", array_keys($results['extra_groups'])).'<br>';
@@ -230,7 +236,6 @@ function er_testing() {
 		}
 		
 		$severity = REQUIREMENT_OK;
-		$value = l('<i class="icon-ok"></i> Found', 'admin/structure/types/manage/'.$bundle, array('html'=>true)).', '.create_reset_link('bundles', $bundle, 'this bundle');
 		if ($has_missing || $has_modified){
 			$severity = REQUIREMENT_ERROR;
 			$value = create_reset_link('bundles', $bundle, 'this bundle');
@@ -284,6 +289,19 @@ function er_testing() {
 		'#requirements'=>$requirements,
 	);
 	return $form;
+}
+
+function _format_field_list($found_url, &$fields){
+	$return = '';
+	$first = true;
+	foreach($fields as $field_name=>&$field){
+		if ($first) $first = false;
+		else $return .= ', ';
+		$label = isset($field['label'])?$field['label']:$field_name;
+		$return .= l($label, "$found_url/fields/$field_name");
+	}
+	return $return;
+
 }
 
 function create_reset_link($type, $name, $label = ''){
@@ -354,15 +372,14 @@ function _test_fields(){
 			
 			$bundle_fields = field_info_instances($entity_type, $bundle_type);
 			$modified_fields = array();
-			//if ($bundle_type == 'er_collaboration'){
-			//	d($bundle_fields, '$bundle_fields');
-			//	d($data, '$data');
-			//}
 			if (isset($data['fields'])){ //Make sure there are fields
 				foreach ($data['fields'] as $field_name=>$field){ //Check each field
-					if (isset($bundle_fields[$field_name])){//the field exists
+					if (isset($bundle_fields[$field_name])){
+						//The field exists:
 						unset($bundle_fields[$field_name]);
 						unset($data['fields'][$field_name]);
+						
+						//Check if the field has changed:
 						$internal_field = $all_fields[$field_name];
 						unset($internal_field['id']);
 						unset($internal_field['bundles']);unset($field['bundles']);
