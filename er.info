@@ -1,9 +1,11 @@
 ; $Id$
 name = EPSCoR Reporting
 description = A custom module designed to handle reporting tasks.
-core = 7.x
+version = "7.x-2.01-dev"
+core = "7.x"
+project = "er"
 package = "EPSCoR"
-version = "7.x-1.1-dev"
+
 ; we need date_views and date_popup for the summary table specifically.
 ; Please keep the following list sorted.
 ; Did you make a change to this list?  If so, please change INSTALL.html also.
@@ -39,10 +41,3 @@ dependencies[] = views_php
 dependencies[] = views_ui
 
 files[] = tests/nsf-tables.test
-
-; Information added by drush on 2013-06-06
-version = "7.x-1.x-dev-dev"
-core = "7.x"
-project = "er"
-datestamp = "1370481299"
-
