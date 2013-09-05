@@ -6,6 +6,9 @@
 
 function er_form_alter(&$form, &$form_state, $form_id){
 	// d($form_id, 'form id in er_form_alter');
+	// d($form, 'form');
+	// d($form_state, 'fs');
+	// var_dump($form_state);
 	// $blob = variable_get(drupal_private_key);
 	// $blob = variable_get(menu_options_er_publication);
 	// d($blob, 'private key blob');

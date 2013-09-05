@@ -246,6 +246,51 @@ function er_testing() {
 		);
 	}
 	
+	// Views	
+	$db_views = _get_db_views(); // array of all the machine names contained in the views_view table
+	// if these names match up with any of the ones we have stored in er/views, then we need to revert them
+	// get list of machine names stored in er/views
+	$er_views = _get_er_views();
+	// we want to make a row for each of the packaged views, and make the severity red if they need to revert it
+	// to determine if we need to revert it, we see which ones are in the overriden in the database
+	// since we have the human name, let's make an array that's only the machine names from ER packaged views
+	$er_machines = array();
+	foreach ($er_views as $key => $value) {
+		// d($value);
+		$er_machines[] = $value['machine'];
+	}
+	// d($er_machines, 'machines');
+	$conflicting_views = array_intersect($db_views, $er_machines);
+	// d($conflicting_views, 'conflicting views that need to be reverted');
+	foreach ($er_views as $view) {
+		// if it's one of the conflicting views, change severity, value, and description
+		if (in_array($view['machine'], $conflicting_views)){
+			$requirements[] = array(
+				'title' => 'View: ' . $view['human'] . " ({$view['machine']})",
+				'severity' => REQUIREMENT_WARNING,
+				'value' => l(t('Revert View'), "admin/structure/views/view/{$view['machine']}/revert", array('query' => array('destination' => 'admin/config/epscor/status'))),
+				'description' => 'View has been overriden from the one packaged with this version of ER Core. <br/>If changes have been made deliberately, you may proceed. <br/>If no modifications have been made, you will want to Revert this View to match the current version packaged with ER Core.',
+			);
+		} else {
+			$requirements[] = array(
+				'title' => 'View: ' . $view['human'] . " ({$view['machine']})",
+				'severity' => REQUIREMENT_OK,
+				'value' => '<i class="icon-ok"></i>&nbsp; View is correct.',
+				'description' => 'View corresponds to the one packaged with this version of ER Core.',
+			);				
+		}		
+	}
+		
+	//Devel
+	if (function_exists('dpm')){
+		$requirements[] = array(
+			'title' => 'Development Tools',
+			'severity' => REQUIREMENT_OK,
+			'value' => 'Devel is enabled',
+			'description' => 'This module should be enabled in a development environment, but should not be necessary for a live site.',
+		);
+	}
+
 	//d($field_status, '$field_status');
 	$form['reset'] = array(
 		'#type'=>'fieldset',
@@ -267,16 +312,8 @@ function er_testing() {
 			'#html' => true,
 		);
 	}
+	// now we need to add the Revert View part
 	
-	//Devel
-	if (function_exists('dpm')){
-		$requirements[] = array(
-			'title' => 'Development Tools',
-			'severity' => REQUIREMENT_OK,
-			'value' => 'Devel is enabled',
-			'description' => 'This module should be enabled in a development environment, but should not be necessary for a live site.',
-		);
-	}
 	
 	//Display the table
 	$form['status'] = array(
@@ -284,6 +321,38 @@ function er_testing() {
 		'#requirements'=>$requirements,
 	);
 	return $form;
+}
+
+function _get_er_views(){
+	$views_path = ER_MODULE_DIR . '/views';
+	$dir = new DirectoryIterator($views_path);
+	
+	$ret = array(); // this will return the machine names of the views contained and packaged with ER Core
+	foreach ($dir as $fileinfo) {//loop through all files in the directory
+		if (!$fileinfo->isDot()) { //Check that it's not . or .. (which are not really files)
+			$view_filename = $fileinfo->getFilename();
+			include($views_path . '/' . $view_filename);//now all the bundle information is contained in $view
+			$ret[] = array("human" => $view->human_name, "machine" => $view->name);
+		}
+	}	
+	// d($ret, 'returning all views packaged with ER Core');
+	return $ret;
+}
+
+function _get_db_views(){
+	$result = db_select('views_view', 'v')
+	    ->fields('v', array('name'))
+	    ->execute()
+	    ->fetchAll();	
+	
+	// build list of machine names contained in this table under the column 'name'
+	$ret = array();
+	foreach ($result as $key => $value) {
+		$ret[] = $value->name;
+	}
+	// d($ret, 'returning value of machine names from db');
+	return $ret;
+	
 }
 
 function create_reset_link($type, $name, $label = ''){
