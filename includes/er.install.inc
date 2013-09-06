@@ -162,8 +162,14 @@ function er_batch_import_fields($file_path, &$context){
 		// Code 0 has meant that a field is conflicting
 		$trace = $e->getTrace();
 		d($trace, '$trace (line:165)');
-		if ($e->getCode() == 0 && $trace = $e->getTrace() && $field_name = $trace[0]['args'][0]){
-			if (is_array($field_name)) $field_name = $field_name['field_name'];//for some reason it sometimes moves!
+		if ($e->getCode() == 0 && $trace = $e->getTrace() && $field_data = $trace[0]['args'][0]){
+			//for some reason it's sometimes different!
+			if (is_array($field_data)){
+				$field_name = $field_data['field_name'];
+			}else{
+				//ex: field_data_field_er_push_notifications
+				$field_name = substr($field_data, 11);//cut off the field_data_ part...
+			}
 			d($field_name, '$field_name (line:166)');
 			er_field_rename($field_name);
 			er_batch_import_fields($file_path, $context);//re-run the update process for this bundle.
