@@ -121,6 +121,11 @@ class er_debug extends er_page{
 
 
 		switch(arg(2)){
+			case 'test_rusty':
+				$file_path = 'sites/all/modules/er/install/bundles/er_event';
+				$context = array();
+				er_batch_import_fields($file_path, $context);
+				return '';
 			case 'test_field_rename':
 				return er_field_rename();
 			case 'speed1':
