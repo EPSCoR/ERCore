@@ -253,9 +253,11 @@ function er_field_rename($field_name){
 	//Modify the tables that store the actual field data:
 	foreach (array('field_data_', 'field_revision_') as $table_prefix){
 		$table_name = $table_prefix.$field_name;
+		d($table_name, '$table_name');
 		$new_table_name = $table_prefix.$new_field_name;
+		d($new_table_name, '$new_table_name');
 		$schema = $full_schema[$table_name];
-		//d($schema, '$schema');
+		d($schema, '$schema');
 		foreach ($schema['fields'] as $schema_field_name=>&$field_schema){
 			if (strpos($schema_field_name, $field_name) !== false){
 				$new_schema_field_name = str_replace($field_name, $new_field_name, $schema_field_name);

@@ -127,7 +127,8 @@ class er_debug extends er_page{
 				er_batch_import_fields($file_path, $context);
 				return '';
 			case 'test_field_rename':
-				return er_field_rename();
+				$field = 'test_field_1';
+				return er_field_rename($field);
 			case 'speed1':
 				$start = microtime(true);
 				for ($i = 0; $i<50; $i++){
