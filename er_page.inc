@@ -34,7 +34,7 @@ class er_page{
 	);
 	
 	public function __construct() {
-		$this->range = er_get_reporting_range();
+		//$this->range = er_get_reporting_range();
 		//$this->template_dir = drupal_get_path('module', 'er') . '/templates/';
 	}
 	
@@ -43,7 +43,7 @@ class er_page{
 	 */
 	
 	public function title(){
-		return "Reporting".$this->range_string();
+		return '';//"Reporting".$this->range_string();
 	}
 	
 	public function range_string(){
