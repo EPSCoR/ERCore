@@ -183,116 +183,117 @@ function er_batch_import_fields($file_path, &$context){
 
 //Renames a field in the database. This is used when the field schema has changed, and manual migration is necessary.
 function er_field_rename($field_name = 'field_er_1378845502_49', $dry_run = true){
-	$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
-	//d($new_field_name, '$new_field_name');
-	
-	$full_schema = drupal_get_complete_schema();
-	if (!isset($full_schema['field_data_'.$field_name]))
-		$full_schema = drupal_get_complete_schema(true);//try rebuilding the schema
-	if (!isset($full_schema['field_data_'.$field_name]))
-		throw new Exception("Field $field_name schema not found.");
-	
-	$query = db_select('field_config', 'c');
-	$results = $query
-		->condition('c.field_name', $field_name, '=')
-		->fields('c', array('data'))
-		->execute();
-	$record = $results->fetchAssoc();
-	if (!$record) throw new Exception("Field $field_name not found (missing field_config entry).");
-	$config_data = unserialize($record['data']);
-	
-	$query = db_select('field_config_instance', 'c');
-	$results = $query
-		->condition('c.field_name', $field_name, '=')
-		->fields('c', array('data'))
-		->execute();
-	$record = $results->fetchAssoc();
-	if (!$record) throw new Exception("Field $field_name not found (missing field_config_instance entry).");
-	$config_instance_data = unserialize($record['data']);
-	
-	//Use the unserialize field_config data and modify sections that include the old field name:
-	if (count($config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT']) != 1 || count($config_data['storage']['details']['sql']['FIELD_LOAD_REVISION']) != 1){
-		d($config_data, '$config_data');
-		throw new Exception("Cannot modify the field_config data. Format is unrecognizable.");
-	}
-	
-	if ($dry_run) d($config_data['storage']['details']['sql'], '$config_data storage details');
-	$field_column_map = array();
-	$field_values = array_pop($config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
-	foreach ($field_values as $key=>&$value){
-		if (strpos($value, $field_name) !== FALSE){
-			$new_value = str_replace($field_name, $new_field_name, $value);
-			$value = $field_column_map[$value] = $new_value;
-		}
-	}
-	$config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT'] = array('field_data_'.$new_field_name => $field_values);
-	$config_data['storage']['details']['sql']['FIELD_LOAD_REVISION'] = array('field_revision_'.$new_field_name => $field_values);
-	if ($dry_run) d($config_data['storage']['details']['sql'], '$config_data storage details (after)');
-	
-	//Update the label to indicate that the field has been renamed:
-	$config_instance_data['label'] .= " (OLD DATA)";
-	
-	//d($config_data, '$config_data');
-	//d($config_instance_data, '$config_instance_data');
-	//d($field_column_map, '$field_column_map');
-	
-	if (!$dry_run){
-		//Update field_config:
-		$update = db_update('field_config');
-		$update
-			->fields(array(
-				'field_name' => $new_field_name,
-				'data' => serialize($config_data),//update the data field to use the modified data
-			))
-			->condition('field_name', $field_name, '=')
-			->execute();
-			
-		//Update field_config_instance:
-		$update = db_update('field_config_instance');
-		$update
-			->fields(array(
-				'field_name' => $new_field_name,
-				'data' => serialize($config_instance_data),//update the data field to use the modified data
-			))
-			->condition('field_name', $field_name, '=')
-			->execute();
-	}
-	
-	$conn = Database::getConnection();
-	$db_driver = $conn->driver();
-	
-	//Modify the tables that store the actual field data:
-	foreach (array('field_data_', 'field_revision_') as $table_prefix){
-		$table_name = $table_prefix.$field_name;
-		$new_table_name = $table_prefix.$new_field_name;
-		$schema = $full_schema[$table_name];
-		//We needed to stop using db_change_field because it's [sometimes] breaking in Postgres for some reason...
-		//foreach ($schema['fields'] as $schema_field_name=>&$field_schema){
-		//	if (strpos($schema_field_name, $field_name) !== false){
-		//		$new_schema_field_name = str_replace($field_name, $new_field_name, $schema_field_name);
-		//		//modify the value column(s) within the table
-		//		db_change_field($table_name, $schema_field_name, $new_schema_field_name, $field_schema);
-		//	}
-		//}
-		
-		//change the column names to use the new values
-		foreach ($field_column_map as $old_id=>$new_id){
-			$field_schema = $schema['fields'][$old_id];
-			if ($dry_run)d($field_schema, $old_id . ' schema');
-			if ($db_driver == 'mysql')
-				$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
-			else//pgsql
-				$query = 'ALTER TABLE '.$table_name.' RENAME COLUMN '.$old_id.' to '.$new_id;
-			if (!$dry_run) db_query($query);
-		}
-		
-		//Move the data table:
-		if (!$dry_run) db_query('ALTER TABLE '.$table_name.' RENAME TO '.$new_table_name);
-	}
+	d('this should be perfectly happy.');
+	//$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
+	////d($new_field_name, '$new_field_name');
+	//
+	//$full_schema = drupal_get_complete_schema();
+	//if (!isset($full_schema['field_data_'.$field_name]))
+	//	$full_schema = drupal_get_complete_schema(true);//try rebuilding the schema
+	//if (!isset($full_schema['field_data_'.$field_name]))
+	//	throw new Exception("Field $field_name schema not found.");
+	//
+	//$query = db_select('field_config', 'c');
+	//$results = $query
+	//	->condition('c.field_name', $field_name, '=')
+	//	->fields('c', array('data'))
+	//	->execute();
+	//$record = $results->fetchAssoc();
+	//if (!$record) throw new Exception("Field $field_name not found (missing field_config entry).");
+	//$config_data = unserialize($record['data']);
+	//
+	//$query = db_select('field_config_instance', 'c');
+	//$results = $query
+	//	->condition('c.field_name', $field_name, '=')
+	//	->fields('c', array('data'))
+	//	->execute();
+	//$record = $results->fetchAssoc();
+	//if (!$record) throw new Exception("Field $field_name not found (missing field_config_instance entry).");
+	//$config_instance_data = unserialize($record['data']);
+	//
+	////Use the unserialize field_config data and modify sections that include the old field name:
+	//if (count($config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT']) != 1 || count($config_data['storage']['details']['sql']['FIELD_LOAD_REVISION']) != 1){
+	//	d($config_data, '$config_data');
+	//	throw new Exception("Cannot modify the field_config data. Format is unrecognizable.");
+	//}
+	//
+	//if ($dry_run) d($config_data['storage']['details']['sql'], '$config_data storage details');
+	//$field_column_map = array();
+	//$field_values = array_pop($config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+	//foreach ($field_values as $key=>&$value){
+	//	if (strpos($value, $field_name) !== FALSE){
+	//		$new_value = str_replace($field_name, $new_field_name, $value);
+	//		$value = $field_column_map[$value] = $new_value;
+	//	}
+	//}
+	//$config_data['storage']['details']['sql']['FIELD_LOAD_CURRENT'] = array('field_data_'.$new_field_name => $field_values);
+	//$config_data['storage']['details']['sql']['FIELD_LOAD_REVISION'] = array('field_revision_'.$new_field_name => $field_values);
+	//if ($dry_run) d($config_data['storage']['details']['sql'], '$config_data storage details (after)');
+	//
+	////Update the label to indicate that the field has been renamed:
+	//$config_instance_data['label'] .= " (OLD DATA)";
+	//
+	////d($config_data, '$config_data');
+	////d($config_instance_data, '$config_instance_data');
+	////d($field_column_map, '$field_column_map');
+	//
+	//if (!$dry_run){
+	//	//Update field_config:
+	//	$update = db_update('field_config');
+	//	$update
+	//		->fields(array(
+	//			'field_name' => $new_field_name,
+	//			'data' => serialize($config_data),//update the data field to use the modified data
+	//		))
+	//		->condition('field_name', $field_name, '=')
+	//		->execute();
+	//		
+	//	//Update field_config_instance:
+	//	$update = db_update('field_config_instance');
+	//	$update
+	//		->fields(array(
+	//			'field_name' => $new_field_name,
+	//			'data' => serialize($config_instance_data),//update the data field to use the modified data
+	//		))
+	//		->condition('field_name', $field_name, '=')
+	//		->execute();
+	//}
+	//
+	//$conn = Database::getConnection();
+	//$db_driver = $conn->driver();
+	//
+	////Modify the tables that store the actual field data:
+	//foreach (array('field_data_', 'field_revision_') as $table_prefix){
+	//	$table_name = $table_prefix.$field_name;
+	//	$new_table_name = $table_prefix.$new_field_name;
+	//	$schema = $full_schema[$table_name];
+	//	//We needed to stop using db_change_field because it's [sometimes] breaking in Postgres for some reason...
+	//	//foreach ($schema['fields'] as $schema_field_name=>&$field_schema){
+	//	//	if (strpos($schema_field_name, $field_name) !== false){
+	//	//		$new_schema_field_name = str_replace($field_name, $new_field_name, $schema_field_name);
+	//	//		//modify the value column(s) within the table
+	//	//		db_change_field($table_name, $schema_field_name, $new_schema_field_name, $field_schema);
+	//	//	}
+	//	//}
+	//	
+	//	//change the column names to use the new values
+	//	foreach ($field_column_map as $old_id=>$new_id){
+	//		$field_schema = $schema['fields'][$old_id];
+	//		if ($dry_run)d($field_schema, $old_id . ' schema');
+	//		if ($db_driver == 'mysql')
+	//			$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
+	//		else//pgsql
+	//			$query = 'ALTER TABLE '.$table_name.' RENAME COLUMN '.$old_id.' to '.$new_id;
+	//		if (!$dry_run) db_query($query);
+	//	}
+	//	
+	//	//Move the data table:
+	//	if (!$dry_run) db_query('ALTER TABLE '.$table_name.' RENAME TO '.$new_table_name);
+	//}
 	//drupal_get_complete_schema(true);//rebuild the schema to make sure drupal knows about our changes.
-	field_cache_clear();//clear the caches and make sure drupal knows what's up.
-	$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
-	drupal_set_message($message, 'warning');
+	//field_cache_clear();//clear the caches and make sure drupal knows what's up.
+	//$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
+	//drupal_set_message($message, 'warning');
 	//watchdog('er', $message, array(), WATCHDOG_WARNING);
 	return '';
 }
