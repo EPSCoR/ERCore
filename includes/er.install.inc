@@ -293,7 +293,7 @@ function er_field_rename($field_name = 'field_er_1378845502_49', $dry_run = true
 	field_cache_clear();//clear the caches and make sure drupal knows what's up.
 	$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
 	drupal_set_message($message, 'warning');
-	watchdog('er', $message, array(), WATCHDOG_WARNING);
+	//watchdog('er', $message, array(), WATCHDOG_WARNING);
 	return '';
 }
 
