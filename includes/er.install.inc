@@ -258,6 +258,9 @@ function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
 			->execute();
 	}
 	
+	$conn = Database::getConnection();
+	$db_driver = $conn->driver();
+	
 	//Modify the tables that store the actual field data:
 	foreach (array('field_data_', 'field_revision_') as $table_prefix){
 		$table_name = $table_prefix.$field_name;
@@ -276,7 +279,10 @@ function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
 		foreach ($field_column_map as $old_id=>$new_id){
 			$field_schema = $schema['fields'][$old_id];
 			if ($dry_run)d($field_schema, $old_id . ' schema');
-			$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
+			if ($db_driver == 'mysql')
+				$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
+			else
+				$query = 'ALTER TABLE '.$table_name.' RENAME COLUMN '.$old_id.' to '.$new_id;
 			if (!$dry_run) db_query($query);
 		}
 		

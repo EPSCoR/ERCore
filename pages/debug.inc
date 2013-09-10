@@ -118,7 +118,9 @@ class er_debug extends er_page{
 		//dsm($record, 'record');
 		//
 		//dsm(user_load($user->uid), 'user2');
-
+		$conn = Database::getConnection();
+		$driver = $conn->driver();
+		d($driver, '$driver');
 
 		switch(arg(2)){
 			case 'test_rusty':
