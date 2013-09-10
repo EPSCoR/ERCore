@@ -182,7 +182,7 @@ function er_batch_import_fields($file_path, &$context){
 }
 
 //Renames a field in the database. This is used when the field schema has changed, and manual migration is necessary.
-function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
+function er_field_rename($field_name = 'field_er_1378845502_49', $dry_run = true){
 	$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
 	//d($new_field_name, '$new_field_name');
 	
@@ -281,7 +281,7 @@ function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
 			if ($dry_run)d($field_schema, $old_id . ' schema');
 			if ($db_driver == 'mysql')
 				$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
-			else
+			else//pgsql
 				$query = 'ALTER TABLE '.$table_name.' RENAME COLUMN '.$old_id.' to '.$new_id;
 			if (!$dry_run) db_query($query);
 		}
