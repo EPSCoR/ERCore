@@ -289,7 +289,7 @@ function er_field_rename($field_name = 'field_er_1378845502_49', $dry_run = true
 		//Move the data table:
 		if (!$dry_run) db_query('ALTER TABLE '.$table_name.' RENAME TO '.$new_table_name);
 	}
-	drupal_get_complete_schema(true);//rebuild the schema to make sure drupal knows about our changes.
+	//drupal_get_complete_schema(true);//rebuild the schema to make sure drupal knows about our changes.
 	field_cache_clear();//clear the caches and make sure drupal knows what's up.
 	$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
 	drupal_set_message($message, 'warning');
