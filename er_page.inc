@@ -3,6 +3,7 @@ class er_page{
 	protected $content_type_info;
 	protected $template_dir;
 	protected $range;
+	protected $date_format = 'M j, Y';
 	
 	protected static $field_aliases = array(
 		'position_type'=>'field_er_most_sen_proj_role',
@@ -34,7 +35,7 @@ class er_page{
 	);
 	
 	public function __construct() {
-		//$this->range = er_get_reporting_range();
+		$this->range = er_get_reporting_range();
 		//$this->template_dir = drupal_get_path('module', 'er') . '/templates/';
 	}
 	
@@ -43,11 +44,12 @@ class er_page{
 	 */
 	
 	public function title(){
-		return '';//"Reporting".$this->range_string();
+		d($this->range_string(), '$this->range_string()');
+		return "Reporting".$this->range_string();
 	}
 	
 	public function range_string(){
-		return ' ['.date('M d, Y', $this->range[0]).' - '.date('M n, Y', $this->range[1]).']';
+		return ' ['.date($this->date_format, $this->range[0]).' - '.date($this->date_format, $this->range[1]).']';
 	}
 	
 	public function data(){
