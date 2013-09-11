@@ -90,7 +90,7 @@ class er_participants extends er_page{
 		if ($count){
 			//We do the grouping when counting, otherwise show everything individually.
 			$query->groupBy('inst_ref.'.self::$field_aliases['inst_ref'].'_target_id');
-			$query->groupBy('position_type.'.self::$field_aliases['position_type'].'_value');
+			$query->groupBy('position_type');//reference the CASE statement.
 			//Count the user ids...
 			//$query->addExpression('COUNT('.($distinct?'DISTINCT ':'').'users.uid)', 'count');
 			$query = $this->count_users($query, $distinct);
