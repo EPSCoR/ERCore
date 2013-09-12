@@ -90,12 +90,6 @@ function _quick_add_inst_create($data){
 	node_save($newNode); //save it!
 	$nid = $newNode->nid;
 	
-	if ($user->uid == 0){ //Anonymous users
-		// This means someone is creating an Institution and 
-		//		is anonymous creating an account, so we need this to be urgent
-		$flag = flag_get_flag('er_needs_review_urgent');
-		$flag->flag('flag', $newNode->nid, null, TRUE);	 		  			  		  	
-	}
 	// flag this as needing Administrator review so they can 
 	//		add Juristictional information, etc...
 	$flag = flag_get_flag('er_needs_review');
