@@ -18,6 +18,8 @@ define('ER_MODULE_DIR', drupal_get_path('module', 'er'));
 define('ER_INSTALL_DIR', ER_MODULE_DIR . '/install');
 define('ER_INCLUDES_DIR', ER_MODULE_DIR . '/includes');
 
+define('ER_DATE_FORMAT', "M j, Y");
+
 require_once ER_MODULE_DIR . '/includes/form_logic.inc';
 require_once ER_MODULE_DIR . '/includes/node_logic.inc';
 require_once ER_MODULE_DIR . '/includes/theme.inc';

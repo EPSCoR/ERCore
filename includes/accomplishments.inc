@@ -30,11 +30,10 @@ function er_summary_table($variables){
 	$ret = array('#theme'=>'table');
 	//$content_types = er_content_types();
 	//$ct_info = node_type_get_types();
-	$display_date = "M j, Y";
 	$ret['#header'][] = "Categories of Accomplishments";
-	$ret['#header'][] = "Inception<br>through<br>" . date($display_date);
+	$ret['#header'][] = "Inception<br>through<br>" . date(ER_DATE_FORMAT);
 	foreach ($ranges as $k=>$v)
-		$ret['#header'][] = date($display_date, $v[0])."<br>through<br>".date($display_date, $v[1]);
+		$ret['#header'][] = date(ER_DATE_FORMAT, $v[0])."<br>through<br>".date(ER_DATE_FORMAT, $v[1]);
 	
 	$types = variable_get('er_summary_types');//see er/includes/er.admin.inc
 	if (isset($types) && count($types)){
@@ -45,7 +44,7 @@ function er_summary_table($variables){
 				$view->set_display('count');
 				$view->execute();
 				//dsm($view);
-				$data[] = er_format_label($type, $view);//$ct_info[$type]->name;
+				$data[] = er_format_label($type, $view, $ranges);//$ct_info[$type]->name;
 				if (isset($view->result[0]->nid))
 					$data[] = $view->result[0]->nid;//this is the node count //old way: $view->total_rows;
 				else
@@ -94,11 +93,21 @@ function er_summary_table($variables){
 
 //this is the label shown on the accomplishments table. ex: "publications", "current and pending", "posters"
 //We could make this into a proper hook in the future...
-function er_format_label($type, &$view){
+function er_format_label($type, &$view, &$ranges){
 	//global $user;
 	$view_title = isset($view->display['default']->handler->options['title'])?$view->display['default']->handler->options['title']:$type;
+	if (count($ranges)==1){
+		$view_link_with_range = array(
+			'query'=>array(
+				'start_date[value][date]'=>date('Y-m-d', $ranges[0][0]),
+				'end_date[value][date]'=>date('Y-m-d', $ranges[0][1]),
+			)
+		);
+	}else{
+		$view_link_with_range = array();
+	}
 	if (isset($view->display['page']->display_options['path']))
-		$ret = l('<i class="icon-download-alt"></i>', $view->display['page']->display_options['path'].'/download', array('html'=>true)). ' ' . l($view_title, $view->display['page']->display_options['path']);
+		$ret = l('<i class="icon-download-alt"></i>', $view->display['page']->display_options['path'].'/download', array('html'=>true)). ' ' . l($view_title, $view->display['page']->display_options['path'], $view_link_with_range);
 	else
 		$ret = $view_title;
 	return $ret;
