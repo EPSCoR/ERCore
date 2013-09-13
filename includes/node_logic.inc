@@ -177,7 +177,13 @@ function er_node_validate($node){
 	}
 }
 
-//see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
+/*
+ * Purpose:
+ *   Remove the "to date" from being automatically added in the database...
+ *   If the user did not select the "show to date" checkbox, we can set the "to date" to null.
+ *   This helps the queries understand that this event is 'ongoing'.
+ * see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
+ */
 function er_field_attach_presave($entity_type, $entity){
   if ($entity_type == 'user'){
     $field = 'field_er_participating_date'; //this is the name of the date field on the user profile
