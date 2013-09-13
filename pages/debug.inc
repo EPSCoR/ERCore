@@ -56,228 +56,202 @@ class er_debug extends er_page{
 		global $user;
 		$types = array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth');
 		$vals = array('total', 'male', 'female', 'und', 'urm');
-		
-		//dsm($user, '$user');
-		//
-		//$uid = $user->uid;
-		//
-		//$query = new EntityFieldQuery();
-		//
-		//$query->entityCondition('entity_type', 'user')
-		//	->propertyCondition('uid', $uid)
-		//	->addMetaData('account', user_load(1)); // Run the query as user 1.
-		//
-		//$result = $query->execute();
-		//dsm($result, '$result');
-		//
-		//if (isset($result['user'])) {
-		//	$dude = array_keys($result['user']);
-		//	$record = entity_load('user', $dude);
-		//}
-		//
-		//dsm($record, 'record');
-		//
-		//dsm(user_load($user->uid), 'user2');
-		//$conn = Database::getConnection();
-		//$driver = $conn->driver();
-		//d($driver, '$driver');
-		//
-		//switch(arg(2)){
-		//	case 'test_rusty':
-		//		$file_path = 'sites/all/modules/er/install/bundles/er_event';
-		//		$context = array();
-		//		er_batch_import_fields($file_path, $context);
-		//		return '';
-		//	case 'test_field_rename':
-				er_field_rename();
-		//		return '';
-		//	case 'speed1':
-		//		$start = microtime(true);
-		//		for ($i = 0; $i<50; $i++){
-		//			$this->load1();
-		//		}
-		//		$end = microtime(true);
-		//		d(($end-$start)*100);
-		//		return '';
-		//	case 'speed2':
-		//		$start = microtime(true);
-		//		for ($i = 0; $i<50; $i++){
-		//			$this->load2();
-		//		}
-		//		$end = microtime(true);
-		//		d(($end-$start)*100);
-		//		return '';
-		//	case 'bundle':
-		//		d(get_batch_operations("all"), 'all');
-		//		d(get_batch_operations("flags"), 'flags');
-		//		d(get_batch_operations("bundles"), 'bundles');
-		//		d(get_batch_operations("rules"), 'rules');
-		//		return '';
-		//	case 'EFQ':
-		//		$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
-		//		$query = db_select('users', 'users');
-		//		
-		//		//Join with attached institutions
-		//		$query->innerJoin('field_data_field_er_inst_ref', 'institution', 'users.uid = institution.entity_id');
-		//		//Join in field: Is this institution a "participating" institution?
-		//		$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
-		//		//Join in position type
-		//		$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
-		//		//This is used to get the title of the institution node.
-		//		$query->innerJoin('node_revision', 'nr', 'nr.nid = institution.field_er_inst_ref_target_id');
-		//		
-		//		$query->condition('position_type.field_er_position_type_value', $ptypes, 'IN');//only give me valid position types (not Other, or Evaluation)
-		//		$query->condition('participating.field_er_inst_participating_value', '1', '=');//Institution must be "Participating"
-		//		
-		//		$query->addExpression('COUNT(users.uid)', 'count');
-		//		//$query->addField('users', 'uid');
-		//		$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
-		//		$query->addField('position_type', 'field_er_position_type_value', 'position_type');
-		//		$query->addField('nr', 'title', 'institution_title');
-		//		
-		//		$query->groupBy('institution.field_er_inst_ref_target_id');
-		//		$query->groupBy('position_type.field_er_position_type_value');
-		//		
-		//		
-		//		d((string)$query);
-		//		$result = $query->execute();
-		//		db_set_active();
-		//		while($record = $result->fetchAssoc()) {
-		//			d($record);
-		//		}
-		//		
-		//		//require_once ER_MODULE_DIR.'/refq.inc';
-		//		
-		//		//$entity_type = 'user';
-		//		//$query = new EntityFieldQuery();
-		//		//$query->entityCondition('entity_type', $entity_type)
-		//		//			//->entityCondition('bundle', 'er_collaborators')
-		//		//			->addTag('er_participants');
-		//		//$result = $query->execute();
-		//		//d($result[$entity_type], 'result');
-		//		
-		//		
-		//		//$this->q = new refq();
-		//		//$this->q->entityCondition('entity_type', 'node')
-		//		//				->entityCondition('bundle', $this->type)
-		//		//				//->propertyCondition('status', 1)
-		//		//				->fieldCondition('field_er_user_reference', 'uid', rand(), '=');
-		//		//$results = $this->q->execute();
-		//		//foreach ($result['node'] as $r){
-		//		//	dsm($r);
-		//		//}
-		//		break;
-		//	case 'PHPExcel':
-		//		//$lib = libraries_load('PHPExcel');
-		//		//d($lib);
-		//		if (($library = libraries_detect('PHPExcel')) && !empty($library['installed'])) {// The library is installed. Awesome!
-		//			$count = libraries_load_files($library);
-		//			d($count);
-		//			$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Collaborations-template.xls");
-		//			//d(new PHPExcel());
-		//		}else {// Something went wrong. :(
-		//			$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
-		//			$error_message = $library['error message'];// This contains a detailed (localized) error message.
-		//			drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
-		//		}
-		//		break;
-		//	case 'node-add':
-		//		//dsm(menu_load_links('main-menu'));
-		//		$nodes = node_type_get_types();
-		//		dsm($nodes, 'node types');
-		//		$output = '<div class="region region-content">';
-		//		$output .= '	<div id="block-system-main" class="block block-system">';
-		//		$output .= '	<div class="content">';
-		//		$output .= '		<ul class="admin-list">';
-		//		$output .= '			<li class="clearfix"><span class="label"><a href="/node/add/article">Article</a></span><div class="description">Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.</div></li>';
-		//		$output .= '			<li class="clearfix"><span class="label"><a href="/node/add/er-award">Award</a></span><div class="description">This will contain information on Awards given to EPSCoR researchers</div></li>';
-		//		$output .= '		</ul>';
-		//		$output .= '		</div>';
-		//		$output .= '	</div>';
-		//		$output .= '</div>';
-		//		return $output;
-		//		break;
-		//	case 'bootstrap':
-		//		$content = '<a href="#" title="first tooltip" data-content="some stuff in here" id="example">hover over me</a><script>jQueryNew(\'#example\').tooltip()</script><br>';
-		//		$content .= '<a href="#" title="first tooltip" data-content="some stuff in here" id="example2">hover over me</a><script>jQueryNew(\'#example2\').popover()</script>';
-		//		return $content;
-		//	case 'ee':
-		//		$query = new EntityFieldQuery();
-		//		$query->entityCondition('entity_type', 'node')
-		//						->entityCondition('bundle', 'er_engagement')
-		//						//->propertyCondition('status', 1)
-		//						;//->fieldCondition('field_er_cal_entity_reference', 'target_id', rand(), '=');
-		//		$result = $query->execute();
-		//		dsm($result);
-		//		break;
-		//	case 'view':
-		//		$view = views_get_view('er_summary_generator');
-		//		//$view->init_display();
-		//		////$view->preview=TRUE;
-		//		$view->is_cacheable = FALSE;
-		//		//$view->get_count_optimized = TRUE;
-		//		////$view->display_handler->set_option('items_per_page',2);
-		//		////$view->set_item('default', 'sort', 'random', NULL);
-		//		////$view->add_item('default', 'sort', 'node', 'created',array('order' => 'DESC'));
-		//		//$view->pre_execute();
-		//		dsm($view);
-		//		$view->execute();
-		//		dsm($view);
-		//		////$output = $view->display_handler->preview();
-		//		$view->post_execute();
-		//		$results = views_get_view_result('er_publication_summary_view', 'count');
-		//		$count = $results[0]->nid;
-		//		dsm($results);
-		//		//dsm($output);
-		//		break;
-		//	case 'test':
-		//		$query = db_select('node', 'n')->condition('n.type', 'er_engagement');
-		//		//$query->addExpression('COUNT(*)', 'uid_count');
-		//		
-		//		$field_name = 'field_er_cal_event_reference';
-		//		$field = field_info_field($field_name);
-		//		//$field_table_alias = $this->joinField($query, 'n', $field);
-		//		$query->leftJoin('field_data_field_er_cal_event_reference', 'ref_field', "n.nid = ref_field.entity_id");
-		//		$query->innerJoin('field_data_field_er_event_date', 'date_field', "ref_field.field_er_cal_event_reference_nid = date_field.entity_id");
-		//		$query->fields('date_field');
-		//		
-		//		/*$sql_fields = array();
-		//		foreach (array_keys($field['columns']) as $column){
-		//			$sql_fields[] = _field_sql_storage_columnname($field_name, $column);
-		//		}
-		//		dsm($sql_fields);*/
-		//		//$query->join('n', )
-		//		
-		//		//$sql_fields[] = $field_column = _field_sql_storage_columnname($field_name, 'nid');
-		//		//$query->fields($field_table_alias, $sql_fields);
-		//		
-		//		
-		//		//$field_name = 'field_er_user_reference';
-		//		//$field = field_info_field($field_name);
-		//		//dsm($field, $field_name);
-		//		//$columns = array_keys($field['columns']);
-		//		//$column = $columns[0];
-		//		//
-		//		//$field_alias = $this->joinField($query, 'n', $field_name);
-		//		//$sql_field = _field_sql_storage_columnname($field_name, $column);
-		//		//$query->fields($field_alias, array($sql_field));
-		//		//dsm($field_alias);
-		//		
-		//		$results = $query->execute();
-		//		//dsm($results->fetchAssoc());
-		//		//dsm($results);
-		//		foreach ($results as $r){
-		//			dsm($r);
-		//		}
-		//		break;
-		//	default:
-		//		$nodes = node_type_get_types();
-		//		d($nodes, 'node types');
-		//		$fields = field_info_fields();
-		//		d($fields, '$fields');
-		//		$bundle_info = field_info_bundles('node');
-		//		d($bundle_info, '$bundle_info');
-		//}
+		switch(arg(2)){
+			case 'test_rusty':
+				$file_path = 'sites/all/modules/er/install/bundles/er_event';
+				$context = array();
+				er_batch_import_fields($file_path, $context);
+				return '';
+			case 'test_field_rename':
+				er_field_rename('field_test_field_1', false);
+				return '';
+			case 'speed1':
+				$start = microtime(true);
+				for ($i = 0; $i<50; $i++){
+					$this->load1();
+				}
+				$end = microtime(true);
+				d(($end-$start)*100);
+				return '';
+			case 'speed2':
+				$start = microtime(true);
+				for ($i = 0; $i<50; $i++){
+					$this->load2();
+				}
+				$end = microtime(true);
+				d(($end-$start)*100);
+				return '';
+			case 'bundle':
+				d(get_batch_operations("all"), 'all');
+				d(get_batch_operations("flags"), 'flags');
+				d(get_batch_operations("bundles"), 'bundles');
+				d(get_batch_operations("rules"), 'rules');
+				return '';
+			case 'EFQ':
+				$ptypes = array('Faculty participants (or equivalent)','Technical support staff','Non-technical support staff','Post docs','Graduate students','Undergraduate students','RII Leadership Team');
+				$query = db_select('users', 'users');
+				
+				//Join with attached institutions
+				$query->innerJoin('field_data_field_er_inst_ref', 'institution', 'users.uid = institution.entity_id');
+				//Join in field: Is this institution a "participating" institution?
+				$query->leftJoin('field_data_field_er_inst_participating', 'participating', 'institution.field_er_inst_ref_target_id = participating.entity_id');
+				//Join in position type
+				$query->leftJoin('field_data_field_er_position_type', 'position_type', 'users.uid = position_type.entity_id');
+				//This is used to get the title of the institution node.
+				$query->innerJoin('node_revision', 'nr', 'nr.nid = institution.field_er_inst_ref_target_id');
+				
+				$query->condition('position_type.field_er_position_type_value', $ptypes, 'IN');//only give me valid position types (not Other, or Evaluation)
+				$query->condition('participating.field_er_inst_participating_value', '1', '=');//Institution must be "Participating"
+				
+				$query->addExpression('COUNT(users.uid)', 'count');
+				//$query->addField('users', 'uid');
+				$query->addField('institution', 'field_er_inst_ref_target_id', 'institution_id');
+				$query->addField('position_type', 'field_er_position_type_value', 'position_type');
+				$query->addField('nr', 'title', 'institution_title');
+				
+				$query->groupBy('institution.field_er_inst_ref_target_id');
+				$query->groupBy('position_type.field_er_position_type_value');
+				
+				
+				d((string)$query);
+				$result = $query->execute();
+				db_set_active();
+				while($record = $result->fetchAssoc()) {
+					d($record);
+				}
+				
+				//require_once ER_MODULE_DIR.'/refq.inc';
+				
+				//$entity_type = 'user';
+				//$query = new EntityFieldQuery();
+				//$query->entityCondition('entity_type', $entity_type)
+				//			//->entityCondition('bundle', 'er_collaborators')
+				//			->addTag('er_participants');
+				//$result = $query->execute();
+				//d($result[$entity_type], 'result');
+				
+				
+				//$this->q = new refq();
+				//$this->q->entityCondition('entity_type', 'node')
+				//				->entityCondition('bundle', $this->type)
+				//				//->propertyCondition('status', 1)
+				//				->fieldCondition('field_er_user_reference', 'uid', rand(), '=');
+				//$results = $this->q->execute();
+				//foreach ($result['node'] as $r){
+				//	dsm($r);
+				//}
+				break;
+			case 'PHPExcel':
+				//$lib = libraries_load('PHPExcel');
+				//d($lib);
+				if (($library = libraries_detect('PHPExcel')) && !empty($library['installed'])) {// The library is installed. Awesome!
+					$count = libraries_load_files($library);
+					d($count);
+					$objPHPExcel = PHPExcel_IOFactory::load(ER_MODULE_DIR."/templates/Collaborations-template.xls");
+					//d(new PHPExcel());
+				}else {// Something went wrong. :(
+					$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
+					$error_message = $library['error message'];// This contains a detailed (localized) error message.
+					drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
+				}
+				break;
+			case 'node-add':
+				//dsm(menu_load_links('main-menu'));
+				$nodes = node_type_get_types();
+				dsm($nodes, 'node types');
+				$output = '<div class="region region-content">';
+				$output .= '	<div id="block-system-main" class="block block-system">';
+				$output .= '	<div class="content">';
+				$output .= '		<ul class="admin-list">';
+				$output .= '			<li class="clearfix"><span class="label"><a href="/node/add/article">Article</a></span><div class="description">Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.</div></li>';
+				$output .= '			<li class="clearfix"><span class="label"><a href="/node/add/er-award">Award</a></span><div class="description">This will contain information on Awards given to EPSCoR researchers</div></li>';
+				$output .= '		</ul>';
+				$output .= '		</div>';
+				$output .= '	</div>';
+				$output .= '</div>';
+				return $output;
+				break;
+			case 'bootstrap':
+				$content = '<a href="#" title="first tooltip" data-content="some stuff in here" id="example">hover over me</a><script>jQueryNew(\'#example\').tooltip()</script><br>';
+				$content .= '<a href="#" title="first tooltip" data-content="some stuff in here" id="example2">hover over me</a><script>jQueryNew(\'#example2\').popover()</script>';
+				return $content;
+			case 'ee':
+				$query = new EntityFieldQuery();
+				$query->entityCondition('entity_type', 'node')
+								->entityCondition('bundle', 'er_engagement')
+								//->propertyCondition('status', 1)
+								;//->fieldCondition('field_er_cal_entity_reference', 'target_id', rand(), '=');
+				$result = $query->execute();
+				dsm($result);
+				break;
+			case 'view':
+				$view = views_get_view('er_summary_generator');
+				//$view->init_display();
+				////$view->preview=TRUE;
+				$view->is_cacheable = FALSE;
+				//$view->get_count_optimized = TRUE;
+				////$view->display_handler->set_option('items_per_page',2);
+				////$view->set_item('default', 'sort', 'random', NULL);
+				////$view->add_item('default', 'sort', 'node', 'created',array('order' => 'DESC'));
+				//$view->pre_execute();
+				dsm($view);
+				$view->execute();
+				dsm($view);
+				////$output = $view->display_handler->preview();
+				$view->post_execute();
+				$results = views_get_view_result('er_publication_summary_view', 'count');
+				$count = $results[0]->nid;
+				dsm($results);
+				//dsm($output);
+				break;
+			case 'test':
+				$query = db_select('node', 'n')->condition('n.type', 'er_engagement');
+				//$query->addExpression('COUNT(*)', 'uid_count');
+				
+				$field_name = 'field_er_cal_event_reference';
+				$field = field_info_field($field_name);
+				//$field_table_alias = $this->joinField($query, 'n', $field);
+				$query->leftJoin('field_data_field_er_cal_event_reference', 'ref_field', "n.nid = ref_field.entity_id");
+				$query->innerJoin('field_data_field_er_event_date', 'date_field', "ref_field.field_er_cal_event_reference_nid = date_field.entity_id");
+				$query->fields('date_field');
+				
+				/*$sql_fields = array();
+				foreach (array_keys($field['columns']) as $column){
+					$sql_fields[] = _field_sql_storage_columnname($field_name, $column);
+				}
+				dsm($sql_fields);*/
+				//$query->join('n', )
+				
+				//$sql_fields[] = $field_column = _field_sql_storage_columnname($field_name, 'nid');
+				//$query->fields($field_table_alias, $sql_fields);
+				
+				
+				//$field_name = 'field_er_user_reference';
+				//$field = field_info_field($field_name);
+				//dsm($field, $field_name);
+				//$columns = array_keys($field['columns']);
+				//$column = $columns[0];
+				//
+				//$field_alias = $this->joinField($query, 'n', $field_name);
+				//$sql_field = _field_sql_storage_columnname($field_name, $column);
+				//$query->fields($field_alias, array($sql_field));
+				//dsm($field_alias);
+				
+				$results = $query->execute();
+				//dsm($results->fetchAssoc());
+				//dsm($results);
+				foreach ($results as $r){
+					dsm($r);
+				}
+				break;
+			default:
+				$nodes = node_type_get_types();
+				d($nodes, 'node types');
+				$fields = field_info_fields();
+				d($fields, '$fields');
+				$bundle_info = field_info_bundles('node');
+				d($bundle_info, '$bundle_info');
+		}
 		return '';
 	}
 	

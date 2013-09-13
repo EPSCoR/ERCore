@@ -182,7 +182,7 @@ function er_batch_import_fields($file_path, &$context){
 }
 
 //Renames a field in the database. This is used when the field schema has changed, and manual migration is necessary.
-function er_field_rename($field_name = 'field_test_field_1', $dry_run = true){
+function er_field_rename($field_name, $dry_run = false){
 	$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
 	//d($new_field_name, '$new_field_name');
 	
@@ -257,9 +257,6 @@ function er_field_rename($field_name = 'field_test_field_1', $dry_run = true){
 			->condition('field_name', $field_name, '=')
 			->execute();
 	}
-	
-	$conn = Database::getConnection();
-	$db_driver = $conn->driver();
 	
 	//Modify the tables that store the actual field data:
 	foreach (array('field_data_', 'field_revision_') as $table_prefix){
