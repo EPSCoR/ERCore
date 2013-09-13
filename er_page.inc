@@ -44,7 +44,6 @@ class er_page{
 	 */
 	
 	public function title(){
-		d($this->range_string(), '$this->range_string()');
 		return "Reporting".$this->range_string();
 	}
 	

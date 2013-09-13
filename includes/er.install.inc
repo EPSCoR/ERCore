@@ -182,7 +182,7 @@ function er_batch_import_fields($file_path, &$context){
 }
 
 //Renames a field in the database. This is used when the field schema has changed, and manual migration is necessary.
-function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
+function er_field_rename($field_name = 'field_test_field_1', $dry_run = true){
 	$new_field_name = 'field_er_'.time ().'_'.rand(0, 100);
 	//d($new_field_name, '$new_field_name');
 	
@@ -264,29 +264,17 @@ function er_field_rename($field_name = 'field_test_field_1', $dry_run = false){
 	//Modify the tables that store the actual field data:
 	foreach (array('field_data_', 'field_revision_') as $table_prefix){
 		$table_name = $table_prefix.$field_name;
-		$new_table_name = $table_prefix.$new_field_name;
 		$schema = $full_schema[$table_name];
-		//We needed to stop using db_change_field because it's [sometimes] breaking in Postgres for some reason...
-		//foreach ($schema['fields'] as $schema_field_name=>&$field_schema){
-		//	if (strpos($schema_field_name, $field_name) !== false){
-		//		$new_schema_field_name = str_replace($field_name, $new_field_name, $schema_field_name);
-		//		//modify the value column(s) within the table
-		//		db_change_field($table_name, $schema_field_name, $new_schema_field_name, $field_schema);
-		//	}
-		//}
 		
 		//change the column names to use the new values
 		foreach ($field_column_map as $old_id=>$new_id){
 			$field_schema = $schema['fields'][$old_id];
-			if ($dry_run)d($field_schema, $old_id . ' schema');
-			if ($db_driver == 'mysql')
-				$query = 'ALTER TABLE '.$table_name.' CHANGE '.$old_id.' '.$new_id.' '.$field_schema['type'].($field_schema['length']?'('.$field_schema['length'].')':'').($field_schema['not null']?' NOT NULL':'');
-			else//pgsql
-				$query = 'ALTER TABLE '.$table_name.' RENAME COLUMN '.$old_id.' to '.$new_id;
-			if (!$dry_run) db_query($query);
+			if ($dry_run) d($field_schema, $old_id . ' schema');
+			else db_change_field($table_name, $old_id, $new_id, $field_schema);
 		}
 		
 		//Move the data table:
+		$new_table_name = $table_prefix.$new_field_name;
 		if (!$dry_run) db_query('ALTER TABLE '.$table_name.' RENAME TO '.$new_table_name);
 	}
 	drupal_get_complete_schema(true);//rebuild the schema to make sure drupal knows about our changes.
