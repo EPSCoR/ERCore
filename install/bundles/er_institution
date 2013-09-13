@@ -26,10 +26,10 @@ $data = array(
       ),
       'foreign keys' => array(
         'format' => array(
+          'table' => 'filter_format',
           'columns' => array(
             'format' => 'format',
           ),
-          'table' => 'filter_format',
         ),
       ),
       'indexes' => array(
@@ -95,12 +95,12 @@ $data = array(
           0 => 'page',
           1 => 'article',
           2 => 'er_proposal',
-          3 => 'er_publication',
+          3 => 'er_collaboration',
           4 => 'er_award',
-          5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          5 => 'er_publication',
+          6 => 'er_institution',
+          7 => 'er_event',
+          8 => 'er_presentation',
         ),
       ),
     ),
@@ -177,12 +177,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -327,12 +327,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -419,12 +419,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
+        'node' => array(
+          0 => 'er_collaborators',
+          1 => 'er_institution',
+        ),
         'user' => array(
           0 => 'user',
-        ),
-        'node' => array(
-          0 => 'er_institution',
-          1 => 'er_collaboration',
         ),
       ),
     ),
@@ -574,7 +574,6 @@ $data = array(
           'text_processing' => '1',
           'display_summary' => 1,
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'display' => array(
           'default' => array(
@@ -594,7 +593,7 @@ $data = array(
             'module' => 'text',
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'body',
@@ -746,7 +745,6 @@ $data = array(
         'settings' => array(
           'text_processing' => '0',
           'user_register_form' => FALSE,
-          'required_by_role' => array(),
         ),
         'display' => array(
           'default' => array(
@@ -763,7 +761,7 @@ $data = array(
             'weight' => 0,
           ),
         ),
-        'required' => 1,
+        'required' => 0,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_inst_country',
