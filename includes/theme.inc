@@ -72,7 +72,7 @@ function er_field_formatter_info() {
   return array(
     'date_custom' => array(
       'label' => t('ER Core - Custom date format'),
-      'field types' => array('date'),
+      'field types' => array('date', 'datestamp', 'datetime'),
     ),
 		'user_status_icons' => array(
 			'label' => t('ER Core - User status icons'),
@@ -121,9 +121,10 @@ function er_date_custom_formatter_view(&$entity_type, &$entity, &$field, &$insta
 			'timezone_db'=>$item['timezone_db'],
 			'date_type'=>$item['date_type'],
 		);
-		$date1 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
+		
+		$date1 = field_view_value($entity_type, $entity, $field['field_name'], array('value' => $item['value'])+$date_settings);
 		if (!is_null($item['value2']))
-			$date2 = field_view_value('node', $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
+			$date2 = field_view_value($entity_type, $entity, $field['field_name'], array('value' => $item['value2'])+$date_settings);
 		else
 			$date2 = array('#markup'=>'Present');
 		$elements[$delta] = array(

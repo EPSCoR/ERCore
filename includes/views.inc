@@ -6,7 +6,7 @@ function er_views_query_alter(&$view, &$query){
 	//this checks to see if it's one of the views used in the summary table...
 	if (is_array($summary_types)){
 		foreach ($summary_types as $type){
-			if ($view->name == $type.'_summary_view'){
+			if ($view->name == 'er_summary_'.$type){
 				$found = true;
 				break;
 			}
@@ -21,10 +21,10 @@ function er_views_query_alter(&$view, &$query){
 				if ($cond['operator'] == 'formula' && strpos($cond['field'], 'value2') !== false){
 					//d($query->where[1]['conditions'][$c]['field'], 'before');
 					//preg_match("/\(([^(,\.]+\.[^,\.]+),/", $cond['field'], $matches);
-					preg_match("/^DATE_FORMAT\(STR_TO_DATE\(([^,\.]+\.[^,\.]+),/", $cond['field'], $matches);
+					preg_match("/^DATE_FORMAT\(([A-Z_]+\()*([^,\.]+\.[^,\.]+),/", $cond['field'], $matches);
 					//d($matches, 'matches');
-					if (count($matches) == 2){
-						$field = $matches[1];
+					if (count($matches) == 3){
+						$field = $matches[2];
 						$query->where[1]['conditions'][$c]['field'] .= " OR $field IS NULL";
 					}
 					//d($query->where[1]['conditions'][$c]['field'], 'after');
