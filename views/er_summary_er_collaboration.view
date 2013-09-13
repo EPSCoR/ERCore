@@ -50,7 +50,7 @@ $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Researchers(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -144,7 +144,7 @@ $handler->display->display_options['fields']['field_er_collaboration_dates']['se
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Researchers(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -216,7 +216,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: EPSCoR Researchers(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -256,51 +256,3 @@ $handler->display->display_options['displays'] = array(
   'page_1' => 'page_1',
   'page_2' => 'page_2',
 );
-
-/* Display: Attachment */
-$handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
-$handler->display->display_options['pager']['type'] = 'some';
-$handler->display->display_options['defaults']['fields'] = FALSE;
-/* Field: Content: Institution/Organization */
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['id'] = 'field_er_collab_inst_ref';
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['table'] = 'field_data_field_er_collab_inst_ref';
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['field'] = 'field_er_collab_inst_ref';
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['label'] = '';
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['exclude'] = TRUE;
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_er_collab_inst_ref']['settings'] = array(
-  'link' => 0,
-);
-/* Field: Content: Institution Department/Unit */
-$handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['field'] = 'field_er_collab_department_unit';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['label'] = '';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['alter']['text'] = '@ [field_er_collab_department_unit]';
-$handler->display->display_options['fields']['field_er_collab_department_unit']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_er_collab_department_unit']['empty'] = 'No Department';
-/* Field: Content: Non-EPSCoR Participant Research Product Creators */
-$handler->display->display_options['fields']['field_er_collab_names']['id'] = 'field_er_collab_names';
-$handler->display->display_options['fields']['field_er_collab_names']['table'] = 'field_data_field_er_collab_names';
-$handler->display->display_options['fields']['field_er_collab_names']['field'] = 'field_er_collab_names';
-$handler->display->display_options['fields']['field_er_collab_names']['label'] = '';
-$handler->display->display_options['fields']['field_er_collab_names']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['field_er_collab_names']['group_column'] = 'entity_id';
-$handler->display->display_options['fields']['field_er_collab_names']['delta_offset'] = '0';
-$handler->display->display_options['defaults']['filter_groups'] = FALSE;
-$handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Content: Published */
-$handler->display->display_options['filters']['status']['id'] = 'status';
-$handler->display->display_options['filters']['status']['table'] = 'node';
-$handler->display->display_options['filters']['status']['field'] = 'status';
-$handler->display->display_options['filters']['status']['value'] = 1;
-$handler->display->display_options['filters']['status']['group'] = 1;
-$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Content: Type */
-$handler->display->display_options['filters']['type']['id'] = 'type';
-$handler->display->display_options['filters']['type']['table'] = 'node';
-$handler->display->display_options['filters']['type']['field'] = 'type';
-$handler->display->display_options['filters']['type']['value'] = array(
-  'er_collaborators' => 'er_collaborators',
-);
-$handler->display->display_options['filters']['type']['group'] = 1;
