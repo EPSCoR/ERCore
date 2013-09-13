@@ -78,7 +78,7 @@ $handler->display->display_options['style_options']['columns'] = array(
   'field_er_inst_category' => 'field_er_inst_category',
   'field_er_inst_participating' => 'field_er_inst_participating',
 );
-$handler->display->display_options['style_options']['default'] = 'field_er_inst_participating';
+$handler->display->display_options['style_options']['default'] = 'field_er_inst_type';
 $handler->display->display_options['style_options']['info'] = array(
   'title' => array(
     'sortable' => 1,
@@ -88,14 +88,14 @@ $handler->display->display_options['style_options']['info'] = array(
     'empty_column' => 0,
   ),
   'field_er_inst_type' => array(
-    'sortable' => 0,
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
   ),
   'field_er_inst_category' => array(
-    'sortable' => 0,
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
@@ -138,18 +138,6 @@ $active = $row[\'er_participating_institution\'] ? \'Yes\' : \'No\';
 echo($active);
 ?>';
 $handler->display->display_options['defaults']['sorts'] = FALSE;
-/* Sort criterion: Content: Title */
-$handler->display->display_options['sorts']['title']['id'] = 'title';
-$handler->display->display_options['sorts']['title']['table'] = 'node';
-$handler->display->display_options['sorts']['title']['field'] = 'title';
-$handler->display->display_options['sorts']['title']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
-/* Sort criterion: Content: Category (field_er_inst_category) */
-$handler->display->display_options['sorts']['field_er_inst_category_value']['id'] = 'field_er_inst_category_value';
-$handler->display->display_options['sorts']['field_er_inst_category_value']['table'] = 'field_data_field_er_inst_category';
-$handler->display->display_options['sorts']['field_er_inst_category_value']['field'] = 'field_er_inst_category_value';
-$handler->display->display_options['sorts']['field_er_inst_category_value']['exposed'] = TRUE;
-$handler->display->display_options['sorts']['field_er_inst_category_value']['expose']['label'] = 'Category';
 $handler->display->display_options['path'] = 'institutions';
 $handler->display->display_options['menu']['title'] = 'Institutions';
 $handler->display->display_options['menu']['description'] = 'Institutions - Listing';
