@@ -156,6 +156,14 @@ $handler->display->display_options['filters']['field_er_participating_date_value
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Uid */
+$handler->display->display_options['fields']['uid']['id'] = 'uid';
+$handler->display->display_options['fields']['uid']['table'] = 'users';
+$handler->display->display_options['fields']['uid']['field'] = 'uid';
+$handler->display->display_options['fields']['uid']['label'] = '';
+$handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+$handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
 /* Field: User: Name */
 $handler->display->display_options['fields']['field_er_realname']['id'] = 'field_er_realname';
 $handler->display->display_options['fields']['field_er_realname']['table'] = 'field_data_field_er_realname';
