@@ -50,7 +50,7 @@ $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Researchers(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -144,17 +144,15 @@ $handler->display->display_options['fields']['field_er_collaboration_dates']['se
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
-/* Field: Content: EPSCoR Researchers(s) */
-$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborators';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['element_type'] = 'span';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
-  'link' => 1,
+/* Field: Content: User Lookup */
+$handler->display->display_options['fields']['field_er_user_lookup']['id'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['table'] = 'field_data_field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['field'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['fields']['field_er_user_lookup']['settings'] = array(
+  'link' => 0,
 );
-$handler->display->display_options['fields']['field_er_user_entity_reference']['group_column'] = 'entity_id';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+$handler->display->display_options['fields']['field_er_user_lookup']['group_column'] = 'entity_id';
 $handler->display->display_options['path'] = 'collaborations';
 $handler->display->display_options['menu']['title'] = 'Collaborations';
 $handler->display->display_options['menu']['weight'] = '0';
@@ -216,16 +214,14 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Researchers(s) */
-$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['relationship'] = 'reverse_field_er_collab_ref_node';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'Collaborator/Partner Names';
-$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
+/* Field: Content: User Lookup */
+$handler->display->display_options['fields']['field_er_user_lookup']['id'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['table'] = 'field_data_field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['field'] = 'field_er_user_lookup';
+$handler->display->display_options['fields']['field_er_user_lookup']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['fields']['field_er_user_lookup']['settings'] = array(
   'link' => 0,
 );
-$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
 /* Field: Content: Institution Department/Unit */
 $handler->display->display_options['fields']['field_er_collab_department_unit']['id'] = 'field_er_collab_department_unit';
 $handler->display->display_options['fields']['field_er_collab_department_unit']['table'] = 'field_data_field_er_collab_department_unit';
