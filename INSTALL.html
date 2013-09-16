@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2013-08-26"/>
+<meta name="create-date" content="2013-09-16"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <title>ERcore Installation Guide</title>
 </head>
@@ -14,7 +14,7 @@
 ERcore Installation Guide
 </h1>
 <h2 class="Date">
-[Aug 26, 2013]
+[September 16, 2013]
 </h2>
 <div class="Unindented">
 This document describes how to install ERcore V1.1 on a target system. The first section provides system requirements and a high level overview of the installation process. Subsequent sections provide more detail and include troubleshooting suggestions and common site customizations. The intended audience for this document are system administrators and ERcore developers. 
@@ -1090,7 +1090,7 @@ User documentation and additional configuration pages can be found at:
 <a class="toc" name="toc-Section-11">11</a> Step 8: Drupal permissions configuration 
 </h1>
 <div class="Unindented">
-Drupal <i>permissions</i> control which actions can be performed by a user and, additionally, which features are presented via menu selections and web page content. Perform the steps described in this section to insure proper operation of ERcore. Please note that ERcore documentation assumes permissions are set as described in this section and that deviation from these settings could create confusion to the readers of that documentation.
+<a class="Label" name="sec:Drupal-permissions-configuration"> </a>Drupal <i>permissions</i> control which actions can be performed by a user and, additionally, which features are presented via menu selections and web page content. Perform the steps described in this section to insure proper operation of ERcore. Please note that ERcore documentation assumes permissions are set as described in this section and that deviation from these settings could create confusion to the readers of that documentation.
 </div>
 <h2 class="Subsection">
 <a class="toc" name="toc-Subsection-11.1">11.1</a> ERcore roles and permissions reset
@@ -1100,7 +1100,10 @@ The default Drupal <i>permissions</i> granted to the various user <i>roles</i> m
 </div>
 <ul>
 <li>
-Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
+Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page.
+</li>
+<li>
+Print a copy of this page, either to hard copy or a file, for future reference. This step is especially important if your site is locally customized with special purpose roles and modules.
 </li>
 <li>
 Click <i>BULK RESET</i> on the the <i>EPSCoR Reporting Status Report</i> page to display the available groups for reset.
@@ -1697,21 +1700,27 @@ After the ERcore directory tree for the new version has been installed on the te
 login to ERcore on the test website as administrator
 </li>
 <li>
-Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page. 
+Go to <tt>http://&lt;your-site&gt;/admin/config/epscor/er/status</tt> to view the <i>EPSCoR Reporting Status Report</i> page.
+</li>
+<li>
+Print a copy of this page, either to hard copy or a file, for future reference.
 </li>
 <li>
 Inspect all outstanding (red) items and reset the necessary bundles (by clicking <i>Reset this bundle</i>). (Note that all bundles may be reset as a single step by expanding <i>BULK RESET</i> and clicking <i>Reset bundles</i>.)
 </li>
 <li>
-Messages that include the text &ldquo;OLD DATA&rdquo; indicate that data migration issues from the old version to the new version. These are resolved in the next section.
+Warning messages that include the text &ldquo;Extra fields&rdquo; indicate data migration issues from the old version to the new version. These are resolved in the next section.
 </li>
 <li>
-If all items are successfully addressed (except for &ldquo;OLD DATA&rdquo; items) then clear all caches. (See Section <a class="Reference" href="#sub:Clearing-caches">9.4↑</a>.)
+If all items are successfully addressed (except for &ldquo;Extra fields&rdquo; items) then clear all caches. (See Section <a class="Reference" href="#sub:Clearing-caches">9.4↑</a>.)
+</li>
+<li>
+Check the Drupal permissions for this new installation as described in Section <a class="Reference" href="#sec:Drupal-permissions-configuration">11↑</a>. It is not advisable, however, to perform the <i>Reset Roles</i> action described in that section.
 </li>
 
 </ul>
 <div class="Unindented">
-At this point, the new version of ERcore software should be installed properly on the test system and, except for &ldquo;OLD DATA&rdquo; messages, the <i>EPSCoR Reporting Status Report</i> page should be free of errors. If any &ldquo;OLD DATA&rdquo; messages are outstanding, perform the actions in Section <a class="Reference" href="#sub:Data-Migration">12.3↓</a>, <i>Data migration</i>. Other wise, skip to Section <a class="Reference" href="#sub:Production-site-update">12.4↓</a>, <i>Production site update</i>.
+At this point, the new version of ERcore software should be installed properly on the test system and, except for &ldquo;Extra fields&rdquo; messages, the <i>EPSCoR Reporting Status Report</i> page should be free of errors. If any &ldquo;Extra fields&rdquo; messages are outstanding, perform the actions in Section <a class="Reference" href="#sub:Data-Migration">12.3↓</a>, <i>Data migration</i>. Other wise, skip to Section <a class="Reference" href="#sub:Production-site-update">12.4↓</a>, <i>Production site update</i>.
 </div>
 <h2 class="Subsection">
 <a class="toc" name="toc-Subsection-12.3">12.3</a> Data migration
@@ -1720,7 +1729,7 @@ At this point, the new version of ERcore software should be installed properly o
 <a class="Label" name="sub:Data-Migration"> </a>For the current version, ERcore data migration is a manual process requiring intimate knowledge of Drupal, Drupal internals, SQL, and the implementation of ERcore features. While the process is relatively straightforward, it requires an appropriate knowledge of Drupal internals, thorough testing, and patience. This task should only should only be attempted by an experienced Drupal developer. An overview of the data migration process is given below.
 </div>
 <div class="Indented">
-&ldquo;OLD DATA&rdquo; messages displayed on the <i>EPSCoR Reporting Status Report</i> page indicate that database formats used by the old version of ERcore have changed. Website content stored using the previous version of ERcore will need to be migrated to the data format used by the new version of ERcore.
+&ldquo;Extra fields&rdquo; messages displayed on the <i>EPSCoR Reporting Status Report</i> page indicate that database formats used by the old version of ERcore have changed. Website content stored using the previous version of ERcore will need to be migrated to the data format used by the new version of ERcore.
 </div>
 <div class="Indented">
 At a conceptual level, the ERcore update process creates a new <i>database schema</i> for use by Drupal and ERcore. This new schema includes field and table definitions compatible with <i>both</i> versions of ERcore. In addition, <i>database records</i> in the updated installation are compatible with <i>both</i> versions of ERcore content. No data is lost during the update; database records from the previous version are retained and augmented to include new fields required for the new version of ERcore.
@@ -1739,7 +1748,7 @@ Fields that are defined identically in both versions of ERcore will remain uncha
 <i>New fields</i> (not used by the old version) are added to the schema. Database records will contain &ldquo;empty&rdquo; values for these new fields.
 </li>
 <li>
-<i>Old fields</i> (not used by the new version) remain in the schema. Database records will contain the values previously stored by the old version of ERcore.
+<i>Old fields</i> (not used by the new version) remain in the schema. Database records will contain the values previously stored by the old version of ERcore. These are labeled as &ldquo;Extra fields&rdquo; on the <i>EPSCoR Reporting Status Report</i> page.
 </li>
 <li>
 <i>Changed fields</i> (same field name in both versions but different data definitions) are handled as two fields, an old and a new. The original field name is used with the data definition for the new version of ERcore; database records will contain &ldquo;empty&rdquo; values for these fields. A new field name is created for the data definition used in the old version; database records for these fields will contain the values previously stored by the old version of ERcore.
@@ -1779,7 +1788,7 @@ For additional help with installing or updating ERcore, see contact information 
 
 <hr class="footer"/>
 <div class="footer" id="generated-by">
-Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2013-08-26T14:46:10.718000</span>
+Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2013-09-16T10:12:32.265000</span>
 </div>
 </div>
 </body>
