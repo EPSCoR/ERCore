@@ -5643,7 +5643,7 @@ Mobility/Orthopedic Impairment',
         ),
         'settings' => array(
           'text_processing' => '0',
-          'user_register_form' => 0,
+          'user_register_form' => 1,
         ),
         'display' => array(
           'default' => array(
@@ -5659,7 +5659,7 @@ Mobility/Orthopedic Impairment',
             'weight' => 0,
           ),
         ),
-        'required' => 0,
+        'required' => 1,
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_inst_name',
