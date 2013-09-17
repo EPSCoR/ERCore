@@ -168,12 +168,7 @@ function _set_states_for_inst(&$form, $inst_field_name = 'field_er_inst_ref'){
 		'optional' => $addInst,
 	);
 	
-	//Make the department field be grouped inside the "Add new Institution" fieldset
-	$form['field_er_department']['#states'] = array(
-		'visible' => $addInst,
-		
-	);
-	
+
 	
 	
 }
