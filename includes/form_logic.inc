@@ -900,7 +900,6 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// mentoring plan fields only available to Post-Docs
 	$form['field_er_mentoring_sign_off']['#states'] = 
-	$form['field_er_ment_plan_post_docs']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
 		'visible' => $post_doc,
 		'required' => $post_doc,
