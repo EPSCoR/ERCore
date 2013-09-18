@@ -296,6 +296,8 @@ class er_participants extends er_page{
 		$num_categories = count($this->categories);
 		$worksheet->insertNewRowBefore($base_row+1,count($data['Institutions'])*$num_categories);
 		
+		$display_involvement_for = array('Faculty participant (or equivalent)', 'Post Doc', 'RII Leadership Team');
+		
 		$row = $base_row;
 		foreach ($data['Institutions'] as $inst_id => $data_cat){
 			//institution label
@@ -307,17 +309,21 @@ class er_participants extends er_page{
 			//This merges the institution title cells on the left (may be unnecessary):
 			$bottom_row = ($row+$num_categories-1);
 			$worksheet->mergeCells('A'.$row.':A'.$bottom_row);
+			
 			//This part blanks out the cells on the right:
-			$worksheet->mergeCells('J'.($row+4).':J'.($bottom_row-1));
+			$worksheet->mergeCells('J'.($row+1).':J'.($row+2));
+			$this->blankout_cell($worksheet, 'J'.($row+1));//set background to gray
+			$worksheet->mergeCells('J'.($row+4).':J'.($row+5));
 			$this->blankout_cell($worksheet, 'J'.($row+4));//set background to gray
+			
+			
 			$this->double_border_bottom($worksheet, 'A'.$bottom_row.':J'.$bottom_row);
 			
 			foreach ($this->categories as $k => $category){
 				$worksheet->setCellValue('B'.$row, $category);//category label
 				$fill_inv = (
 					!empty($this->range) //Only show this if we have a date range specified
-					//We don't fill in Graduate students or Undergrad students:
-					&& strpos(strtolower($category), 'student') === FALSE
+					&& in_array($category, $display_involvement_for) //Only fill it out for faculty, post-docs, or leadership team
 				);
 				//d(strpos(strtolower($category), 'student'), 'strpos(strtolower($category), \'student\')');
 				$this->fill_cell_data($worksheet, $row, isset($data_cat[$category])?$data_cat[$category]:array(), $fill_inv);

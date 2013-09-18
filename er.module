@@ -931,12 +931,16 @@ function er_export_role($rid, $export = true){
 			->fetchAssoc();
 		$return['name'] = $result['name'];
 		
-		$results =	db_select('role_permission', 'r')
+		//Get the permissions:
+		$query = db_select('role_permission', 'r')
 			->fields('r', array('permission'))
-			->condition('rid', $rid, '=')
-			->execute();
-		while($result = $results->fetchAssoc())
-			$return['permissions'][] = $result['permission'];
+			->groupBy('r.permission');
+		$query->leftJoin('role_permission', 'r2', 'r2.rid = '.$rid.' AND r.permission = r2.permission');
+		$query->addField('r2','rid','isset');
+		$results = $query->execute();
+		while($result = $results->fetchAssoc()){
+			$return['permissions'][$result['permission']] = !!$result['isset'];//true if it's set, false otherwise.
+		}
 		if ($export)
 			return array(
 					'#type'=>'textarea',
