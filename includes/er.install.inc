@@ -341,22 +341,19 @@ function er_batch_import_role($file_path, &$context){
 				//Get the list all of the available permissions, with the given modules that are currently installed:
 				$modules = user_permission_get_modules();
 				//Check to make sure the permissions are valid:
-				foreach ($role['permissions'] as $permission_name){
+				foreach ($role['permissions'] as $permission_name=>$isset){
 					// This next call has to do with avoiding a Fatal Error when you try to add a permission
 					//	that's not associated with an enabled module.		
 					// see http://drupal.org/node/737816 and http://drupal.org/node/1249952 for more info	
 					if (isset($modules[$permission_name])){//This permission currently exists in the system
-						$array_perms[] = $permission_name;
+						$array_perms[$permission_name] = $isset;
 					}else{
 						$error = "Unable to attach \"$permission_name \" to role $name, module is likely missing!";
 						watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
 						//drupal_set_message($error, 'error');
 					}
 				}
-				//Clear out all permissions for the role:
-				db_delete('role_permission')->condition('rid', $rid)->execute();
-				// Add that array of permissions to the role. a Drupal API call
-				user_role_grant_permissions($rid, $array_perms);
+				user_role_change_permissions($rid, $array_perms);
 				//d($array_perms, '$array_perms');
 			}
 			$message = t("Role @name + permissions imported successfully.", array('@name'=>$role['name']));

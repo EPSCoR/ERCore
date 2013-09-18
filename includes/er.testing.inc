@@ -300,7 +300,7 @@ function er_testing() {
 				'severity' => REQUIREMENT_OK,
 				'value' => '<i class="icon-ok"></i>&nbsp; View is correct.',
 				'description' => 'View corresponds to the one packaged with this version of ER Core.',
-			);				
+			);
 		}		
 	}
 		
@@ -324,10 +324,9 @@ function er_testing() {
 	
 	$installation_types = er_get_install_types();//don't include the special functions...
 	foreach ($installation_types as $type){
-		$status_label = ($type == 'roles') ? $type . ' (Warning, this will undo all manual permission changes)' : $type;
 		$form['reset'][$type] = array(
 			'#type' => 'link',
-			'#title' => 'Reset '. $status_label,
+			'#title' => 'Reset '. $type,
 			'#href' => 'admin/config/epscor/er/reset/'.$type,
 			//'#options' => $l_options,
 			'#prefix' => '<p>',
