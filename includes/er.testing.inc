@@ -51,13 +51,13 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'More than one Institution in the system',
 			'severity' => REQUIREMENT_OK,
-			'value' => 'Requirement has been met',
+			'value' => '<i class="icon-ok"></i> Requirement has been met',
 		);
 	}else{
 		$requirements[] = array(
 			'title' => 'More than one Institution in the system',
 			'severity' => REQUIREMENT_ERROR,
-			'value' => 'No Institutions found!',
+			'value' => '<i class="icon-fire"></i> No Institutions found!',
 			'description' => 'ER Core requires you to add at least one Institution to the system.<br>' . $new_institution_link,
 		);
 	}
@@ -69,14 +69,32 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'More than one Research Component in the system',
 			'severity' => REQUIREMENT_OK,
-			'value' => 'Requirement has been met',
+			'value' => '<i class="icon-ok"></i> Requirement has been met',
 		);
 	}else{
 		$requirements[] = array(
 			'title' => 'More than one Research Component in the system',
 			'severity' => REQUIREMENT_ERROR,
-			'value' => 'No Research Components found!',
+			'value' => '<i class="icon-fire"></i> No Research Components found!',
 			'description' => 'ER Core requires you to add at least one research component to the system.<br>' . $new_component_link,
+		);
+	}
+	
+	//Check that there is at least one institution in the system
+	$grant_number = variable_get('er_grant_number', FALSE);
+	$grant_number_link = l('<i class="icon-pencil"></i> Edit NSF Acknowledgement block', 'admin/structure/block/manage/er/er_nsf_acknowledgement/configure', array('html'=>true));
+	if ($grant_number){// must be greater than 0
+		$requirements[] = array(
+			'title' => 'Set your NSF Grant Number',
+			'severity' => REQUIREMENT_OK,
+			'value' => '<i class="icon-ok"></i> Requirement has been met',
+		);
+	}else{
+		$requirements[] = array(
+			'title' => 'Set your NSF Grant Number',
+			'severity' => REQUIREMENT_WARNING,
+			'value' => '<i class="icon-flag"></i> Your NSF Grant Number has not been captured.',
+			'description' => 'It is recommended that you fill out the NSF Grant Number and display the NSF Acknowledgement block in the footer of your site.<br>' . $grant_number_link,
 		);
 	}
 	
@@ -291,7 +309,7 @@ function er_testing() {
 		$requirements[] = array(
 			'title' => 'Development Tools',
 			'severity' => REQUIREMENT_OK,
-			'value' => 'Devel is enabled',
+			'value' => '<i class="icon-info-sign"></i> Devel is enabled',
 			'description' => 'This module should be enabled in a development environment, but should not be necessary for a live site.',
 		);
 	}
