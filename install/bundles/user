@@ -1,5 +1,4 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'user' => NULL,
@@ -2969,73 +2968,6 @@ $data = array(
         ),
       ),
     ),
-    'field_er_nsf_grant_signatory' => array(
-      'translatable' => '0',
-      'entity_types' => array(),
-      'settings' => array(
-        'allowed_values' => array(
-          0 => 'No',
-          1 => 'Yes',
-        ),
-        'allowed_values_function' => '',
-        'profile2_private' => FALSE,
-        'user_role_field' => array(
-          5 => '5',
-          4 => '4',
-          6 => 0,
-          3 => 0,
-          1 => 0,
-          2 => 0,
-        ),
-      ),
-      'storage' => array(
-        'type' => 'field_sql_storage',
-        'settings' => array(),
-        'module' => 'field_sql_storage',
-        'active' => '1',
-        'details' => array(
-          'sql' => array(
-            'FIELD_LOAD_CURRENT' => array(
-              'field_data_field_er_nsf_grant_signatory' => array(
-                'value' => 'field_er_nsf_grant_signatory_value',
-              ),
-            ),
-            'FIELD_LOAD_REVISION' => array(
-              'field_revision_field_er_nsf_grant_signatory' => array(
-                'value' => 'field_er_nsf_grant_signatory_value',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'field_name' => 'field_er_nsf_grant_signatory',
-      'type' => 'list_boolean',
-      'module' => 'list',
-      'active' => '1',
-      'locked' => '0',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'columns' => array(
-        'value' => array(
-          'type' => 'int',
-          'not null' => FALSE,
-        ),
-      ),
-      'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
-      ),
-    ),
     'field_er_paid' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -5985,47 +5917,6 @@ Mobility/Orthopedic Impairment',
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_most_sen_proj_role',
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => '0',
-      ),
-    ),
-    'field_er_nsf_grant_signatory' => array(
-      0 => array(
-        'label' => 'NSF Grant Signatory',
-        'widget' => array(
-          'weight' => '79',
-          'type' => 'options_buttons',
-          'module' => 'options',
-          'active' => 1,
-          'settings' => array(),
-        ),
-        'settings' => array(
-          'user_register_form' => 0,
-        ),
-        'display' => array(
-          'default' => array(
-            'label' => 'inline',
-            'type' => 'list_default',
-            'weight' => '18',
-            'settings' => array(),
-            'module' => 'list',
-          ),
-          'ical' => array(
-            'type' => 'hidden',
-            'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
-          ),
-        ),
-        'required' => 0,
-        'description' => '',
-        'default_value' => array(
-          0 => array(
-            'value' => '0',
-          ),
-        ),
-        'field_name' => 'field_er_nsf_grant_signatory',
         'entity_type' => 'user',
         'bundle' => 'user',
         'deleted' => '0',
