@@ -1,7 +1,7 @@
 ; $Id$
 name = EPSCoR Reporting
 description = A custom module designed to handle reporting tasks.
-version = "7.x-2.01-dev"
+version = "7.x-2.01"
 core = "7.x"
 project = "er"
 package = "EPSCoR"
