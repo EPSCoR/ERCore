@@ -825,33 +825,40 @@ function er_is_user_participating($uid, $range = null){
 //Predict the user's status (Participant or Collaborator) bas on the user profile.
 //The final determination must come from the participating date ranges.
 function er_predict_user_status(&$user, $verbose = false){
-  $participating_inst = false;
-  $one_sixty = false;
-	$paid = false;
-	$paid_student = false;
-  $u = entity_metadata_wrapper('user', $user);
-	$u->field_er_inst_ref->value();
+	$criteria =  er_predict_user_status_get_criteria($user);
+	$participant = er_predict_user_status_from_criteria($criteria);
+	if ($verbose){
+		return array(
+			'label' => $participant?"Participant":"Collaborator",
+			'participant' => $participant,
+			'criteria' => $criteria,
+		);
+	}else
+		return $participant;
+}
+
+function er_predict_user_status_get_criteria(&$user){
+	$u = entity_metadata_wrapper('user', $user);
+	
 	$inst_nodes = $u->field_er_inst_ref->value();
 	if (count($inst_nodes)){
 		$inst = array_pop($inst_nodes);
 		$i = entity_metadata_wrapper('node', $inst);
 		$participating_inst = !!$i->field_er_inst_participating->value();
-	}
-	$one_sixty = !!$u->field_er_160hours->value();
-	$paid = !!$u->field_er_paid->value();
-	$paid_student = !!$u->field_er_faculty_any_support->value();
-	$participant = $paid || $one_sixty || $paid_student;
-	if ($verbose)
-		return array(
-			'participant'=>$participant,
-			'label'=>$participant?"Participant":"Collaborator",
-			'one_sixty'=>$one_sixty,
-			'participating_inst'=>$participating_inst,
-			'paid'=>$paid,
-			'paid_student'=>$paid_student
-		);
-	else
-		return $participant;
+	}else
+		$participating_inst = false;
+	
+	return (object)array(
+		'one_sixty'=>!!$u->field_er_160hours->value(),
+		'participating_inst'=>$participating_inst,
+		'paid'=>!!$u->field_er_paid->value(),
+		'paid_student'=>!!$u->field_er_faculty_any_support->value()
+	);
+}
+
+function er_predict_user_status_from_criteria($criteria){
+	return	$criteria->participating_inst &&
+					($criteria->one_sixty || $criteria->paid_student);
 }
 
 /*
@@ -870,6 +877,7 @@ function er_user_participating_status($uid){
 	
 	$user = user_load($uid);
 	$status_info = er_predict_user_status($user, true);
+	$status_criteria = $status_info['criteria'];
 	$participant = er_is_user_participating($user->uid);
 
 	$requirements = array();
@@ -879,24 +887,24 @@ function er_user_participating_status($uid){
 		'value' => $user->name,
 	);
 	$requirements[] = array(
-		'severity' => $status_info['participating_inst']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'severity' => $status_criteria->participating_inst?REQUIREMENT_OK:REQUIREMENT_WARNING,
 		'title' => 'Participating Institution',
-		'value' => $status_info['participating_inst']?"yes":"no",
+		'value' => $status_criteria->participating_inst?"yes":"no",
 	);
 	$requirements[] = array(
-		'severity' => ($status_info['one_sixty'])?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'severity' => $status_criteria->one_sixty?REQUIREMENT_OK:REQUIREMENT_WARNING,
 		'title' => '> 160 hrs/year',
-		'value' => $status_info['one_sixty']?"yes":"no",
+		'value' => $status_criteria->one_sixty?"yes":"no",
 	);
 	$requirements[] = array(
-		'severity' => $status_info['paid']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'severity' => $status_criteria->paid?REQUIREMENT_OK:REQUIREMENT_WARNING,
 		'title' => 'Paid by EPSCoR',
-		'value' => $status_info['paid']?"yes":"no",
+		'value' => $status_criteria->paid?"yes":"no",
 	);
 	$requirements[] = array(
-		'severity' => $status_info['paid_student']?REQUIREMENT_OK:REQUIREMENT_WARNING,
+		'severity' => $status_criteria->paid_student?REQUIREMENT_OK:REQUIREMENT_WARNING,
 		'title' => 'Faculty with student paid by EPSCoR',
-		'value' => $status_info['paid_student']?"yes":"no",
+		'value' => $status_criteria->paid_student?"yes":"no",
 	);
 	$requirements[] = array(
 		'severity' => REQUIREMENT_OK,

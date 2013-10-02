@@ -57,6 +57,20 @@ class er_debug extends er_page{
 		$types = array('ari_fac','ari_stu','pui_fac','pui_stu','msi_fac','msi_stu','k12i_tec','k12i_stud','k12i_stut','oth');
 		$vals = array('total', 'male', 'female', 'und', 'urm');
 		switch(arg(2)){
+			case 'test_user_status':
+				$max = pow(2, 4);
+				d('Compare these values against the excel sheet that admin agreed upon.');
+				for ($i = 0; $i<$max;$i++){
+					$criteria = (object)array(
+						'one_sixty'=>!!($i&8),
+						'participating_inst'=>!!($i&4),
+						'paid'=>!!($i&2),
+						'paid_student'=>!!($i&1)
+					);
+					$result = er_predict_user_status_from_criteria($criteria);
+					d($criteria, ($i+2).' '.($result?'Participant':'Non-Participant'));
+				}
+				return '';
 			case 'test_rusty':
 				$file_path = 'sites/all/modules/er/install/bundles/er_event';
 				$context = array();
