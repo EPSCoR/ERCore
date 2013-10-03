@@ -14,10 +14,7 @@ $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Collaborations';
 $handler->display->display_options['use_more_always'] = FALSE;
 $handler->display->display_options['group_by'] = TRUE;
-$handler->display->display_options['access']['type'] = 'role';
-$handler->display->display_options['access']['role'] = array(
-  3 => '3',
-);
+$handler->display->display_options['access']['type'] = 'none';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -107,11 +104,7 @@ $handler->display->display_options['filters']['field_er_collaboration_dates_valu
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
 $handler->display->display_options['defaults']['access'] = FALSE;
-$handler->display->display_options['access']['type'] = 'role';
-$handler->display->display_options['access']['role'] = array(
-  10000 => '10000',
-  3 => '3',
-);
+$handler->display->display_options['access']['type'] = 'none';
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['defaults']['style_options'] = FALSE;

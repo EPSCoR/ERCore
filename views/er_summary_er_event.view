@@ -13,11 +13,7 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'Calendar Events';
 $handler->display->display_options['use_more_always'] = FALSE;
-$handler->display->display_options['access']['type'] = 'role';
-$handler->display->display_options['access']['role'] = array(
-  10000 => '10000',
-  3 => '3',
-);
+$handler->display->display_options['access']['type'] = 'none';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -33,7 +29,7 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Researchers(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -152,7 +148,7 @@ $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-/* Field: Content: EPSCoR Researchers(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -175,7 +171,7 @@ $handler->display->display_options['fields']['counter']['field'] = 'counter';
 $handler->display->display_options['fields']['counter']['label'] = '#';
 $handler->display->display_options['fields']['counter']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['counter']['counter_start'] = '1';
-/* Field: Content: EPSCoR Researchers(s) */
+/* Field: Content: EPSCoR Presenter(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference_1']['id'] = 'field_er_user_entity_reference_1';
 $handler->display->display_options['fields']['field_er_user_entity_reference_1']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference_1']['field'] = 'field_er_user_entity_reference';
@@ -185,7 +181,7 @@ $handler->display->display_options['fields']['field_er_user_entity_reference_1']
   'link' => 0,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference_1']['delta_offset'] = '0';
-/* Field: Content: EPSCoR Researchers(s) (field_er_user_entity_reference:delta) */
+/* Field: Content: EPSCoR Presenter(s) (field_er_user_entity_reference:delta) */
 $handler->display->display_options['fields']['delta']['id'] = 'delta';
 $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['delta']['field'] = 'delta';
