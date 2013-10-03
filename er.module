@@ -121,7 +121,8 @@ function er_permission(){
 			'title' => t('Access EPSCoR Module content')
 		),
 		ER_DOWNLOAD_PERMISSION=>array(
-			'title' => t('Access EPSCoR Module excel sheets')
+			'title' => t('Access EPSCoR Module excel sheets'),
+			'description' => t('Display the download NSF table link on the Accomplishments tab')
 		),
 	);
 } // function er_perm()

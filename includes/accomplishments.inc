@@ -176,9 +176,7 @@ function er_date_range_form($form_state) {
 	foreach ($ranges as $k=>$v){
 		$select_list[] = date('M d, Y', $v[0]) . ' to ' . date('M d, Y', $v[1]);
 		if ($range_is_set && $range == $v) $selected = $k+1;
-	}
-	$access = user_access(ER_DOWNLOAD_PERMISSION);
-	
+	}	
 	
   $form['reporting-year'] = array(
     '#type' => 'fieldset',
@@ -261,7 +259,6 @@ function er_date_range_form($form_state) {
 		'#suffix'=>'</div>',
 		//'#access'=>$access,
 	);
-	$form['#access'] = $access;
   return $form;
 }
 
