@@ -166,7 +166,7 @@ function er_change_date_range($form, $form_state){
 function er_date_range_form($form_state) {
   //d($_SESSION);
 	$start_date = variable_get('er_start_date');
-  $date_year_range = "{$start_date['year']}:+1";//"2008:+1"; //+1 means 1 year from today
+    $date_year_range = "{$start_date['year']}:+1";//"2008:+1"; //+1 means 1 year from today
 	
 	$select_list = array('Select');
 	$ranges = er_get_reporting_ranges(); //This returns the list of available date ranges...
@@ -176,7 +176,8 @@ function er_date_range_form($form_state) {
 	foreach ($ranges as $k=>$v){
 		$select_list[] = date('M d, Y', $v[0]) . ' to ' . date('M d, Y', $v[1]);
 		if ($range_is_set && $range == $v) $selected = $k+1;
-	}	
+	}
+	
 	
   $form['reporting-year'] = array(
     '#type' => 'fieldset',
