@@ -48,10 +48,10 @@ $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 /* Field: Content: Female */
-$handler->display->display_options['fields']['field_er_oth_female']['id'] = 'field_er_oth_female';
-$handler->display->display_options['fields']['field_er_oth_female']['table'] = 'field_data_field_er_oth_female';
-$handler->display->display_options['fields']['field_er_oth_female']['field'] = 'field_er_oth_female';
-$handler->display->display_options['fields']['field_er_oth_female']['settings'] = array(
+$handler->display->display_options['fields']['field_er_tot_female']['id'] = 'field_er_tot_female';
+$handler->display->display_options['fields']['field_er_tot_female']['table'] = 'field_data_field_er_tot_female';
+$handler->display->display_options['fields']['field_er_tot_female']['field'] = 'field_er_tot_female';
+$handler->display->display_options['fields']['field_er_tot_female']['settings'] = array(
   'thousand_separator' => ' ',
   'prefix_suffix' => 1,
 );
@@ -63,6 +63,10 @@ $handler->display->display_options['fields']['field_er_tot_male']['field'] = 'fi
 $handler->display->display_options['fields']['field_er_tot_und']['id'] = 'field_er_tot_und';
 $handler->display->display_options['fields']['field_er_tot_und']['table'] = 'field_data_field_er_tot_und';
 $handler->display->display_options['fields']['field_er_tot_und']['field'] = 'field_er_tot_und';
+$handler->display->display_options['fields']['field_er_tot_und']['settings'] = array(
+  'thousand_separator' => ' ',
+  'prefix_suffix' => 1,
+);
 /* Field: Content: Total */
 $handler->display->display_options['fields']['field_er_tot_total']['id'] = 'field_er_tot_total';
 $handler->display->display_options['fields']['field_er_tot_total']['table'] = 'field_data_field_er_tot_total';

@@ -396,22 +396,25 @@ function er_parse_ee_file(&$node){
       
       //$number = $worksheet->getCellByColumnAndRow(0, $y)->getValue();
       $name = $worksheet->getCellByColumnAndRow(1, $y)->getValue();
-      $inst = get($instCodes, $worksheet->getCellByColumnAndRow(2, $y)->getValue());
+			$inst_code = $worksheet->getCellByColumnAndRow(2, $y)->getValue();
+      $inst = get($instCodes, $inst_code);
       $personCodes = $inst=='k12i'?$personCodes1:$personCodes2;
-      $person = get($personCodes, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
+			$person_code = $worksheet->getCellByColumnAndRow(3, $y)->getValue();
+      $person = get($personCodes, $person_code);
       //$person = personCodes($inst, $worksheet->getCellByColumnAndRow(3, $y)->getValue());
-      
-      if (!$name && !$inst && !$person) //if the information dries up, just assume this is the end of the list.
-        break;
-      
       $gender = get($genderCodes, strtolower($worksheet->getCellByColumnAndRow(4, $y)->getValue()));
       $minority = get($minorityCodes, strtolower($worksheet->getCellByColumnAndRow(5, $y)->getValue()));
       $paid = strtolower($worksheet->getCellByColumnAndRow(6, $y)->getValue()); //has no bearing on this form
+			
+      if (!$name && !$inst_code && !$person_code && !$gender && !$minority) //if the information dries up, just assume this is the end of the list.
+        break;
+      
       //we can't count paid participants...
       if (substr($paid, 0, 1) != 'y'){//someone might put in "yes" and not just "y"...
-        $col = $inst.'_'.$person;
         if (!$person || !$inst)
           $col = "oth";
+				else
+					$col = $inst.'_'.$person;
         
         if ($gender){
           $node->{"field_er_{$col}_{$gender}"}[$lang][0]['value']++;

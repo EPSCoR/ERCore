@@ -167,6 +167,10 @@ function _set_states_for_inst(&$form, $inst_field_name = 'field_er_inst_ref'){
 		//'disabled' => $addInst,
 		'optional' => $addInst,
 	);
+	
+
+	
+	
 }
 
 function autopopulate_collab_submit_callback(&$form, &$form_state){
@@ -896,7 +900,6 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// mentoring plan fields only available to Post-Docs
 	$form['field_er_mentoring_sign_off']['#states'] = 
-	$form['field_er_ment_plan_post_docs']['#states'] = 
 	$form['field_er_mentoring_plan_ul']['#states'] = array(
 		'visible' => $post_doc,
 		'required' => $post_doc,

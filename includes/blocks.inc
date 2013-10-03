@@ -23,7 +23,7 @@ function er_block_configure($delta = ''){
         '#type' => 'textfield',
         '#title' => t('NSF Grant Number'),
         '#required' => 1,
-        '#default_value' => variable_get('er_grant_number', '#'),
+        '#default_value' => variable_get('er_grant_number', ''),
       );
       break;
   }
