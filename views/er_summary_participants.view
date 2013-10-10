@@ -266,6 +266,14 @@ $handler->display->display_options['fields']['field_er_participating_date']['set
   'show_repeat_rule' => 'show',
 );
 $handler->display->display_options['fields']['field_er_participating_date']['delta_offset'] = '0';
+/* Field: Field: Name of Institution */
+$handler->display->display_options['fields']['field_er_inst_name']['id'] = 'field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['table'] = 'field_data_field_er_inst_name';
+$handler->display->display_options['fields']['field_er_inst_name']['field'] = 'field_er_inst_name';
+/* Field: User: Department */
+$handler->display->display_options['fields']['field_er_department']['id'] = 'field_er_department';
+$handler->display->display_options['fields']['field_er_department']['table'] = 'field_data_field_er_department';
+$handler->display->display_options['fields']['field_er_department']['field'] = 'field_er_department';
 $handler->display->display_options['path'] = 'participants/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',
