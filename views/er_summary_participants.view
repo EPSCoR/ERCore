@@ -253,10 +253,14 @@ $handler->display->display_options['fields']['field_er_realname']['hide_alter_em
 $handler->display->display_options['fields']['field_er_most_sen_proj_role']['id'] = 'field_er_most_sen_proj_role';
 $handler->display->display_options['fields']['field_er_most_sen_proj_role']['table'] = 'field_data_field_er_most_sen_proj_role';
 $handler->display->display_options['fields']['field_er_most_sen_proj_role']['field'] = 'field_er_most_sen_proj_role';
-/* Field: Field: Name of Institution */
-$handler->display->display_options['fields']['field_er_inst_name']['id'] = 'field_er_inst_name';
-$handler->display->display_options['fields']['field_er_inst_name']['table'] = 'field_data_field_er_inst_name';
-$handler->display->display_options['fields']['field_er_inst_name']['field'] = 'field_er_inst_name';
+/* Field: User: Participating Institutions */
+$handler->display->display_options['fields']['field_er_inst_ref']['id'] = 'field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['table'] = 'field_data_field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['field'] = 'field_er_inst_ref';
+$handler->display->display_options['fields']['field_er_inst_ref']['settings'] = array(
+  'link' => 0,
+);
+$handler->display->display_options['fields']['field_er_inst_ref']['delta_offset'] = '0';
 /* Field: User: Department */
 $handler->display->display_options['fields']['field_er_department']['id'] = 'field_er_department';
 $handler->display->display_options['fields']['field_er_department']['table'] = 'field_data_field_er_department';
