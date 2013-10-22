@@ -1,5 +1,5 @@
 <?php
-function er_block_info() {
+function erc_block_info() {
   $blocks['er_content_links'] = array(
     'info'=>t('Create new EPSCoR Reporting content links'),
     'title'=>'',
@@ -15,7 +15,7 @@ function er_block_info() {
   return $blocks;
 }
 
-function er_block_configure($delta = ''){
+function erc_block_configure($delta = ''){
   $form = array();
   switch ($delta) {
     case 'er_nsf_acknowledgement':
@@ -30,7 +30,7 @@ function er_block_configure($delta = ''){
   return $form;
 }
 
-function er_block_save($delta = '', $edit = array()) {
+function erc_block_save($delta = '', $edit = array()) {
   switch ($delta) {
     case 'er_nsf_acknowledgement':
       variable_set('er_grant_number', $edit['er_grant_number']);
@@ -38,7 +38,7 @@ function er_block_save($delta = '', $edit = array()) {
   }
 }
 
-function er_block_view($delta = '') {
+function erc_block_view($delta = '') {
   
   $block = array();
 

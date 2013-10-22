@@ -32,7 +32,7 @@ abstract class ERTestNSFTables extends DrupalWebTestCase {
   public function testTable(){
     $class_name = 'er_' . str_replace( "-" , "_" , $this->arg);
     $this->assertTrue(
-      module_load_include('inc', 'er', "pages/".$this->arg),
+      module_load_include('inc', 'erc', "pages/".$this->arg),
       "Lazy load the $class_name class from file"
     );
     $class = new $class_name();

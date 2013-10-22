@@ -3,7 +3,7 @@
 //This file defines some of our custom views. These are the defaults, and can be extended by the individual epscor states.
 //These defaults should function out-of-the-box, and so if something gets messed up, you should be able to revert back to these defaults.
 //The views are each defined in individual files, ex: /er/views/[name of view].view
-function er_views_default_views() {
+function erc_views_default_views() {
 /* Mike commented out some stuff so it loops through a directory, not hardcoded */
 /*
   $views = array(
@@ -54,7 +54,7 @@ function er_views_default_views() {
   return $export;
 }
 /*
-function er_attach_view(&$export, $filename){
+function erc_attach_view(&$export, $filename){
   require_once(ER_MODULE_DIR."/views/$filename.view");
   $export[$view->name] = $view;
   

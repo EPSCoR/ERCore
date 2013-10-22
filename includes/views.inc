@@ -1,6 +1,6 @@
 <?php
 //Purpose: We must alter queries for cases where the end date is null. We want this to behave as if the event goes on indefinitely.
-function er_views_query_alter(&$view, &$query){
+function erc_views_query_alter(&$view, &$query){
 	$summary_types = variable_get('er_summary_types');
 	$found = false;
 	//this checks to see if it's one of the views used in the summary table...

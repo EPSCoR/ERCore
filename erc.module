@@ -14,7 +14,7 @@ define('ER_ROOT_NAME', 'reporting');//The name used in the URI
 //DEPRECATED:: Use variable_get('er_start_date') instead.
 //define('ER_START_DATE', mktime(0, 0, 0, 9, 15, 2009));
 
-define('ER_MODULE_DIR', drupal_get_path('module', 'er'));
+define('ER_MODULE_DIR', drupal_get_path('module', 'erc'));
 define('ER_INSTALL_DIR', ER_MODULE_DIR . '/install');
 define('ER_INCLUDES_DIR', ER_MODULE_DIR . '/includes');
 
@@ -41,7 +41,7 @@ require_once ER_MODULE_DIR . '/includes/accomplishments.inc';
  * Hook Functions (Drupal)
  ******************************************************************************/
  
-function er_init(){
+function erc_init(){
 	// This is a new comment.
 	// This is a more accurate comment.
 	// Uncomment out the below two lines to get error reporting in case of WSOD ~Mike
@@ -72,7 +72,7 @@ function er_init(){
  * @internal param array $arg that holds the current path as would be returned from arg() function
  * @return help text for the path
  */
-function er_help($path, $arg) {
+function erc_help($path, $arg) {
 //	d($path, '$path');
 //	d($arg, '$arg');
 	
@@ -109,7 +109,7 @@ function _make_documentation_link($ct){
  * Valid permissions for this module
  * @return array An array of valid permissions for the er module
  */
-function er_permission(){
+function erc_permission(){
 	return array(
 		ER_ADMIN_PERMISSION=>array(
 			'title' => t('Administer EPSCoR Module')
@@ -125,9 +125,9 @@ function er_permission(){
 			'description' => t('Display the download NSF table link on the Accomplishments tab')
 		),
 	);
-} // function er_perm()
+} // function erc_perm()
 
-//function er_menu_link_alter(&$item) {
+//function erc_menu_link_alter(&$item) {
 //	d($item, '$item');
 //}
 
@@ -135,7 +135,7 @@ function er_permission(){
  * Menu for this module
  * @return array An array with this module's settings.
  */
-function er_menu() {
+function erc_menu() {
 // this is where we hardcode the EPSCoR menu system
 	$items = array();
 	//This sets up the EPSCoR Menu in the administration bar.
@@ -415,7 +415,7 @@ function er_menu() {
 
 	// For the individual pages we do not want to have to define a menu item for
 	// each one, so we can use a wildcard loader argument (the % item). This will
-	// call the function er_page_load() with the argument passed in via the URL.
+	// call the function erc_page_load() with the argument passed in via the URL.
 	// So if someone enters the url reporting/collaborations, then Drupal will call
 	// er_page_load("collaborations"). If that returns false, the response will
 	// be 404 not found. If it returns a value (in this case our page class) that
@@ -474,7 +474,7 @@ function er_menu() {
 /*
  * This hook determines which pages will use the administrative theme.
  */
-function er_admin_paths() {
+function erc_admin_paths() {
   return array(
     'user/*/status' => TRUE,
   );
@@ -483,7 +483,7 @@ function er_admin_paths() {
 //This hook replaces the original node/add page with one that separates the different types of content.
 //See also er/templates/er-content-links.tpl.php, and er/includes/theme.inc
 //Changes in this function require that you flush the menu cache.
-function er_menu_alter(&$items) {
+function erc_menu_alter(&$items) {
 	$items['node/add']['page callback'] = 'theme';
 	$items['node/add']['page arguments'] = array('er_add_core_content', array('full_view'=>true));
 }
@@ -491,7 +491,7 @@ function er_menu_alter(&$items) {
 //initializes, then returns an instance of a er_page object which will be defined in an "inc" file ex: /modules/er/pages/_____.inc
 function er_load_page($arg){
 	require_once ER_MODULE_DIR.'/er_page.inc';
-	if (module_load_include('inc', 'er', 'pages/'.$arg)!==false){
+	if (module_load_include('inc', 'erc', 'pages/'.$arg)!==false){
 		// Remember that our classes are prefixed with er_
 		$class = 'er_' . str_replace( "-" , "_" , $arg);
 		$class = new $class();
@@ -536,7 +536,7 @@ function er_page_download($arg) {
 		$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
 		$error_message = $library['error message'];// This contains a detailed (localized) error message.
 		drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
-		watchdog('er', $error_message, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', $error_message, NULL, WATCHDOG_CRITICAL);
 	}
 	return drupal_not_found();
 }
@@ -547,7 +547,7 @@ function er_page_download($arg) {
 * Detailed docks in ctools/ctools.api.php 
 * See also: http://drupalcontrib.org/api/drupal/contributions--ctools--ctools.api.php/function/hook_ctools_plugin_directory/6
 */ 
-function er_ctools_plugin_directory($module, $plugin) {
+function erc_ctools_plugin_directory($module, $plugin) {
   if ($module == 'ctools' || $module == 'panels' || $module == 'entityreference') {
     return 'plugins/' . $plugin;
   }
@@ -556,7 +556,7 @@ function er_ctools_plugin_directory($module, $plugin) {
 ///**
 // * Implements hook_ctools_plugin_type().
 // */
-//function er_ctools_plugin_type() {
+//function erc_ctools_plugin_type() {
 //  $plugins['selection'] = array(
 //    'classes' => array('class'),
 //  );
@@ -570,7 +570,7 @@ function er_ctools_plugin_directory($module, $plugin) {
 /**
  * Implements hook_ctools_plugin_api().
  */
-function er_ctools_plugin_api($module, $api) {
+function erc_ctools_plugin_api($module, $api) {
   if ($module == 'panels' && $api == 'styles') {
     // Check and return correct style version
     return array('version' => 2);
@@ -580,13 +580,13 @@ function er_ctools_plugin_api($module, $api) {
 /**
  * Implements hook_views_api().
  */
-function er_views_api() {
+function erc_views_api() {
   return array("version" => "3.0");
 }
 
 //hook_libraries_info()
 //from libraries module
-function er_libraries_info(){
+function erc_libraries_info(){
 	return array(
 		"PHPExcel"=>array(
 			"name"=>"PHPExcel",
@@ -619,7 +619,7 @@ function get($obj, $thing, $default=FALSE){
 	}
 }
 
-function er_username_alter(&$name, $account) {
+function erc_username_alter(&$name, $account) {
 	// we do not want the email sent out to new users to have the "real name", so we return if we're creating a new acct
 	if (arg(0) == 'admin' && arg(1) == 'people' && arg(2) == 'create')
 		return;

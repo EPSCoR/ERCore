@@ -28,7 +28,7 @@ class er_excel extends er_page{
 	public function excel(){
 		$objPHPExcel = $this->excel_file();
 		foreach($this->sheets as $k=>$s){
-			if (module_load_include('inc', 'er', 'pages/'.$s)!==false){
+			if (module_load_include('inc', 'erc', 'pages/'.$s)!==false){
 				$class = 'er_' . str_replace( "-" , "_" , $s );
 				$class = new $class();
 				$class->write_excel($objPHPExcel, $k);

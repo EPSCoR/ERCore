@@ -66,7 +66,7 @@ function er_settings() {
 	  // this below function will get deleted
 	function er_import_fields_temp($form, &$form_state){
 		d($form_state, 'this is being called from er_import_fields_temp');
-		watchdog('er', 'This is a test, ignore ~Mike',NULL,WATCHDOG_CRITICAL);
+		watchdog('erc', 'This is a test, ignore ~Mike',NULL,WATCHDOG_CRITICAL);
 	}
 	
 	return system_settings_form($form);

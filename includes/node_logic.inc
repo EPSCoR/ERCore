@@ -1,6 +1,6 @@
 <?php
 // http://api.drupal.org/api/drupal/modules!field!field.module/function/template_preprocess_field/7
-function er_preprocess_field(&$variables) {
+function erc_preprocess_field(&$variables) {
 	// d($variables, 'variables');
 	
 	/* this block was used when trying out encryption stuff
@@ -24,7 +24,7 @@ function er_preprocess_field(&$variables) {
  * NOTICE!:: This hook seems to be getting called during the installation/reset
  *  procedure which can interrupt the batch API process! Beware of using drupal_goto
  */
-function er_node_view($node, $view_mode, $langcode){
+function erc_node_view($node, $view_mode, $langcode){
   switch ($node->type){
     case 'er_event':
       er_calendar_extras_modify_view($node);
@@ -53,7 +53,7 @@ function er_node_view($node, $view_mode, $langcode){
  * Implements hook_user_view_alter().
  * The user was built; the module may modify the structured content.
  */
-function er_user_view_alter(&$build) {
+function erc_user_view_alter(&$build) {
 	global $user;
 	unset($build['flags']);//hide the flags, don't need it here.
   //This adds the tags indicating the permissions on each field:
@@ -119,7 +119,7 @@ function er_user_view_alter(&$build) {
   //);
 }
 
-function er_preprocess_node(&$variables, $hook){
+function erc_preprocess_node(&$variables, $hook){
   //d($variables, '$variables');
   if ($hook == 'node' && $variables['type'] == 'er_collaboration'){
     $flag = flag_get_flag('er_draft_status');
@@ -137,7 +137,7 @@ function er_calendar_extras_modify_view(&$node){
 	);
 }
 
-function er_node_presave($node){
+function erc_node_presave($node){
 	switch ($node->type){
 		case 'er_engagement':
 			_manage_ee_nodes($node, 'presave');
@@ -166,7 +166,7 @@ function _node_autogen_title(&$node){
 	}
 }
 
-function er_node_validate($node){
+function erc_node_validate($node){
 	_quick_add_institution_validation($node);
 	switch ($node->type){
 		case 'er_engagement':
@@ -184,7 +184,7 @@ function er_node_validate($node){
  *   This helps the queries understand that this event is 'ongoing'.
  * see: http://api.drupal.org/api/drupal/modules%21field%21field.attach.inc/function/field_attach_presave/7
  */
-function er_field_attach_presave($entity_type, $entity){
+function erc_field_attach_presave($entity_type, $entity){
   if ($entity_type == 'user'){
     $field = 'field_er_participating_date'; //this is the name of the date field on the user profile
   }else if ($entity_type == 'node' && isset($entity->type)){
@@ -436,13 +436,13 @@ function er_parse_ee_file(&$node){
     
     $message = 'The attachment "%fn" was processed and the External Engagements have been filled out. Please verify that the counts are correct.';
     $vars = array('%fn'=>$file->filename);
-    watchdog('er', $message, $vars, WATCHDOG_INFO);
+    watchdog('erc', $message, $vars, WATCHDOG_INFO);
     drupal_set_message(t($message, $vars));
   }else{//Libraries had a problem loading PHPExcel...
 		$error = $library['error'];// This contains a short status code of what went wrong, such as 'not found'.
 		$error_message = $library['error message'];// This contains a detailed (localized) error message.
 		drupal_set_message('PHPExcel library error: ' . $error_message, 'error');
-		watchdog('er', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
 	
   }
 }

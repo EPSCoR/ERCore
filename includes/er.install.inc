@@ -48,10 +48,10 @@ function prep_file_contents($file_path){
 //This function is used by Batch API; it installs a flag from file.
 function er_batch_import_flag($file_path, &$context){
 	$name = basename($file_path);
-	watchdog('er', t('Now processing flag: @name', array('@name' => $name)));
+	watchdog('erc', t('Now processing flag: @name', array('@name' => $name)));
 	module_load_include('inc', 'flag', 'includes/flag.export');
 	if (function_exists('flag_import_form_validate')){
-		//watchdog('er', 'Importing flag: ' . $file_path);
+		//watchdog('erc', 'Importing flag: ' . $file_path);
 		if (($contents = prep_file_contents($file_path)) !== FALSE){
 			$form = array();
 			$form_state = array();
@@ -61,15 +61,15 @@ function er_batch_import_flag($file_path, &$context){
 			flag_import_form_submit($form, $form_state);
 			$message = t("Flag @name imported successfully.", array('@name'=>$name));
 			$context['message'] = $message;
-			watchdog('er', $message);
+			watchdog('erc', $message);
 		}else{
 			$error = "Flag $name was not imported! File not found or is invalid: $file_path";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}else{		
 		$error = 'No flag_import_form_validate function found, installation cannot proceed.';
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 		drupal_set_message($error, 'error');
 	}
 }
@@ -77,11 +77,11 @@ function er_batch_import_flag($file_path, &$context){
 //This function is used by Batch API; it installs a rule from rules directory.
 function er_batch_import_rules($file_path, &$context){
 	$name = basename($file_path);
-	watchdog('er', t('Now processing rule: @name', array('@name' => $name)));
+	watchdog('erc', t('Now processing rule: @name', array('@name' => $name)));
 	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
 	module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
 	if (function_exists('rules_ui_import_form_validate')){
-		//watchdog('er', 'Begin creating rules, found the rules_ui_import_form_validate function');		
+		//watchdog('erc', 'Begin creating rules, found the rules_ui_import_form_validate function');		
 		if (($contents = prep_file_contents($file_path)) !== FALSE){			
 			$form = array();
 			$form_state = array();
@@ -93,14 +93,14 @@ function er_batch_import_rules($file_path, &$context){
 			rules_ui_import_form_submit($form, $form_state);
 			$message = t("Rule @name imported successfully.", array('@name'=>$name));
 			$context['message'] = $message;
-			watchdog('er', $message);
+			watchdog('erc', $message);
 		}else{
 			$error = "Rule $name was not imported! File not found or is invalid: $file_path";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}else{
-		watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
 		drupal_set_message('No rules_ui_import_form_validate function found in er.install');
 	}
 }
@@ -109,7 +109,7 @@ function er_batch_import_rules($file_path, &$context){
 //Note: This is function is basically the same as er_batch_import_fields.
 function er_batch_import_taxonomy($file_path, &$context){
 	$name = basename($file_path);
-	watchdog('er', t('Now processing taxonomy: @name', array('@name' => $name)));
+	watchdog('erc', t('Now processing taxonomy: @name', array('@name' => $name)));
 	module_load_include('inc', 'taxonomy', 'includes/taxonomy.export');
 	if (function_exists('bundle_copy_import_submit')){
 		if (($contents = prep_file_contents($file_path)) !== FALSE){
@@ -120,15 +120,15 @@ function er_batch_import_taxonomy($file_path, &$context){
 			bundle_copy_import_submit('', $form_state); // function doesn't use first arg
 			$message = t("Taxonomy Vocabulary @name imported successfully.", array('@name'=>$name));
 			$context['message'] = $message;
-			watchdog('er', $message);
+			watchdog('erc', $message);
 		}else{
 			$error = "Taxonomy Vocabulary $name was not imported! File not found or is invalid: $file_path";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = 'No bundle_copy_import_submit function found, Taxonomy Vocabulary installation cannot proceed.';
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 		drupal_set_message($error, 'error');
 	}
 }
@@ -137,7 +137,7 @@ function er_batch_import_taxonomy($file_path, &$context){
 function er_batch_import_fields($file_path, &$context){
 	try {	
 		$name = basename($file_path);
-		watchdog('er', t('Now processing bundle: @name', array('@name' => $name)));
+		watchdog('erc', t('Now processing bundle: @name', array('@name' => $name)));
 		if (function_exists('bundle_copy_import_submit')){
 			if (($contents = prep_file_contents($file_path)) !== FALSE){
 				$form = array();
@@ -147,15 +147,15 @@ function er_batch_import_fields($file_path, &$context){
 				bundle_copy_import_submit('', $form_state); // function doesn't use first arg
 				$message = t("Bundle @name imported successfully.", array('@name'=>$name));
 				$context['message'] = $message;
-				watchdog('er', $message);
+				watchdog('erc', $message);
 			}else{
 				$error = "Bundle $name was not imported! File not found or is invalid: $file_path";
-				watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+				watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 				drupal_set_message($error, 'error');
 			}
 		}else{
 			$error = 'No bundle_copy_import_submit function found, bundle installation cannot proceed.';
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	} catch (Exception $e) {
@@ -175,7 +175,7 @@ function er_batch_import_fields($file_path, &$context){
 			er_batch_import_fields($file_path, $context);//re-run the update process for this bundle.
 		}else{
 			$error = "Bundle $name was not imported! Unresolvable field conflict detected!";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}
@@ -278,7 +278,7 @@ function er_field_rename($field_name, $dry_run = false){
 	field_cache_clear();//clear the caches and make sure drupal knows what's up.
 	$message = t("The system has renamed field $field_name to $new_field_name in order to avoid update conflicts. Content must be manually migrated from this old field into the new field!");
 	drupal_set_message($message, 'warning');
-	watchdog('er', $message, array(), WATCHDOG_WARNING);
+	watchdog('erc', $message, array(), WATCHDOG_WARNING);
 	return '';
 }
 
@@ -294,7 +294,7 @@ function er_get_role_by_name($name){
 //This function will hijack the role by setting the role's RID to the RID that is expected by our system.
 function er_batch_hijack_roles($file_path, &$context){
 	$name = basename($file_path);
-	watchdog('er', t('Now reserving role: @name', array('@name' => $name)));
+	watchdog('erc', t('Now reserving role: @name', array('@name' => $name)));
 	if (file_exists($file_path)){
 		include($file_path);//$role variable becomes available
 		$db_role = er_get_role_by_name($role['name']);
@@ -304,22 +304,22 @@ function er_batch_hijack_roles($file_path, &$context){
 			$status = user_role_save($internal_role);
 			$message = t("Role @name successfully hijacked.", array('@name'=>$role['name']));
 			$context['message'] = $message;
-			watchdog('er', $message);
+			watchdog('erc', $message);
 		}else{
 			$error = "There is no role with RID:$rid in the system! The system was unable to hijack this role.";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = "Role $name was not hijacked! File not found: $file_path";
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 		drupal_set_message($error, 'error');
 	}
 }
 
 function er_batch_import_role($file_path, &$context){
 	$name = basename($file_path);
-	watchdog('er', t('Now processing role: @name', array('@name' => $name)));
+	watchdog('erc', t('Now processing role: @name', array('@name' => $name)));
 	if (file_exists($file_path)){
 		include($file_path);
 		if (isset($role)){
@@ -334,7 +334,7 @@ function er_batch_import_role($file_path, &$context){
 					$new_role = $db_role;//hijack the role.
 				$new_role->static_rid = $role['rid'];
 				$status = user_role_save($new_role);
-				watchdog('er', "Role {$role['name']} successfully created.");
+				watchdog('erc', "Role {$role['name']} successfully created.");
 			}
 			if (isset($role['permissions'])){//now to set permissions...
 				$array_perms = array(); //This becomes the final permissions array
@@ -349,7 +349,7 @@ function er_batch_import_role($file_path, &$context){
 						$array_perms[$permission_name] = $isset;
 					}else{
 						$error = "Unable to attach \"$permission_name \" to role $name, module is likely missing!";
-						watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+						watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 						//drupal_set_message($error, 'error');
 					}
 				}
@@ -358,15 +358,15 @@ function er_batch_import_role($file_path, &$context){
 			}
 			$message = t("Role @name + permissions imported successfully.", array('@name'=>$role['name']));
 			$context['message'] = $message;
-			watchdog('er', $message);
+			watchdog('erc', $message);
 		}else{
 			$error = "Role $name was not imported! Unable to read data contained in: $file_path";
-			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 			drupal_set_message($error, 'error');
 		}
 	}else{
 		$error = "Role $name was not imported! File not found: $file_path";
-		watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+		watchdog('erc', $error, NULL, WATCHDOG_CRITICAL);
 		drupal_set_message($error, 'error');
 	}
 }

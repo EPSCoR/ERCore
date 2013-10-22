@@ -1,5 +1,5 @@
 <?php
-function er_install(){
+function erc_install(){
   
   // er.module will require er.install.inc, and now we call install_all() in that include file
   install_all();

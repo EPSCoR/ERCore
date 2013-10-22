@@ -1,6 +1,6 @@
 <?php
 //hook_theme
-function er_theme($existing, $type, $theme, $path){
+function erc_theme($existing, $type, $theme, $path){
 	$path = ER_MODULE_DIR.'/templates';
 	$theme = array(
 		'er_help' => array(//produces a block, and a page: node/add2
@@ -68,7 +68,7 @@ function er_theme($existing, $type, $theme, $path){
 /**
  * Implements hook_field_formatter_info().
  */
-function er_field_formatter_info() {
+function erc_field_formatter_info() {
   return array(
     'date_custom' => array(
       'label' => t('ER Core - Custom date format'),
@@ -88,7 +88,7 @@ function er_field_formatter_info() {
 /**
  * Implements hook_field_formatter_view().
  */
-function er_field_formatter_view($entity_type, $entity, $field, $instance, $lang_code, $items, $display) {
+function erc_field_formatter_view($entity_type, $entity, $field, $instance, $lang_code, $items, $display) {
 
 	switch ($display['type']) {
 		case 'date_custom':
@@ -148,7 +148,7 @@ function theme_er_status_report($variables){
  * 	This is bypassing the permissions in a sense, but it seems like the only way to make sure 
  * 		only the proper people are editing the node.
  */
-function er_preprocess_page(&$vars, $hook){
+function erc_preprocess_page(&$vars, $hook){
 	// drupal_set_message('in er_preprocess_page');
 	// remove Edit tab if User is not Admin and not referenced as a co-author
 	if (isset($vars['user']->roles)){

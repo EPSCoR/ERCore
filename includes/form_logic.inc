@@ -4,7 +4,7 @@
  * 		See: http://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_form_alter/7
  */
 
-function er_form_alter(&$form, &$form_state, $form_id){
+function erc_form_alter(&$form, &$form_state, $form_id){
 	// d($form_id, 'form id in er_form_alter');
 	// d($form, 'form');
 	// d($form_state, 'fs');
@@ -25,7 +25,7 @@ function er_form_alter(&$form, &$form_state, $form_id){
 }
 
 // this adds a warning not to change the values of the Most Senior Project values 
-function er_form_field_ui_field_edit_form_alter(&$form, &$form_state){
+function erc_form_field_ui_field_edit_form_alter(&$form, &$form_state){
 	$form['field']['settings']['allowed_values']['#title'] .= " (ER CORE: Attention - Do not change these)";
 }
 
@@ -60,17 +60,17 @@ function er_check_edit_permissions(&$form){
  */
 
 // Award
-function er_form_er_award_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_award_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Calendar Event
-function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // External Collaborators
-function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id){
 	if (_deny_direct_form_access($form)) return;
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	
@@ -183,14 +183,14 @@ function autopopulate_collab_submit_callback(&$form, &$form_state){
 }
 
 // Collaboration
-function er_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_collaboration_node_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_er_collaboration_node_form_alter');
 	
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Current and Pending Support
-function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form, 'er_form_er_proposal_node_form_alter');
 
@@ -276,7 +276,7 @@ function _proposal_validate(&$form, &$form_state){
  */
 
 // External Engagements
-function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
 	_form_autogen_title($form, $form_state, $form_id);//Hide the title + autogenerate a title.
 	if (_deny_direct_form_access($form)) return;
 		
@@ -299,22 +299,22 @@ function er_form_er_engagement_node_form_alter(&$form, &$form_state, $form_id){
 }
 
 // Highlights
-function er_form_er_news_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_news_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Institution
-function er_form_er_institution_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_institution_node_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_er_institution_node_form_alter');
 }
 
 // Other Research Products
-function er_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_other_product_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
 // Patent
-function er_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_patent_node_form_alter(&$form, &$form_state, $form_id){
 	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
@@ -357,7 +357,7 @@ function patent_validate(&$form, &$form_state){
  */
 
 // Presentation
-function er_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_presentation_node_form_alter(&$form, &$form_state, $form_id){
 	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 	
@@ -384,7 +384,7 @@ function presentation_validate(&$form, &$form_state){
 
 // Publication
 // Modified by Brent on 2013-01-09
-function er_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_publication_node_form_alter(&$form, &$form_state, $form_id){
 	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	// d($form_id, 'form_id entering er_form_er_publication_node_form_alter');
 	// d($form, 'form entering er_form_er_publication_node_form_alter');
@@ -540,7 +540,7 @@ function publication_validate(&$form, &$form_state){
  */
 
 // Research Project
-function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
+function erc_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
 }
 
@@ -558,7 +558,7 @@ function er_form_er_project_node_form_alter(&$form, &$form_state, $form_id){
 //	This isn't a content type, instead, it's where people go to register:
 //		Example: http://wwwdev.epscor.hawaii.edu/user/register
 // This is "Quick add user" basically
-function er_form_user_register_form_alter(&$form, &$form_state, $form_id){
+function erc_form_user_register_form_alter(&$form, &$form_state, $form_id){
 	// d($form, 'er_form_user_register_form_alter');
 	
 	// all of this is to make the add user form quick without all the required fields having to be entered
@@ -637,18 +637,18 @@ class states_validate {
 						}
 					}
 				}catch (Exception $e){
-					watchdog('er', 'States validation error: Unable to verify condition statement for field @field', array('@field'=>$field_name), WATCHDOG_WARNING);
+					watchdog('erc', 'States validation error: Unable to verify condition statement for field @field', array('@field'=>$field_name), WATCHDOG_WARNING);
 				}
 			}catch (Exception $e){
 				if (intval($key) === 0){
 					$rule = array_pop($rule);
 					$this->check_rule($type, $field_name, $rule);//try it again, one step deeper.
 				}else{
-					watchdog('er', 'States validation error: @key unknown in field @field', array('@key'=>$key, '@field'=>$field_name), WATCHDOG_WARNING);
+					watchdog('erc', 'States validation error: @key unknown in field @field', array('@key'=>$key, '@field'=>$field_name), WATCHDOG_WARNING);
 				}
 			}
 		}else{
-			watchdog('er', 'States validation error: Unable to process states for @field. Unexpected formatting...', array('@field'=>$field_name), WATCHDOG_WARNING);
+			watchdog('erc', 'States validation error: Unable to process states for @field. Unexpected formatting...', array('@field'=>$field_name), WATCHDOG_WARNING);
 		}
 	}
 	
@@ -729,7 +729,7 @@ function _states_validate(&$form, &$form_state){
 
 
 // User Profile
-function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
+function erc_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['#validate'][] = '_states_validate'; //Automatically try to validate the form based on the #states.
 	
 	// d($form, 'er_form_user_profile_form_alter');
@@ -984,7 +984,7 @@ function fs_empty($fs, $field){
 /*
  * This function is used because we want our "Smart Forms" to be able to hide/show an entire fieldset, and this is needed
  */
-function er_field_group_build_pre_render_alter(&$element){
+function erc_field_group_build_pre_render_alter(&$element){
 	// d($element, 'element');
 	
 	// This IF block was used for the User Profile

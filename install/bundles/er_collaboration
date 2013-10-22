@@ -373,7 +373,7 @@ $data = array(
             'type' => 'date_custom',
             'weight' => '11',
             'settings' => array(),
-            'module' => 'er',
+            'module' => 'erc',
           ),
           'teaser' => array(
             'type' => 'hidden',
