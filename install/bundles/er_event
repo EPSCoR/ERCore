@@ -26,10 +26,10 @@ $data = array(
       ),
       'foreign keys' => array(
         'format' => array(
+          'table' => 'filter_format',
           'columns' => array(
             'format' => 'format',
           ),
-          'table' => 'filter_format',
         ),
       ),
       'indexes' => array(
@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_award',
+          2 => 'er_proposal',
           3 => 'er_collaboration',
-          4 => 'er_event',
-          5 => 'er_institution',
-          6 => 'er_presentation',
-          7 => 'er_proposal',
-          8 => 'er_publication',
+          4 => 'er_award',
+          5 => 'er_publication',
+          6 => 'er_institution',
+          7 => 'er_event',
+          8 => 'er_presentation',
         ),
       ),
     ),
@@ -468,6 +468,75 @@ $data = array(
         ),
       ),
     ),
+    'field_er_other_more_information' => array(
+      'translatable' => '0',
+      'entity_types' => array(),
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'storage' => array(
+        'type' => 'field_sql_storage',
+        'settings' => array(),
+        'module' => 'field_sql_storage',
+        'active' => '1',
+        'details' => array(
+          'sql' => array(
+            'FIELD_LOAD_CURRENT' => array(
+              'field_data_field_er_other_more_information' => array(
+                'value' => 'field_er_other_more_information_value',
+                'format' => 'field_er_other_more_information_format',
+              ),
+            ),
+            'FIELD_LOAD_REVISION' => array(
+              'field_revision_field_er_other_more_information' => array(
+                'value' => 'field_er_other_more_information_value',
+                'format' => 'field_er_other_more_information_format',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'table' => 'filter_format',
+          'columns' => array(
+            'format' => 'format',
+          ),
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'field_name' => 'field_er_other_more_information',
+      'type' => 'text',
+      'module' => 'text',
+      'active' => '1',
+      'locked' => '0',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'columns' => array(
+        'value' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'format' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ),
+      ),
+      'bundles' => array(
+        'node' => array(
+          0 => 'er_event',
+        ),
+      ),
+    ),
     'field_er_room_num' => array(
       'translatable' => '0',
       'entity_types' => array(),
@@ -659,10 +728,10 @@ $data = array(
         ),
       ),
       'foreign keys' => array(
-        'node' => array(
-          'table' => 'node',
+        'users' => array(
+          'table' => 'users',
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'uid',
           ),
         ),
       ),
@@ -691,14 +760,14 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_award',
-          1 => 'er_event',
-          2 => 'er_news',
-          3 => 'er_other_product',
-          4 => 'er_patent',
-          5 => 'er_presentation',
-          6 => 'er_proposal',
-          7 => 'er_publication',
+          0 => 'er_proposal',
+          1 => 'er_patent',
+          2 => 'er_other_product',
+          3 => 'er_award',
+          4 => 'er_publication',
+          5 => 'er_event',
+          6 => 'er_presentation',
+          7 => 'er_news',
         ),
       ),
     ),
@@ -708,7 +777,7 @@ $data = array(
       0 => array(
         'label' => 'Abstract or Short Description',
         'widget' => array(
-          'weight' => '6',
+          'weight' => '7',
           'type' => 'text_textarea_with_summary',
           'module' => 'text',
           'active' => 1,
@@ -860,7 +929,7 @@ $data = array(
           ),
         ),
         'widget' => array(
-          'weight' => '5',
+          'weight' => '6',
           'type' => 'options_buttons',
           'module' => 'options',
           'active' => 1,
@@ -1075,9 +1144,9 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'text_default',
+            'weight' => '28',
             'settings' => array(),
             'module' => 'text',
-            'weight' => 28,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -1090,6 +1159,46 @@ $data = array(
         'description' => '',
         'default_value' => NULL,
         'field_name' => 'field_er_location',
+        'entity_type' => 'node',
+        'bundle' => 'er_event',
+        'deleted' => '0',
+      ),
+    ),
+    'field_er_other_more_information' => array(
+      0 => array(
+        'label' => 'More Information',
+        'widget' => array(
+          'weight' => '4',
+          'type' => 'text_textfield',
+          'module' => 'text',
+          'active' => 1,
+          'settings' => array(
+            'size' => '60',
+          ),
+        ),
+        'settings' => array(
+          'text_processing' => '0',
+          'user_register_form' => FALSE,
+        ),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'text_plain',
+            'weight' => '30',
+            'settings' => array(),
+            'module' => 'text',
+          ),
+          'teaser' => array(
+            'type' => 'hidden',
+            'label' => 'above',
+            'settings' => array(),
+            'weight' => 0,
+          ),
+        ),
+        'required' => 0,
+        'description' => 'You selected "Other", please give more information on your event.',
+        'default_value' => NULL,
+        'field_name' => 'field_er_other_more_information',
         'entity_type' => 'node',
         'bundle' => 'er_event',
         'deleted' => '0',
@@ -1115,9 +1224,9 @@ $data = array(
           'default' => array(
             'label' => 'above',
             'type' => 'text_default',
+            'weight' => '29',
             'settings' => array(),
             'module' => 'text',
-            'weight' => 29,
           ),
           'teaser' => array(
             'type' => 'hidden',
@@ -1149,7 +1258,7 @@ $data = array(
         ),
         'widget' => array(
           'type' => 'text_textfield',
-          'weight' => '4',
+          'weight' => '5',
           'module' => 'text',
           'active' => '1',
           'settings' => array(
