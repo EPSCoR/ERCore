@@ -13,7 +13,7 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 $handler = $view->new_display('default', 'Master', 'default');
 $handler->display->display_options['title'] = 'External Collaborators';
 $handler->display->display_options['use_more_always'] = FALSE;
-$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['type'] = 'none';
 $handler->display->display_options['cache']['type'] = 'none';
 $handler->display->display_options['query']['type'] = 'views_query';
 $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -255,10 +255,6 @@ $handler->display->display_options['fields']['field_er_collaboration_dates']['se
   'multiple_to' => '',
   'show_repeat_rule' => 'show',
 );
-/* Field: Broken/missing handler */
-$handler->display->display_options['fields']['field_er_core_components']['id'] = 'field_er_core_components';
-$handler->display->display_options['fields']['field_er_core_components']['table'] = 'field_data_field_er_core_components';
-$handler->display->display_options['fields']['field_er_core_components']['field'] = 'field_er_core_components';
 $handler->display->display_options['path'] = 'collaborations/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',

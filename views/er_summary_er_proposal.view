@@ -115,7 +115,7 @@ $handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['field'
 $handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['settings'] = array(
   'link' => 0,
 );
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: Inventor(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -177,6 +177,45 @@ $handler->display->display_options['pager']['options']['offset'] = '0';
 $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
 $handler->display->display_options['style_options']['provide_file'] = 1;
 $handler->display->display_options['style_options']['parent_sort'] = 0;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Field: Content: Award Dates */
+$handler->display->display_options['fields']['field_er_proposal_date']['id'] = 'field_er_proposal_date';
+$handler->display->display_options['fields']['field_er_proposal_date']['table'] = 'field_data_field_er_proposal_date';
+$handler->display->display_options['fields']['field_er_proposal_date']['field'] = 'field_er_proposal_date';
+$handler->display->display_options['fields']['field_er_proposal_date']['settings'] = array(
+  'format_type' => 'long',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+/* Field: Content: EPSCoR PI/Co-PI */
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['id'] = 'field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['table'] = 'field_data_field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['field'] = 'field_er_epscor_pi_co_pi';
+$handler->display->display_options['fields']['field_er_epscor_pi_co_pi']['settings'] = array(
+  'link' => 0,
+);
+/* Field: Content: Inventor(s) */
+$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+/* Field: Content: Status */
+$handler->display->display_options['fields']['field_er_proposal_status']['id'] = 'field_er_proposal_status';
+$handler->display->display_options['fields']['field_er_proposal_status']['table'] = 'field_data_field_er_proposal_status';
+$handler->display->display_options['fields']['field_er_proposal_status']['field'] = 'field_er_proposal_status';
 $handler->display->display_options['path'] = 'proposals/download';
 $handler->display->display_options['displays'] = array(
   'default' => 'default',

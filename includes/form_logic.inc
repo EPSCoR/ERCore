@@ -67,6 +67,18 @@ function er_form_er_award_node_form_alter(&$form, &$form_state, $form_id){
 // Calendar Event
 function er_form_er_event_node_form_alter(&$form, &$form_state, $form_id){
 	er_set_default_user_entity_reference_field($form, $form_state, $form_id);
+
+// "Event Type" = "Other" ---- show More information text field
+// modified by Chris - cjallen@epscor.unm.edu
+
+  $eventOther = array(
+			':input[name="field_er_event_type[und]"]' => array(
+			'value' => '6'), //Oddly '6' works - which is the value of Other in the 'Event Type' Listing
+			);
+		//Calendar Event Other - More Information
+	$form['field_er_other_more_information']['#states'] = array(
+		'visible' =>  $eventOther,
+	);
 }
 
 // External Collaborators
