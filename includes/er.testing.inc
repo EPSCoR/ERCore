@@ -6,7 +6,7 @@ function er_testing() {
 	////this may be useful for checking taxonomy or content types.
 	//d(field_info_bundles(), 'field_info_bundles()');
 	$link_options = array(
-		'query' => array('destination' => 'admin/config/epscor/er/status'),
+		'query' => array('destination' => 'admin/config/epscor/status'),
 		'html' => true,
 	);
 	$requirements = array();
