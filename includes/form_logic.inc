@@ -177,12 +177,8 @@ function _set_states_for_inst(&$form, $inst_field_name = 'field_er_inst_ref'){
 	//Make the institution field required/non-required based on the checkbox.
 	$form[$inst_field_name]['#states'] = array(
 		//'disabled' => $addInst,
-		'optional' => $addInst,
-	);
-	
-
-	
-	
+		'optional' => array($addInst),
+	);	
 }
 
 function autopopulate_collab_submit_callback(&$form, &$form_state){
@@ -618,7 +614,7 @@ class states_validate {
 								$this->check_rule($type, $field_name, $rule);
 							}
 						}else{
-							$this->check_rule($type, $field_name, $states['required']);
+							$this->check_rule($type, $field_name, $states[$type]);
 						}
 					}
 				}
@@ -645,6 +641,7 @@ class states_validate {
 					if (($type == 'required' && $condition_is_met) || ($type == 'optional' && !$condition_is_met)){
 						if (!$this->check_field_required($field_name, $lang)){//field is empty
 							$title = $this->get_field_title($field_name, $lang);
+							if (!$title) watchdog('er', 'States validation error: Unable to find the field title for: '.$field_name, array(), WATCHDOG_ERROR);
 							form_set_error($field_name, t('@name field is required.', array('@name'=>$title)) );
 						}
 					}
@@ -746,7 +743,6 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// d($form, 'er_form_user_profile_form_alter');
 	$form['field_er_faculty_any_support']['#after_build'] = array('_remove_NA_option');
-	$form['field_er_nsf_grant_signatory']['#after_build'] = array('_remove_NA_option');
 	
 	// Faculty Participant (or Equivalent)
 	$faculty_part = array(
@@ -855,10 +851,10 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	// RCR completion is only for undergrads and grads
 	$form['field_er_rcr_completion_bool']['#states'] = array(
 		'visible' => array($undergrad, $grad_student),
-		'required' => array($undergrad, $grad_student),
+		//'required' => array($undergrad, $grad_student),
 	);	
 	
-	// RCR Certification fields only if "I have completed RCR certifications" ic checked
+	// RCR Certification fields only if "I have completed RCR certifications" is checked
 	$completed_rcr = array(
 		':input[name="field_er_rcr_completion_bool[und]"]' => array('checked' => TRUE),
 	);
@@ -866,8 +862,7 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	$form['field_er_rcr_online']['#states'] = 
 	$form['field_er_rcr_in_person']['#states'] =
 	$form['field_er_additional_doc']['#states'] =
-	$form['field_er_rcr_online_ul']['#states'] =  
-	$form['field_er_nsf_grant_signatory']['#states'] = 
+	$form['field_er_rcr_online_ul']['#states'] = 
 	$form['field_er_rcr_inperson_ul']['#states'] = array(
 		'visible' => $completed_rcr,
 		'required' => $completed_rcr,
