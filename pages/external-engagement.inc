@@ -3,6 +3,7 @@ require_once(ER_MODULE_DIR.'/er_page.inc');
 class er_external_engagement extends er_page{
 	private $cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");
 	private $rows = array("total", "male", "female", "urm");
+	private $fields = array("ari_fac_total","ari_stu_total","pui_fac_total","pui_stu_total","msi_fac_total","msi_stu_total","k12i_tec_total","k12i_stud_total","k12i_stut_total","oth_total","tot_total","ari_fac_male","ari_stu_male","pui_fac_male","pui_stu_male","msi_fac_male","msi_stu_male","k12i_tec_male","k12i_stud_male","k12i_stut_male","oth_male","tot_male","ari_fac_female","ari_stu_female","pui_fac_female","pui_stu_female","msi_fac_female","msi_stu_female","k12i_tec_female","k12i_stud_female","k12i_stut_female","oth_female","tot_female","ari_fac_urm","ari_stu_urm","pui_fac_urm","pui_stu_urm","msi_fac_urm","msi_stu_urm","k12i_tec_urm","k12i_stud_urm","k12i_stut_urm","oth_urm","tot_urm");
 
 	public function __construct() { 
 		parent::__construct();
@@ -12,31 +13,37 @@ class er_external_engagement extends er_page{
 	public function title(){
 		return "External Engagement";
 	}
-    
+  
 	public function data($count = true){
-		$view = views_get_view('er_report_external_engagement');
-		$view->set_display($count?'count':'default');
-		$view->execute();
-		$data = array();
-		foreach ($view->result as $k=>$v){
-			if (!$count){
-				$data[$k]['nid'] = $view->result[$k]->nid;
-				$data[$k]['title'] = $view->result[$k]->node_title;
-			}
-			foreach ($this->rows as $attr){
-				foreach ($this->cols as $inst){ //notice it's field_field_er...
-					$name = $inst.'_'.$attr;
-					//dsm($view->result[0]->{'field_field_er_'.$name}[0]['raw']['value'], $name);
-					if (!$count)
-						$data[$k][$name] = $view->result[$k]->{'field_field_er_'.$name}[0]['raw']['value'];
-					else
-						$data[$name] = $view->result[$k]->{'field_field_er_'.$name}[0]['raw']['value'];
-				}
+		$query = db_select('node', 'ee');
+		$query->condition('ee.type', 'er_engagement');
+		
+		if (!$count){
+			$query->addField('ee', "nid");
+			$query->addField('ee', "title");
+		}
+		
+		foreach ($this->fields as $f){
+			$field = "field_er_".$f;
+			$query->leftJoin("field_data_{$field}", $field, "ee.nid = $field.entity_id");
+			if ($count){
+				$query->addExpression("SUM($field.{$field}_value)", $f);
+			}else{
+				$query->addField($field, "{$field}_value)", $f);
 			}
 		}
-		//dsm($view->result, 'external engagement view');
-		return $data;
-	}
+    
+    $data = array();
+    $result = $query->execute();
+		if ($count){
+			$data = $result->fetchAssoc();
+		}else{
+			while ($record = $result->fetchAssoc()){
+				$data[] = $record;
+			}
+		}
+    return $data;
+  }
 	
 	public function html(){
 		$attr_names = array('total'=>'Total', 'male'=>'Male', 'female'=>'Female', 'urm'=>'Under-represented Minority');
