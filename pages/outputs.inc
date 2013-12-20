@@ -174,9 +174,9 @@ class er_outputs extends er_page{
 	}
 	
 	private function generate_disabled_query(&$query){
-		$query->innerJoin("field_data_".self::$field_aliases['race'], 'disabilities', 'users.uid = disabilities.entity_id');
-		$query->isNotNull("disabilities.".self::$field_aliases['race']."_value");
-		$query->condition("disabilities.".self::$field_aliases['race']."_value", 'None', '!=');
+		$query->innerJoin("field_data_".self::$field_aliases['disability'], 'disabilities', 'users.uid = disabilities.entity_id');
+		$query->isNotNull("disabilities.".self::$field_aliases['disability']."_value");
+		$query->condition("disabilities.".self::$field_aliases['disability']."_value", 'None', '!=');
 		//$query->addField("disabilities", "field_er_disabilities_value");
 	}
 	
