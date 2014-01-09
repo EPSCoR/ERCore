@@ -110,7 +110,7 @@ class er_outputs extends er_page{
 		
 		//Person must be faculty:
 		$query->innerJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
-		$query->condition("type.".self::$field_aliases['position_type']."_value", "Faculty participants (or equivalent)", '=');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Faculty participant (or equivalent)", '=');
 	}
 	
 	private function generate_post_docs_query(&$query, $period){
