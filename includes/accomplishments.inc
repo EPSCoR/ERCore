@@ -53,8 +53,8 @@ function er_summary_table($variables){
 					$view = views_get_view($view_name);
 					$view->set_display('count');
 					//dsm(date('Y-m-d', $v[0]) . ' through '. date('Y-m-d', $v[1]));
-					$view->exposed_input['start_date']['value']['date'] = date('Y-m-d', $v[0]);
-					$view->exposed_input['end_date']['value']['date'] = date('Y-m-d', $v[1]);
+					$view->exposed_input['start_date']['value']['date'] = date('m/j/Y', $v[0]);
+					$view->exposed_input['end_date']['value']['date'] = date('m/j/Y', $v[1]);
 					//$view->set_items_per_page(1);
 					$view->execute();
 					$count = isset($view->result[0]->nid)?$view->result[0]->nid:$view->result[0]->uid;//count nodes or users
