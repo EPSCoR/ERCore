@@ -324,7 +324,7 @@ class er_debug extends er_page{
     	//dsm($title);
     	$location = $worksheet->getCellByColumnAndRow(2, 5)->getValue();
     	//dsm($location);
-    	$date = gmdate('m-d-Y',PHPExcel_Shared_Date::ExcelToPHP($worksheet->getCellByColumnAndRow(2, 6)->getValue()));
+    	$date = gmdate('m/j/Y',PHPExcel_Shared_Date::ExcelToPHP($worksheet->getCellByColumnAndRow(2, 6)->getValue()));
     	//dsm($date);
     	$poc = $worksheet->getCellByColumnAndRow(2, 7)->getValue();
     	//dsm($poc);
