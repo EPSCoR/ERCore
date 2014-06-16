@@ -106,11 +106,12 @@ class er_outputs extends er_page{
 	private function generate_fac_hired_query(&$query, $period){
 		$date_field = self::$field_aliases['hired_date'];
 		$query->innerJoin("field_data_{$date_field}", 'date', 'users.uid = date.entity_id');
+		
 		$this->applyDateRange($query, $date_field, $period);
 		
 		//Person must be faculty:
 		$query->innerJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
-		$query->condition("type.".self::$field_aliases['position_type']."_value", "Faculty participant (or equivalent)", '=');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Faculty participants (or equivalent)", '=');
 	}
 	
 	private function generate_post_docs_query(&$query, $period){
@@ -122,16 +123,14 @@ class er_outputs extends er_page{
 		$query->condition("type.".self::$field_aliases['position_type']."_value", "Post docs", '=');
 	}
 	
-private function generate_grad_students_query(&$query, $period){
+	private function generate_grad_students_query(&$query, $period){
 		//TODO:
 		//NEED TO WORK IN DOCTORATE GRADUATIONS SOMEHOW.
-		//Slight modification by cjallen@epscor.unm.edu
-	
-		
+
 		$date_field1 = self::$field_aliases['mas_act_grad_date'];
 		$date_field2 = self::$field_aliases['doc_act_grad_date'];
 		
-		//Person must be gradstudent 
+		//Person must be gradstudent AND have a date entered into Masters Actual Graduate Date or Doctorate Actual Grad Date
 		$query->leftJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
 		$query->condition("type.".self::$field_aliases['position_type']."_value", "Graduate Student", '=');
 		
@@ -151,12 +150,11 @@ private function generate_grad_students_query(&$query, $period){
 		}
 	}
 	
-	private function generate_undergrad_query(&$query, $period){
-		//Slight modification by cjallen@epscor.unm.edu
-			
+	
+private function generate_undergrad_query(&$query, $period){
 		$date_field = self::$field_aliases['und_act_grad_date'];
 		
-		//Person must be undergrad
+		//Person must be undergrad AND have a date entered into Undergraduate Date 
 		$query->leftJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
 		$query->condition("type.".self::$field_aliases['position_type']."_value", "Undergraduate student", '=');
 		
@@ -184,7 +182,7 @@ private function generate_grad_students_query(&$query, $period){
 		$query->innerJoin("field_data_".self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
 		$query->condition(db_or()
 			->condition("race.".self::$field_aliases['race']."_value", $minorities, 'IN')
-			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 1, '=')//1 == person is hispanic
+			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 0, '=')//0 == person is hispanic, 1 = not hispanic/latino, 2 = unknown
 		);
 	}
 	
@@ -264,7 +262,7 @@ private function generate_grad_students_query(&$query, $period){
     foreach ($data as $range_label => $categories){
 			$output[$range_label.'-label'] = $this->h1($range_label);
 			foreach ($categories as $cat_key=>$cat_data){
-				$output[$cat_key . '-label'] = $this->h2($cat_key);
+				$output[$cat_key . '-label'] = $this->h3($cat_key);
 				foreach ($cat_data as $row_key=>$row_data){
 					if (is_array($row_data)){
 						$list = array(
