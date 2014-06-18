@@ -150,8 +150,8 @@ class er_outputs extends er_page{
 		}
 	}
 	
-	
 private function generate_undergrad_query(&$query, $period){
+			
 		$date_field = self::$field_aliases['und_act_grad_date'];
 		
 		//Person must be undergrad AND have a date entered into Undergraduate Date 
@@ -182,7 +182,9 @@ private function generate_undergrad_query(&$query, $period){
 		$query->innerJoin("field_data_".self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
 		$query->condition(db_or()
 			->condition("race.".self::$field_aliases['race']."_value", $minorities, 'IN')
-			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 0, '=')//0 == person is hispanic, 1 = not hispanic/latino, 2 = unknown
+			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 0, '=')
+			// 0 == person is hispanic, 1 = not hispanic/latino, 2 = unknown -- from User Profile fields in Ethnicity
+			// DRUPAL_ROOT/admin/config/people/accounts/fields/field_er_ethnicity * cjallen@epscor.unm.edu
 		);
 	}
 	
