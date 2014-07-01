@@ -824,8 +824,10 @@ function er_form_user_profile_form_alter(&$form, &$form_state, $form_id){
 	
 	// actual undergraduate completion
 	$form['field_er_act_under']['#states'] = array(
-			'visible' => array($undergrad, $grad_student),
-	);	 
+	//'visible' => array($undergrad, $grad_student), <--- this is the original ER code, 
+	// NM removes the field 'undergrad' graduation date for Graduate Students
+	// mjdaniel@nmepscor.unm.edu informed NM developers that this field is unnecessary for data collection in the outputs table.
+	'visible' => array($undergrad),	 
 
 	// actual masters completion
 	$form['field_er_act_masters']['#states'] = array(
