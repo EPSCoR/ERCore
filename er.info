@@ -1,9 +1,9 @@
 ; $Id$
 name = EPSCoR Reporting
 description = A custom module designed to handle reporting tasks.
-version = "7.x-2.02-dev"
+version = "7.x-3.0"
 core = "7.x"
-project = "er"
+project = “epscor_reporting”
 package = "EPSCoR"
 
 ; we need date_views and date_popup for the summary table specifically.
