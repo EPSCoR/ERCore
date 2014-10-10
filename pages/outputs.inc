@@ -122,7 +122,7 @@ class er_outputs extends er_page{
 		$this->applyDateRange($query, $date_field, $period);
 		
 		$query->innerJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
-		$query->condition("type.".self::$field_aliases['position_type']."_value", "Post docs", '=');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Post Doc", '=');
 	}
 	
 private function generate_grad_students_query(&$query, $period){
@@ -136,7 +136,7 @@ private function generate_grad_students_query(&$query, $period){
 		
 		//Person must be gradstudent 
 		$query->leftJoin("field_data_".self::$field_aliases['position_type'], 'type', 'users.uid = type.entity_id');
-		$query->condition("type.".self::$field_aliases['position_type']."_value", "Graduate Student", '=');
+		$query->condition("type.".self::$field_aliases['position_type']."_value", "Graduate student", '=');
 		
 		$query->leftJoin("field_data_{$date_field1}", 'date1', 'users.uid = date1.entity_id');
 		$query->leftJoin("field_data_{$date_field2}", 'date2', 'users.uid = date2.entity_id');
