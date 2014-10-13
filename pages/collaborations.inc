@@ -3,8 +3,6 @@ require_once(ER_MODULE_DIR.'/er_page.inc');
 //I'm going to use this file to collect the other excel functions, so they all modify the same excel sheet.
 //This system currently assumes that there are "pages" linked into the er module using the names stored in $sheets
 
-// Sample test cjallen
-
 class er_collaborations extends er_page{
   static private  $types = array(
     'local'=>'Jurisdictional',
