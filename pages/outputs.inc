@@ -148,8 +148,8 @@ private function generate_grad_students_query(&$query, $period){
            $date_array[1] = date('Y-m-d H:i:s', $period[1]);
 			
 			$db_or = db_or()
-				->condition("date1.{$date_field1}_value", $period, 'BETWEEN')
-				->condition("date2.{$date_field2}_value", $period, 'BETWEEN');
+				->condition("date1.{$date_field1}_value", $date_array , 'BETWEEN')
+				->condition("date2.{$date_field2}_value", $date_array , 'BETWEEN');
 			$query->condition($db_or);
 		}else{
 			$db_or = db_or()
