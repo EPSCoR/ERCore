@@ -141,7 +141,12 @@ private function generate_grad_students_query(&$query, $period){
 		$query->leftJoin("field_data_{$date_field1}", 'date1', 'users.uid = date1.entity_id');
 		$query->leftJoin("field_data_{$date_field2}", 'date2', 'users.uid = date2.entity_id');
 		//$this->applyDateRange($query, $date_field, $period);
-		if ($period){
+			
+		  if ($period){
+           $date_array = array();
+           $date_array[0] = date('Y-m-d H:i:s', $period[0]);
+           $date_array[1] = date('Y-m-d H:i:s', $period[1]);
+			
 			$db_or = db_or()
 				->condition("date1.{$date_field1}_value", $period, 'BETWEEN')
 				->condition("date2.{$date_field2}_value", $period, 'BETWEEN');
