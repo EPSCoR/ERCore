@@ -1049,11 +1049,23 @@ function er_field_group_build_pre_render_alter(&$element){
 		// ... 'Publication Type' contains values other values:
 		// ...     (eg. Journal Article, Book)
 		
-		$element['group_er_journal']['#states'] = array(
+			// This was the old version that worked with field_group version 1.3
+		// The patch includes the 'id' element that gets stripped for the fieldset 'fieldgroup' cck field
+				
+		//$element['group_er_journal']['#states'] = array(
+			//'invisible'=> array($none, $abstract, $thesis, $internet),
+		//);
+
+		$element['group_er_journal'] += array(
+		'#states' => array(
 			'invisible'=> array($none, $abstract, $thesis, $internet),
+			),
+			'#id' => 'group_er_journal',
 		);
 	}
+
 }
+
 
 // Todd asked that we have more specific labels, so here they are
 function er_date_label($form, &$form_state) {
