@@ -8,7 +8,7 @@ class er_participants extends er_page{
 			$this->columns[] = 'New Investigators';//So we can look up the new investigators, otherwise don't bother.
 		}
 		$this->categories = array('Faculty participant (or equivalent)', 'Technical support staff', 'Non-technical support staff', 'Post Doc', 'Graduate student', 'Undergraduate student', 'RII Leadership Team');
-		$this->query_participant_range = array(date('m/j/Y', $this->range[0]).' 00:00:00', date('m/j/Y', $this->range[1]));
+		$this->query_participant_range = array(date('Y-m-d', $this->range[0]).' 00:00:00', date('Y-m-d', $this->range[1]));
 	}
 	
 	public function title(){
