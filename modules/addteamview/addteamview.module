@@ -1,0 +1,66 @@
+<?php
+
+// This is a custom module written to add a "team view" pane on all user profiles below the
+// "related content" view (which has been renamed to "my content" to distinguish between
+// the two panes)
+
+// This function creates the "team view" box and adds all of the content panes, one by one,
+// to the box. Chose to do it this way instead of creating one view with each content type
+// as an attachment to support separate (non-synchronized) pagers for each content type.
+// (Content panes can have independent pagers, but attachments cannot.)
+function addteamview_user_view_alter(&$build)
+{
+  $viewname = 'team_content_paged';
+
+  $build['team_content_paged'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Team Content',
+    '#weight' => 110,
+    '#collapsible' => TRUE,
+    '#tree' => TRUE,
+    'table_awards' => array(
+      '#title'  => 'Team Honors and Awards',
+      '#markup' => views_embed_view($viewname, 'team_awards_panel_pane'),
+    ),
+    'table_highlights' => array(
+      '#title'  => 'Team Highlights',
+      '#markup' => views_embed_view($viewname, 'team_highlights_panel_pane'),
+    ),
+    'table_presents' => array(
+      '#title'  => 'Team Presentations',
+      '#markup' => views_embed_view($viewname, 'team_presentations_panel_pane'),
+    ),
+    'table_patents' => array(
+      '#title'  => 'Team Patents',
+      '#markup' => views_embed_view($viewname, 'team_patents_panel_pane'),
+    ),
+    'table_props_pi' => array(
+      '#title'  => 'Team Proposals PI Co-PI',
+      '#markup' => views_embed_view($viewname, 'team_proposals_panel_pane'),
+    ),
+    'table_props' => array(
+        '#title'  => 'Team Proposals Other',
+        '#markup' => views_embed_view($viewname, 'team_props_other_panel_pane'),
+    ),
+    'table_collabs_created' => array(
+      '#title'  => 'Team Collaborations Created',
+      '#markup' => views_embed_view($viewname, 'team_collabs_created_panel_pane'),
+    ),
+    'table_collabs' => array(
+      '#title'  => 'Team Collaborations',
+      '#markup' => views_embed_view($viewname, 'team_collaborations_panel_pane'),
+    ),
+    'table_pubs' => array(
+       '#title'  => 'Team Publications',
+       '#markup' => views_embed_view($viewname, 'team_publications_panel_pane'),
+    ),
+    'table_events' => array(
+      '#title'  => 'Team Events',
+      '#markup' => views_embed_view($viewname, 'team_events_panel_pane'),
+    ),
+    'table_others' => array(
+      '#title'  => 'Team Other Research Products',
+      '#markup' => views_embed_view($viewname, 'team_other_products_panel_pane'),
+    ),
+  );
+}

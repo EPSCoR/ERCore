@@ -1,0 +1,3 @@
+name = Add Team View
+description = Adds a Team View to user profiles allowing users to view all site content created by their team members
+core = 7.x
