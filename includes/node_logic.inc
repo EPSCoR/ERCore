@@ -101,7 +101,8 @@ function er_user_view_alter(&$build) {
 	$view = views_get_view('er_related_content');
 	$build['related_content2'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Related Content',
+    //'#title' => 'Related Content',
+    '#title' => 'My Content',
     '#weight' => 100,
     'table' => array(
       '#title' => 'Related Content',
