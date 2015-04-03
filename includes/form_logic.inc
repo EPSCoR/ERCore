@@ -118,11 +118,21 @@ function er_form_er_collaborators_node_form_alter(&$form, &$form_state, $form_id
 		$participating = er_is_user_participating($user->uid, $collab_range);
 		$status = $participating?'Participant':'Collaborator';
 		$form_state['input']['field_er_collab_name']['und'][0]['value'] = $u->field_er_realname->value();
-		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
+		
+		// Earlier/original code	
+		//$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($u->field_er_inst_ref->raw());
+		
+		// New Version - that resolves the error:
+		//
+		// modified by Chris - cjallen@epscor.unm.edu
+		$arraypopvalue = $u->field_er_inst_ref->raw();
+		$form_state['input']['field_er_collab_inst_ref']['und'] = array_pop($arraypopvalue);
+		
 		$form_state['input']['field_er_collab_user_status']['und'] = $status;
 		$form_state['input']['field_er_collab_department_unit']['und'][0]['value'] = $u->field_er_department->value();
 		unset($form_state['attached_user']);
 		drupal_set_message(t('Please verify the auto-filled values below, then click save.'), 'warning');
+
 	}
 	//require_once(ER_INCLUDES_DIR . '/quick_add_institution.inc');//lazy load the code; less clutter in here + doesn't need to load on every page load.
 	//_quick_add_inst_form_alter($form, $form_state, 'field_er_collab_inst_ref');
