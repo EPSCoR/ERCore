@@ -764,7 +764,7 @@ if (arg(0) == \'user\' && is_numeric($user_id)) {
       $complist .= $value[\'target_id\'] . "+";
     }
     $complist .= "0";
-   
+  } 
 }
 return $complist;';
 $handler->display->display_options['arguments']['field_er_components_target_id']['summary']['number_of_records'] = '0';
