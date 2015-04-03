@@ -26,10 +26,10 @@ $data = array(
       ),
       'foreign keys' => array(
         'format' => array(
+          'table' => 'filter_format',
           'columns' => array(
             'format' => 'format',
           ),
-          'table' => 'filter_format',
         ),
       ),
       'indexes' => array(
@@ -94,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_proposal',
-          3 => 'er_publication',
+          2 => 'er_event',
+          3 => 'er_presentation',
           4 => 'er_award',
-          5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          5 => 'er_collaboration',
+          6 => 'er_institution',
+          7 => 'er_publication',
+          8 => 'er_proposal',
         ),
       ),
     ),
@@ -228,7 +228,14 @@ $data = array(
           ),
         ),
       ),
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'taxonomy_term_data' => array(
+          'table' => 'taxonomy_term_data',
+          'columns' => array(
+            'target_id' => 'tid',
+          ),
+        ),
+      ),
       'indexes' => array(
         'target_id' => array(
           0 => 'target_id',
@@ -253,12 +260,12 @@ $data = array(
         ),
       ),
       'bundles' => array(
-        'user' => array(
-          0 => 'user',
-        ),
         'node' => array(
           0 => 'er_news',
           1 => 'er_collaboration',
+        ),
+        'user' => array(
+          0 => 'user',
         ),
       ),
     ),
@@ -327,10 +334,11 @@ $data = array(
             'module' => 'text',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
+            'type' => 'text_default',
+            'weight' => '1',
             'settings' => array(),
-            'weight' => 0,
+            'module' => 'text',
           ),
         ),
         'required' => 1,
@@ -358,6 +366,7 @@ $data = array(
             'label_position' => 'above',
             'text_parts' => array(),
             'repeat_collapsed' => 0,
+            'display_all_day' => 0,
           ),
         ),
         'settings' => array(
@@ -376,10 +385,18 @@ $data = array(
             'module' => 'er',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
+            'type' => 'date_default',
+            'weight' => '0',
+            'settings' => array(
+              'format_type' => 'long',
+              'multiple_number' => '',
+              'multiple_from' => '',
+              'multiple_to' => '',
+              'fromto' => 'both',
+              'show_repeat_rule' => 'show',
+            ),
+            'module' => 'date',
           ),
         ),
         'required' => 1,
@@ -414,10 +431,13 @@ $data = array(
             'module' => 'entityreference',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
+            'type' => 'entityreference_label',
+            'weight' => '2',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
           ),
         ),
         'required' => 1,
@@ -458,10 +478,10 @@ $data = array(
             'module' => 'markup',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
+            'type' => 'hidden',
+            'weight' => '3',
             'settings' => array(),
-            'weight' => 0,
           ),
         ),
         'required' => 0,
