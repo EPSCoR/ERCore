@@ -40,6 +40,7 @@ class er_collaborations extends er_page{
     $collab_name = self::$field_aliases['collab_name'];
     $collab_ref = self::$field_aliases['collab_ref'];
     
+    // Query #1: Get the collaborators and collaborator count
     $query = db_select('node', 'collab');
     $query->condition('collab.type', 'er_collaborators');
     $query->leftJoin("field_data_{$collab_dept}", 'dept', 'collab.nid = dept.entity_id');
@@ -48,19 +49,19 @@ class er_collaborations extends er_page{
     $query->innerJoin("field_data_{$inst_category}", 'category', "inst.nid = category.entity_id");
     $query->innerJoin("field_data_{$inst_type}", 'type', "inst.nid = type.entity_id");
     $query->innerJoin("field_data_{$participating}", 'participating', "inst.nid = participating.entity_id");
-    $query->condition("participating.{$participating}_value", '0');//must be an external institution
+    //$query->condition("participating.{$participating}_value", '0');//must be an external institution
     $query->innerJoin("field_data_{$collab_user_status}", 'status', "collab.nid = status.entity_id");
     $query->condition("status.{$collab_user_status}_value", 'Collaborator');//Person must be marked as a collaborator
     $query->innerJoin("field_data_{$collab_ref}", 'collab_ref', "collab.nid = collab_ref.entity_id");
-    
     
     $inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(dept.{$collab_dept}_value, ' @ ', inst.title) ELSE inst.title END)";
     $query->addField('category', "{$inst_category}_value", 'category');
     $query->addField('type', "{$inst_type}_value", 'type');
     //$query->addField('status', "{$collab_user_status}_value", 'status');
+   
     if ($count){
       $query->addExpression("COUNT(DISTINCT collab.nid)", 'collaborators');
-      $query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
+      //$query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
       $query->groupBy("category");
       $query->groupBy("type");
     }else{
@@ -72,43 +73,78 @@ class er_collaborations extends er_page{
       $query->addField("collaboration", 'title', 'collaboration_title');
       $query->addExpression($inst_expression, 'institution');
       $query->addField("inst", 'nid', 'institution_nid');
-      $query->groupBy('institution');
+      //$query->groupBy('institution');
     }
     
     $data = array();
     $result = $query->execute();
+
+    // populate $data with collaboration counts
     while ($record = $result->fetchAssoc()){
       $category = $record['category'];
       $type = $record['type'];
       unset($record['category']);
       unset($record['type']);
       if ($count){
-        $data[$category][$type] = $record;
+        //$data[$category][$type] = $record;
+        $data[$category][$type] = array();
+        $data[$category][$type]['collaborators'] = $record['collaborators'];
       }else{
         //$institution = array(
         //  'nid'=>$record['institution_nid'],
         //  'title'=>$record['institution']
         //);
+
         $data['total']['total']['institutions'][$record['institution']] = $record['institution_nid'];
         $data['total'][$type]['institutions'][$record['institution']] = $record['institution_nid'];
         $data[$category][$type]['institutions'][$record['institution']] = $record['institution_nid'];
-        
         $data['total']['total']['collaborators'][] = $record;
         $data['total'][$type]['collaborators'][] = $record;
         $data[$category][$type]['collaborators'][] = $record;
       }
     }
+
+    // Now rerun query with additional condition that removes participating institutions
+    $query->condition("participating.{$participating}_value", '0');//must be an external institution
+    
+    // and count up institutions if $count=true
+    if ($count){
+      $query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
+    }
+
+    $result = $query->execute();
+    while ($record = $result->fetchAssoc()){
+      $category = $record['category'];
+      $type = $record['type'];
+      if ($count){
+        if ($record['institutions']) {
+          $data[$category][$type]['institutions'] = $record['institutions'];
+        }
+        else {
+          $data[$category][$type]['institutions'] = 0;
+        }
+      }
+      else {
+        $data['total']['total']['institutions_counted'][$record['institution']] = $record['institution_nid'];
+        $data['total'][$type]['institutions_counted'][$record['institution']] = $record['institution_nid'];
+        $data[$category][$type]['institutions_counted'][$record['institution']] = $record['institution_nid']; 
+      }
+    }
+     
     return $data;
   }
   
   public function html(){
     if (!user_access(ER_DOWNLOAD_PERMISSION)) return '';//don't let anon see this stuff
+
     $data = $this->data(false);
     if (isset($_GET['debug'])){
       d($this->data(), 'counts');
       d($data, 'full data');
     }
+    
     $ret = $this->download_link();
+    //$ret .= print_r($data);
     foreach ($data as $category => $cat_data){
       $ret .= "<h1>".self::$categories[$category]."</h1>";
       foreach($cat_data as $inst_type=>$type_data){
@@ -117,9 +153,14 @@ class er_collaborations extends er_page{
           $ret .= '<div style="float:left;margin-top:1em;width:45%">';
             $ret .= "<h3 style=\"text-align:center;\">Institutions</h3>";
             $ret .= "<ol>";
-              foreach($type_data['institutions'] as $title=>$nid){
+            if ($type_data['institutions_counted']) {
+              foreach($type_data['institutions_counted'] as $title=>$nid){
                 $ret .= "<li><strong>".l($title, 'node/'.$nid)."</strong></li>";
               }
+            }
+            else {
+              $ret .= "(No non-participating institutions in this category)";
+            }     
             $ret .= "</ol>";
           $ret .= '</div>';
           $ret .= '<div style="float:left;margin-top:1em;width:55%">';
