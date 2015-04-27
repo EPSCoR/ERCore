@@ -1,4 +1,3 @@
-<?php
 $view = new view();
 $view->name = 'er_summary_er_publication';
 $view->description = '';
@@ -37,7 +36,7 @@ $handler->display->display_options['fields']['field_er_publication_status']['tab
 $handler->display->display_options['fields']['field_er_publication_status']['field'] = 'field_er_publication_status';
 $handler->display->display_options['fields']['field_er_publication_status']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_publication_status']['type'] = 'text_default';
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: Inventor(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
@@ -46,13 +45,13 @@ $handler->display->display_options['fields']['field_er_user_entity_reference']['
   'link' => 0,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: EPSCoR Presenter(s) (field_er_user_entity_reference:delta) */
+/* Field: Content: Inventor(s) (field_er_user_entity_reference:delta) */
 $handler->display->display_options['fields']['delta']['id'] = 'delta';
 $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['delta']['field'] = 'delta';
 $handler->display->display_options['fields']['delta']['label'] = 'Author(s)';
 $handler->display->display_options['fields']['delta']['element_label_colon'] = FALSE;
-/* Field: Content: What level of funding support did EPSCoR provide for this publication? */
+/* Field: Content: EPSCoR Support */
 $handler->display->display_options['fields']['field_er_rii_support']['id'] = 'field_er_rii_support';
 $handler->display->display_options['fields']['field_er_rii_support']['table'] = 'field_data_field_er_rii_support';
 $handler->display->display_options['fields']['field_er_rii_support']['field'] = 'field_er_rii_support';
@@ -97,7 +96,7 @@ $handler->display->display_options['fields']['field_er_nsf_ack']['id'] = 'field_
 $handler->display->display_options['fields']['field_er_nsf_ack']['table'] = 'field_data_field_er_nsf_ack';
 $handler->display->display_options['fields']['field_er_nsf_ack']['field'] = 'field_er_nsf_ack';
 $handler->display->display_options['fields']['field_er_nsf_ack']['element_label_colon'] = FALSE;
-/* Field: Content: Internet Link */
+/* Field: Content: Please enter the URL if your presentation is hosted online. */
 $handler->display->display_options['fields']['field_er_link']['id'] = 'field_er_link';
 $handler->display->display_options['fields']['field_er_link']['table'] = 'field_data_field_er_link';
 $handler->display->display_options['fields']['field_er_link']['field'] = 'field_er_link';
@@ -171,6 +170,9 @@ $handler->display->display_options['filters']['field_er_publication_type_value']
 
 /* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['exposed_form'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
 $handler->display->display_options['defaults']['style_plugin'] = FALSE;
 $handler->display->display_options['style_plugin'] = 'list';
 $handler->display->display_options['style_options']['grouping'] = array(
@@ -187,7 +189,10 @@ $handler->display->display_options['row_plugin'] = 'fields';
 $handler->display->display_options['row_options']['inline'] = array(
   'field_er_publication_status' => 'field_er_publication_status',
   'field_er_publication_type' => 'field_er_publication_type',
+  'field_er_non_epscor_authors' => 'field_er_non_epscor_authors',
+  'field_er_user_entity_reference' => 'field_er_user_entity_reference',
 );
+$handler->display->display_options['row_options']['separator'] = '<br/>';
 $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['fields'] = FALSE;
 /* Field: Content: Title */
@@ -197,27 +202,96 @@ $handler->display->display_options['fields']['title']['field'] = 'title';
 $handler->display->display_options['fields']['title']['label'] = '';
 $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_type'] = 'h4';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 /* Field: Content: Status */
 $handler->display->display_options['fields']['field_er_publication_status']['id'] = 'field_er_publication_status';
 $handler->display->display_options['fields']['field_er_publication_status']['table'] = 'field_data_field_er_publication_status';
 $handler->display->display_options['fields']['field_er_publication_status']['field'] = 'field_er_publication_status';
-$handler->display->display_options['fields']['field_er_publication_status']['label'] = '';
+$handler->display->display_options['fields']['field_er_publication_status']['label'] = 'Publication Status';
 $handler->display->display_options['fields']['field_er_publication_status']['element_type'] = 'strong';
-$handler->display->display_options['fields']['field_er_publication_status']['element_label_colon'] = FALSE;
 /* Field: Content: Publication Type */
 $handler->display->display_options['fields']['field_er_publication_type']['id'] = 'field_er_publication_type';
 $handler->display->display_options['fields']['field_er_publication_type']['table'] = 'field_data_field_er_publication_type';
 $handler->display->display_options['fields']['field_er_publication_type']['field'] = 'field_er_publication_type';
-$handler->display->display_options['fields']['field_er_publication_type']['label'] = '';
-$handler->display->display_options['fields']['field_er_publication_type']['element_label_colon'] = FALSE;
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: Inventor(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'EPSCoR Researcher(s)';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
   'link' => 0,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+/* Field: Content: Non-EPSCoR Authors */
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['id'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['table'] = 'field_data_field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['field'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_publication' => 'er_publication',
+);
+/* Filter criterion: Content: Date of Publication (field_er_publication_date) */
+$handler->display->display_options['filters']['field_er_publication_date_value']['id'] = 'field_er_publication_date_value';
+$handler->display->display_options['filters']['field_er_publication_date_value']['table'] = 'field_data_field_er_publication_date';
+$handler->display->display_options['filters']['field_er_publication_date_value']['field'] = 'field_er_publication_date_value';
+$handler->display->display_options['filters']['field_er_publication_date_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_publication_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_date_value']['expose']['operator_id'] = 'field_er_publication_date_value_op';
+$handler->display->display_options['filters']['field_er_publication_date_value']['expose']['label'] = 'Start Date';
+$handler->display->display_options['filters']['field_er_publication_date_value']['expose']['operator'] = 'field_er_publication_date_value_op';
+$handler->display->display_options['filters']['field_er_publication_date_value']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_publication_date_value']['form_type'] = 'date_popup';
+/* Filter criterion: Content: Date of Publication (field_er_publication_date) */
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['id'] = 'field_er_publication_date_value_1';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['table'] = 'field_data_field_er_publication_date';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['field'] = 'field_er_publication_date_value';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['expose']['operator_id'] = 'field_er_publication_date_value_1_op';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['expose']['label'] = 'End Date';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['expose']['operator'] = 'field_er_publication_date_value_1_op';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_publication_date_value_1']['form_type'] = 'date_popup';
+/* Filter criterion: Content: Publication Type (field_er_publication_type) */
+$handler->display->display_options['filters']['field_er_publication_type_value']['id'] = 'field_er_publication_type_value';
+$handler->display->display_options['filters']['field_er_publication_type_value']['table'] = 'field_data_field_er_publication_type';
+$handler->display->display_options['filters']['field_er_publication_type_value']['field'] = 'field_er_publication_type_value';
+$handler->display->display_options['filters']['field_er_publication_type_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_type_value']['expose']['operator_id'] = 'field_er_publication_type_value_op';
+$handler->display->display_options['filters']['field_er_publication_type_value']['expose']['label'] = 'Type';
+$handler->display->display_options['filters']['field_er_publication_type_value']['expose']['operator'] = 'field_er_publication_type_value_op';
+$handler->display->display_options['filters']['field_er_publication_type_value']['expose']['identifier'] = 'field_er_publication_type_value';
+/* Filter criterion: Content: Status (field_er_publication_status) */
+$handler->display->display_options['filters']['field_er_publication_status_value']['id'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['table'] = 'field_data_field_er_publication_status';
+$handler->display->display_options['filters']['field_er_publication_status_value']['field'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_status_value']['expose']['operator_id'] = 'field_er_publication_status_value_op';
+$handler->display->display_options['filters']['field_er_publication_status_value']['expose']['label'] = 'Status';
+$handler->display->display_options['filters']['field_er_publication_status_value']['expose']['operator'] = 'field_er_publication_status_value_op';
+$handler->display->display_options['filters']['field_er_publication_status_value']['expose']['identifier'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40000 => 0,
+  20000 => 0,
+  30000 => 0,
+);
 $handler->display->display_options['path'] = 'publications';
 
 /* Display: Attachment */
@@ -281,22 +355,24 @@ $handler->display->display_options['fields']['field_er_publication_status']['tab
 $handler->display->display_options['fields']['field_er_publication_status']['field'] = 'field_er_publication_status';
 $handler->display->display_options['fields']['field_er_publication_status']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_publication_status']['type'] = 'text_default';
-/* Field: Content: EPSCoR Presenter(s) */
+/* Field: Content: Inventor(s) */
 $handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'EPSCoR Researcher(s)';
 $handler->display->display_options['fields']['field_er_user_entity_reference']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
   'link' => 0,
 );
 $handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
-/* Field: Content: EPSCoR Presenter(s) (field_er_user_entity_reference:delta) */
+/* Field: Content: Inventor(s) (field_er_user_entity_reference:delta) */
 $handler->display->display_options['fields']['delta']['id'] = 'delta';
 $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_er_user_entity_reference';
 $handler->display->display_options['fields']['delta']['field'] = 'delta';
 $handler->display->display_options['fields']['delta']['label'] = 'Author(s)';
+$handler->display->display_options['fields']['delta']['exclude'] = TRUE;
 $handler->display->display_options['fields']['delta']['element_label_colon'] = FALSE;
-/* Field: Content: What level of funding support did EPSCoR provide for this publication? */
+/* Field: Content: EPSCoR Support */
 $handler->display->display_options['fields']['field_er_rii_support']['id'] = 'field_er_rii_support';
 $handler->display->display_options['fields']['field_er_rii_support']['table'] = 'field_data_field_er_rii_support';
 $handler->display->display_options['fields']['field_er_rii_support']['field'] = 'field_er_rii_support';
@@ -331,17 +407,17 @@ $handler->display->display_options['fields']['field_er_peer_reviewed']['id'] = '
 $handler->display->display_options['fields']['field_er_peer_reviewed']['table'] = 'field_data_field_er_peer_reviewed';
 $handler->display->display_options['fields']['field_er_peer_reviewed']['field'] = 'field_er_peer_reviewed';
 $handler->display->display_options['fields']['field_er_peer_reviewed']['element_label_colon'] = FALSE;
-/* Field: Content: Non-EPSCoR Presenters */
-$handler->display->display_options['fields']['field_er_other_authors']['id'] = 'field_er_other_authors';
-$handler->display->display_options['fields']['field_er_other_authors']['table'] = 'field_data_field_er_other_authors';
-$handler->display->display_options['fields']['field_er_other_authors']['field'] = 'field_er_other_authors';
-$handler->display->display_options['fields']['field_er_other_authors']['element_label_colon'] = FALSE;
+/* Field: Content: Non-EPSCoR Authors */
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['id'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['table'] = 'field_data_field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['field'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['alter']['text'] = '[field_er_non_epscor_authors] (Non Epscor Author)';
 /* Field: Content: NSF Acknowledgement */
 $handler->display->display_options['fields']['field_er_nsf_ack']['id'] = 'field_er_nsf_ack';
 $handler->display->display_options['fields']['field_er_nsf_ack']['table'] = 'field_data_field_er_nsf_ack';
 $handler->display->display_options['fields']['field_er_nsf_ack']['field'] = 'field_er_nsf_ack';
 $handler->display->display_options['fields']['field_er_nsf_ack']['element_label_colon'] = FALSE;
-/* Field: Content: Internet Link */
+/* Field: Content: Please enter the URL if your presentation is hosted online. */
 $handler->display->display_options['fields']['field_er_link']['id'] = 'field_er_link';
 $handler->display->display_options['fields']['field_er_link']['table'] = 'field_data_field_er_link';
 $handler->display->display_options['fields']['field_er_link']['field'] = 'field_er_link';

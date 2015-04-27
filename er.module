@@ -464,7 +464,7 @@ function er_menu() {
 		'description' => 'Gives a summary of meta-information about the user.',
 		'page callback' => 'er_user_participating_status',
 		'page arguments' => array(1),
-		'access arguments' => array('access user profiles'),
+		'access arguments' => array(ER_ADMIN_PERMISSION),
 		'type' => MENU_LOCAL_TASK,
 	);
 	return $items;

@@ -1,5 +1,4 @@
 <?php
-
 $data = array(
   'bundles' => array(
     'er_proposal' => (object) array(
@@ -27,10 +26,10 @@ $data = array(
       ),
       'foreign keys' => array(
         'format' => array(
+          'table' => 'filter_format',
           'columns' => array(
             'format' => 'format',
           ),
-          'table' => 'filter_format',
         ),
       ),
       'indexes' => array(
@@ -95,13 +94,13 @@ $data = array(
         'node' => array(
           0 => 'page',
           1 => 'article',
-          2 => 'er_proposal',
-          3 => 'er_publication',
+          2 => 'er_event',
+          3 => 'er_presentation',
           4 => 'er_award',
-          5 => 'er_institution',
-          6 => 'er_event',
-          7 => 'er_presentation',
-          8 => 'er_collaboration',
+          5 => 'er_collaboration',
+          6 => 'er_institution',
+          7 => 'er_publication',
+          8 => 'er_proposal',
         ),
       ),
     ),
@@ -357,8 +356,8 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_proposal',
-          1 => 'er_event',
+          0 => 'er_event',
+          1 => 'er_proposal',
         ),
       ),
     ),
@@ -998,10 +997,10 @@ $data = array(
         ),
       ),
       'foreign keys' => array(
-        'node' => array(
-          'table' => 'node',
+        'users' => array(
+          'table' => 'users',
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'uid',
           ),
         ),
       ),
@@ -1030,14 +1029,14 @@ $data = array(
       ),
       'bundles' => array(
         'node' => array(
-          0 => 'er_proposal',
-          1 => 'er_publication',
-          2 => 'er_other_product',
-          3 => 'er_news',
-          4 => 'er_award',
-          5 => 'er_event',
-          6 => 'er_patent',
-          7 => 'er_presentation',
+          0 => 'er_event',
+          1 => 'er_presentation',
+          2 => 'er_news',
+          3 => 'er_award',
+          4 => 'er_patent',
+          5 => 'er_other_product',
+          6 => 'er_publication',
+          7 => 'er_proposal',
         ),
       ),
     ),
@@ -1107,7 +1106,7 @@ $data = array(
           'teaser' => array(
             'label' => 'hidden',
             'type' => 'text_summary_or_trimmed',
-            'weight' => '48',
+            'weight' => '13',
             'settings' => array(
               'trim_length' => 600,
             ),
@@ -1151,7 +1150,7 @@ $data = array(
           'teaser' => array(
             'label' => 'inline',
             'type' => 'number_decimal',
-            'weight' => '13',
+            'weight' => '10',
             'settings' => array(
               'thousand_separator' => ',',
               'decimal_separator' => '.',
@@ -1297,10 +1296,16 @@ $data = array(
             'module' => 'number',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
+            'type' => 'number_decimal',
+            'weight' => '6',
+            'settings' => array(
+              'thousand_separator' => ' ',
+              'decimal_separator' => '.',
+              'scale' => 2,
+              'prefix_suffix' => TRUE,
+            ),
+            'module' => 'number',
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -1396,10 +1401,13 @@ $data = array(
             'module' => 'entityreference',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
+            'type' => 'entityreference_label',
+            'weight' => '2',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
           ),
         ),
         'required' => 1,
@@ -1432,7 +1440,7 @@ $data = array(
           'teaser' => array(
             'label' => 'inline',
             'type' => 'text_default',
-            'weight' => '19',
+            'weight' => '12',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -1523,7 +1531,7 @@ $data = array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'text_default',
-            'weight' => '5',
+            'weight' => '3',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -1620,7 +1628,7 @@ $data = array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'date_default',
-            'weight' => '14',
+            'weight' => '11',
             'settings' => array(
               'show_repeat_rule' => 'show',
               'multiple_number' => '',
@@ -1777,7 +1785,7 @@ $data = array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'date_default',
-            'weight' => '12',
+            'weight' => '9',
             'settings' => array(
               'show_repeat_rule' => 'show',
               'multiple_number' => '',
@@ -1931,10 +1939,10 @@ $data = array(
             'module' => 'list',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
+            'type' => 'hidden',
+            'weight' => '15',
             'settings' => array(),
-            'weight' => 0,
           ),
         ),
         'required' => 1,
@@ -1972,7 +1980,7 @@ $data = array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'date_default',
-            'weight' => '10',
+            'weight' => '8',
             'settings' => array(
               'show_repeat_rule' => 'show',
               'multiple_number' => '',
@@ -2125,7 +2133,7 @@ $data = array(
           'teaser' => array(
             'label' => 'inline',
             'type' => 'list_default',
-            'weight' => '8',
+            'weight' => '5',
             'settings' => array(),
             'module' => 'list',
           ),
@@ -2216,13 +2224,14 @@ $data = array(
             'label_position' => 'above',
             'text_parts' => array(),
             'repeat_collapsed' => 0,
+            'display_all_day' => 0,
           ),
         ),
         'display' => array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'date_default',
-            'weight' => '9',
+            'weight' => '7',
             'settings' => array(
               'show_repeat_rule' => 'show',
               'multiple_number' => '',
@@ -2372,7 +2381,7 @@ $data = array(
           'teaser' => array(
             'label' => 'inline',
             'type' => 'text_default',
-            'weight' => '2',
+            'weight' => '0',
             'settings' => array(),
             'module' => 'text',
           ),
@@ -2461,7 +2470,7 @@ $data = array(
           'teaser' => array(
             'label' => 'above',
             'type' => 'list_default',
-            'weight' => '3',
+            'weight' => '1',
             'settings' => array(),
             'module' => 'list',
           ),
@@ -2638,10 +2647,13 @@ $data = array(
             'module' => 'entityreference',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
-            'settings' => array(),
-            'weight' => 0,
+            'type' => 'entityreference_label',
+            'weight' => '4',
+            'settings' => array(
+              'link' => FALSE,
+            ),
+            'module' => 'entityreference',
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -2683,10 +2695,10 @@ $data = array(
             'module' => 'markup',
           ),
           'teaser' => array(
-            'type' => 'hidden',
             'label' => 'above',
+            'type' => 'hidden',
+            'weight' => '14',
             'settings' => array(),
-            'weight' => 0,
           ),
           'ical' => array(
             'type' => 'hidden',
@@ -2706,7 +2718,7 @@ $data = array(
   ),
   'fieldgroups' => array(
     'group_pi_copi|node|er_proposal|form' => (object) array(
-      'id' => '25',
+      'id' => '13',
       'identifier' => 'group_pi_copi|node|er_proposal|form',
       'group_name' => 'group_pi_copi',
       'entity_type' => 'node',
