@@ -21,6 +21,7 @@ dependencies[] = entity
 dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = entityreference_prepopulate
+dependencies[] = ercd
 dependencies[] = field_group
 dependencies[] = field_permissions
 dependencies[] = flag
