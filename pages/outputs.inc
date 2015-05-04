@@ -6,7 +6,9 @@ class er_outputs extends er_page{
   //}
     
   public function title(){
-    return "Outputs".$this->range_string();
+    // Original page title	
+    //return "Outputs".$this->range_string();
+	return "Outputs";
   }
   
 	protected function generate_node_output($count, &$query, $distinct = false){
@@ -125,7 +127,7 @@ class er_outputs extends er_page{
 		$query->condition("type.".self::$field_aliases['position_type']."_value", "Post Doc", '=');
 	}
 	
-private function generate_grad_students_query(&$query, $period){
+	private function generate_grad_students_query(&$query, $period){
 		//TODO:
 		//NEED TO WORK IN DOCTORATE GRADUATIONS SOMEHOW.
 		//Slight modification by cjallen@epscor.unm.edu
@@ -246,9 +248,9 @@ private function generate_grad_students_query(&$query, $period){
     //$disabilities = $this->get_allowed_values("field_er_disabilities");
     //unset($disabilities['None']); // not interested in counting "None" as a disability
     
-		$data["Cumulative"] = $this->generate_column_data($count);
+		$data["<hr/>Cumulative"] = $this->generate_column_data($count);
 		if ($this->range)
-			$data["Reporting Period"] = $this->generate_column_data($count, $this->range);
+			$data["<hr/>Reporting Period -". $this->range_string()] = $this->generate_column_data($count, $this->range);
 		
     return $data;
   }
@@ -272,7 +274,7 @@ private function generate_grad_students_query(&$query, $period){
     foreach ($data as $range_label => $categories){
 			$output[$range_label.'-label'] = $this->h1($range_label);
 			foreach ($categories as $cat_key=>$cat_data){
-				$output[$cat_key . '-label'] = $this->h2($cat_key);
+				$output[$range_label . '-' . $cat_key . '-label'] = $this->h2($cat_key);
 				foreach ($cat_data as $row_key=>$row_data){
 					if (is_array($row_data)){
 						$list = array(
@@ -291,7 +293,7 @@ private function generate_grad_students_query(&$query, $period){
 							}
 						}
 						//$output[$cat_key . '-table'] = $table;
-						$output["$cat_key-$row_key-list"] = $list;
+						$output["$range_label-$cat_key-$row_key-list"] = $list;
 					}
 				}
 			}
