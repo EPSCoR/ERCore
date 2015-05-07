@@ -248,8 +248,8 @@ function er_form_er_proposal_node_form_alter(&$form, &$form_state, $form_id){
 	);
 	// Award Amount (Textfield)
 	$form['field_er_award_amount']['#states'] = array(
-	  'visible' => array($awarded, $expired),
-	  'required' => array($awarded, $expired, $pending, $denied),
+	  'visible' => array($awarded),
+	  'required' => array($awarded),
 	);
 	
 	// Denied Date
@@ -1194,4 +1194,3 @@ function _deny_direct_form_access(&$form){
 	else
 		return false;
 }
-
