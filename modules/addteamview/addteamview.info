@@ -1,3 +1,5 @@
-name = Add Team View
+name = EPSCoR Add Team View
 description = Adds a Team View to user profiles allowing users to view all site content created by their team members
+package = "EPSCoR"
 core = 7.x
+version = "7.3.1"
