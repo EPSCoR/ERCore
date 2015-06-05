@@ -1,0 +1,252 @@
+$view = new view();
+$view->name = 'publication_citation_search';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'node';
+$view->human_name = 'Publication Citation Search';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Publication Citation Search';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_user_entity_reference' => 'field_er_user_entity_reference',
+  'field_er_non_epscor_authors' => 'field_er_non_epscor_authors',
+  'field_er_publication_date' => 'field_er_publication_date',
+  'field_er_rii_support' => 'field_er_rii_support',
+  'field_er_epscor_acknowledged_' => 'field_er_epscor_acknowledged_',
+  'field_er_full_citation' => 'field_er_full_citation',
+);
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['label'] = 'description';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = 'This page displays all published works and includes a link to automatically search for the publication on Google Scholar. If a result is found, click on "Cite" below the result, then click on "BibTeX" in the pop-up window to download the BibTeX citation.<br><br>';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_label_type'] = 'strong';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title_1']['id'] = 'title_1';
+$handler->display->display_options['fields']['title_1']['table'] = 'node';
+$handler->display->display_options['fields']['title_1']['field'] = 'title';
+$handler->display->display_options['fields']['title_1']['label'] = '';
+$handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
+$handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
+/* Field: Content: Inventor(s) */
+$handler->display->display_options['fields']['field_er_user_entity_reference']['id'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['table'] = 'field_data_field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['field'] = 'field_er_user_entity_reference';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['label'] = 'EPSCoR Author(s)';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['alter']['text'] = '[field_er_user_entity_reference]';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['element_wrapper_type'] = 'div';
+$handler->display->display_options['fields']['field_er_user_entity_reference']['hide_empty'] = TRUE;
+$handler->display->display_options['fields']['field_er_user_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+$handler->display->display_options['fields']['field_er_user_entity_reference']['delta_offset'] = '0';
+/* Field: Content: Non-EPSCoR Authors */
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['id'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['table'] = 'field_data_field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['field'] = 'field_er_non_epscor_authors';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['alter']['text'] = '<br>[field_er_non_epscor_authors]';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['element_wrapper_type'] = 'div';
+$handler->display->display_options['fields']['field_er_non_epscor_authors']['hide_empty'] = TRUE;
+/* Field: Content: Date of Publication */
+$handler->display->display_options['fields']['field_er_publication_date']['id'] = 'field_er_publication_date';
+$handler->display->display_options['fields']['field_er_publication_date']['table'] = 'field_data_field_er_publication_date';
+$handler->display->display_options['fields']['field_er_publication_date']['field'] = 'field_er_publication_date';
+$handler->display->display_options['fields']['field_er_publication_date']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_publication_date']['element_wrapper_type'] = 'div';
+$handler->display->display_options['fields']['field_er_publication_date']['settings'] = array(
+  'format_type' => 'long',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+/* Field: Content: EPSCoR Support */
+$handler->display->display_options['fields']['field_er_rii_support']['id'] = 'field_er_rii_support';
+$handler->display->display_options['fields']['field_er_rii_support']['table'] = 'field_data_field_er_rii_support';
+$handler->display->display_options['fields']['field_er_rii_support']['field'] = 'field_er_rii_support';
+$handler->display->display_options['fields']['field_er_rii_support']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_rii_support']['element_wrapper_type'] = 'div';
+/* Field: Content: EPSCoR Acknowledged  */
+$handler->display->display_options['fields']['field_er_epscor_acknowledged_']['id'] = 'field_er_epscor_acknowledged_';
+$handler->display->display_options['fields']['field_er_epscor_acknowledged_']['table'] = 'field_data_field_er_epscor_acknowledged_';
+$handler->display->display_options['fields']['field_er_epscor_acknowledged_']['field'] = 'field_er_epscor_acknowledged_';
+$handler->display->display_options['fields']['field_er_epscor_acknowledged_']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_epscor_acknowledged_']['element_wrapper_type'] = 'div';
+/* Field: Content: Full Citation */
+$handler->display->display_options['fields']['field_er_full_citation']['id'] = 'field_er_full_citation';
+$handler->display->display_options['fields']['field_er_full_citation']['table'] = 'field_data_field_er_full_citation';
+$handler->display->display_options['fields']['field_er_full_citation']['field'] = 'field_er_full_citation';
+$handler->display->display_options['fields']['field_er_full_citation']['element_label_type'] = 'strong';
+$handler->display->display_options['fields']['field_er_full_citation']['element_wrapper_type'] = 'div';
+$handler->display->display_options['fields']['field_er_full_citation']['hide_empty'] = TRUE;
+/* Field: search for citation */
+$handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['table'] = 'views';
+$handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['ui_name'] = 'search for citation';
+$handler->display->display_options['fields']['nothing']['label'] = '';
+$handler->display->display_options['fields']['nothing']['alter']['text'] = '<b><a href="https://scholar.google.com/scholar?q=%22[title_1]%22%20author%3A[field_er_user_entity_reference]" target="_blank">Search for citation &#187;</a></b>';
+$handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['nothing']['element_wrapper_type'] = 'p';
+/* Field: horizontal rule */
+$handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+$handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+$handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+$handler->display->display_options['fields']['nothing_1']['ui_name'] = 'horizontal rule';
+$handler->display->display_options['fields']['nothing_1']['label'] = '';
+$handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<hr>';
+$handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+/* Sort criterion: Content: Date of Publication (field_er_publication_date) */
+$handler->display->display_options['sorts']['field_er_publication_date_value']['id'] = 'field_er_publication_date_value';
+$handler->display->display_options['sorts']['field_er_publication_date_value']['table'] = 'field_data_field_er_publication_date';
+$handler->display->display_options['sorts']['field_er_publication_date_value']['field'] = 'field_er_publication_date_value';
+$handler->display->display_options['sorts']['field_er_publication_date_value']['order'] = 'DESC';
+$handler->display->display_options['sorts']['field_er_publication_date_value']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['field_er_publication_date_value']['expose']['label'] = 'Publication Date';
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
+$handler->display->display_options['sorts']['title']['exposed'] = TRUE;
+$handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_publication' => 'er_publication',
+);
+/* Filter criterion: Content: Status (field_er_publication_status) */
+$handler->display->display_options['filters']['field_er_publication_status_value']['id'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['table'] = 'field_data_field_er_publication_status';
+$handler->display->display_options['filters']['field_er_publication_status_value']['field'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['value'] = array(
+  0 => '0',
+);
+/* Filter criterion: Content: EPSCoR Support (field_er_rii_support) */
+$handler->display->display_options['filters']['field_er_rii_support_value']['id'] = 'field_er_rii_support_value';
+$handler->display->display_options['filters']['field_er_rii_support_value']['table'] = 'field_data_field_er_rii_support';
+$handler->display->display_options['filters']['field_er_rii_support_value']['field'] = 'field_er_rii_support_value';
+$handler->display->display_options['filters']['field_er_rii_support_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_rii_support_value']['expose']['operator_id'] = 'field_er_rii_support_value_op';
+$handler->display->display_options['filters']['field_er_rii_support_value']['expose']['label'] = 'EPSCoR Support';
+$handler->display->display_options['filters']['field_er_rii_support_value']['expose']['operator'] = 'field_er_rii_support_value_op';
+$handler->display->display_options['filters']['field_er_rii_support_value']['expose']['identifier'] = 'field_er_rii_support_value';
+$handler->display->display_options['filters']['field_er_rii_support_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_rii_support_value']['is_grouped'] = TRUE;
+$handler->display->display_options['filters']['field_er_rii_support_value']['group_info']['label'] = 'EPSCoR Support';
+$handler->display->display_options['filters']['field_er_rii_support_value']['group_info']['identifier'] = 'field_er_rii_support_value';
+$handler->display->display_options['filters']['field_er_rii_support_value']['group_info']['widget'] = 'radios';
+$handler->display->display_options['filters']['field_er_rii_support_value']['group_info']['group_items'] = array(
+  1 => array(
+    'title' => 'Primary',
+    'operator' => 'or',
+    'value' => array(
+      0 => '0',
+    ),
+  ),
+  2 => array(
+    'title' => 'Partial',
+    'operator' => 'or',
+    'value' => array(
+      1 => '1',
+    ),
+  ),
+  3 => array(
+    'title' => 'None',
+    'operator' => 'or',
+    'value' => array(
+      2 => '2',
+    ),
+  ),
+);
+/* Filter criterion: Content: EPSCoR Acknowledged  (field_er_epscor_acknowledged_) */
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['id'] = 'field_er_epscor_acknowledged__value';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['table'] = 'field_data_field_er_epscor_acknowledged_';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['field'] = 'field_er_epscor_acknowledged__value';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['expose']['operator_id'] = 'field_er_epscor_acknowledged__value_op';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['expose']['label'] = 'EPSCoR Acknowledged';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['expose']['operator'] = 'field_er_epscor_acknowledged__value_op';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['expose']['identifier'] = 'field_er_epscor_acknowledged__value';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['is_grouped'] = TRUE;
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['group_info']['label'] = 'EPSCoR Acknowledged';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['group_info']['identifier'] = 'field_er_epscor_acknowledged__value';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['group_info']['widget'] = 'radios';
+$handler->display->display_options['filters']['field_er_epscor_acknowledged__value']['group_info']['group_items'] = array(
+  1 => array(
+    'title' => 'Yes',
+    'operator' => 'or',
+    'value' => array(
+      0 => '0',
+    ),
+  ),
+  2 => array(
+    'title' => 'No',
+    'operator' => 'or',
+    'value' => array(
+      1 => '1',
+    ),
+  ),
+);
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['path'] = 'admin/epscor/views/publication-citation-search';
+
