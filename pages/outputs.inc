@@ -194,7 +194,11 @@ class er_outputs extends er_page{
 		$query->innerJoin("field_data_".self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
 		$query->condition(db_or()
 			->condition("race.".self::$field_aliases['race']."_value", $minorities, 'IN')
-			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 1, '=')//1 == person is hispanic
+			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 1, '=')
+			//0 == Hispanic or Latino
+			//1 == Not Hispanic or Latino
+			//2 == unknown
+			// values are at */admin/config/people/accounts/fields/field_er_ethnicity
 		);
 	}
 	
