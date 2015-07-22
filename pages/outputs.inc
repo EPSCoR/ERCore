@@ -6,7 +6,9 @@ class er_outputs extends er_page{
   //}
     
   public function title(){
-    return "Outputs".$this->range_string();
+    // Original page title
+    //return "Outputs".$this->range_string();
+    return "Outputs";
   }
   
 	protected function generate_node_output($count, &$query, $distinct = false){
@@ -35,25 +37,25 @@ class er_outputs extends er_page{
 		return $data;
 	}
 	
-	protected function applyDateRange(&$query, $date_field, $period, $isrange = false){
-		if ($period){
-			$date_array = array();
-			$date_array[0] = date('Y-m-d H:i:s', $period[0]);
-			$date_array[1] = date('Y-m-d H:i:s', $period[1]);
-			if ($isrange){
-				//find overlapping date ranges...
-				$query->condition("date.{$date_field}_value", $date_array[1], '<=');
-				$db_or = db_or()
-							->condition("date.{$date_field}_value2", $date_array[0], '>=')
-							->isNull("date.{$date_field}_value2");
-				$query->condition($db_or);
-			}else{
-				$query->condition("date.{$date_field}_value", $date_array, 'BETWEEN');
-			}
-		}else{
-			$query->isNotNull("date.{$date_field}_value");
-		}
-	}
+//	protected function applyDateRange(&$query, $date_field, $period, $isrange = false){
+//		if ($period){
+//			$date_array = array();
+//			$date_array[0] = date('Y-m-d H:i:s', $period[0]);
+//			$date_array[1] = date('Y-m-d H:i:s', $period[1]);
+//			if ($isrange){
+//				//find overlapping date ranges...
+//				$query->condition("date.{$date_field}_value", $date_array[1], '<=');
+//				$db_or = db_or()
+//							->condition("date.{$date_field}_value2", $date_array[0], '>=')
+//							->isNull("date.{$date_field}_value2");
+//				$query->condition($db_or);
+//			}else{
+//				$query->condition("date.{$date_field}_value", $date_array, 'BETWEEN');
+//			}
+//		}else{
+//			$query->isNotNull("date.{$date_field}_value");
+//		}
+//	}
 	
   private function generate_patent_data($count, $period){
 		$data = array();
@@ -69,7 +71,14 @@ class er_outputs extends er_page{
   
   private function generate_proposal_data($count, $period){
 		$data = array();
-		foreach (array("Submitted"=>'field_er_proposal_submit', "Awarded"=>'field_er_proposal_date', "Pending"=>'field_er_proposal_pending') as $label=>$date_field){
+
+		$status_check = array(
+			"Submitted" => array("Submitted", "Awarded", "Expired", "Denied"),
+			"Awarded"   => array("Awarded"),
+			"Pending" 	=> array("Submitted")
+		);
+
+		foreach (array("Submitted"=>'field_er_proposal_submit', "Awarded"=>'field_er_proposal_date', "Pending"=>'field_er_proposal_submit') as $label=>$date_field){
 			$query = db_select('node', 'node');
 			$query->condition("node.type", 'er_proposal', '=');
 			
@@ -82,6 +91,11 @@ class er_outputs extends er_page{
 			
 			$query->innerJoin("field_data_{$date_field}", 'date', 'node.nid = date.entity_id');
 			$this->applyDateRange($query, $date_field, $period, $label=="Awarded");//Note: Award date is a date range...
+
+			// add status
+			$query->innerJoin("field_data_field_er_proposal_status", 'status', 'node.nid = status.entity_id');
+			$query->condition("status.field_er_proposal_status_value", $status_check[$label], 'IN');
+
 			$data[$label] = $this->generate_node_output($count, $query);
 		}
     return $data;
@@ -192,7 +206,7 @@ private function generate_grad_students_query(&$query, $period){
 		$query->innerJoin("field_data_".self::$field_aliases['ethnicity'], 'ethnicity', 'users.uid = ethnicity.entity_id');
 		$query->condition(db_or()
 			->condition("race.".self::$field_aliases['race']."_value", $minorities, 'IN')
-			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 1, '=')//1 == person is hispanic
+			->condition("ethnicity.".self::$field_aliases['ethnicity']."_value", 0, '=')//0 == person is hispanic
 		);
 	}
 	
@@ -246,9 +260,12 @@ private function generate_grad_students_query(&$query, $period){
     //$disabilities = $this->get_allowed_values("field_er_disabilities");
     //unset($disabilities['None']); // not interested in counting "None" as a disability
     
-		$data["Cumulative"] = $this->generate_column_data($count);
-		if ($this->range)
-			$data["Reporting Period"] = $this->generate_column_data($count, $this->range);
+    // This is super hacky! Just hard-coding in the range of EPSCoR project, 8/1/14 - 7/31/19
+    $cumulative_range = array(1406869200, 1564549200);
+
+	$data["<hr/>Cumulative"] = $this->generate_column_data($count, $cumulative_range);
+	if ($this->range)
+		$data["<hr/>Reporting Period -" . $this->range_string()] = $this->generate_column_data($count, $this->range);
 		
     return $data;
   }
@@ -272,13 +289,13 @@ private function generate_grad_students_query(&$query, $period){
     foreach ($data as $range_label => $categories){
 			$output[$range_label.'-label'] = $this->h1($range_label);
 			foreach ($categories as $cat_key=>$cat_data){
-				$output[$cat_key . '-label'] = $this->h2($cat_key);
+				$output[$range_label . '-' . $cat_key . '-label'] = $this->h2($cat_key);
 				foreach ($cat_data as $row_key=>$row_data){
 					if (is_array($row_data)){
 						$list = array(
 							'#theme'=>'item_list',
 							'#title'=>$row_key,
-							'#type'=>'ul',
+							'#type'=>'ol',
 							'#items'=>array()
 						);
 						foreach ($row_data as $row){
@@ -291,7 +308,7 @@ private function generate_grad_students_query(&$query, $period){
 							}
 						}
 						//$output[$cat_key . '-table'] = $table;
-						$output["$cat_key-$row_key-list"] = $list;
+						$output["$range_label-$cat_key-$row_key-list"] = $list;
 					}
 				}
 			}
