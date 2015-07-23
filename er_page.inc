@@ -32,6 +32,7 @@ class er_page{
 		'collab_user_status' => 'field_er_collab_user_status',
 		'collab_name' => 'field_er_collab_name',
 		'collab_ref' => 'field_er_collab_ref',
+		'collab_date' => 'field_er_collaboration_dates',
 	);
 	
 	public function __construct() {
@@ -148,7 +149,7 @@ class er_page{
 //		return array($date_lower, $date_upper);
 //	}
 	
-	//These functions are used in participants.inc or outputs.inc
+	//These functions are used in pages/*.inc
 	//They are used in several places. They are used to generate content (queries) for excel sheets.
 	
 	public function er_get_realname($uid, $link = true){
@@ -211,5 +212,25 @@ class er_page{
 	}
 	protected function h4($text){
 		return $this->markup($text, array('#prefix'=>'<h4>', '#suffix'=>'</h4>'));
+	}
+
+	protected function applyDateRange(&$query, $date_field, $period, $isrange = false){
+		if ($period){
+			$date_array = array();
+			$date_array[0] = date('Y-m-d H:i:s', $period[0]);
+			$date_array[1] = date('Y-m-d H:i:s', $period[1]);
+			if ($isrange){
+				//find overlapping date ranges...
+				$query->condition("date.{$date_field}_value", $date_array[1], '<=');
+				$db_or = db_or()
+								->condition("date.{$date_field}_value2", $date_array[0], '>=')
+								->isNull("date.{$date_field}_value2");
+				$query->condition($db_or);
+			}else{
+				$query->condition("date.{$date_field}_value", $date_array, 'BETWEEN');
+			}
+		}else{
+			$query->isNotNull("date.{$date_field}_value");
+		}
 	}
 }

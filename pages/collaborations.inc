@@ -39,6 +39,7 @@ class er_collaborations extends er_page{
     $collab_user_status = self::$field_aliases['collab_user_status'];
     $collab_name = self::$field_aliases['collab_name'];
     $collab_ref = self::$field_aliases['collab_ref'];
+    $date_field = self::$field_aliases['collab_date'];
     
     // Query #1: Get the collaborators and collaborator count
     $query = db_select('node', 'collab');
@@ -53,12 +54,17 @@ class er_collaborations extends er_page{
     $query->innerJoin("field_data_{$collab_user_status}", 'status', "collab.nid = status.entity_id");
     $query->condition("status.{$collab_user_status}_value", 'Collaborator');//Person must be marked as a collaborator
     $query->innerJoin("field_data_{$collab_ref}", 'collab_ref', "collab.nid = collab_ref.entity_id");
-    
+    $query->innerJoin("field_data_{$date_field}", 'date', 'collab_ref.field_er_collab_ref_target_id = date.entity_id');
+
     $inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(dept.{$collab_dept}_value, ' @ ', inst.title) ELSE inst.title END)";
     $query->addField('category', "{$inst_category}_value", 'category');
     $query->addField('type', "{$inst_type}_value", 'type');
     //$query->addField('status', "{$collab_user_status}_value", 'status');
-   
+  
+    if ($this->range) {
+         $this->applyDateRange($query, $date_field, $this->range, true);
+    }
+
     if ($count){
       $query->addExpression("COUNT(DISTINCT collab.nid)", 'collaborators');
       //$query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
@@ -111,11 +117,17 @@ class er_collaborations extends er_page{
     if ($count){
       $query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
     }
+    //else {
+    //  $query->addExpression($inst_expression, 'institution');
+    //  $query->addField("inst", 'nid', 'institution_nid');
+    //}
 
     $result = $query->execute();
     while ($record = $result->fetchAssoc()){
       $category = $record['category'];
       $type = $record['type'];
+      //unset($record['category']);
+      //unset($record['type']);
       if ($count){
         if ($record['institutions']) {
           $data[$category][$type]['institutions'] = $record['institutions'];
@@ -145,6 +157,7 @@ class er_collaborations extends er_page{
     
     $ret = $this->download_link();
     //$ret .= print_r($data);
+    $ret .= "<h2>Reporting Period - " . $this->range_string() . "</h2><br>";
     foreach ($data as $category => $cat_data){
       $ret .= "<h1>".self::$categories[$category]."</h1>";
       foreach($cat_data as $inst_type=>$type_data){
