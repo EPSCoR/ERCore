@@ -1109,15 +1109,3 @@ function er_node_access($node, $op, $account)
   }
 }
 
-// Remove admin items from admin menu if user isn't allowed to view ER admin content
-function er_admin_menu_output_alter(&$content)
-{
-
-  if (!user_access('access er admin content')) 
-  {
-    unset($content['menu']['admin/index']);
-    unset($content['menu']['admin/epscor']);
-    unset($content['menu']['admin/help']);
-   //unset($content['menu']['admin/content']);
-  }
-}
