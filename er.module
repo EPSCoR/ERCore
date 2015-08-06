@@ -1054,3 +1054,70 @@ function er_default_accomplishment_content_types(){
 //    '#markup' => format_interval(REQUEST_TIME - $account->created),
 //  );
 //}
+
+// This function sets the permissions for grants and proposals.
+// A user shouldn't be able to view a proposal unless:
+// - the user has permission to access ER admin content, or
+// - the user is a PI or Co-PI on the proposal, or
+// - the user is listed as an EPSCoR researcher on the proposal
+function er_node_access($node, $op, $account)
+{
+  // Only restrict proposals
+  if ( is_object($node) && ($node->type == 'er_proposal') ) 
+  {
+    // Is user admin? If so, allow access
+    if (user_access('access er admin content'))
+    {
+      return NODE_ACCESS_ALLOW;
+    }
+
+    // Is user creator of proposal content? (e.g. staff entering in info on behalf of faculty)
+    if ($node->uid == $account->uid) 
+    {
+      return NODE_ACCESS_ALLOW;
+    }
+
+    // Is user PI/Co-PI?
+    if ($node->field_er_epscor_pi_co_pi)
+    {
+      // Loop through list of PIs/Co-PIs
+      foreach ($node->field_er_epscor_pi_co_pi['und'] as $key => $value)
+      {
+        // If current user is one of the PIs or co-PIs, allow viewing of proposal
+        if ($value['target_id'] == $account->uid)
+        {
+          return NODE_ACCESS_ALLOW;
+        }
+      }
+    }
+
+    // Is user mentioned as other EPSCoR researcher?
+    if ($node->field_er_user_entity_reference)
+    {
+      foreach ($node->field_er_user_entity_reference['und'] as $key => $value)
+      {
+        // If current user is other EPSCoR researcher, allow viewing of proposal
+        if ($value['target_id'] == $account->uid) 
+        {
+          return NODE_ACCESS_ALLOW;
+        }  
+      }
+    }
+
+    // If we've made it this far, user isn't related to proposal
+    return NODE_ACCESS_DENY;
+  }
+}
+
+// Remove admin items from admin menu if user isn't allowed to view ER admin content
+function er_admin_menu_output_alter(&$content)
+{
+
+  if (!user_access('access er admin content')) 
+  {
+    unset($content['menu']['admin/index']);
+    unset($content['menu']['admin/epscor']);
+    unset($content['menu']['admin/help']);
+   //unset($content['menu']['admin/content']);
+  }
+}
