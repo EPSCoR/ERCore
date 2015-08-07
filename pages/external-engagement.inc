@@ -4,6 +4,7 @@ class er_external_engagement extends er_page{
 	private $cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");
 	private $rows = array("total", "male", "female", "urm");
 	private $fields = array("ari_fac_total","ari_stu_total","pui_fac_total","pui_stu_total","msi_fac_total","msi_stu_total","k12i_tec_total","k12i_stud_total","k12i_stut_total","oth_total","tot_total","ari_fac_male","ari_stu_male","pui_fac_male","pui_stu_male","msi_fac_male","msi_stu_male","k12i_tec_male","k12i_stud_male","k12i_stut_male","oth_male","tot_male","ari_fac_female","ari_stu_female","pui_fac_female","pui_stu_female","msi_fac_female","msi_stu_female","k12i_tec_female","k12i_stud_female","k12i_stut_female","oth_female","tot_female","ari_fac_urm","ari_stu_urm","pui_fac_urm","pui_stu_urm","msi_fac_urm","msi_stu_urm","k12i_tec_urm","k12i_stud_urm","k12i_stut_urm","oth_urm","tot_urm");
+    //private $fields = array("ari_fac_total");
 
 	public function __construct() { 
 		parent::__construct();
@@ -11,13 +12,26 @@ class er_external_engagement extends er_page{
 	}
 	
 	public function title(){
-		return "External Engagement";
+		return "External Engagements";
 	}
   
 	public function data($count = true){
+		$date_field = 'field_er_cal_event_date';
+
 		$query = db_select('node', 'ee');
 		$query->condition('ee.type', 'er_engagement');
 		
+		$query->innerJoin("field_data_field_er_cal_entity_reference", 'cal_ref', 'ee.nid = cal_ref.entity_id');
+		$query->innerJoin("field_data_{$date_field}", 'date', 'cal_ref.field_er_cal_entity_reference_target_id = date.entity_id');
+	
+		if ($this->range) {
+			$this->applyDateRange($query, $date_field, $this->range, true);
+		}
+
+		// joining in event date causes repeats for events with repeating dates,
+		// so it necessary to remove the repeats:
+		$query->distinct();
+
 		if (!$count){
 			$query->addField('ee', "nid");
 			$query->addField('ee', "title");
@@ -25,7 +39,7 @@ class er_external_engagement extends er_page{
 		
 		foreach ($this->fields as $f){
 			$field = "field_er_".$f;
-			$query->leftJoin("field_data_{$field}", $field, "ee.nid = $field.entity_id");
+			$query->join("field_data_{$field}", $field, "ee.nid = $field.entity_id");
 			if ($count){
 				$query->addExpression("SUM($field.{$field}_value)", $f);
 			}else{
@@ -54,6 +68,7 @@ class er_external_engagement extends er_page{
       d($data, 'full data');
     }
 		$ret = $this->download_link() . '<br>';
+		$ret .= "<h2>Reporting Period - " . $this->range_string() . "</h2><br>";
 		$ret .=
 			 "This is a view meant only for admin. This data corresponds to the counts seen on the accomplishments table. Scroll to the  bottom to download the excel sheet. Mouse over the node id (the number in blue) to see the title of the node.<br>"
 			."For the sake of bevity, the headings display the names used internally by the system."
