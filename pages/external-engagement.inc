@@ -4,7 +4,6 @@ class er_external_engagement extends er_page{
 	private $cols = array("ari_fac", "ari_stu", "pui_fac", "pui_stu", "msi_fac", "msi_stu", "k12i_tec", "k12i_stud", "k12i_stut", "oth", "tot");
 	private $rows = array("total", "male", "female", "urm");
 	private $fields = array("ari_fac_total","ari_stu_total","pui_fac_total","pui_stu_total","msi_fac_total","msi_stu_total","k12i_tec_total","k12i_stud_total","k12i_stut_total","oth_total","tot_total","ari_fac_male","ari_stu_male","pui_fac_male","pui_stu_male","msi_fac_male","msi_stu_male","k12i_tec_male","k12i_stud_male","k12i_stut_male","oth_male","tot_male","ari_fac_female","ari_stu_female","pui_fac_female","pui_stu_female","msi_fac_female","msi_stu_female","k12i_tec_female","k12i_stud_female","k12i_stut_female","oth_female","tot_female","ari_fac_urm","ari_stu_urm","pui_fac_urm","pui_stu_urm","msi_fac_urm","msi_stu_urm","k12i_tec_urm","k12i_stud_urm","k12i_stut_urm","oth_urm","tot_urm");
-    //private $fields = array("ari_fac_total");
 
 	public function __construct() { 
 		parent::__construct();
