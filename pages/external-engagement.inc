@@ -39,7 +39,7 @@ class er_external_engagement extends er_page{
 		
 		foreach ($this->fields as $f){
 			$field = "field_er_".$f;
-			$query->join("field_data_{$field}", $field, "ee.nid = $field.entity_id");
+			$query->leftJoin("field_data_{$field}", $field, "ee.nid = $field.entity_id");
 			if ($count){
 				$query->addExpression("SUM($field.{$field}_value)", $f);
 			}else{
