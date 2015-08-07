@@ -264,10 +264,7 @@ private function generate_grad_students_query(&$query, $period){
     //$disabilities = $this->get_allowed_values("field_er_disabilities");
     //unset($disabilities['None']); // not interested in counting "None" as a disability
     
-    // This is super hacky! Just hard-coding in the range of EPSCoR project, 8/1/14 - 7/31/19
-    $cumulative_range = array(1406869200, 1564549200);
-
-	$data["<hr/>Cumulative"] = $this->generate_column_data($count, $cumulative_range);
+	$data["<hr/>Cumulative"] = $this->generate_column_data($count);
 	if ($this->range)
 		$data["<hr/>Reporting Period -" . $this->range_string()] = $this->generate_column_data($count, $this->range);
 		
