@@ -1,4 +1,5 @@
 <?php
+//Kia added a test comment to see if Github sends email after this change was made. Will remove it later.
 $view = new view();
 $view->name = 'er_flagged_for_new_investigator';
 $view->description = 'This provides a list of items that are flagged for new investigators';
