@@ -1,0 +1,38 @@
+; ercore example drush make file
+core = 7.x
+api = 2
+
+; Core
+projects[] = "drupal"
+; Modules
+projects[] = "ctools"
+projects[] = "bundle_copy"
+projects[] = "computed_field"
+projects[] = "date"
+projects[] = "entity"
+projects[] = "entityreference"
+projects[entityreference_prepopulate][version] = "1.4"
+projects[er][download][type] = "git"
+projects[er][download][url] = "https://github.com/EPSCoR/ERCore-3.1"
+projects[er][type] = "module"
+projects[] = "ercd"
+projects[] = "field_group"
+projects[] = "field_permissions"
+projects[] = "flag"
+projects[] = "libraries"
+projects[] = "link"
+projects[] = "markup"
+projects[] = "module_filter"
+projects[] = "nodeaccess_userreference"
+projects[] = "rules"
+projects[] = "select_or_other"
+projects[] = "views"
+projects[] = "views_data_export"
+projects[] = "views_php"
+
+
+; Libraries
+libraries[PHPExcel][download][type] = "file"
+libraries[PHPExcel][download][url] = https://github.com/PHPOffice/PHPExcel/archive/1.8.zip
+libraries[PHPExcel][directory_name] = PHPExcel
+libraries[PHPExcel][destination] = "libraries"
