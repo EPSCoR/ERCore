@@ -397,60 +397,39 @@
     <a href="#er-proposal">Proposals and Grants</a>
   </h3>
   <div>
-		<p>Entering your current and pending support is a multi step process, depending on whether or not any EPSCoR participants listed on the grant have salaries that are 
-		supported by the grant, and if there is more than one EPSCoR member listed on the grant.  If no one listed on the grant is receiving salary support, and there is only one 
-		person listed on the grant, entering a grant is a single step process.</p>
-		<ol>
-			<li><p>To begin, choose the Current and Pending Support link from the Add Content link of the left hand navigation list.  Scroll down and look for the "Current and 
-			Pending Support" link. Once in the Create Current and Pending Support form:</p>
-			<ul>
-				<li>Note 1:  Do not enter data to represent the EPSCoR grant, but all other grants are required regardless of funding agency or amounts</li>
-				<li>Note 2:  NSF also requires that you enter data on grants that have been declined while you are an EPSCoR participant.</li>
-			</ul>
+		<p>Please report on all your Current, Pending, and Denied Support grant efforts in your pipeline starting from your 
+			initial participating start date. Do not list this EPSCoR grant, but include all proposals, regardless of funding 
+			source or success (include all proposals you have submitted, including denied proposals). Identify the PI and Co-PI, 
+			then list the other EPSCoR faculty or faculty equivalent. Do not list Post-Docs, Grad Students, Undergrads, Techs, etc.. 
+			Use this form once for each grant effort. ONE (grant) entry is needed per grant regardless of how many EPSCoR 
+			researchers are listed on the grant.</p>
 			<ol>
-				<li>Title:  Enter the official title of the grant</li>
-				<li>EPSCoR Participants listed on the Grant:  Enter the names of all the EPSCoR participants listed on the grant.  This is a look-up field.  Start typing in 
-				the first or last name of the participant and give the little blue wheel a chance to search the database.  If the name does not appear in the drop down choices, 
-				try again using the other name.  If it still does not appear, that person is NOT has not registered with the EPSCoR web site and needs to do so.  In the meanwhile, 
-				you can enter that participant's name in the Non-EPSCoR Participants section directly below.</li>
-				<li>Non-EPSCoR Participants listed on the Grant:  List all the other non-EPSCoR participants on the grant in this section.  Please note that this representation of 
-				the grant is for internal reporting purposes.  We do not need to know who is the PI on record, hence we don't ask for that designation.</li>
-				<li>Salary Support:  If ANY EPSCoR members listed on the grant receive salary support from this grant, check the appropriate radio button</li>
-				<li>Source of Support:  Enter the name of the funding agency</li>
-				<li>Please Categorize the nature of the Source of Support:  Select one of the 3 choices
+		   		<li>Title:  Enter the official title of the Proposal or Grant</li>
+				<li>Principal Investigator (PI)</li>
+				<ul>
+				<li>EPSCoR PI/Co-PI: Type in the name of the EPSCoR researcher who is the PI or Co-PI and let the system find the name. 
+					When it does, select it to put it in the field. If the name does not arise, try typing in the other (first or last) 
+					name. If the system does not find the name, the researcher does not have an EPSCoR account.</li>
+				<li>Non-EPSCoR PI/Co-PI: Type in the first and last name of the non-EPSCoR researcher who is the PI or Co-PI.</li>
+				</ul>
+				<li>Salary Support: If ANY EPSCoR members listed on the grant receive salary support from this grant, check the appropriate radio button.</li>
+				<li>Other EPSCoR Researchers: Use this member look up to add other EPSCoR faculty. DO NOT list Post-Docs, grad students, undergrads, techs, etc.</li>
+				<li>Who is the funding agency?  Enter the name of the funding agency or source of support.</li>
+				<li> Amount Requested: Enter the original amount requested.
+				<li>Please categorize the nature of the Source of Support: DO NOT list your NSF EPSCoR grant here. 
+					You are required to list ALL other sources of funding, current or pending. We also need to collect information on grants 
+					that were not funded in order to help with tracking and success rates.</li>
+				<li>Status: Select the appropriate status of the grant.</li>
 					<ul>
-						<li>Other NSF:  key word "other".  Do not list this NSF EPSCoR grant.  List all other NSF grants you may have.</li>
-						<li>Other Gov:  List all other federally funded grants you may have</li>
-						<li>Other:  List all other grants not federally funded (state, local, university, private, etc.)</li>
-					</ul></li>
-				<li>Amount Requested:  Enter the original amount requested.</li>
-				<li>Status:  Select the appropriate status of the grant.
-					<ul>
-						<li>Pending:  If you select Pending, please enter the Date of Pending Notification</li>
-					</ul></li>
-				<li>Date Submitted:  Enter the date you submitted the grant</li>
-				<li>Location:  Enter the primary location of where the research will be conducted.</li>
-				<li>Brief Description of Proposed Work:  Enter the summary or the abstract of the Proposed work to be done for that grant.</li>
-				<li>Save:  Click the Save button to save your work.  This form will not be able to be partially completed.  All required fields are necessary to be completed in 
-					order form to be saved.</li>
+					<li>Awarded: If you select Awarded, please enter the Final approved award dates.</li>
+					<li>Denied: If you select Denied, please enter the Date of Denial Notification.</li>
+			 		</ul>
+				<li>Location: Enter the primary location of where the research will be conducted.</li>
+				<li>Brief Description of Proposed Work: Enter the summary or the abstract of the Proposed work to be done for that grant.</li>
+				<li>Project Component: Select the component that goes with the grant/proposal being added.  </li>
+				<li>Save: Click the Save button to save your work. This form will not be able to be partially completed. 
+				All required fields are necessary to be completed in order form to be saved.</li>
 			</ol>
-			<p>If you are the only researcher listed on the grant, and you do not receive salary support from this grant, you are done and do not need to proceed to step 2.</p></li>
-			<li><p>Participant Effort is the effort each researcher listed on the grant states that they will devote in time (# cal months, academic months, or summer) to do the 
-			proposed research.  This value has nothing to do with whether or not you receive salary support or not.  A "Needs Review" will show in each row of the table for the 
-			researcher who have not entered in their effort.</p>
-			<p>For each researcher:</p>
-			<ol>
-				<li>Edit:  Click the edit button to enter in the Funded Effort and number of associated Months for the researchers</li>
-				<li>Award Title:  Award Title will be automatically filled with the name of the grant to which you just navigated from, OR, if blank, start typing in the name or 
-				title of the grant to which you need to link this funded effort to. </li>
-				<li>Individual Funded Effort:  Enter in the number of months from 0 - 12 the number of months the Funded Effort is/will go towards.  For all participants listed 
-				who do not receive salary support, enter 0 for Funded Effort.</li>
-				<li>Funding Amount:  Enter the Funding Amount ($) for which the Funded Effort covers.  If you do not receive salary support, enter 0 for Funding Amount.</li>
-				<li>Save:  Click Save when done.</li>
-			</ol>
-			<p>After you click Save, you will be returned to the View for that Grant.  Repeat steps 1 - 5 of Funded Effort above for each participant listed on the grant.  Until 
-			Funded Effort data is entered for each participant, the grant will be in "Draft" status and be denoted by the "This content needs review" caption.</p></li>
-		</ol>
   </div>
   <h3 id="other-cts">
     <a href="#other-cts">Highlights, Institutions, Internet Dissemination, Other Research Products, Patents, Presentations, Publications</a>
