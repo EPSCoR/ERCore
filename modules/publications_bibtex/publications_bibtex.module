@@ -1,0 +1,308 @@
+<?php
+/**
+# ERcore BibTex Converter v.0.4
+# Kia Huffman, Brown University
+# Copyright 2016, Brown University, Providence, RI. All Rights Reserved.
+#
+# This work was supported in full by the National Science Foundation
+# EPSCoR Cooperative Agreements #EPS-1004057.
+#
+#
+# BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+# INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR ANY
+# PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY BE LIABLE FOR
+# ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+For this BibTeX sub-module to function correctly in ERCore it requires:
+- In the ERcore's Publications View (er_summary_er_publication) create a new XML export display (display machine name should be:'views_data_export_xml') . 
+- Make sure the format of this new display 'views_data_export_xml' is exactly what is in Kia's screenshots: https://goo.gl/photos/G51gzhscQzCJ6Pfx8
+- After above step is completed, then put this file (publications_bibtex.module) and the publications_bibtex.info file under folder er/modules/publications_bibtex, and then go to Drupal modules and enable this module. The BibTex Converter will show up under EPSCoR Admin Views menu.
+
+Attention: 
+1) ERCore content type Publication may not return the correct author order therefore **YOU MUST VERIFY** the order of the authors after you upload this BibTeX file to Research.gov to make sure the author order matches exactly to what is on the actual publication.
+2) BibTex is only generated for the following type of publications: Journal Article, Book and Conference Proceedings
+
+Note: if your site runs as: http://mytestsite.org/drupal/ then you have to append a "drupal" to the href tag in the code below, change
+href="/publications_bibtex/download" TO:  href="/drupal/publications_bibtex/download" so you get the correct download link. 
+**/
+
+
+
+/**
+ * Implements hook_help().
+ */
+function publications_bibtex_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#publications_bibtex":
+      return '<p>' . t(" A sub-module to ERCore, that exports the publications for the selected date range as a BibTex formatted file, BibTex is only generated for the following type of publications: Journal Article, Book and Conference Proceedings.For this BibText sub-module to function correctly in ERCore it requires that you:
+In the ERcore the Publications View (er_summary_er_publication) create a new XML export display (display name should be:'views_data_export_xml') . 
+Make sure the format of this new display 'views_data_export_xml' is exactly what is in Kia's screenshots.
+After above is completed, then put this file (publications_bibtex.module) and the publications_bibtex.info file under folder er/modules/publications_bibtex, and then go to Drupal modules and enable this module (ER-core Publications BibTeX converter).
+Attention: 
+1) ERCore content type Publication may not return the correct author order therefore **YOU MUST VERIFY** the order of the authors after you upload this BibTeX file to Research.gov to make sure the author order matches exactly to what is on the actual publication.
+2) BibTex is only generated for the following type of publications: Journal Article, Book and Conference Proceedings") . '</p>';
+      break;
+  }
+} 
+
+/**
+ * Implements hook_permission().
+ */
+function publications_bibtex_permission() {
+  return array(
+    'access publications_bibtex content' => array(
+      'title' => t('Access content for the ER-core Publications BibText converter module'),
+    )
+  );
+}
+
+/**
+ * Custom content function. 
+*/
+function publications_bibtex_menu() {
+  $items = array();
+  $items['admin/epscor/views/publications_bibtex'] = array(
+	'menu_name' => 'management',
+	'title' => t('BibTeX of Publications'),
+	'type' => MENU_NORMAL_ITEM,
+	'page callback' => 'drupal_get_form', 
+    	'page arguments' => array('publications_bibtex_my_form'), 
+    	'access arguments' => array('access publications_bibtex content'),
+    	'description' => t('To see BibTeX entries of Publications, first select a date range, then press Generate BibTeX.'),
+    
+  );
+  $items['publications_bibtex/download'] = array(
+		'title' => 'Download .bib file of Publications',
+		'description' => 'Download BibTex file of Publications.',
+		'page callback' => '_publications_bibtex_bibtexdownload',
+		'access arguments' => array('access publications_bibtex content'),
+		'type' => MENU_CALLBACK,
+	);
+  return $items;
+}
+
+function _myreporting_range_is_set(){
+	return array_key_exists('er_start_date', $_SESSION) && array_key_exists('er_end_date', $_SESSION);
+}
+
+
+function publications_bibtex_getpublications(){   
+	if (isset($_SESSION['er_start_date']) && isset($_SESSION['er_end_date'] ) ) {
+	$view = views_get_view('er_summary_er_publication');
+	$view->set_display('views_data_export_xml');
+	$view->exposed_input['start_date']['value']['date'] = date('Y-m-d', $_SESSION['er_start_date']);
+	$view->exposed_input['end_date']['value']['date'] = date('Y-m-d', $_SESSION['er_end_date'] );
+	$view->execute();
+	$results = $view->result;
+	$view->destroy();
+	return $results;	
+   	} else {
+	return '';
+	}
+}
+
+function _publications_bibtex_getbibarray() {
+	$bibarray=array();
+        $publications = publications_bibtex_getpublications();
+	if (empty($publications) ) {
+	return $bibarray;
+	}
+
+	$bibtext = "";	
+    	foreach ($publications as $pub){
+	$nid = $pub->nid;
+	$authorsarray =array();
+		foreach ($pub->field_field_er_user_entity_reference as $auth){
+		$authorsarray[]= $auth['rendered']['#markup'];
+		}
+	$authors = implode (',', $authorsarray);
+	$nonEPSCORauthors = $pub->field_field_er_non_epscor_authors[0]['rendered']['#markup'];
+	//$school =  $pub->Institution;
+	$title = $pub->node_title;
+        $pubname = $pub->field_field_er_journal_name[0]['rendered']['#markup'];
+	$volume = $pub->field_field_er_journal_volume[0]['rendered']['#markup'];
+	$publisher = $pub->field_field_er_publisher[0]['rendered']['#markup'];
+	$serietitle = $pub->field_field_er_collection_title[0]['rendered']['#markup'];
+	$pages = $pub->field_field_er_journal_pages[0]['rendered']['#markup'] ;
+	$publicationdate = $pub->field_field_er_publication_date[0]['rendered']['#markup'];
+	$datenumber = strtotime($publicationdate);
+	$format = "Y";
+	$publicationyear = date($format, $datenumber);
+	$publicationtype = $pub->field_field_er_publication_type[0]['rendered']['#markup'];
+
+		if ($publicationtype  == "Journal Article") {
+		$bibtext = "@article{".$nid.",\n";
+		$bibtext = $bibtext ."author = {".$authors.",".$nonEPSCORauthors. "},\n";
+		$bibtext = $bibtext ."title = {".$title ."},\n";                        
+		$bibtext = $bibtext ."journal = {".$pubname ."},\n";
+		$bibtext = $bibtext ."volume = {".$volume ."},\n";
+		$bibtext = $bibtext ."pages ={".$pages ."},\n";
+		$bibtext = $bibtext ."year = {".$publicationyear."},\n";
+		$bibtext = $bibtext ."type = {".$publicationtype."},\n";
+		$bibtext = $bibtext ."}\n";
+		} elseif ($publicationtype  == "Book") {
+		$bibtext = "@book{".$nid.",\n";
+		$bibtext = $bibtext ."author = {".$author.",".$nonEPSCORauthor. "},\n";
+		$bibtext = $bibtext ."title = {".$pubname ."},\n";
+		$bibtext = $bibtext ."publisher = {".$publisher ."},\n";
+		$bibtext = $bibtext ."year = {".$publicationyear."},\n";
+		$bibtext = $bibtext ."}\n";
+		} elseif ($publicationtype  == "Conference Proceedings") {
+		$bibtext = "@conference{".$nid.",\n";
+		$bibtext = $bibtext ."author = {".$author.",".$nonEPSCORauthor. "},\n";
+		$bibtext = $bibtext ."title = {".$title ."},\n";                        
+		$bibtext = $bibtext ."booktitle = {".$pubname ."},\n";
+		$bibtext = $bibtext ."pages ={".$pages ."},\n";
+		$bibtext = $bibtext ."year = {".$publicationyear."},\n";
+		$bibtext = $bibtext ."}\n";
+		} else { 
+		} 
+
+		$bibarray[] = $bibtext;
+    	}   
+
+	return $bibarray;
+}
+
+function publications_bibtex_bibpage ($form, &$form_state) {
+   	 $start = strtotime($form['dates']['start_date']['#value']['date']);
+	 $end = strtotime($form['dates']['end_date']['#value']['date']);
+    		if ($s <= $e){
+     	 	$_SESSION['er_start_date'] = $start;
+      		$_SESSION['er_end_date'] = $end;
+    		}else{
+      		drupal_set_message("Start date must be earlier than end date.", 'error');
+    		}
+ 
+	$bibarray = array();
+	$bibarray= _publications_bibtex_getbibarray();
+	$numberbib = count ($bibarray);
+	
+	if (isset($_SESSION['er_start_date']) && isset($_SESSION['er_end_date'] ) ) {
+	$headertext = '<p> Selected date range :<b> '.date('M d, Y', $_SESSION['er_start_date']).'</b> to <b>'.date('M d, Y', $_SESSION['er_end_date']) .'</b></br>
+	Number of BibTeX entries generated: <b>'.$numberbib. '</b> <a href="/publications_bibtex/download"> Download BibTeX file</a></p>
+        <p><b>Attention: </p>
+	<p>1) ERCore content type Publication may not return the correct author order therefore **YOU MUST VERIFY** the order of the authors after you upload this BibTeX file to Research.gov to make sure the author order matches exactly to what is on the actual publication.</b></p>
+	<p><b>2) BibTex is only generated for the following type of publications: Journal Article, Book and Conference Proceedings</b></p>';
+	$linktext =  '<a> A link that in the future when user clicks will generate above BibTeX entries as a file (.bib)</a>';
+   	} else {
+	$headertext = 'To see BibTeX entries of Publications, first select a date range, then press Generate BibTeX button.';
+ 	$linktext = '';
+	}
+   $element = $form['bibpage'];
+   $element['#markup'] = $headertext ;
+
+return $element;
+
+}
+
+
+
+function publications_bibtex_my_form($form_state) {
+
+	$start_date = variable_get('er_start_date');
+	$date_year_range = "{$start_date['year']}:+1";//"2008:+1"; //+1 means 1 year from today
+	
+	$ranges = er_get_reporting_ranges(); //Available date ranges...
+	$range = er_get_reporting_range(); //Selected reporting period, or defaults to the current reporting period if none was selected
+	$range_is_set = _myreporting_range_is_set();//Was a reporting period selected, or is $range the default -- current reporting period.
+		
+   	$date_format = 'm/d/Y';//variable_get('date_format_short', 'm/d/Y - H:i'),
+  	$form['dates'] = array(
+    	'#type' => 'fieldset',
+    	'#title' => t('Select Date range'),
+    	'#tree' => true,
+    	'#attributes' => array('class'=>array('fake-inline')),
+    	);
+	
+	
+  	$form['dates']['start_date'] = array(
+    	'#type' => 'date_popup',
+    	'#title' => t('Start Date'),
+    	'#date_format' => $date_format,
+    	'#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
+    	'#default_value' => date('Y-m-d', $range[0]),
+    	'#date_year_range' => $date_year_range,
+    	'#date_label_position' => 'none',
+  	);
+  
+  	$form['dates']['end_date'] = array( 
+    	'#type' => 'date_popup',
+    	'#title' => t('End Date'),
+    	'#date_format' => $date_format,
+	'#default_value' => date('Y-m-d', $range[1]),
+    	'#date_timezone' => date_default_timezone(), //date_default_timezone_name(),
+    	'#date_year_range' => $date_year_range,
+    	'#date_label_position' => 'none',
+  	);
+
+	 $form['dates']['submit'] = array(
+    	'#type' => 'submit',
+    	'#value' => t('Generate BibTeX'),
+    		'#ajax' => array(
+      		'callback' => 'publications_bibtex_bibpage',
+      		'wrapper' => 'biblist-div',
+     		'method' => 'replace',
+      		'effect' => 'fade',
+    		),
+  	);
+
+   	$form['bibpage'] = array(
+		'#title' => t("Generated BibTeX list"),
+		'#prefix' => '<div id="biblist-div">',
+		'#suffix'=>'</div>',
+		'#type' => 'markup',
+		'#markup' => '<h1> </h1>',
+	);
+ 
+   return $form;
+}
+
+function _publications_bibtex_bibtexdownload() {
+	if (isset($_SESSION['er_start_date']) && isset($_SESSION['er_end_date'] )) {
+		$tempfile = drupal_tempnam('public://', 'TEMPmetadata');
+
+		if(!is_file($tempfile)) { die('tmp file could not be created!');   }
+
+		//open the temp file 
+		$fhtemp = fopen($tempfile, 'w') or die("Error: Can't open file tempfile!");
+
+		$bibtexarray = _publications_bibtex_getbibarray();
+		$bibstring = "";
+		if (!empty($bibtexarray) ){
+		$bibstring = implode("",$bibtexarray);
+		}
+
+		//write the flattened array
+		fwrite($fhtemp, $bibstring );
+		fclose($fhtemp);
+
+		$ts = date('Y-m-d-H:i');
+		if(!(file_exists($tempfile) )) {
+     		// File doesn't exist, output error
+    		die('tempfile not found in temp directory');
+		} else {
+		// Set headers
+    		header('Content-Type: text/plain');
+		header('Cache-Control: max-age=0');
+    		header('Content-Disposition: attachment;filename="PublicationsBibTex_'.$ts.'.bib"');
+    		header("Content-Length: ".filesize($tempfile));
+		readfile($tempfile);
+		}
+	
+		unlink($tempfile);
+		module_invoke_all('exit');
+		exit;
+	}else {
+		drupal_set_message('To see BibTeX entries of Publications, first select a date range from Accomplishment Table page.');
+		
+	}
+	return drupal_not_found();
+}
+
+
+

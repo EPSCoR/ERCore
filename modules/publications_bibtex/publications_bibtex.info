@@ -1,0 +1,22 @@
+; ERcore BibTex Converter v.0.4
+; Kia Huffman, Brown University
+; Copyright 2016, Brown University, Providence, RI. All Rights Reserved.
+;
+; This work was supported in full by the National Science Foundation
+; EPSCoR Cooperative Agreements EPS-1004057.
+;
+;
+; BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+; INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR ANY
+; PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY BE LIABLE FOR
+; ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+; WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+; ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+name = ER-core Publications BibTeX converter
+description = A sub-module to ERCore, that exports the publications for the selected date range as a BibTex formatted file. Put this module in the er/modules/publications_bibtex/ directory, and then enable it in the module listings. 
+
+core = 7.x
+
+dependencies[] = er
