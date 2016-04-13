@@ -1,0 +1,43 @@
+<?php
+
+// This custom module was originally written by Amy Turling [walshamy@missouri.edu] that adds a "team view" pane on all user profiles 
+
+// This section modifes the custom module written by Amy Turling [walshamy@missouri.edu] 
+// https://github.com/EPSCoR/ERCore-3.1/tree/3.1-dev-teamview2 [er_addteamview]
+// 'er_addteamview' adds a "team view" pane on all user profiles (/users/*)
+
+// This custom module adds a "My Incomplete Content" Div and "My Completed Content" Div on the 'user/*' page
+// by adding the the views content panes, one by one, to the divs. 
+// (Content panes can have independent pagers, but attachments cannot.)
+
+
+/**** Views ****/
+/*Import the necessary views located at 'er/modules/er_user_dashboard/views directory'
+ * */
+
+function user_dashboard_views_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "views" && $api == "views_default") {
+    return array("api" => "3.0");
+  }
+}
+
+/**
+* Implementation of hook_views_default_views().
+**/
+function user_dashboard_views_default_views() {
+  	
+  $dash_views = array();
+  
+	$dir = new DirectoryIterator(ER_MODULE_DIR . '/modules/er_user_dashboard/views');
+	// loop through all view files in the directory
+	foreach ($dir as $fileinfo) {
+		if (!$fileinfo->isDot()) {
+			$view_filename = $fileinfo->getFilename();
+			require_once(ER_MODULE_DIR."/modules/er_user_dashboard/views/$view_filename");
+			$dash_views[$view->name] = $view;			
+		}
+	}  
+  return $dash_views;
+
+}

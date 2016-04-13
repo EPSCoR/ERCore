@@ -1,0 +1,6 @@
+name = EPSCoR User Dashboard 
+description = Adds complete/incomplete blocks of Content created by user
+package = "EPSCoR"
+core = 7.x
+version = "7.3.1"
+stylesheets[all][] = css/styles.css

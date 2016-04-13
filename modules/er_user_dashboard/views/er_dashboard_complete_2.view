@@ -1,0 +1,428 @@
+<?php
+$view = new view();
+$view->name = 'dashboard_complete';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'users';
+$view->human_name = 'My Dashboard - Complete Content';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Dashboard complete 2';
+$handler->display->display_options['use_ajax'] = TRUE;
+$handler->display->display_options['use_more'] = TRUE;
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'none';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title' => 'title',
+  'field_er_publication_status' => 'field_er_publication_status',
+  'field_er_publication_submit' => 'field_er_publication_submit',
+);
+$handler->display->display_options['row_options']['separator'] = '<br/>';
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>Publication(s)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'filtered_html';
+/* Relationship: User: Content authored */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'users';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Sort criterion: Content: Post date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'node';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['relationship'] = 'uid';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+/* Contextual filter: Content: Author uid */
+$handler->display->display_options['arguments']['uid']['id'] = 'uid';
+$handler->display->display_options['arguments']['uid']['table'] = 'node';
+$handler->display->display_options['arguments']['uid']['field'] = 'uid';
+$handler->display->display_options['arguments']['uid']['relationship'] = 'uid';
+$handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+$handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+$handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+/* Display: My Proposals Completed Content Pane */
+$handler = $view->new_display('panel_pane', 'My Proposals Completed Content Pane', 'my_proposals_completed');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Dashboard Proposals Completed';
+$handler->display->display_options['display_description'] = 'My Proposals Completed Content Pane';
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'mini';
+$handler->display->display_options['pager']['options']['items_per_page'] = '5';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title' => 'title',
+  'field_er_publication_status' => 'field_er_publication_status',
+  'field_er_proposal_submit' => 'field_er_proposal_submit',
+);
+$handler->display->display_options['row_options']['separator'] = '<br/>';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>Proposal(s)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Date Submitted */
+$handler->display->display_options['fields']['field_er_proposal_submit']['id'] = 'field_er_proposal_submit';
+$handler->display->display_options['fields']['field_er_proposal_submit']['table'] = 'field_data_field_er_proposal_submit';
+$handler->display->display_options['fields']['field_er_proposal_submit']['field'] = 'field_er_proposal_submit';
+$handler->display->display_options['fields']['field_er_proposal_submit']['relationship'] = 'uid';
+$handler->display->display_options['fields']['field_er_proposal_submit']['label'] = 'Submitted on';
+$handler->display->display_options['fields']['field_er_proposal_submit']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_proposal_submit']['settings'] = array(
+  'format_type' => 'long',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['relationship'] = 'uid';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_proposal' => 'er_proposal',
+);
+/* Filter criterion: Content: Status (field_er_proposal_status) */
+$handler->display->display_options['filters']['field_er_proposal_status_value']['id'] = 'field_er_proposal_status_value';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['table'] = 'field_data_field_er_proposal_status';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['field'] = 'field_er_proposal_status_value';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['relationship'] = 'uid';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['operator'] = 'not';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['value'] = array(
+  'Submitted' => 'Submitted',
+);
+
+/* Display: My Publications Completed */
+$handler = $view->new_display('panel_pane', 'My Publications Completed', 'my_publications_completed');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Dashboard Publications Completed';
+$handler->display->display_options['display_description'] = 'My Publications Completed Content Pane';
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'mini';
+$handler->display->display_options['pager']['options']['items_per_page'] = '5';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>Publication(s)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Status */
+$handler->display->display_options['fields']['field_er_publication_status']['id'] = 'field_er_publication_status';
+$handler->display->display_options['fields']['field_er_publication_status']['table'] = 'field_data_field_er_publication_status';
+$handler->display->display_options['fields']['field_er_publication_status']['field'] = 'field_er_publication_status';
+$handler->display->display_options['fields']['field_er_publication_status']['relationship'] = 'uid';
+$handler->display->display_options['fields']['field_er_publication_status']['exclude'] = TRUE;
+/* Field: Content: Date Submitted */
+$handler->display->display_options['fields']['field_er_publication_submit']['id'] = 'field_er_publication_submit';
+$handler->display->display_options['fields']['field_er_publication_submit']['table'] = 'field_data_field_er_publication_submit';
+$handler->display->display_options['fields']['field_er_publication_submit']['field'] = 'field_er_publication_submit';
+$handler->display->display_options['fields']['field_er_publication_submit']['relationship'] = 'uid';
+$handler->display->display_options['fields']['field_er_publication_submit']['label'] = 'Submitted on';
+$handler->display->display_options['fields']['field_er_publication_submit']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_publication_submit']['settings'] = array(
+  'format_type' => 'quick_date',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['relationship'] = 'uid';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_publication' => 'er_publication',
+);
+/* Filter criterion: Content: Status (field_er_publication_status) */
+$handler->display->display_options['filters']['field_er_publication_status_value']['id'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['table'] = 'field_data_field_er_publication_status';
+$handler->display->display_options['filters']['field_er_publication_status_value']['field'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['relationship'] = 'uid';
+$handler->display->display_options['filters']['field_er_publication_status_value']['value'] = array(
+  2 => '2',
+  1 => '1',
+);
+
+/* Display: My Presentations Completed */
+$handler = $view->new_display('panel_pane', 'My Presentations Completed', 'my_presentations_completed');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Dashboard Presentations Completed';
+$handler->display->display_options['display_description'] = 'My Presentations Completed Content Pane';
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'mini';
+$handler->display->display_options['pager']['options']['items_per_page'] = '5';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title' => 'title',
+  'field_er_presentation_date' => 'field_er_presentation_date',
+);
+$handler->display->display_options['row_options']['separator'] = '<br/>';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>Presentation(s)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Date */
+$handler->display->display_options['fields']['field_er_presentation_date']['id'] = 'field_er_presentation_date';
+$handler->display->display_options['fields']['field_er_presentation_date']['table'] = 'field_data_field_er_presentation_date';
+$handler->display->display_options['fields']['field_er_presentation_date']['field'] = 'field_er_presentation_date';
+$handler->display->display_options['fields']['field_er_presentation_date']['relationship'] = 'uid';
+$handler->display->display_options['fields']['field_er_presentation_date']['label'] = 'Date of Presentation';
+$handler->display->display_options['fields']['field_er_presentation_date']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_presentation_date']['settings'] = array(
+  'format_type' => 'quick_date',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_repeat_rule' => 'show',
+);
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['relationship'] = 'uid';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_presentation' => 'er_presentation',
+);
+
+/* Display: My Collaborations Completed */
+$handler = $view->new_display('panel_pane', 'My Collaborations Completed', 'my_collaborations_completed2');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Dashboard Collaborations Completed2';
+$handler->display->display_options['display_description'] = 'My Collaborations Content Pane';
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['defaults']['query'] = FALSE;
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+$handler->display->display_options['query']['options']['distinct'] = TRUE;
+$handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'mini';
+$handler->display->display_options['pager']['options']['items_per_page'] = '8';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title' => 'title',
+  'field_er_publication_status' => 'field_er_publication_status',
+  'field_er_publication_submit' => 'field_er_publication_submit',
+);
+$handler->display->display_options['row_options']['separator'] = '<br/>';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h2>Collaboration(s)</h2>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: User: Content authored */
+$handler->display->display_options['relationships']['uid']['id'] = 'uid';
+$handler->display->display_options['relationships']['uid']['table'] = 'users';
+$handler->display->display_options['relationships']['uid']['field'] = 'uid';
+/* Relationship: Entity Reference: Referenced Entity */
+$handler->display->display_options['relationships']['field_er_collab_ref_target_id']['id'] = 'field_er_collab_ref_target_id';
+$handler->display->display_options['relationships']['field_er_collab_ref_target_id']['table'] = 'field_data_field_er_collab_ref';
+$handler->display->display_options['relationships']['field_er_collab_ref_target_id']['field'] = 'field_er_collab_ref_target_id';
+$handler->display->display_options['relationships']['field_er_collab_ref_target_id']['relationship'] = 'uid';
+/* Relationship: Entity Reference: Referencing entity */
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['id'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['table'] = 'node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['field'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['relationship'] = 'uid';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['required'] = TRUE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['relationship'] = 'uid';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Name of Collaborating Individual */
+$handler->display->display_options['fields']['field_er_collab_name']['id'] = 'field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['table'] = 'field_data_field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['field'] = 'field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['relationship'] = 'uid';
+$handler->display->display_options['fields']['field_er_collab_name']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_name']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_name']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_name']['element_wrapper_type'] = 'span';
+$handler->display->display_options['fields']['field_er_collab_name']['element_wrapper_class'] = 'dashboard-inline';
+$handler->display->display_options['fields']['field_er_collab_name']['element_default_classes'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_name']['type'] = 'text_plain';
+$handler->display->display_options['fields']['field_er_collab_name']['settings'] = array(
+  'trim_length' => '1',
+);
+/* Field: Content: Collaboration */
+$handler->display->display_options['fields']['field_er_collab_ref']['id'] = 'field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['table'] = 'field_data_field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['field'] = 'field_er_collab_ref';
+$handler->display->display_options['fields']['field_er_collab_ref']['relationship'] = 'field_er_collab_ref_target_id';
+$handler->display->display_options['fields']['field_er_collab_ref']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_ref']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_ref']['alter']['text'] = '[title]';
+$handler->display->display_options['fields']['field_er_collab_ref']['element_type'] = 'em';
+$handler->display->display_options['fields']['field_er_collab_ref']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_ref']['settings'] = array(
+  'link' => 1,
+);
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+/* Contextual filter: Content: Author uid */
+$handler->display->display_options['arguments']['uid']['id'] = 'uid';
+$handler->display->display_options['arguments']['uid']['table'] = 'node';
+$handler->display->display_options['arguments']['uid']['field'] = 'uid';
+$handler->display->display_options['arguments']['uid']['relationship'] = 'uid';
+$handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+$handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+$handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+/* Contextual filter: Content: Name of Collaborating Individual (field_er_collab_name) */
+$handler->display->display_options['arguments']['field_er_collab_name_value']['id'] = 'field_er_collab_name_value';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['table'] = 'field_data_field_er_collab_name';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['field'] = 'field_er_collab_name_value';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['relationship'] = 'uid';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['default_argument_type'] = 'user';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['default_argument_options']['user'] = FALSE;
+$handler->display->display_options['arguments']['field_er_collab_name_value']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['field_er_collab_name_value']['limit'] = '0';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['relationship'] = 'uid';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_collaboration' => 'er_collaboration',
+);
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+$handler->display->display_options['filters']['status_1']['table'] = 'node';
+$handler->display->display_options['filters']['status_1']['field'] = 'status';
+$handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
+$handler->display->display_options['filters']['status_1']['value'] = '1';
+/* Filter criterion: Content: Name of Collaborating Individual (field_er_collab_name) */
+$handler->display->display_options['filters']['field_er_collab_name_value']['id'] = 'field_er_collab_name_value';
+$handler->display->display_options['filters']['field_er_collab_name_value']['table'] = 'field_data_field_er_collab_name';
+$handler->display->display_options['filters']['field_er_collab_name_value']['field'] = 'field_er_collab_name_value';
+$handler->display->display_options['filters']['field_er_collab_name_value']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['filters']['field_er_collab_name_value']['operator'] = 'not empty';
+$handler->display->display_options['filters']['field_er_collab_name_value']['value'] = '1';

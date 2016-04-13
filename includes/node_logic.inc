@@ -49,6 +49,8 @@ function er_node_view($node, $view_mode, $langcode){
 	}
 }
 
+
+
 /**
  * Implements hook_user_view_alter().
  * The user was built; the module may modify the structured content.
@@ -98,16 +100,124 @@ function er_user_view_alter(&$build) {
 		//d($build, '$build');
 		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
 	}
-	$view = views_get_view('er_related_content');
-	$build['related_content2'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Related Content',
-    '#weight' => 100,
-    'table' => array(
-      '#title' => 'Related Content',
-      '#markup' => $view->render('master'),
-    )
+
+// This section modifes the custom module written by Amy Turling [walshamy@missouri.edu] 
+// https://github.com/EPSCoR/ERCore-3.1/tree/3.1-dev-teamview2 [er_addteamview]
+// 'er_addteamview' adds a "team view" pane on all user profiles (/users/*)
+
+// This section modifies hook_user_view_alter to add "My Incomplete Content" and "My Completed Content" 
+// in two column divs which adds the views content panes, one by one.
+// @author Chris Allen [cjallen@epscor.unm.edu] 
+	
+/*Team Content */
+  $teamContentPaged = 'team_content_paged';
+  $view = views_get_view('team_content_paged');
+  $build['team_content_paged'] = array(
+   '#type' => 'fieldset',
+    '#prefix' => '<div id="dashboard-team-content">',
+    '#suffix' => '</div>',
+    '#title' => 'My Team Content',
+   '#weight' => 1,
+		'table_awards' => array(
+	     '#title'  => 'Team Honors and Awards',
+	     '#markup' =>  views_embed_view($teamContentPaged, 'team_awards_panel_pane'),
+	    ),
+	    'table_highlights' => array(
+	      '#title'  => 'Team Highlights',
+	      '#markup' =>  views_embed_view($teamContentPaged, 'team_highlights_panel_pane'),
+	    ),
+	    'table_presents' => array(
+	      '#title'  => 'Team Presentations',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_presentations_panel_pane'),
+	    ),
+	    'table_patents' => array(
+	      '#title'  => 'Team Patents',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_patents_panel_pane'),
+	    ),
+	    'table_props_pi' => array(
+	      '#title'  => 'Team Proposals PI Co-PI',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_proposals_panel_pane'),
+	    ),
+	    'table_props' => array(
+	      '#title'  => 'Team Proposals Other',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_props_other_panel_pane'),
+	    ),
+	    'table_collabs_created' => array(
+	      '#title'  => 'Team Collaborations Created',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_collabs_created_panel_pane'),
+	    ),
+	    'table_collabs' => array(
+	      '#title'  => 'Team Collaborations',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_collaborations_panel_pane'),
+	    ),
+	    'table_pubs' => array(
+	       '#title'  => 'Team Publications',
+	       '#markup' => views_embed_view($teamContentPaged, 'team_publications_panel_pane'),
+	    ),
+	    'table_events' => array(
+	      '#title'  => 'Team Events',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_events_panel_pane'),
+	    ),
+	    'table_others' => array(
+	      '#title'  => 'Team Other Research Products',
+	      '#markup' => views_embed_view($teamContentPaged, 'team_other_products_panel_pane'),
+	    ),
 	);
+
+/*Incomplete Content*/
+	$incompleteContent = 'dashboard_incomplete';
+	$view = views_get_view('dashboard_incomplete_2');
+	$build['dashboard_incomplete_2'] = array(
+    '#type' => 'fieldset',
+    '#prefix' => '<div id="dashboard-incomplete">',
+    '#suffix' => '</div>',
+    '#title' => 'My Incomplete Content',
+    '#weight' => 2, 
+	   'table_collabs' => array(
+		     '#title'  => 'Collaborations',
+		     '#markup' =>  views_embed_view($incompleteContent, 'my_collaborations_incomplete'),
+		    ),
+		    'table_highlights' => array(
+		      '#title'  => 'Publications',
+		      '#markup' =>  views_embed_view($incompleteContent, 'my_publications_incomplete'),
+		    ),
+		    'table_presents' => array(
+		      '#title'  => 'Calendar Events',
+		      '#markup' => views_embed_view($incompleteContent, 'my_events_incomplete'),
+		    ),
+		    'table_patents' => array(
+		      '#title'  => 'Proposals',
+		      '#markup' => views_embed_view($incompleteContent, 'my_proposals_incomplete'),
+		    ),
+	);
+
+/*Completed Content*/
+	$completeContent = 'dashboard_complete';
+	$view = views_get_view('dashboard_complete_2');
+	$build['dashboard_complete_2'] = array(
+    '#type' => 'fieldset',
+    '#prefix' => '<div id="dashboard-complete">',
+    '#suffix' => '</div>',
+    '#title' => 'My Completed Content',
+    '#weight' => 3,
+	 	'table_collabs' => array(
+		     '#title'  => 'Collaborations',
+		     '#markup' =>  views_embed_view($completeContent, 'my_collaborations_completed2'),
+		    ),
+		    'table_highlights' => array(
+		      '#title'  => 'Publications',
+		      '#markup' =>  views_embed_view($completeContent, 'my_publications_completed'),
+		    ),
+		    'table_presents' => array(
+		      '#title'  => 'Calendar Events',
+		      '#markup' => views_embed_view($completeContent, 'my_events_incomplete'),
+		    ),
+		    'table_patents' => array(
+		      '#title'  => 'Proposals',
+		      '#markup' => views_embed_view($completeContent, 'my_proposals_completed'),
+		    ),
+	);
+
   //$build['related_content'] = array(
   //  '#type' => 'fieldset',
   //  '#title' => 'Related Content',

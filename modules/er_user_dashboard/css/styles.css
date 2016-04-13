@@ -1,0 +1,122 @@
+/*ERCore Dashboard Styles*/
+
+#dashboard-complete{
+	border:solid thin rgb(192, 192, 192);
+    padding:1em;
+    margin-top:1em;
+    margin-bottom:1em;
+    width:45%;
+   float:left;
+   clear:left;
+ 	display: inline-block;
+}
+
+#dashboard-incomplete{
+	border:solid thin rgb(192, 192, 192);
+    padding:1em;
+    margin-top:1em;
+    margin-bottom:1em;
+    width:45%;
+ 	display: inline-block;
+   float:left;
+}
+
+#dashboard-team-content{
+	width:45%;
+	float:right;
+	border:solid thin rgb(192, 192, 192);
+ 	padding:1em;
+    margin-top:1em;
+    margin-bottom:1em;	
+}
+
+#dashboard-complete a,
+#dashboard-incomplete a {
+    font-size:105%;
+}
+
+#dashboard-complete em,
+#dashboard-incomplete em{
+    color:#666;
+}
+
+
+#dashboard-complete h2,
+#dashboard-incomplete h2{
+    border-bottom:solid thin #ccc;
+}
+
+/*My Content Incomplete - Heading */
+#dashboard-incomplete fieldset legend{
+    background-color:#8e0c0d;
+ 	color:#fff;
+    text-shadow: none;
+}
+
+/*My Content Completed - Heading */
+#dashboard-complete fieldset legend {
+    background-color:#336666;
+     text-shadow: none;
+    color:#fff;
+}
+
+/*My Team Content - Heading */
+#dashboard-team-content fieldset legend{
+	background-color:#666;
+     text-shadow: none;
+    color:#fff;
+}
+
+#dashboard-complete li
+#dashboard-incomplete li {
+    margin-left:1em;
+    margin-bottom:1em;
+    padding-bottom:1em;
+    border-bottom:dotted thin #ccc;
+}
+
+#dashboard-complete h4.status,
+#dashboard-incomplete h4.status{
+    color:#8e0c0d;
+    font-size:90%;
+    font-weight:bold;
+    display:inline;
+}
+
+#dashboard-complete .dashboard-warning,
+#dashboard-incomplete .dashboard-warning{
+    background:#f2dede;
+    font-size:90%;
+    padding:.5em 2em;
+    border-radius: 4px;
+    margin:1em 0 .35em 0;
+    float:left;
+    display:block;
+    clear:both;
+    width:85%;
+}
+
+#dashboard-complete .dashboard-warning strong,
+#dashboard-incomplete .dashboard-warning strong{
+    color:#a94442;
+}
+
+#dashboard-complete .button-make-valid,
+#dashboard-incomplete .button-make-valid{
+    color: #20B2AA;
+    border:solid thin #336666;
+    font-size:80%;
+    padding:.35em 2em;
+    margin: .5em 0 .5em 0;
+    border-radius: 4px;
+    display:inline-block;
+    width:50%;
+    text-align:center;
+}
+
+#dashboard-complete .button-make-valid a,
+#dashboard-incomplete .button-make-valid a{
+    color: #336666;
+    text-decoration:none;  
+    text-transform:uppercase;
+}
