@@ -102,7 +102,7 @@ function er_user_view_alter(&$build) {
 		//d($build['field_er_disabilities']['#object'], '$build[\'field_er_disabilities\'][\'#object\']');
 	}
 
-// This section modifes the custom module written by Amy Turling [walshamy@missouri.edu] 
+// This section modifes the custom module written by Amy Walsh [walshamy@missouri.edu] 
 // https://github.com/EPSCoR/ERCore-3.1/tree/3.1-dev-teamview2 [er_addteamview]
 // 'er_addteamview' adds a "team view" pane on all user profiles (/users/*)
 
