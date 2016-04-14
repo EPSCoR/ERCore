@@ -57,6 +57,7 @@ function er_node_view($node, $view_mode, $langcode){
  */
 function er_user_view_alter(&$build) {
 	global $user;
+	unset($build['summary']);//Hide the 'History' information on the User Profile
 	unset($build['flags']);//hide the flags, don't need it here.
   //This adds the tags indicating the permissions on each field:
 	if (isset($user->roles[3])){//user is admin
