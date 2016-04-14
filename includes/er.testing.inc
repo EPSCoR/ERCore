@@ -188,30 +188,31 @@ function er_testing() {
 	}
 
 	//Rules
-	$rules_status = _test_rules();
+	//Rules have been removed from ERCore; commenting this section out so that the testing ignores the "Rules" Directory
+	//$rules_status = _test_rules();
 	//d($rules_status, '$rules_status');
-	foreach ($rules_status['missing'] as $name=>$value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_ERROR,
-			'title' => "Rule: $name missing!",
-			'value' => create_reset_link('rules', $name, 'this rule'),
-		);
-	}
-	foreach ($rules_status['extra'] as $name=>$value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_WARNING,
-			'title' => "Rule: $name is extraneous",
-			'description' => 'This rule is unknown to this version of the EPSCoR Reporting module, and may be removed.',
-			'value' => l('<i class="icon-trash"></i> Delete', 'admin/config/workflow/rules/reaction/manage/'.$value->id.'/delete', $link_options),
-		);
-	}
-	foreach ($rules_status['found'] as $name=>$value){
-		$requirements[] = array(
-			'severity' => REQUIREMENT_OK,
-			'title' => "Rule: $name",
-			'value' => l('<i class="icon-ok"></i> Found', 'admin/config/workflow/rules/reaction/manage/'.$value->id, array('html'=>true)) . ', ' . create_reset_link('rules', $name),
-		);
-	}
+	//foreach ($rules_status['missing'] as $name=>$value){
+	//	$requirements[] = array(
+	//		'severity' => REQUIREMENT_ERROR,
+	//		'title' => "Rule: $name missing!",
+	//		'value' => create_reset_link('rules', $name, 'this rule'),
+	//	);
+	//}
+	//foreach ($rules_status['extra'] as $name=>$value){
+	//	$requirements[] = array(
+	//		'severity' => REQUIREMENT_WARNING,
+	//		'title' => "Rule: $name is extraneous",
+	//		'description' => 'This rule is unknown to this version of the EPSCoR Reporting module, and may be removed.',
+	//		'value' => l('<i class="icon-trash"></i> Delete', 'admin/config/workflow/rules/reaction/manage/'.$value->id.'/delete', $link_options),
+	//	);
+	//}
+	//foreach ($rules_status['found'] as $name=>$value){
+	//	$requirements[] = array(
+	//		'severity' => REQUIREMENT_OK,
+	//		'title' => "Rule: $name",
+	//		'value' => l('<i class="icon-ok"></i> Found', 'admin/config/workflow/rules/reaction/manage/'.$value->id, array('html'=>true)) . ', ' . create_reset_link('rules', $name),
+	//	);
+	//}
 
 	//Fields and fieldgroups
 	$field_status = _test_fields();
