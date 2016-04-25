@@ -173,7 +173,8 @@ function er_user_view_alter(&$build) {
     '#prefix' => '<div id="dashboard-incomplete">',
     '#suffix' => '</div>',
     '#title' => 'My Incomplete Content',
-    '#weight' => 2, 
+    '#weight' => 2,
+    '#access' => can_view_incomplete_block(), 
 	   'table_collabs' => array(
 		     '#title'  => 'Collaborations',
 		     '#markup' =>  views_embed_view($incompleteContent, 'my_collaborations_incomplete'),
@@ -556,4 +557,25 @@ function er_parse_ee_file(&$node){
 		watchdog('er', "User tried to use EE Excel Upload, error: ".$error_message, NULL, WATCHDOG_CRITICAL);
 	
   }
+}
+
+// This function returns TRUE if the logged in user may view a user's "incomplete content" dashboard block
+// and FALSE otherwise.
+//
+// Users may view their own content but no one else's;
+// Site admins may view everything
+function can_view_incomplete_block() {
+
+  global $user; // currently logged in user
+
+  $user_profile_uid = '-1'; // default to no user
+  if ( arg(0) == 'user' && is_numeric(arg(1)) ) {
+    $user_profile_uid = arg(1); // get uid of profile being viewed
+  }
+
+  $viewing_own_profile = ($user->uid == $user_profile_uid) ? TRUE : FALSE; // is logged in user viewing his/her own profile?
+ 
+  $is_site_admin = user_access('administer users'); // is logged in user a site admin?
+
+  return ($is_site_admin || $viewing_own_profile);  // return TRUE if either viewing own profile or site admin
 }
