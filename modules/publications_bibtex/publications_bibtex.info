@@ -18,5 +18,5 @@ name = ER-core Publications BibTeX converter
 description = A sub-module to ERCore, that exports the publications for the selected date range as a BibTex formatted file. Put this module in the er/modules/publications_bibtex/ directory, and then enable it in the module listings. 
 
 core = 7.x
-
+package = "EPSCoR"
 dependencies[] = er
