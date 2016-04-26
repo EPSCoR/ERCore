@@ -301,8 +301,8 @@ function _manage_ee_nodes(&$node, $op){
 			$urm = $node->{'field_er_'.$type.'_urm'}[$lang][0]['value'];
 			$total = $male + $female + $und;
 			if ($urm > $total){
-				$urmFieldData = field_info_instance('node', 'field_er_'.$type.'_urm', $node->type);
-				form_set_error('field_er_'.$type.'_urm][i][value', "The values for <u>{$urmFieldData->label}</u> must be less than the total. See: <u>$categoryLabel</u> section.");
+     				$urmFieldData = field_info_instance('node', 'field_er_'.$type.'_urm', $node->type);                                   
+     				form_set_error('field_er_' . $type . '_urm', "The values for <u>{$urmFieldData['label']}</u> must be less than the total. See: <u>$categoryLabel</u> section.");
 			}
 		}
 		
