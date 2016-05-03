@@ -493,10 +493,10 @@ function er_batch_api_callbacks($include_specials = true){
 			'directory'=>'flags',
 			'callback'=>"er_batch_import_flag",
 		),
-		"rules"=>array(
+		/*"rules"=>array(
 			'directory'=>'rules',
 			'callback'=>"er_batch_import_rules",
-		),
+		),*/
 		"roles"=>array(
 			'directory'=>'roles',
 			'callback'=>"er_batch_import_role",
