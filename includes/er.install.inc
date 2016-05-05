@@ -75,35 +75,35 @@ function er_batch_import_flag($file_path, &$context){
 }
 
 //This function is used by Batch API; it installs a rule from rules directory.
-//function er_batch_import_rules($file_path, &$context){
-//	$name = basename($file_path);
-//	watchdog('er', t('Now processing rule: @name', array('@name' => $name)));
+function er_batch_import_rules($file_path, &$context){
+	$name = basename($file_path);
+	watchdog('er', t('Now processing rule: @name', array('@name' => $name)));
 	// basically I'll be mimicking functionality in the import function, check to make sure it exists, for good measure
-//	module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
-	//if (function_exists('rules_ui_import_form_validate')){
+	module_load_include('inc', 'rules', 'ui/ui.forms'); // otherwise it can't see the file
+	if (function_exists('rules_ui_import_form_validate')){
 		//watchdog('er', 'Begin creating rules, found the rules_ui_import_form_validate function');		
-	//	if (($contents = prep_file_contents($file_path)) !== FALSE){			
-	//		$form = array();
-	//		$form_state = array();
-	//		$form_state['values']['import'] = $contents;
-	//		$form_state['values']['overwrite'] = 1;
+		if (($contents = prep_file_contents($file_path)) !== FALSE){			
+			$form = array();
+			$form_state = array();
+			$form_state['values']['import'] = $contents;
+			$form_state['values']['overwrite'] = 1;
 			
 			// for these imports, work gets done in the _validate and _submit functions to do the actual import
-	//		rules_ui_import_form_validate($form, $form_state);
-	//		rules_ui_import_form_submit($form, $form_state);
-	//		$message = t("Rule @name imported successfully.", array('@name'=>$name));
-	//		$context['message'] = $message;
-	//		watchdog('er', $message);
-	//	}else{
-	//		$error = "Rule $name was not imported! File not found or is invalid: $file_path";
-		//	watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
-		//	drupal_set_message($error, 'error');
-	//	}
-	//}else{
-	//	watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
-	//	drupal_set_message('No rules_ui_import_form_validate function found in er.install');
-	//}
-//}
+			rules_ui_import_form_validate($form, $form_state);
+			rules_ui_import_form_submit($form, $form_state);
+			$message = t("Rule @name imported successfully.", array('@name'=>$name));
+			$context['message'] = $message;
+			watchdog('er', $message);
+		}else{
+			$error = "Rule $name was not imported! File not found or is invalid: $file_path";
+			watchdog('er', $error, NULL, WATCHDOG_CRITICAL);
+			drupal_set_message($error, 'error');
+		}
+	}else{
+		watchdog('er', 'No rules_ui_import_form_validate function found in er.install', NULL, WATCHDOG_CRITICAL);
+		drupal_set_message('No rules_ui_import_form_validate function found in er.install');
+	}
+}
 
 //This function is used by Batch API; it installs a Taxonomy Vocabulary + associated fields from file.
 //Note: This is function is basically the same as er_batch_import_fields.
@@ -493,10 +493,10 @@ function er_batch_api_callbacks($include_specials = true){
 			'directory'=>'flags',
 			'callback'=>"er_batch_import_flag",
 		),
-		/*"rules"=>array(
+		"rules"=>array(
 			'directory'=>'rules',
 			'callback'=>"er_batch_import_rules",
-		),*/
+		),
 		"roles"=>array(
 			'directory'=>'roles',
 			'callback'=>"er_batch_import_role",
