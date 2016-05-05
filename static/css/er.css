@@ -108,22 +108,6 @@ table.er-external-engagements-view-table td.table-field_er_tot_urm{
  #er-help > *{display:block !important;}
 }
 
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @cjallen-epscor
- Unwatch 10
-  Unstar 3
- Fork 6 EPSCoR/ERCore-3.1
- Code  Issues 13  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Branch: 3.1.1-user-das… Find file Copy pathERCore-3.1/modules/er_user_dashboard/css/styles.css
-8ae0977  22 days ago
-@cjallen-epscor cjallen-epscor User Dashboard files included
-1 contributor
-RawBlameHistory     122 lines (106 sloc)  2.31 KB
 /*ERCore Dashboard Styles*/
 
 #dashboard-complete{
@@ -246,5 +230,3 @@ RawBlameHistory     122 lines (106 sloc)  2.31 KB
     text-decoration:none;  
     text-transform:uppercase;
 }
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
