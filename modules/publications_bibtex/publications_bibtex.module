@@ -132,14 +132,14 @@ function _publications_bibtex_getbibarray() {
 		$bibtext = $bibtext ."}\n";
 		} elseif ($publicationtype  == "Book") {
 		$bibtext = "@book{".$nid.",\n";
-		$bibtext = $bibtext ."author = {".$authors.",".$nonEPSCORauthor. "},\n";
+		$bibtext = $bibtext ."author = {".$authors.",".$nonEPSCORauthors. "},\n";
 		$bibtext = $bibtext ."title = {".$pubname ."},\n";
 		$bibtext = $bibtext ."publisher = {".$publisher ."},\n";
 		$bibtext = $bibtext ."year = {".$publicationyear."},\n";
 		$bibtext = $bibtext ."}\n";
 		} elseif ($publicationtype  == "Conference Proceedings") {
 		$bibtext = "@conference{".$nid.",\n";
-		$bibtext = $bibtext ."author = {".$authors.",".$nonEPSCORauthor. "},\n";
+		$bibtext = $bibtext ."author = {".$authors.",".$nonEPSCORauthors. "},\n";
 		$bibtext = $bibtext ."title = {".$title ."},\n";                        
 		$bibtext = $bibtext ."booktitle = {".$pubname ."},\n";
 		$bibtext = $bibtext ."pages ={".$pages ."},\n";
