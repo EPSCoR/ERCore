@@ -1,0 +1,1281 @@
+<?php
+$view = new view();
+$view->name = 'er_data_integrity_check';
+$view->description = 'This admin view searches for common data entry errors, such as duplicate submissions, missing fields, etc.';
+$view->tag = 'default';
+$view->base_table = 'node';
+$view->human_name = 'Admin Data Integrity Check';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Data Integrity Check';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  10000 => '10000',
+  3 => '3',
+);
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['row_plugin'] = 'fields';
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page');
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = 'This admin-only view searches for potential problems with the data entered into the reporting system. These potential problems include missing/incomplete information, duplicate entries, and other data submission oddities (e.g., zero external engagements reported).<br><br>
+<b>Note:</b>If date filters are applied, no results will be shown for any of the Missing Date sections.<br><br>';
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom_1']['id'] = 'area_text_custom_1';
+$handler->display->display_options['header']['area_text_custom_1']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom_1']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom_1']['label'] = 'Reporting periods';
+$handler->display->display_options['header']['area_text_custom_1']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom_1']['content'] = '<div id="reporting-periods">
+<b>Reporting period</b><br>
+<a href="?start_date%5Bvalue%5D%5Bdate%5D=2014-08-01&end_date%5Bvalue%5D%5Bdate%5D=2015-07-31" title="08/01/14 - 07/31/15">Year 1</a>&nbsp;|&nbsp;<a href="?start_date%5Bvalue%5D%5Bdate%5D=2015-08-01&end_date%5Bvalue%5D%5Bdate%5D=2016-07-31" title="08/01/15 - 07/31/16">Year 2</a> &nbsp;|&nbsp;<a href="?start_date%5Bvalue%5D%5Bdate%5D=2016-08-01&end_date%5Bvalue%5D%5Bdate%5D=2017-07-31" title="08/01/16 - 07/31/17">Year 3</a> &nbsp;|&nbsp;<a href="?start_date%5Bvalue%5D%5Bdate%5D=2017-08-01&end_date%5Bvalue%5D%5Bdate%5D=2018-07-31" title="08/01/17 - 07/31/18">Year 4</a> &nbsp;|&nbsp;<a href="?start_date%5Bvalue%5D%5Bdate%5D=2018-08-01&end_date%5Bvalue%5D%5Bdate%5D=2019-07-31" title="08/01/18 - 07/31/19">Year 5</a>
+</div>';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Nid */
+$handler->display->display_options['filters']['nid']['id'] = 'nid';
+$handler->display->display_options['filters']['nid']['table'] = 'node';
+$handler->display->display_options['filters']['nid']['field'] = 'nid';
+$handler->display->display_options['filters']['nid']['value']['value'] = '-1';
+/* Filter criterion: Content: Date (field_er_other_product_date) */
+$handler->display->display_options['filters']['field_er_other_product_date_value']['id'] = 'field_er_other_product_date_value';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['table'] = 'field_data_field_er_other_product_date';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['field'] = 'field_er_other_product_date_value';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_other_product_date_value']['expose']['operator_id'] = 'field_er_other_product_date_value_op';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['expose']['label'] = 'Start date';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['expose']['operator'] = 'field_er_other_product_date_value_op';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_other_product_date_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date (field_er_other_product_date) */
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['id'] = 'field_er_other_product_date_value_1';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['table'] = 'field_data_field_er_other_product_date';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['field'] = 'field_er_other_product_date_value';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['expose']['operator_id'] = 'field_er_other_product_date_value_1_op';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['expose']['label'] = 'End Date';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['expose']['operator'] = 'field_er_other_product_date_value_1_op';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_other_product_date_value_1']['year_range'] = '-5:+5';
+$handler->display->display_options['path'] = 'admin/epscor/views/check';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Data Integrity Check';
+$handler->display->display_options['menu']['description'] = 'Data Integrity Check';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
+
+/* Display: Collaborations - No names attached */
+$handler = $view->new_display('attachment', 'Collaborations - No names attached', 'attachment_12');
+$handler->display->display_options['defaults']['query'] = FALSE;
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title_1' => 'title_1',
+);
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Collaborations: No Names Attached</h2>
+<hr>
+<em>No external collaborators have been attached to the collaboration.</em><br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: Entity Reference: Referencing entity */
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['id'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['table'] = 'node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['field'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['exclude'] = TRUE;
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Name of Collaborating Individual */
+$handler->display->display_options['fields']['field_er_collab_name']['id'] = 'field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['table'] = 'field_data_field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['field'] = 'field_er_collab_name';
+$handler->display->display_options['fields']['field_er_collab_name']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['fields']['field_er_collab_name']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_name']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_name']['alter']['text'] = '<b></b>';
+$handler->display->display_options['fields']['field_er_collab_name']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_name']['empty'] = '<li>[title]<br>';
+$handler->display->display_options['fields']['field_er_collab_name']['hide_alter_empty'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_collaboration' => 'er_collaboration',
+);
+$handler->display->display_options['filters']['type']['group'] = 1;
+/* Filter criterion: Content: Dates -  start date (field_er_collaboration_dates) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['id'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['field'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['group'] = 1;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator_id'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['label'] = 'Dates -  start date (field_er_collaboration_dates)';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Dates - end date (field_er_collaboration_dates:value2) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['id'] = 'field_er_collaboration_dates_value2_1';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['field'] = 'field_er_collaboration_dates_value2';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['group'] = 1;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['operator_id'] = 'field_er_collaboration_dates_value2_1_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['label'] = 'Dates - end date (field_er_collaboration_dates:value2)';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['operator'] = 'field_er_collaboration_dates_value2_1_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Collaborations - No end date */
+$handler = $view->new_display('attachment', 'Collaborations - No end date', 'attachment_1');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Collaborations: No End Date</h2>
+<hr>
+<em>Collaboration may be ongoing, or may have not been updated with an end date.</em><br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_collaboration' => 'er_collaboration',
+);
+/* Filter criterion: Content: Dates - end date (field_er_collaboration_dates:value2) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2']['id'] = 'field_er_collaboration_dates_value2';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2']['field'] = 'field_er_collaboration_dates_value2';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2']['operator'] = 'empty';
+/* Filter criterion: Content: Dates -  start date (field_er_collaboration_dates) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['id'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['field'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator_id'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['label'] = 'Dates -  start date (field_er_collaboration_dates)';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: EEs - no data attached */
+$handler = $view->new_display('attachment', 'EEs - no data attached', 'attachment_3');
+$handler->display->display_options['defaults']['access'] = FALSE;
+$handler->display->display_options['access']['type'] = 'role';
+$handler->display->display_options['access']['role'] = array(
+  10000 => '10000',
+  3 => '3',
+);
+$handler->display->display_options['defaults']['query'] = FALSE;
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'field_er_cal_entity_reference' => 'field_er_cal_entity_reference',
+);
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>External Engagements: No Data Attached</h2>
+<hr>
+<em>The user has selected that non-EPSCoR participants will be attending an event but has not attached the external engagement data.</em><br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: Entity Reference: Referencing entity */
+$handler->display->display_options['relationships']['reverse_field_er_cal_entity_reference_node']['id'] = 'reverse_field_er_cal_entity_reference_node';
+$handler->display->display_options['relationships']['reverse_field_er_cal_entity_reference_node']['table'] = 'node';
+$handler->display->display_options['relationships']['reverse_field_er_cal_entity_reference_node']['field'] = 'reverse_field_er_cal_entity_reference_node';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['exclude'] = TRUE;
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: Content: Calendar Event Title */
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['id'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['field'] = 'field_er_cal_entity_reference';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['relationship'] = 'reverse_field_er_cal_entity_reference_node';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['label'] = '';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['alter']['text'] = '<b></b>';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['empty'] = '<li>[title]<br>';
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['hide_alter_empty'] = FALSE;
+$handler->display->display_options['fields']['field_er_cal_entity_reference']['settings'] = array(
+  'link' => 0,
+);
+$handler->display->display_options['defaults']['sorts'] = FALSE;
+/* Sort criterion: Content: Title */
+$handler->display->display_options['sorts']['title']['id'] = 'title';
+$handler->display->display_options['sorts']['title']['table'] = 'node';
+$handler->display->display_options['sorts']['title']['field'] = 'title';
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_event' => 'er_event',
+);
+/* Filter criterion: Content: Will this event be attended by non-EPSCoR participants (field_er_event_reminders) */
+$handler->display->display_options['filters']['field_er_event_reminders_value']['id'] = 'field_er_event_reminders_value';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['table'] = 'field_data_field_er_event_reminders';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['field'] = 'field_er_event_reminders_value';
+$handler->display->display_options['filters']['field_er_event_reminders_value']['value'] = array(
+  1 => '1',
+);
+/* Filter criterion: Content: Date -  start date (field_er_cal_event_date) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['id'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['field'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator_id'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['label'] = 'Date -  start date (field_er_cal_event_date)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date - end date (field_er_cal_event_date:value2) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['id'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['field'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator_id'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['label'] = 'Date - end date (field_er_cal_event_date:value2)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: EEs - zero count */
+$handler = $view->new_display('attachment', 'EEs - zero count', 'attachment_4');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>External Engagements: Zero Counts</h2>
+<hr>
+<em>The user attached external engagement data, but all of the counts are zero. Possibly caused by a file upload error.</em><br><br>
+';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: Entity Reference: Referenced Entity */
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['id'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['field'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Title */
+$handler->display->display_options['filters']['title']['id'] = 'title';
+$handler->display->display_options['filters']['title']['table'] = 'node';
+$handler->display->display_options['filters']['title']['field'] = 'title';
+$handler->display->display_options['filters']['title']['operator'] = 'starts';
+$handler->display->display_options['filters']['title']['value'] = '0';
+/* Filter criterion: Content: Date -  start date (field_er_cal_event_date) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['id'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['field'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator_id'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['label'] = 'Date -  start date (field_er_cal_event_date)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date - end date (field_er_cal_event_date:value2) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['id'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['field'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator_id'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['label'] = 'Date - end date (field_er_cal_event_date:value2)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: EEs - event repeats */
+$handler = $view->new_display('attachment', 'EEs - event repeats', 'attachment_5');
+$handler->display->display_options['defaults']['query'] = FALSE;
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>External Engagements: Repeating Events</h2>
+<hr>
+<em>The calendar event that the external engagement data is attached to repeats. This may need to be checked - does the count apply to the first event or all events in the series?</em><br><br>
+';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: Entity Reference: Referenced Entity */
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['id'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['table'] = 'field_data_field_er_cal_entity_reference';
+$handler->display->display_options['relationships']['field_er_cal_entity_reference_target_id']['field'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_engagement' => 'er_engagement',
+);
+/* Filter criterion: Content: Date (field_er_cal_event_date:delta) */
+$handler->display->display_options['filters']['delta']['id'] = 'delta';
+$handler->display->display_options['filters']['delta']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['delta']['field'] = 'delta';
+$handler->display->display_options['filters']['delta']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['filters']['delta']['value']['value'] = '1';
+/* Filter criterion: Content: Date -  start date (field_er_cal_event_date) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['id'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['field'] = 'field_er_cal_event_date_value';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator_id'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['label'] = 'Date -  start date (field_er_cal_event_date)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['operator'] = 'field_er_cal_event_date_value_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date - end date (field_er_cal_event_date:value2) */
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['id'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['table'] = 'field_data_field_er_cal_event_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['field'] = 'field_er_cal_event_date_value2';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['relationship'] = 'field_er_cal_entity_reference_target_id';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator_id'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['label'] = 'Date - end date (field_er_cal_event_date:value2)';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['operator'] = 'field_er_cal_event_date_value2_op';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_cal_event_date_value2']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Proposals - no status update */
+$handler = $view->new_display('attachment', 'Proposals - no status update', 'attachment_6');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Grants and Proposals: No Status Update</h2>
+<hr>
+<em>The proposal may still be pending, or the user may have not yet updated the proposal status to awarded, denied, or expired.</em><br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_proposal' => 'er_proposal',
+);
+/* Filter criterion: Content: Status (field_er_proposal_status) */
+$handler->display->display_options['filters']['field_er_proposal_status_value']['id'] = 'field_er_proposal_status_value';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['table'] = 'field_data_field_er_proposal_status';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['field'] = 'field_er_proposal_status_value';
+$handler->display->display_options['filters']['field_er_proposal_status_value']['value'] = array(
+  'Submitted' => 'Submitted',
+);
+/* Filter criterion: Content: Date Submitted (field_er_proposal_submit) */
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['id'] = 'field_er_proposal_submit_value';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['table'] = 'field_data_field_er_proposal_submit';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['field'] = 'field_er_proposal_submit_value';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['expose']['operator_id'] = 'field_er_proposal_submit_value_op';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['expose']['label'] = 'Date Submitted (field_er_proposal_submit)';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['expose']['operator'] = 'field_er_proposal_submit_value_op';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_proposal_submit_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date Submitted (field_er_proposal_submit) */
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['id'] = 'field_er_proposal_submit_value_1';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['table'] = 'field_data_field_er_proposal_submit';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['field'] = 'field_er_proposal_submit_value';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['expose']['operator_id'] = 'field_er_proposal_submit_value_1_op';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['expose']['label'] = 'Date Submitted (field_er_proposal_submit)';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['expose']['operator'] = 'field_er_proposal_submit_value_1_op';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_proposal_submit_value_1']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Highlights - missing date */
+$handler = $view->new_display('attachment', 'Highlights - missing date', 'attachment_8');
+$handler->display->display_options['enabled'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Highlights: Missing Date</h2>
+<hr>
+<b>Note:</b>Date filters must be reset to see results for this section. Click the Reset button at the top of the page.<br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_news' => 'er_news',
+);
+/* Filter criterion: Content: Date completed (field_er_news_date) */
+$handler->display->display_options['filters']['field_er_news_date_value']['id'] = 'field_er_news_date_value';
+$handler->display->display_options['filters']['field_er_news_date_value']['table'] = 'field_data_field_er_news_date';
+$handler->display->display_options['filters']['field_er_news_date_value']['field'] = 'field_er_news_date_value';
+$handler->display->display_options['filters']['field_er_news_date_value']['operator'] = 'empty';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Publications - no status update */
+$handler = $view->new_display('attachment', 'Publications - no status update', 'attachment_7');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Publications: No Status Update</h2>
+<hr>
+<em>The publication may still be under review, or the user may have not yet updated the publication status.</em><br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_publication' => 'er_publication',
+);
+/* Filter criterion: Content: Status (field_er_publication_status) */
+$handler->display->display_options['filters']['field_er_publication_status_value']['id'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['table'] = 'field_data_field_er_publication_status';
+$handler->display->display_options['filters']['field_er_publication_status_value']['field'] = 'field_er_publication_status_value';
+$handler->display->display_options['filters']['field_er_publication_status_value']['operator'] = 'not';
+$handler->display->display_options['filters']['field_er_publication_status_value']['value'] = array(
+  0 => '0',
+);
+/* Filter criterion: Content: Date Submitted (field_er_publication_submit) */
+$handler->display->display_options['filters']['field_er_publication_submit_value']['id'] = 'field_er_publication_submit_value';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['table'] = 'field_data_field_er_publication_submit';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['field'] = 'field_er_publication_submit_value';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_submit_value']['expose']['operator_id'] = 'field_er_publication_submit_value_op';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['expose']['label'] = 'Date Submitted (field_er_publication_submit)';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['expose']['operator'] = 'field_er_publication_submit_value_op';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_publication_submit_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_publication_submit_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Date Submitted (field_er_publication_submit) */
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['id'] = 'field_er_publication_submit_value_1';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['table'] = 'field_data_field_er_publication_submit';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['field'] = 'field_er_publication_submit_value';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['expose']['operator_id'] = 'field_er_publication_submit_value_1_op';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['expose']['label'] = 'Date Submitted (field_er_publication_submit)';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['expose']['operator'] = 'field_er_publication_submit_value_1_op';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_publication_submit_value_1']['year_range'] = '-5:+5';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Presentation - missing date */
+$handler = $view->new_display('attachment', 'Presentation - missing date', 'attachment_10');
+$handler->display->display_options['enabled'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Presentations: Missing Date</h2>
+<hr>
+<b>Note:</b>Date filters must be reset to see results for this section. Click the Reset button at the top of the page.<br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_presentation' => 'er_presentation',
+);
+/* Filter criterion: Content: Date (field_er_presentation_date) */
+$handler->display->display_options['filters']['field_er_presentation_date_value']['id'] = 'field_er_presentation_date_value';
+$handler->display->display_options['filters']['field_er_presentation_date_value']['table'] = 'field_data_field_er_presentation_date';
+$handler->display->display_options['filters']['field_er_presentation_date_value']['field'] = 'field_er_presentation_date_value';
+$handler->display->display_options['filters']['field_er_presentation_date_value']['operator'] = 'empty';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Other research product - missing date */
+$handler = $view->new_display('attachment', 'Other research product - missing date', 'attachment_9');
+$handler->display->display_options['enabled'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Other Research Products: Missing Date</h2>
+<hr>
+<b>Note:</b>Date filters must be reset to see results for this section. Click the Reset button at the top of the page.<br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_other_product' => 'er_other_product',
+);
+/* Filter criterion: Content: Date (field_er_other_product_date) */
+$handler->display->display_options['filters']['field_er_other_product_date_value']['id'] = 'field_er_other_product_date_value';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['table'] = 'field_data_field_er_other_product_date';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['field'] = 'field_er_other_product_date_value';
+$handler->display->display_options['filters']['field_er_other_product_date_value']['operator'] = 'empty';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
+/* Display: Potential duplicates */
+$handler = $view->new_display('attachment', 'Potential duplicates', 'attachment_11');
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['group_by'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['style_options']['type'] = 'ol';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Potential Duplicate Entries</h2>
+<hr>
+<em>These are entries with the same content type and title, indicating that they may be duplicates. Some titles may coincidentally be duplicates (e.g., “meeting”). This is a rough query that just checks the titles and content types for now.</em><br><br>
+<b>Note:</b>The date filters to not apply to this section.<br><br>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+/* Field: Content: Type */
+$handler->display->display_options['fields']['type']['id'] = 'type';
+$handler->display->display_options['fields']['type']['table'] = 'node';
+$handler->display->display_options['fields']['type']['field'] = 'type';
+/* Field: Content: Nid */
+$handler->display->display_options['fields']['nid']['id'] = 'nid';
+$handler->display->display_options['fields']['nid']['table'] = 'node';
+$handler->display->display_options['fields']['nid']['field'] = 'nid';
+$handler->display->display_options['fields']['nid']['group_type'] = 'count';
+$handler->display->display_options['fields']['nid']['label'] = '# Nodes of this type with same title';
+/* Field: PHP code to get path aliases from title */
+$handler->display->display_options['fields']['php']['id'] = 'php';
+$handler->display->display_options['fields']['php']['table'] = 'views';
+$handler->display->display_options['fields']['php']['field'] = 'php';
+$handler->display->display_options['fields']['php']['ui_name'] = 'PHP code to get path aliases from title';
+$handler->display->display_options['fields']['php']['label'] = '';
+$handler->display->display_options['fields']['php']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['php']['use_php_setup'] = 0;
+$handler->display->display_options['fields']['php']['php_value'] = '$urls = array(); // initialize urls array
+$title = $row->title; // get content title
+$count = $row->nid;  // number of nodes with same title
+// pattern for duplicate urls aliases: title, title-0, title-1, etc.
+for ($idx = 0; $idx < $count; $idx++) {
+  $url = \'\';
+  if ( module_load_include(\'inc\',\'pathauto\',\'pathauto\') !== FALSE ) {
+     if ( function_exists(\'pathauto_cleanstring\') ) {
+        $url =  pathauto_cleanstring($title);
+        if ($idx > 0) {
+           $url = $url . \'-\' . strval($idx - 1);
+        }
+     }
+  }
+  $urls[$idx] = $url;
+}
+return $urls;';
+$handler->display->display_options['fields']['php']['php_output'] = '<?php 
+$count = $row->nid;
+$pre_url = \'<a href="/missouri/content/\';
+$post_url = \'" target="_blank">\';
+for ($idx = 0; $idx < $count; $idx++) {
+    print $pre_url . $value[$idx] . $post_url . $row->title . \' (\' . strval($idx+1) . \') \' . \'</a><br>\';
+}
+?>';
+$handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
+$handler->display->display_options['fields']['php']['php_click_sortable'] = '';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_event' => 'er_event',
+  'er_collaboration' => 'er_collaboration',
+  'er_collaborators' => 'er_collaborators',
+  'er_engagement' => 'er_engagement',
+  'er_news' => 'er_news',
+  'er_award' => 'er_award',
+  'er_other_product' => 'er_other_product',
+  'er_patent' => 'er_patent',
+  'er_presentation' => 'er_presentation',
+  'er_proposal' => 'er_proposal',
+  'er_publication' => 'er_publication',
+);
+/* Filter criterion: Content: Nid */
+$handler->display->display_options['filters']['nid']['id'] = 'nid';
+$handler->display->display_options['filters']['nid']['table'] = 'node';
+$handler->display->display_options['filters']['nid']['field'] = 'nid';
+$handler->display->display_options['filters']['nid']['group_type'] = 'count';
+$handler->display->display_options['filters']['nid']['operator'] = '>';
+$handler->display->display_options['filters']['nid']['value']['value'] = '1';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
