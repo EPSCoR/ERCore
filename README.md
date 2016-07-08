@@ -1,4 +1,4 @@
-# ERCore-3.1
+# ERCore-3.2
 ERcore content management system to assist with NSF EPSCoR reporting
 This module aims to provide a generic platform for Universities to collect information about research and funding outcomes including: publications, proposals, collaborations, external engagements, etc. 
 The module is being developed specifically to meet the reporting requirements of NSF's EPSCoR Grants.
