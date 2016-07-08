@@ -1,6 +1,0 @@
-name = EPSCoR Reporting Encryption
-description = Encrypts sensitive fields in the database (DEVELOPMENT VERSION, USE WITH CAUTION).
-dependencies[] = encrypt
-package = "EPSCoR"
-core = 7.x
-version = "7.x-1.0-dev"
