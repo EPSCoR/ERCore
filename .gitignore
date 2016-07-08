@@ -1,3 +1,4 @@
 *.komodoproject
 *.sublime-project
 *.sublime-workspace
+install/bundles/er_publication

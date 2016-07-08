@@ -1,0 +1,147 @@
+<?php
+$view = new view();
+$view->name = 'participants_with_incomplete_profiles';
+$view->description = '';
+$view->tag = 'default';
+$view->base_table = 'users';
+$view->human_name = 'Participants with Incomplete Profiles';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'incomplete user profile download';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'administer er';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['row_plugin'] = 'fields';
+/* Header: Global: Text area */
+$handler->display->display_options['header']['area']['id'] = 'area';
+$handler->display->display_options['header']['area']['table'] = 'views';
+$handler->display->display_options['header']['area']['field'] = 'area';
+$handler->display->display_options['header']['area']['content'] = '<h1>Participants with Incomplete Profiles</h1>
+<em>This view includes those users with "Faculty" and "Student" role selected</em>';
+$handler->display->display_options['header']['area']['format'] = 'full_html';
+/* Header: Global: Result summary */
+$handler->display->display_options['header']['result']['id'] = 'result';
+$handler->display->display_options['header']['result']['table'] = 'views';
+$handler->display->display_options['header']['result']['field'] = 'result';
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['name']['element_type'] = 'h3';
+$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+/* Field: User: Last access */
+$handler->display->display_options['fields']['access']['id'] = 'access';
+$handler->display->display_options['fields']['access']['table'] = 'users';
+$handler->display->display_options['fields']['access']['field'] = 'access';
+$handler->display->display_options['fields']['access']['empty'] = 'never';
+$handler->display->display_options['fields']['access']['date_format'] = 'long';
+/* Field: User: Last login */
+$handler->display->display_options['fields']['login']['id'] = 'login';
+$handler->display->display_options['fields']['login']['table'] = 'users';
+$handler->display->display_options['fields']['login']['field'] = 'login';
+$handler->display->display_options['fields']['login']['element_type'] = 'span';
+$handler->display->display_options['fields']['login']['empty'] = 'never';
+$handler->display->display_options['fields']['login']['date_format'] = 'long';
+/* Field: User: E-mail */
+$handler->display->display_options['fields']['mail']['id'] = 'mail';
+$handler->display->display_options['fields']['mail']['table'] = 'users';
+$handler->display->display_options['fields']['mail']['field'] = 'mail';
+$handler->display->display_options['fields']['mail']['link_to_user'] = 'user';
+/* Field: User: Created date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'users';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['date_format'] = 'front_page';
+$handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+/* Field: User: Roles */
+$handler->display->display_options['fields']['rid']['id'] = 'rid';
+$handler->display->display_options['fields']['rid']['table'] = 'users_roles';
+$handler->display->display_options['fields']['rid']['field'] = 'rid';
+$handler->display->display_options['fields']['rid']['label'] = 'Role(s)';
+/* Sort criterion: User: Last Name (field_er_lname) */
+$handler->display->display_options['sorts']['field_er_lname_value']['id'] = 'field_er_lname_value';
+$handler->display->display_options['sorts']['field_er_lname_value']['table'] = 'field_data_field_er_lname';
+$handler->display->display_options['sorts']['field_er_lname_value']['field'] = 'field_er_lname_value';
+$handler->display->display_options['filter_groups']['groups'] = array(
+  1 => 'AND',
+  2 => 'AND',
+);
+/* Filter criterion: User: Active */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'users';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '1';
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: User: Roles */
+$handler->display->display_options['filters']['rid']['id'] = 'rid';
+$handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+$handler->display->display_options['filters']['rid']['field'] = 'rid';
+$handler->display->display_options['filters']['rid']['value'] = array(
+  20000 => '20000',
+  30000 => '30000',
+);
+$handler->display->display_options['filters']['rid']['group'] = 1;
+/* Filter criterion: User: Most Senior Project Role (field_er_most_sen_proj_role) */
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['id'] = 'field_er_most_sen_proj_role_value';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['table'] = 'field_data_field_er_most_sen_proj_role';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['field'] = 'field_er_most_sen_proj_role_value';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['operator'] = 'empty';
+$handler->display->display_options['filters']['field_er_most_sen_proj_role_value']['group'] = 2;
+/* Filter criterion: Field: Project Component (field_er_components:delta) */
+$handler->display->display_options['filters']['delta']['id'] = 'delta';
+$handler->display->display_options['filters']['delta']['table'] = 'field_data_field_er_components';
+$handler->display->display_options['filters']['delta']['field'] = 'delta';
+$handler->display->display_options['filters']['delta']['operator'] = 'empty';
+$handler->display->display_options['filters']['delta']['group'] = 2;
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'er_incomplete_participants_profile');
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'grid';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'rid',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['path'] = 'admin/epscor/views/participants-with-incomplete-profiles';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Users with Incomplete Profiles';
+$handler->display->display_options['menu']['description'] = 'Shows those students and faculty who have not completed their user profiles.';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
+
+/* Display: Data export */
+$handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_incomplete_part_profile');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'views_data_export_xls';
+$handler->display->display_options['style_options']['provide_file'] = 1;
+$handler->display->display_options['style_options']['parent_sort'] = 0;
+$handler->display->display_options['path'] = 'incomplete_profile_download';
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['sitename_title'] = 0;
