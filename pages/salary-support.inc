@@ -93,7 +93,7 @@ class er_salary_support extends er_page{
 			foreach ($users as $uid=>$user){
 				$name = $user['lname'] . ', ' . $user['fname'];
 				$department = $user['department']?' ('.$user['department'].')':'';
-				$output .= "<h3>".l($name, 'user/'.$user['uid']).$department."</h3>";
+				$output .= "<h3>".l($name, 'user/'.$uid).$department."</h3>";
 			}
 		}
 		return $output;
