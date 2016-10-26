@@ -35,7 +35,7 @@ class er_salary_support extends er_page{
 		er_query_epscor_active_participant_alter($query);//Must be active during the appropriate date range
 		//Only faculty:
 		$query->innerJoin('field_data_'.self::$field_aliases['position_type'], 'position_type', 'users.uid = position_type.entity_id AND position_type.bundle = \'user\'');
-		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', 'Faculty participants (or equivalent)', '=');
+		$query->condition('position_type.'.self::$field_aliases['position_type'].'_value', 'Faculty participant (or equivalent)', '=');
 		
 		//return the relevant data:
 		$query->leftJoin('field_data_'.self::$field_aliases['inst_abbr'], 'inst_abbr', 'inst.nid = inst_abbr.entity_id');
