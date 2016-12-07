@@ -56,7 +56,9 @@ class er_collaborations extends er_page{
     $query->innerJoin("field_data_{$collab_ref}", 'collab_ref', "collab.nid = collab_ref.entity_id");
     $query->innerJoin("field_data_{$date_field}", 'date', 'collab_ref.field_er_collab_ref_target_id = date.entity_id');
 
-    $inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(dept.{$collab_dept}_value, ' @ ', inst.title) ELSE inst.title END)";
+    //$inst_expression = "(CASE WHEN dept.{$collab_dept}_value IS NOT NULL THEN CONCAT(dept.{$collab_dept}_value, ' @ ', inst.title) ELSE inst.title END)"; //Commented out by Kia
+    $inst_expression = "inst.title"; //Added by Kia
+
     $query->addField('category', "{$inst_category}_value", 'category');
     $query->addField('type', "{$inst_type}_value", 'type');
     //$query->addField('status', "{$collab_user_status}_value", 'status');
@@ -67,6 +69,7 @@ class er_collaborations extends er_page{
 
     if ($count){
       $query->addExpression("COUNT(DISTINCT collab.nid)", 'collaborators');
+      $query->addExpression("COUNT(DISTINCT inst.nid)", 'institutions'); //Added by Kia
       //$query->addExpression("COUNT(DISTINCT $inst_expression)", 'institutions');
       $query->groupBy("category");
       $query->groupBy("type");
