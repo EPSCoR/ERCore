@@ -414,6 +414,209 @@ $handler->display->display_options['displays'] = array(
 );
 $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
+/* Display: Collaborations - No EPSCoR participant found */
+$handler = $view->new_display('attachment', 'Collaborations - No EPSCoR participant found', 'attachment_16');
+$handler->display->display_options['defaults']['group_by'] = FALSE;
+$handler->display->display_options['defaults']['query'] = FALSE;
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'title',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'title' => 'title',
+  'field_er_collab_user_status' => 'field_er_collab_user_status',
+);
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Unfiltered text */
+$handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['header']['area_text_custom']['content'] = '<br>
+<h2>Collaborations: No EPSCoR participant associated with these collaborations:</h2>
+<hr>
+<em>These Collaborations are missing EPSCoR participant:</em><br>
+';
+/* Header: Global: PHP */
+$handler->display->display_options['header']['php']['id'] = 'php';
+$handler->display->display_options['header']['php']['table'] = 'views';
+$handler->display->display_options['header']['php']['field'] = 'php';
+$handler->display->display_options['header']['php']['php_output'] = '<?php
+$collabid=""; 
+$nodeIDArray=array(); 
+$collabArray = array();  
+$titleArray=array(); 
+$missingParticipantArray=array();
+
+$i=0; 
+while ( $i < count($results) ) {
+$collabid = $results[$i]->nid; 
+$nodeIDArray[] = $collabid;
+$titleArray[]= $results[$i]->node_title;
+$entityObj = ($results[$i]->_field_data[\'field_er_collab_ref_node_nid\'][\'entity\'] );
+$user_status = $entityObj->field_er_collab_user_status[\'und\'][0][\'value\'];
+$collabArray[$collabid][]  = $user_status ;
+$i++;
+}
+
+$j=0;  
+foreach ( $nodeIDArray as $item){
+    if (in_array("Participant", $collabArray[$item])) {
+	// do nothing this collaboration has at least one Participant
+   } else {
+	//there is no Participant found for this collaboration
+      $missingParticipantArray[0][$j] = $item;
+      $missingParticipantArray[1][$j] = $titleArray[$j];
+   }
+$j++;
+} 
+
+$finalArray=array();
+$finalArray[\'node_id\'] = array_unique($missingParticipantArray[0]); //redudce the duplicates
+$finalArray[\'node_id\'] = array_values($finalArray[\'node_id\']); //renumber array
+$finalArray[\'title\'] = array_unique($missingParticipantArray[1]);//redudce the duplicates
+$finalArray[\'title\'] =array_values($finalArray[\'title\'] );//renumber array
+ 
+$k=0;
+foreach ($finalArray[\'node_id\'] as $collabitem){
+echo "<br><a href=".$base_url."/node/".$collabitem.">".$finalArray[\'title\'][$k]."</a>" ;
+$k++;
+}
+?>';
+$handler->display->display_options['defaults']['empty'] = FALSE;
+/* No results behavior: Global: Unfiltered text */
+$handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+$handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+$handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+$handler->display->display_options['empty']['area_text_custom']['content'] = 'None found!';
+$handler->display->display_options['defaults']['relationships'] = FALSE;
+/* Relationship: Entity Reference: Referencing entity */
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['id'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['table'] = 'node';
+$handler->display->display_options['relationships']['reverse_field_er_collab_ref_node']['field'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['title']['alter']['text'] = ' ';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+/* Field: COUNT(Content: User Status) */
+$handler->display->display_options['fields']['field_er_collab_user_status']['id'] = 'field_er_collab_user_status';
+$handler->display->display_options['fields']['field_er_collab_user_status']['table'] = 'field_data_field_er_collab_user_status';
+$handler->display->display_options['fields']['field_er_collab_user_status']['field'] = 'field_er_collab_user_status';
+$handler->display->display_options['fields']['field_er_collab_user_status']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['fields']['field_er_collab_user_status']['group_type'] = 'count';
+$handler->display->display_options['fields']['field_er_collab_user_status']['label'] = '';
+$handler->display->display_options['fields']['field_er_collab_user_status']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_er_collab_user_status']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_er_collab_user_status']['separator'] = '';
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['filter_groups']['groups'] = array(
+  1 => 'AND',
+  2 => 'AND',
+);
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 1;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['value'] = array(
+  'er_collaboration' => 'er_collaboration',
+);
+$handler->display->display_options['filters']['type']['group'] = 1;
+/* Filter criterion: Content: Dates -  start date (field_er_collaboration_dates) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['id'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['field'] = 'field_er_collaboration_dates_value';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['operator'] = '<=';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['group'] = 1;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator_id'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['label'] = 'Dates -  start date (field_er_collaboration_dates)';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['operator'] = 'field_er_collaboration_dates_value_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['identifier'] = 'end_date';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value']['year_range'] = '-5:+5';
+/* Filter criterion: Content: Dates - end date (field_er_collaboration_dates:value2) */
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['id'] = 'field_er_collaboration_dates_value2_1';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['table'] = 'field_data_field_er_collaboration_dates';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['field'] = 'field_er_collaboration_dates_value2';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['operator'] = '>=';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['group'] = 1;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['operator_id'] = 'field_er_collaboration_dates_value2_1_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['label'] = 'Dates - end date (field_er_collaboration_dates:value2)';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['operator'] = 'field_er_collaboration_dates_value2_1_op';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['identifier'] = 'start_date';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  10000 => 0,
+  40002 => 0,
+  40003 => 0,
+  40001 => 0,
+  20000 => 0,
+  30000 => 0,
+  40000 => 0,
+);
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['form_type'] = 'date_popup';
+$handler->display->display_options['filters']['field_er_collaboration_dates_value2_1']['year_range'] = '-5:+5';
+/* Filter criterion: Content: User Status (field_er_collab_user_status) */
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['id'] = 'field_er_collab_user_status_value';
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['table'] = 'field_data_field_er_collab_user_status';
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['field'] = 'field_er_collab_user_status_value';
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['relationship'] = 'reverse_field_er_collab_ref_node';
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['group_type'] = 'min';
+$handler->display->display_options['filters']['field_er_collab_user_status_value']['value'] = array(
+  'Participant' => 'Participant',
+  'Collaborator' => 'Collaborator',
+);
+$handler->display->display_options['displays'] = array(
+  'page' => 'page',
+  'default' => 0,
+);
+$handler->display->display_options['inherit_exposed_filters'] = TRUE;
+
 /* Display: Collaborations - No end date */
 $handler = $view->new_display('attachment', 'Collaborations - No end date', 'attachment_1');
 $handler->display->display_options['pager']['type'] = 'none';
