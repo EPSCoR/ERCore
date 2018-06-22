@@ -296,7 +296,13 @@ class er_participants extends er_page{
 		$num_categories = count($this->categories);
 		$worksheet->insertNewRowBefore($base_row+1,count($data['Institutions'])*$num_categories);
 		
-		$display_involvement_for = array('Faculty participant (or equivalent)', 'Post Doc', 'RII Leadership Team');
+		$display_involvement_for = array(
+						'Faculty participant (or equivalent)',
+						'Technical support staff',
+						'Non-technical support staff',
+						'Post Doc', 
+						'RII Leadership Team'
+					   );
 		
 		$row = $base_row;
 		foreach ($data['Institutions'] as $inst_id => $data_cat){
@@ -311,8 +317,9 @@ class er_participants extends er_page{
 			$worksheet->mergeCells('A'.$row.':A'.$bottom_row);
 			
 			//This part blanks out the cells on the right:
-			$worksheet->mergeCells('J'.($row+1).':J'.($row+2));
-			$this->blankout_cell($worksheet, 'J'.($row+1));//set background to gray
+			// June 2018 NSF template update: no longer blank, don't merge staff cells 
+			//$worksheet->mergeCells('J'.($row+1).':J'.($row+2));
+			//$this->blankout_cell($worksheet, 'J'.($row+1));//set background to gray
 			$worksheet->mergeCells('J'.($row+4).':J'.($row+5));
 			$this->blankout_cell($worksheet, 'J'.($row+4));//set background to gray
 			
@@ -353,7 +360,8 @@ class er_participants extends er_page{
 		$worksheet->getStyle($cell)->applyFromArray(array(
 			'fill' => array(
 					'type' => PHPExcel_Style_Fill::FILL_SOLID,
-					'color' => array('rgb' => '808080')
+					//'color' => array('rgb' => '808080')
+					'color' => array('rgb' => '000000')  // June 2018 update: gray->black
 			)
 		));
 	}

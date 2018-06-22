@@ -117,10 +117,32 @@ class er_salary_support extends er_page{
 			
 		));
 		$worksheet->mergeCells('A'.$row.':C'.$row);
+		// June 2018 update: added "alignment" below to match NSF template.
+		// Comment out this part to revert back to center alignment.
 		$worksheet->getStyle('A'.$row.':C'.$row)->applyFromArray(array(
 			'font' => array(
 				'italic'=>true,
-				'size'=>12,
+				//'size'=>12,
+				'size'=>11,    // June 2018 update: 12->11pt to match new template
+			),
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+			)
+		));
+
+		// June 2018 update: also merging + styling cols D-G and H-K 
+		$worksheet->mergeCells('D'.$row.':G'.$row);
+		$worksheet->getStyle('D'.$row.':G'.$row)->applyFromArray(array(
+			'font' => array(
+				//'italic'=>true,
+				'size'=>11,
+			)
+		));
+		$worksheet->mergeCells('H'.$row.':K'.$row);
+		$worksheet->getStyle('A'.$row.':C'.$row)->applyFromArray(array(
+			'font' => array(
+				//'italic'=>true,
+				'size'=>11,    // June 2018 update: changed to 11pt to match template
 			)
 		));
 	}
@@ -149,6 +171,7 @@ class er_salary_support extends er_page{
 			if ($add_rows > 2)
 				$worksheet->insertNewRowBefore($base_row+1, $add_rows-2);
 			
+			$total_user_count = 0;
 			foreach ($data['users'] as $inst_nid=>$users){
 				$inst_name = $inst_nid?$data['inst'][$inst_nid]['name']:'Blank Institution';
 				$abbr_name = $inst_nid?$data['inst'][$inst_nid]['abbr']:$inst_name;
@@ -160,12 +183,19 @@ class er_salary_support extends er_page{
 					$worksheet->setCellValue('A'.$row, $abbr_name);
 					$worksheet->setCellValue('B'.$row, $department);
 					$worksheet->setCellValue('C'.$row, $name);
+					// June 2018 update: merge D-G and H-K for consistency
+					$worksheet->mergeCells('D'.$row.':G'.$row);
+					$worksheet->mergeCells('H'.$row.':K'.$row);
 					$row++;
+					$total_user_count++;
 				}
 				$worksheet->setCellValue('A'.$row, "Total for $inst_name");
 				$this->write_total_formatting($worksheet, $row);
+				$worksheet->setCellValue('D'.$row, count($users));
 				$row++;
 			}
+			$row++; // Jun 2018 update: adding an extra blank row (matches NSF template)
+			$worksheet->setCellValue('D'.$row, $total_user_count);
 		}
 	}
 
